@@ -38,7 +38,7 @@ graphiteApi:
     - influxdb:influxdb
   environment:
     GRAPHITE_influxdb_host: influxdb
-raintankAapi:
+raintankApi:
   image: raintank/api
   ports:
     - "4000"
