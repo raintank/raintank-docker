@@ -51,6 +51,8 @@ raintank-api:
     - influxdb:influxdb
   volumes:
     - /var/docker/raintank/logs:/var/log/raintank
+  environment:
+    RAINTANK_siteUrl
 raintank-location-mgr:
   image: raintank/location-mgr
   links:
