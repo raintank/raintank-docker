@@ -107,4 +107,6 @@ raintank-collector:
   image: raintank/raintank-collector
   links:
     - raintank-location-mgr:raintank-locationmgr
+  volumes:
+    - /var/docker/raintank/logs:/var/log/raintank
 
