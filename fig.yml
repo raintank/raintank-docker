@@ -1,0 +1,110 @@
+zookeeper:
+  image: wurstmeister/zookeeper
+  ports: 
+    - "2181:2181"
+kafka:
+  image: wurstmeister/kafka:0.8.1.1-1
+  ports:
+    - "9092"
+  links: 
+    - zookeeper:zk
+  environment:
+    KAFKA_ADVERTISED_HOST_NAME: kafka
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+elasticsearch:
+  image: dockerfile/elasticsearch:latest
+  ports: 
+    - "9200"
+    - "9300"
+  volumes:
+    - /data
+mongodb:
+  image: raintank/mongodb
+  ports:
+    - "27017:27017"
+influxdb:
+  image: raintank/influxdb
+  ports:
+    - "8083"
+    - "8086"
+    - "2003"
+graphite-api:
+  image: raintank/graphite-api
+  ports:
+    - "8888"
+  links:
+    - mongodb:mongodb
+    - influxdb:influxdb
+  environment:
+    GRAPHITE_influxdb_host: influxdb
+raintank-api:
+  image: raintank/api
+  ports:
+    - "4000"
+  links:
+    - zookeeper:zk
+    - graphite-api:graphite-api
+    - mongodb:mongodb
+    - elasticsearch:elasticsearch
+    - kafka:kafka
+    - influxdb:influxdb
+  volumes:
+    - /var/docker/raintank/logs:/var/log/raintank
+raintank-location-mgr:
+  image: raintank/location-mgr
+  links:
+    - zookeeper:zk
+    - kafka:kafka
+    - mongodb:mongodb
+  ports:
+    - "8181:8181"
+  volumes:
+    - /var/docker/raintank/logs:/var/log/raintank
+raintank-task:
+  image: raintank/task
+  links:
+    - zookeeper:zk
+    - kafka:kafka
+    - mongodb:mongodb
+    - graphite-api:graphite-api
+  volumes:
+    - /var/docker/raintank/logs:/var/log/raintank
+raintank-event:
+  image: raintank/event
+  links:
+    - zookeeper:zk
+    - kafka:kafka
+    - mongodb:mongodb
+    - elasticsearch:elasticsearch
+  volumes:
+    - /var/docker/raintank/logs:/var/log/raintank
+raintank-dispatcher:
+  image: raintank/dispatcher
+  links:
+    - zookeeper:zk
+    - kafka:kafka
+    - mongodb:mongodb
+  volumes:
+    - /var/docker/raintank/logs:/var/log/raintank
+raintank-metric:
+  image: raintank/metric
+  links:
+    - zookeeper:zk
+    - kafka:kafka
+    - mongodb:mongodb
+    - influxdb:influxdb
+  volumes:
+    - /var/docker/raintank/logs:/var/log/raintank
+raintank-proxy:
+  image: raintank/proxy
+  ports:
+    - "80:80"
+  links:
+    - raintank-api:raintank-api
+    - graphite-api:graphite-api
+raintank-collector:
+  image: raintank/raintank-collector
+  links:
+    - raintank-location-mgr:raintank-locationmgr
+
