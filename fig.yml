@@ -29,7 +29,7 @@ influxdb:
     - "8083"
     - "8086"
     - "2003"
-graphite-api:
+graphiteApi:
   image: raintank/graphite-api
   ports:
     - "8888"
@@ -38,13 +38,13 @@ graphite-api:
     - influxdb:influxdb
   environment:
     GRAPHITE_influxdb_host: influxdb
-raintank-api:
+raintankAapi:
   image: raintank/api
   ports:
     - "4000"
   links:
     - zookeeper:zk
-    - graphite-api:graphite-api
+    - graphiteApi:graphite-api
     - mongodb:mongodb
     - elasticsearch:elasticsearch
     - kafka:kafka
@@ -53,7 +53,7 @@ raintank-api:
     - /var/docker/raintank/logs:/var/log/raintank
   environment:
     RAINTANK_siteUrl
-raintank-location-mgr:
+raintankLocationMgr:
   image: raintank/location-mgr
   links:
     - zookeeper:zk
@@ -63,16 +63,16 @@ raintank-location-mgr:
     - "8181:8181"
   volumes:
     - /var/docker/raintank/logs:/var/log/raintank
-raintank-task:
+raintankTask:
   image: raintank/task
   links:
     - zookeeper:zk
     - kafka:kafka
     - mongodb:mongodb
-    - graphite-api:graphite-api
+    - graphiteApi:graphite-api
   volumes:
     - /var/docker/raintank/logs:/var/log/raintank
-raintank-event:
+raintankEvent:
   image: raintank/event
   links:
     - zookeeper:zk
@@ -81,7 +81,7 @@ raintank-event:
     - elasticsearch:elasticsearch
   volumes:
     - /var/docker/raintank/logs:/var/log/raintank
-raintank-dispatcher:
+raintankDispatcher:
   image: raintank/dispatcher
   links:
     - zookeeper:zk
@@ -89,7 +89,7 @@ raintank-dispatcher:
     - mongodb:mongodb
   volumes:
     - /var/docker/raintank/logs:/var/log/raintank
-raintank-metric:
+raintankMetric:
   image: raintank/metric
   links:
     - zookeeper:zk
@@ -98,17 +98,17 @@ raintank-metric:
     - influxdb:influxdb
   volumes:
     - /var/docker/raintank/logs:/var/log/raintank
-raintank-proxy:
+raintankProxy:
   image: raintank/proxy
   ports:
     - "80:80"
   links:
-    - raintank-api:raintank-api
-    - graphite-api:graphite-api
-raintank-collector:
+    - raintankApi:raintank-api
+    - graphiteApi:graphite-api
+raintankCollector:
   image: raintank/raintank-collector
   links:
-    - raintank-location-mgr:raintank-locationmgr
+    - raintankLocationMgr:raintank-locationmgr
   volumes:
     - /var/docker/raintank/logs:/var/log/raintank
 
