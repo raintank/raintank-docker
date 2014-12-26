@@ -42,7 +42,7 @@ config.zookeeper = {
 
 config.kafka = {
   connectionString: "zk:2181",
-  partitions: 10,
+  partitions: 2,
 };
 
 config.port = 4000;
