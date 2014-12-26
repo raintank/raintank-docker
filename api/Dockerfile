@@ -6,16 +6,16 @@ RUN apt-get -y install nodejs nodejs-legacy nodejs-dev npm git
 WORKDIR /opt
 
 #install api
-RUN echo 1419402422;  git clone git://github.com/raintank/raintank-api.git
+RUN echo 1419558341;  git clone git://github.com/raintank/raintank-api.git
 
-RUN echo 1419402422;  git clone git://github.com/raintank/grafana.git
+RUN echo 1419558341;  git clone git://github.com/raintank/grafana.git
 
 WORKDIR /opt/raintank-api
-RUN echo 1419402422; npm install
+RUN echo 1419558341; npm install
 
 WORKDIR /opt/grafana
-RUN echo 1419402422; npm install
-RUN echo 1419402422; ./node_modules/.bin/grunt --force
+RUN echo 1419558341; npm install
+RUN echo 1419558341; ./node_modules/.bin/grunt --force
 
 ADD config.js /opt/raintank-api/config.js
 

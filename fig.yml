@@ -10,6 +10,7 @@ kafka:
     - zookeeper:zk
   environment:
     KAFKA_ADVERTISED_HOST_NAME: kafka
+    KAFKA_ADVERTISED_PORT: 9092
   volumes:
     - /var/run/docker.sock:/var/run/docker.sock
 elasticsearch:
@@ -52,7 +53,7 @@ raintankApi:
   volumes:
     - /var/docker/raintank/logs:/var/log/raintank
   environment:
-    RAINTANK_siteUrl
+    RAINTANK_siteUrl:
 raintankLocationMgr:
   image: raintank/location-mgr
   links:
@@ -106,7 +107,7 @@ raintankProxy:
     - raintankApi:raintank-api
     - graphiteApi:graphite-api
 raintankCollector:
-  image: raintank/raintank-collector
+  image: raintank/collector
   links:
     - raintankLocationMgr:raintank-locationmgr
   volumes:

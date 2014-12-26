@@ -6,10 +6,10 @@ RUN apt-get -y install nodejs nodejs-legacy nodejs-dev npm git
 WORKDIR /opt
 
 #install api
-RUN echo 1419409244; git clone git://github.com/raintank/raintank-workers.git
+RUN echo 1419558341; git clone git://github.com/raintank/raintank-workers.git
 
 WORKDIR /opt/raintank-workers
-RUN echo 1419409244; npm install
+RUN echo 1419558341; npm install
 
 ADD config.js /opt/raintank-workers/config.js
 
