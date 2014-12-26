@@ -11,6 +11,7 @@ kafka:
   environment:
     KAFKA_ADVERTISED_HOST_NAME: kafka
     KAFKA_ADVERTISED_PORT: 9092
+    KAFKA_NUM_PARTITIONS: 10
   volumes:
     - /var/run/docker.sock:/var/run/docker.sock
 elasticsearch:
