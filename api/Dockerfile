@@ -24,4 +24,4 @@ EXPOSE 4000
 
 RUN mkdir -p /var/log/raintank
 
-CMD nodejs /opt/raintank-api/app.js >> /var/log/raintank/api.log 2>&1
+CMD nodejs /opt/raintank-api/app.js
