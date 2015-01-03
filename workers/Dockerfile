@@ -6,10 +6,10 @@ RUN apt-get -y install nodejs nodejs-legacy nodejs-dev npm git libzmq3 libzmq3-d
 WORKDIR /opt
 
 #install api
-RUN echo 1420279563; git clone git://github.com/raintank/raintank-workers.git
+RUN echo 1420279818; git clone git://github.com/raintank/raintank-workers.git
 
 WORKDIR /opt/raintank-workers
-RUN echo 1420279563; npm install
+RUN echo 1420279818; npm install
 
 ADD config.js /opt/raintank-workers/config.js
 
