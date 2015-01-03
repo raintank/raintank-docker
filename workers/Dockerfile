@@ -2,14 +2,14 @@ FROM dockerfile/ubuntu
 
 RUN apt-get update && apt-get -y upgrade
 
-RUN apt-get -y install nodejs nodejs-legacy nodejs-dev npm git
+RUN apt-get -y install nodejs nodejs-legacy nodejs-dev npm git libzmq3 libzmq3-dev
 WORKDIR /opt
 
 #install api
-RUN echo 1419559627; git clone git://github.com/raintank/raintank-workers.git
+RUN echo 1420277776; git clone git://github.com/raintank/raintank-workers.git
 
 WORKDIR /opt/raintank-workers
-RUN echo 1419559627; npm install
+RUN echo 1420277776; npm install
 
 ADD config.js /opt/raintank-workers/config.js
 

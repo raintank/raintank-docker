@@ -12,7 +12,7 @@ config.adminToken = 'jk832sjksf9asdkvnngddfg8sfk';
 
 config.mongoURL = 'mongodb://dbuser:dbpass@mongodb/raintank';
 
-config.siteUrl = "http://192.168.2.17/";
+config.siteUrl = "http://proxy/";
 
 config.defaultRole = '5314801a421408bcac0a6448';
 config.primaryLocation = '5337ed35033bb9203cfc1849';
@@ -36,13 +36,11 @@ config.elasticSearch = {
   log: 'info'
 };
 
-config.zookeeper = {
-  connectionString: "zk:2181"
-};
-
-config.kafka = {
-  connectionString: "zk:2181",
-  partitions: 2,
+config.queue = {
+  publisherSocketAddr: 'tcp://broker:9997',
+  consumerSocketAddr: "tcp://broker:9998",
+  partitions: 10,
+  mgmtUrl: "http://broker:9999"
 };
 
 config.port = 4000;

@@ -2,20 +2,20 @@ FROM dockerfile/ubuntu
 
 RUN apt-get update && apt-get -y upgrade
 
-RUN apt-get -y install nodejs nodejs-legacy nodejs-dev npm git
+RUN apt-get -y install nodejs nodejs-legacy nodejs-dev npm git libzmq3 libzmq3-dev
 WORKDIR /opt
 
 #install api
-RUN echo 1419558341;  git clone git://github.com/raintank/raintank-api.git
+RUN echo 1420277776;  git clone git://github.com/raintank/raintank-api.git
 
-RUN echo 1419558341;  git clone git://github.com/raintank/grafana.git
+RUN echo 1420277776;  git clone git://github.com/raintank/grafana.git
 
 WORKDIR /opt/raintank-api
-RUN echo 1419558341; npm install
+RUN echo 1420277776; npm install
 
 WORKDIR /opt/grafana
-RUN echo 1419558341; npm install
-RUN echo 1419558341; ./node_modules/.bin/grunt --force
+RUN echo 1420277776; npm install
+RUN echo 1420277776; ./node_modules/.bin/grunt --force
 
 ADD config.js /opt/raintank-api/config.js
 
@@ -24,4 +24,4 @@ EXPOSE 4000
 
 RUN mkdir -p /var/log/raintank
 
-CMD nodejs /opt/raintank-api/app.js
+CMD nodejs /opt/raintank-api/app.js >> /var/log/raintank/api.log 2>&1

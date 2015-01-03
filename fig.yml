@@ -1,19 +1,3 @@
-zookeeper:
-  image: wurstmeister/zookeeper
-  ports: 
-    - "2181:2181"
-kafka:
-  image: wurstmeister/kafka:0.8.1.1-1
-  ports:
-    - "9092"
-  links: 
-    - zookeeper:zk
-  environment:
-    KAFKA_ADVERTISED_HOST_NAME: kafka
-    KAFKA_ADVERTISED_PORT: 9092
-    KAFKA_NUM_PARTITIONS: 10
-  volumes:
-    - /var/run/docker.sock:/var/run/docker.sock
 elasticsearch:
   image: dockerfile/elasticsearch:latest
   ports: 
@@ -40,16 +24,21 @@ graphiteApi:
     - influxdb:influxdb
   environment:
     GRAPHITE_influxdb_host: influxdb
+raintankBroker:
+  image: raintank/broker
+  ports:
+    - "9997"
+    - "9998"
+    - "9999"
 raintankApi:
   image: raintank/api
   ports:
     - "4000"
   links:
-    - zookeeper:zk
+    - raintankBroker:broker
     - graphiteApi:graphite-api
     - mongodb:mongodb
     - elasticsearch:elasticsearch
-    - kafka:kafka
     - influxdb:influxdb
   volumes:
     - /var/docker/raintank/logs:/var/log/raintank
@@ -58,8 +47,7 @@ raintankApi:
 raintankLocationMgr:
   image: raintank/location-mgr
   links:
-    - zookeeper:zk
-    - kafka:kafka
+    - raintankBroker:broker
     - mongodb:mongodb
   ports:
     - "8181:8181"
@@ -68,8 +56,7 @@ raintankLocationMgr:
 raintankTask:
   image: raintank/task
   links:
-    - zookeeper:zk
-    - kafka:kafka
+    - raintankBroker:broker
     - mongodb:mongodb
     - graphiteApi:graphite-api
   volumes:
@@ -77,8 +64,7 @@ raintankTask:
 raintankEvent:
   image: raintank/event
   links:
-    - zookeeper:zk
-    - kafka:kafka
+    - raintankBroker:broker
     - mongodb:mongodb
     - elasticsearch:elasticsearch
   volumes:
@@ -86,16 +72,14 @@ raintankEvent:
 raintankDispatcher:
   image: raintank/dispatcher
   links:
-    - zookeeper:zk
-    - kafka:kafka
+    - raintankBroker:broker
     - mongodb:mongodb
   volumes:
     - /var/docker/raintank/logs:/var/log/raintank
 raintankMetric:
   image: raintank/metric
   links:
-    - zookeeper:zk
-    - kafka:kafka
+    - raintankBroker:broker
     - mongodb:mongodb
     - influxdb:influxdb
   volumes:
