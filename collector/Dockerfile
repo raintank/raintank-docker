@@ -6,10 +6,10 @@ RUN apt-get -y install nodejs nodejs-legacy nodejs-dev npm git
 WORKDIR /opt
 
 #install collector
-RUN echo 1419410278; git clone git://github.com/raintank/raintank-collector.git
+RUN echo 1420279563; git clone git://github.com/raintank/raintank-collector.git
 
 WORKDIR /opt/raintank-collector
-RUN echo 1419410278; npm install
+RUN echo 1420279563; npm install
 
 ADD config.js /opt/raintank-collector/config.js
 
