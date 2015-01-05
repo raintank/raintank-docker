@@ -30,6 +30,8 @@ raintankBroker:
     - "9997"
     - "9998"
     - "9999"
+  volumes:
+    - /var/docker/raintank/logs:/var/log/raintank
 raintankApi:
   image: raintank/api
   ports:
