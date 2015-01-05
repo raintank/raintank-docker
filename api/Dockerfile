@@ -6,16 +6,16 @@ RUN apt-get -y install nodejs nodejs-legacy nodejs-dev npm git libzmq3 libzmq3-d
 WORKDIR /opt
 
 #install api
-RUN echo 1420426482;  git clone git://github.com/raintank/raintank-api.git
+RUN echo 1420427726;  git clone git://github.com/raintank/raintank-api.git
 
-RUN echo 1420426482;  git clone git://github.com/raintank/grafana.git
+RUN echo 1420427726;  git clone git://github.com/raintank/grafana.git
 
 WORKDIR /opt/raintank-api
-RUN echo 1420426482; npm install
+RUN echo 1420427726; npm install
 
 WORKDIR /opt/grafana
-RUN echo 1420426482; npm install
-RUN echo 1420426482; ./node_modules/.bin/grunt --force
+RUN echo 1420427726; npm install
+RUN echo 1420427726; ./node_modules/.bin/grunt --force
 
 ADD config.js /opt/raintank-api/config.js
 
