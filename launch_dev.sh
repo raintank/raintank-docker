@@ -50,7 +50,7 @@ screen -S raintank -X screen -t api docker run -t -i -p 4000 -v /var/docker/rain
 
 #raintank-location-mgr - this handles communication with the remote collector nodes.
 echo starting location-mgr container
-screen -S raintank -X screen -t location-mgr docker run -t -i -p 8181:8181 -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt --name raintank-location-mgr  --link mongodb:mongodb --link broker:broker raintank/location-mgr bash
+screen -S raintank -X screen -t location-mgr docker run -t -i -p 8181:8181 -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name raintank-location-mgr  --link mongodb:mongodb --link broker:broker raintank/location-mgr bash
 
 
 #raintank-dispatcher - this app schedules the execution of continuous query tasks.
@@ -87,13 +87,13 @@ echo "all containers started."
 
 sleep 5
 echo "starting services up in containers"
-screen -S raintank -p broker -X stuff 'cd /opt/raintank; nodejs /opt/raintank/aintank-workers/broker.js\n'
+screen -S raintank -p broker -X stuff 'cd /opt/raintank/raintank-api; nodejs broker.js\n'
 screen -S raintank -p graphite-api -X stuff 'start-graphite.py\n'
-screen -S raintank -p api -X stuff 'cd /opt/raintank; nodejs /opt/raintank/raintank-api/app.js\n'
-screen -S raintank -p location-mgr -X stuff 'cd /opt/raintank; nodejs /opt/raintank/raintank-workers/locationManager.js\n'
-screen -S raintank -p dispatcher -X stuff 'cd /opt/raintank; nodejs /opt/raintank/raintank-workers/dispatcher.js\n'
-screen -S raintank -p task -X stuff 'cd /opt/raintank; nodejs /opt/raintank/raintank-workers/worker.js\n'
-screen -S raintank -p event -X stuff 'cd /opt/raintank; nodejs /opt/raintank/raintank-workers/eventWorker.js\n'
-screen -S raintank -p metric -X stuff 'cd /opt/raintank; nodejs /opt/raintank/raintank-workers/metricStore.js\n'
+screen -S raintank -p api -X stuff 'cd /opt/raintank/raintank-api; nodejs app.js\n'
+screen -S raintank -p location-mgr -X stuff 'cd /opt/raintank/raintank-workers; nodejs locationManager.js\n'
+screen -S raintank -p dispatcher -X stuff 'cd /opt/raintank/raintank-workers; nodejs dispatcher.js\n'
+screen -S raintank -p task -X stuff 'cd /opt/raintank/raintank-workers; nodejs worker.js\n'
+screen -S raintank -p event -X stuff 'cd /opt/raintank/raintank-workers; nodejs eventWorker.js\n'
+screen -S raintank -p metric -X stuff 'cd /opt/raintank/raintank-workers; nodejs metricStore.js\n'
 screen -S raintank -p proxy -X stuff 'nginx\n'
-screen -S raintank -p collector -X stuff 'cd /opt/raintank; nodejs /opt/raintank/raintank-collector/app.js\n'
+screen -S raintank -p collector -X stuff 'cd /opt/raintank/raintank-collector; nodejs app.js\n'

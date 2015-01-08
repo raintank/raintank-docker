@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 BRANCH=$1
 MODE=$2
 
@@ -18,13 +17,9 @@ if [ "$MODE" == "docker" ]; then
 	DIR=$(readlink -e $DIR)
 	SCRIPT=$(basename $0)
 	mkdir -p /opt/raintank
-	docker run --rm -t -i -v $DIR:/tmp/scripts -v /opt/raintank:/opt/raintank dockerfile/ubuntu /tmp/scripts/$SCRIPT $BRANCH code
+	docker run --rm -t -i -v $DIR:/tmp/scripts -v /opt/raintank:/opt/raintank raintank/nodejs /tmp/scripts/$SCRIPT $BRANCH code
 
 elif [ $MODE == "code" ]; then
-
-	# install dependencies
-	apt-get update
-	apt-get -y install nodejs nodejs-legacy nodejs-dev npm git libzmq3 libzmq3-dev
 
 	mkdir -p /opt/raintank/node_modules
 	cd /opt/raintank
@@ -48,6 +43,9 @@ elif [ $MODE == "code" ]; then
 	fi
 
 	cd /opt/raintank/raintank-collector
+	if [ ! -e config.js ]; then
+		cp /opt/raintank/raintank-docker/collector/config.js config.js
+	fi
 	npm install
 
 	cd /opt/raintank/raintank-queue
@@ -63,6 +61,10 @@ elif [ $MODE == "code" ]; then
 	npm install
 
 	cd /opt/raintank/raintank-api
+	if [ ! -e config.js ]; then
+                cp /opt/raintank/raintank-docker/api/config.js config.js
+        fi
+
 	if [ ! -e node_modules ] ; then
 		mkdir node_modules
 	fi
@@ -75,6 +77,10 @@ elif [ $MODE == "code" ]; then
 	npm install
 
 	cd /opt/raintank/raintank-workers
+	if [ ! -e config.js ]; then
+                cp /opt/raintank/raintank-docker/workers/config.js config.js
+        fi
+
 	if [ ! -e node_modules ] ; then
 		mkdir node_modules
 	fi
