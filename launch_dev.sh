@@ -12,6 +12,9 @@
 # You can 
 #
 
+if [ -z $PUBLIC_IP ]; then
+	PUBLIC_IP=$(curl -s icanhazip.com)
+fi
 
 #elasticSearch
 echo launching elasticsearch
@@ -42,7 +45,7 @@ sleep 10
 
 #raintank-api - this is the Nodejs Express app that provides the API. It also serves the Grafana static html/js/css files.
 echo starting api container
-screen -S raintank -X screen -t api docker run -t -i -p 4000 -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name raintank-api  --link mongodb:mongodb --link influxdb:influxdb --link graphite-api:graphite-api --link elasticsearch:elasticsearch --link broker:broker -e RAINTANK_carbon_host=influxdb -e RAINTANK_siteUrl=http://192.168.1.131/ raintank/api bash
+screen -S raintank -X screen -t api docker run -t -i -p 4000 -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name raintank-api  --link mongodb:mongodb --link influxdb:influxdb --link graphite-api:graphite-api --link elasticsearch:elasticsearch --link broker:broker -e RAINTANK_carbon_host=influxdb -e RAINTANK_siteUrl=http://$PUBLIC_IP/ raintank/api bash
 
 
 #raintank-location-mgr - this handles communication with the remote collector nodes.
