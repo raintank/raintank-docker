@@ -20,4 +20,9 @@ RUN mkdir -p /go/src/github.com/torkelo \
 ADD grafana.custom.ini /opt/raintank/grafana-pro/config/
 EXPOSE 3000
 
+ADD dump.sql /tmp/dump.sql
+RUN apt-get -y install sqlite3 \
+    && cat /tmp/dump.sql | sqlite3 /opt/raintank/grafana-pro/data/grafana.db \
+    && rm /tmp/dump.sql
+
 CMD cd /opt/raintank/grafana-pro && /opt/raintank/grafana-pro/bin/grafana web
