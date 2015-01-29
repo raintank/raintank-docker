@@ -4,9 +4,14 @@
 # github private key and you will need to have been granted access
 # to this repo be able to clone.
 
-git clone -b raintank-api --recursive \
-    git@github.com:torkelo/grafana-pro.git \
-    && docker build -t raintank/grafana-pro ./ \
+if [ -e grafana-pro ]; then
+	cd grafana-pro
+	git pull
+else
+	git clone -b raintank-api --recursive \
+	    git@github.com:torkelo/grafana-pro.git \
+	    && docker build -t raintank/grafana-pro ./ \
+fi
 
 STATE=$?
 if [ $STATE -ne 0 ]; then
