@@ -17,7 +17,7 @@ RUN mkdir -p /go/src/github.com/torkelo \
     && go run build.go setup \
 	&& go run build.go build
 
-ADD grafana.custom.ini /opt/raintank/grafana-pro/config/
+ADD grafana.custom.ini /opt/raintank/grafana-pro/conf/grafana.custom.ini
 EXPOSE 3000
 
 ADD dump.sql /tmp/dump.sql
