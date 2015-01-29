@@ -16,6 +16,13 @@ influxdb:
     - "8083"
     - "8086"
     - "2003"
+grafanaPro:
+  image: raintank/grafana-pro
+  ports:
+    - "3000"
+  links: 
+    - rabbitmq:rabbitmq
+    - graphiteApi:graphite-api
 graphiteApi:
   image: raintank/graphite-api
   ports:
@@ -48,11 +55,4 @@ raintankCollector:
     - raintankCollectorCtrl:collector-ctrl
   volumes:
     - /var/docker/raintank/logs:/var/log/raintank
-grafanaPro:
-  image: raintank/grafana-pro
-  ports:
-    - 3000
-  links: 
-    - rabbitmq: rabbitmq
-    - graphiteApi: graphite-api
 
