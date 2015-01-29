@@ -10,4 +10,4 @@ RUN echo 1422541085; npm install
 
 ADD config.js /opt/raintank-collector/config.js
 
-CMD nodejs /opt/raintank-collector/app.js >> /var/log/raintank/collector.log 2>&1
+CMD sleep 10 && nodejs /opt/raintank-collector/app.js >> /var/log/raintank/collector.log 2>&1
