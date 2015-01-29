@@ -1,5 +1,3 @@
-MONGO_URI: mongodb://dbuser:dbpass@mongodb:27017/raintank
-admin_token: jk832sjksf9asdkvnngddfg8sfk
 cache:
   CACHE_DIR: /tmp/graphite-api-cache
   CACHE_TYPE: filesystem
@@ -14,7 +12,7 @@ influxdb:
   pass: graphite
   port: 8086
   user: graphite
+  es:
+  	url: http://elasticsearch:9200/
 search_index: /var/lib/graphite/index
-secret_key: asd9asdJJAS0asdD9299
-session_cookie_name: connect.sess
 time_zone: America/New_York

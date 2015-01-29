@@ -1,15 +1,12 @@
-FROM dockerfile/ubuntu
+FROM raintank/nodejs
 
-RUN apt-get update && apt-get -y upgrade
-
-RUN apt-get -y install nodejs nodejs-legacy nodejs-dev npm git
 WORKDIR /opt
 
 #install collector
-RUN echo 1420279563; git clone git://github.com/raintank/raintank-collector.git
+RUN echo 1422541085; git clone git://github.com/raintank/raintank-collector.git
 
 WORKDIR /opt/raintank-collector
-RUN echo 1420279563; npm install
+RUN echo 1422541085; npm install
 
 ADD config.js /opt/raintank-collector/config.js
 

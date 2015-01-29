@@ -5,10 +5,11 @@ elasticsearch:
     - "9300"
   volumes:
     - /data
-mongodb:
-  image: raintank/mongodb
+rabbitmq:
+  image: raintank/rabbitmq
   ports:
-    - "27017:27017"
+    - "5672"
+    - "15672"
 influxdb:
   image: raintank/influxdb
   ports:
@@ -20,83 +21,38 @@ graphiteApi:
   ports:
     - "8888"
   links:
-    - mongodb:mongodb
+    - elasticsearch:elasticsearch
     - influxdb:influxdb
   environment:
     GRAPHITE_influxdb_host: influxdb
-raintankBroker:
-  image: raintank/broker
-  ports:
-    - "9997"
-    - "9998"
-    - "9999"
-  volumes:
-    - /var/docker/raintank/logs:/var/log/raintank
-raintankApi:
-  image: raintank/api
-  ports:
-    - "4000"
+raintankCollectorCtrl:
+  image: raintank/collector-ctrl
   links:
-    - raintankBroker:broker
-    - graphiteApi:graphite-api
-    - mongodb:mongodb
-    - elasticsearch:elasticsearch
-    - influxdb:influxdb
-  volumes:
-    - /var/docker/raintank/logs:/var/log/raintank
-  environment:
-    RAINTANK_siteUrl:
-raintankLocationMgr:
-  image: raintank/location-mgr
-  links:
-    - raintankBroker:broker
-    - mongodb:mongodb
+    - rabbitmq:rabbitmq
+    - grafanaPro:grafana-pro
   ports:
     - "8181:8181"
-  volumes:
-    - /var/docker/raintank/logs:/var/log/raintank
-raintankTask:
-  image: raintank/task
-  links:
-    - raintankBroker:broker
-    - mongodb:mongodb
-    - graphiteApi:graphite-api
-  volumes:
-    - /var/docker/raintank/logs:/var/log/raintank
-raintankEvent:
-  image: raintank/event
-  links:
-    - raintankBroker:broker
-    - mongodb:mongodb
-    - elasticsearch:elasticsearch
-  volumes:
-    - /var/docker/raintank/logs:/var/log/raintank
-raintankDispatcher:
-  image: raintank/dispatcher
-  links:
-    - raintankBroker:broker
-    - mongodb:mongodb
   volumes:
     - /var/docker/raintank/logs:/var/log/raintank
 raintankMetric:
   image: raintank/metric
   links:
-    - raintankBroker:broker
-    - mongodb:mongodb
+    - rabbitmq:rabbitmq
+    - elasticsearch:elasticsearch
     - influxdb:influxdb
   volumes:
     - /var/docker/raintank/logs:/var/log/raintank
-raintankProxy:
-  image: raintank/proxy
-  ports:
-    - "80:80"
-  links:
-    - raintankApi:raintank-api
-    - graphiteApi:graphite-api
 raintankCollector:
   image: raintank/collector
   links:
-    - raintankLocationMgr:raintank-locationmgr
+    - raintankCollectorCtrl:collector-ctrl
   volumes:
     - /var/docker/raintank/logs:/var/log/raintank
+grafanaPro:
+  image: raintank/grafana-pro
+  ports:
+    - 3000
+  links: 
+    - rabbitmq: rabbitmq
+    - graphiteApi: graphite-api
 

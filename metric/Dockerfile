@@ -1,6 +1,12 @@
-FROM raintank/workers
+FROM raintank/nodejs
 
-RUN mkdir -p /var/log/raintank
+WORKDIR /opt
+
+#install api
+RUN echo 1422541085; git clone git://github.com/raintank/raintank-workers.git
+
 WORKDIR /opt/raintank-workers
+RUN echo 1422541085; npm install
+RUN mkdir -p /var/log/raintank/
 
 CMD nodejs /opt/raintank-workers/metricStore.js >> /var/log/raintank/metric.log 2>&1

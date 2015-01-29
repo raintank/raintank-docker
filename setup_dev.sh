@@ -34,7 +34,7 @@ elif [ $MODE == "code" ]; then
 			git checkout $BRANCH
 		fi
 	done
-
+	
 	if [ ! -e /opt/raintank/node_modules/raintank-core ] ; then
 		ln -s /opt/raintank/raintank-core /opt/raintank/node_modules/raintank-core
 	fi
