@@ -53,6 +53,7 @@ raintankCollector:
   image: raintank/collector
   links:
     - raintankCollectorCtrl:collector-ctrl
+    - grafanaPro:grafana-pro
   volumes:
     - /var/docker/raintank/logs:/var/log/raintank
 
