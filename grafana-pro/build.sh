@@ -6,19 +6,17 @@
 
 if [ -e grafana-pro ]; then
 	cd grafana-pro
-	git pull
+	git pull && git submodule update --recursive && cd ..
 else
 	git clone -b raintank-api --recursive \
-	    git@github.com:torkelo/grafana-pro.git \
-	    && docker build -t raintank/grafana-pro ./ \
+	    git@github.com:torkelo/grafana-pro.git
 fi
-
 STATE=$?
 if [ $STATE -ne 0 ]; then
-	echo "Failed to buld grafana-pro."
+	echo "Failed to get grafana-pro repo."
 	echo "Check that your github private SSH key is working on this host"
 	exit $STATE
 fi
 
-
+docker build -t raintank/grafana-pro ./ 
 
