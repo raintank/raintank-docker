@@ -13,6 +13,6 @@ influxdb:
   port: 8086
   user: graphite
   es:
-  	url: http://elasticsearch:9200/
+    url: http://elasticsearch:9200/
 search_index: /var/lib/graphite/index
 time_zone: America/New_York

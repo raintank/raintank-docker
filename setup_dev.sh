@@ -23,21 +23,18 @@ elif [ $MODE == "code" ]; then
 
 	mkdir -p /opt/raintank/node_modules
 	cd /opt/raintank
-	for i in raintank-docker raintank-collector raintank-workers raintank-core raintank-api raintank-queue grafana; do 
+	for i in raintank-docker raintank-collector raintank-workers raintank-queue; do 
 		if [ -d /opt/raintank/$i ]; then
 			cd /opt/raintank/$i
-			git pull
+			git fetch
 			git checkout $BRANCH
+			git pull
 		else
 			cd /opt/raintank
-			git clone https://github.com/raintank/$i.git
-			git checkout $BRANCH
+			git clone -b $BRANCH https://github.com/raintank/$i.git
 		fi
 	done
-	
-	if [ ! -e /opt/raintank/node_modules/raintank-core ] ; then
-		ln -s /opt/raintank/raintank-core /opt/raintank/node_modules/raintank-core
-	fi
+
 	if [ ! -e /opt/raintank/node_modules/raintank-queue ] ; then
 		ln -s /opt/raintank/raintank-queue /opt/raintank/node_modules/raintank-queue
 	fi
@@ -51,35 +48,10 @@ elif [ $MODE == "code" ]; then
 	cd /opt/raintank/raintank-queue
 	npm install
 
-	cd /opt/raintank/raintank-core
-	if [ ! -e node_modules ] ; then
-		mkdir node_modules
-	fi
-	if [ ! -e node_modules/raintank-queue ]; then
-		ln -s /opt/raintank/node_modules/raintank-queue node_modules/raintank-queue
-	fi
-	npm install
-
-	cd /opt/raintank/raintank-api
-	if [ ! -e config.js ]; then
-                cp /opt/raintank/raintank-docker/api/config.js config.js
-        fi
-
-	if [ ! -e node_modules ] ; then
-		mkdir node_modules
-	fi
-	if [ ! -e node_modules/raintank-queue ]; then
-		ln -s /opt/raintank/node_modules/raintank-queue node_modules/raintank-queue
-	fi
-	if [ ! -e node_modules/raintank-core ]; then
-		ln -s /opt/raintank/node_modules/raintank-core node_modules/raintank-core
-	fi
-	npm install
-
 	cd /opt/raintank/raintank-workers
 	if [ ! -e config.js ]; then
-                cp /opt/raintank/raintank-docker/workers/config.js config.js
-        fi
+        cp /opt/raintank/raintank-docker/metric/config.js config.js
+    fi
 
 	if [ ! -e node_modules ] ; then
 		mkdir node_modules
@@ -87,12 +59,27 @@ elif [ $MODE == "code" ]; then
 	if [ ! -e node_modules/raintank-queue ]; then
 		ln -s /opt/raintank/node_modules/raintank-queue node_modules/raintank-queue
 	fi
-	if [ ! -e node_modules/raintank-core ]; then
-		ln -s /opt/raintank/node_modules/raintank-core node_modules/raintank-core
-	fi
 	npm install
 
-	cd /opt/raintank/grafana
+
+	curl -SL https://storage.googleapis.com/golang/go1.4.linux-amd64.tar.gz | tar -xzC /usr/local
+
+	export GOPATH=/opt/raintank/go
+	export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+
+	cd /opt/raintank
+	git clone -b raintank-api --recursive git@github.com:torkelo/grafana-pro.git
+	cd grafana-pro
+	mkdir -p /opt/raintank/go/src/github.com/torkelo \
+    && ln -s /opt/raintank/grafana-pro /opt/raintank/go/src/github.com/torkelo/grafana-pro \
+    && go run build.go setup \
+	&& go run build.go build
+	
+	cd grafana
 	npm install
-	./node_modules/.bin/grunt
+	npm install -g grunt-cli
+	grunt -f
+
+	apt-get -y install sqlite3
+	sqlite3 /opt/raintank/grafana-pro/data/grafana.db < /opt/raintank/raintank-docker/grafana-pro/dump.sql
 fi

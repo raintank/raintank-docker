@@ -9,4 +9,6 @@ WORKDIR /opt/raintank-workers
 RUN echo 1422541085; npm install
 RUN mkdir -p /var/log/raintank/
 
+ADD config.js /opt/raintank-workers/config.js
+
 CMD nodejs /opt/raintank-workers/metricStore.js >> /var/log/raintank/metric.log 2>&1

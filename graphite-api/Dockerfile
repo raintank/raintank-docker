@@ -5,8 +5,8 @@ RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y build-essential python-dev libffi-dev libcairo2-dev python-pip git
 RUN pip install gunicorn Flask-Cache elasticsearch
 
-RUN echo 1422541085 \
-    && pip install git+https://github.com/raintank/graphite-api.git 
+RUN echo 1422541085; \
+    && pip install git+https://github.com/raintank/graphite-api.git \
 	&& pip install git+https://github.com/raintank/graphite-influxdb.git
 
 RUN mkdir -p /var/lib/graphite
