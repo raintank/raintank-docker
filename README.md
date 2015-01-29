@@ -7,6 +7,10 @@ To provision a full stack using docker:
 - install fig. http://www.fig.sh/install.html
 - clone this git repo.
 - cd in the dir and run 'sh build_all.sh'.  This will build all of the raintank images.
+```
+cd raintank-docker
+sh build_all.sh
+```
 - use fig to launch all of the containers. 
 
 ```
