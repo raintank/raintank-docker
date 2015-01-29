@@ -87,7 +87,7 @@ echo "all containers started."
 
 sleep 5
 echo "starting services up in containers"
-screen -S raintank -p broker -X stuff 'cd /opt/raintank/raintank-api; nodejs broker.js\n'
+screen -S raintank -p broker -X stuff 'cd /opt/raintank/raintank-workers; nodejs broker.js\n'
 screen -S raintank -p graphite-api -X stuff 'start-graphite.py\n'
 screen -S raintank -p api -X stuff 'cd /opt/raintank/raintank-api; nodejs app.js\n'
 screen -S raintank -p location-mgr -X stuff 'cd /opt/raintank/raintank-workers; nodejs locationManager.js\n'
