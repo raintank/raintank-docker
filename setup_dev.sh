@@ -71,7 +71,7 @@ elif [ $MODE == "code" ]; then
 	git clone -b raintank-api --recursive git@github.com:torkelo/grafana-pro.git
 	cd grafana-pro
 
-	if [! -e conf/grafana.custom.ini ]; then
+	if [ ! -e conf/grafana.custom.ini ]; then
 		cp /opt/raintank/raintank-docker/grafana-pro/grafana.custom.ini /opt/raintank/grafana-pro/conf/
 	fi
 
@@ -87,7 +87,7 @@ elif [ $MODE == "code" ]; then
 
 	apt-get -y install sqlite3
 	sqlite3 /opt/raintank/grafana-pro/data/grafana.db < /opt/raintank/raintank-docker/grafana-pro/dump.sql
-	if [! -e conf/grafana.custom.ini ]; then
+	if [ ! -e conf/grafana.custom.ini ]; then
 		cp /opt/raintank/raintank-docker/grafana-pro/grafana.custom.ini /opt/raintank/grafana-pro/conf/
 	fi
 fi
