@@ -17,7 +17,7 @@ sh build_all.sh
 fig up
 ```
 
-- connect to your new install in a broswer using at http://your.ip:3000.  The default user is 'admin' and the default password is 'admin'
+- connect to your new install in a broswer using at http://your.ip.address/.  The default user is 'admin' and the default password is 'admin'
 
 
 Screen based Dev environment
