@@ -3,10 +3,10 @@ FROM raintank/nodejs
 WORKDIR /opt
 
 #install api
-RUN echo 1422541085; git clone git://github.com/raintank/raintank-workers.git
+RUN echo 1422597474; git clone git://github.com/raintank/raintank-workers.git
 
 WORKDIR /opt/raintank-workers
-RUN echo 1422541085; npm install
+RUN echo 1422597474; npm install
 RUN mkdir -p /var/log/raintank/
 
 ADD config.js /opt/raintank-workers/config.js
