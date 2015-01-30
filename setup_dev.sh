@@ -17,7 +17,7 @@ if [ "$MODE" == "docker" ]; then
 	DIR=$(readlink -e $DIR)
 	SCRIPT=$(basename $0)
 	mkdir -p /opt/raintank
-	docker run --rm -t -i -v $DIR:/tmp/scripts -v /opt/raintank:/opt/raintank raintank/nodejs /tmp/scripts/$SCRIPT $BRANCH code
+	docker run --rm -t -i -v $DIR:/tmp/scripts -v /opt/raintank:/opt/raintank -v /root:/root raintank/nodejs /tmp/scripts/$SCRIPT $BRANCH code
 
 elif [ $MODE == "code" ]; then
 

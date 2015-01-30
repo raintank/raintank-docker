@@ -12,10 +12,6 @@
 # You can 
 #
 
-if [ -z $PUBLIC_IP ]; then
-	PUBLIC_IP=$(curl -s icanhazip.com)
-fi
-
 #elasticSearch
 echo launching elasticsearch
 docker run -d -p 9200  -v /data --name elasticsearch dockerfile/elasticsearch:latest
@@ -31,7 +27,7 @@ docker run -d -p 8083 -p 8086 -p 2003 --name influxdb raintank/influxdb
 sleep 5
 echo starting screen session
 screen -S raintank -d -m -t shell bash
-
+sleep 1
 #graphite-api
 echo starting graphite-api container
 screen -S raintank -X screen -t graphite-api docker run -t -i -p 8888  --name graphite-api --link elasticsearch:elasticsearch --link influxdb:influxdb -e GRAPHITE_influxdb_host=influxdb raintank/graphite-api bash
@@ -40,7 +36,7 @@ sleep 10
 
 #grafana-pro
 echo starting grafana-pro container
-screen -S raintank -X screen -t api docker run -t -i -p 3000 -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name grafana-pro  --link rabbitmq:rabbitmq --link graphite-api:graphite-api --link elasticsearch:elasticsearch raintank/grafana-pro bash
+screen -S raintank -X screen -t grafana-pro docker run -t -i -p 80:3000 -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name grafana-pro  --link rabbitmq:rabbitmq --link graphite-api:graphite-api --link elasticsearch:elasticsearch -e GOPATH=/opt/raintank/go raintank/grafana-pro bash
 
 
 #raintank-collector-ctrl - this handles communication with the remote collector nodes.
@@ -56,14 +52,14 @@ sleep 10
 
 #raintank-collector - this is an instance of an edge collector.
 echo starting collector container
-screen -S raintank -X screen -t collector docker run -t -i -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name raintank-collector  --link raintank-collector-ctrl:collector-ctrl raintank/collector bash
+screen -S raintank -X screen -t collector docker run -t -i -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name raintank-collector  --link raintank-collector-ctrl:collector-ctrl --link grafana-pro:grafana-pro raintank/collector bash
 
 echo "all containers started."
 
 sleep 5
 echo "starting services up in containers"
 screen -S raintank -p graphite-api -X stuff 'start-graphite.py\n'
-screen -S raintank -p grafana-pro -X stuff 'cd /opt/raintank/grafana-pro; /opt/raintank/grafana-pro web\n'
+screen -S raintank -p grafana-pro -X stuff 'cd /opt/raintank/grafana-pro; /opt/raintank/grafana-pro/bin/grafana web\n'
 screen -S raintank -p collector-ctrl -X stuff 'cd /opt/raintank/collector-ctrl; nodejs app.js\n'
 screen -S raintank -p metric -X stuff 'cd /opt/raintank/raintank-workers; nodejs metricStore.js\n'
 screen -S raintank -p collector -X stuff 'cd /opt/raintank/raintank-collector; nodejs app.js\n'

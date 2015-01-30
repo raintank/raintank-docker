@@ -23,6 +23,11 @@ config.elasticSearch = {
   log: 'info'
 };
 
+config.carbon = {
+  host: 'influxdb',
+  port: 2003
+}
+
 /*-------------------------------------------------------*/
 function parseEnv(name, value, cnf) {
   if (name in cnf) {
