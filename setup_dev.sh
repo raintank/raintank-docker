@@ -48,10 +48,18 @@ elif [ $MODE == "code" ]; then
 	cd /opt/raintank/raintank-queue
 	npm install
 
+	curl -SL https://storage.googleapis.com/golang/go1.4.linux-amd64.tar.gz | tar -xzC /usr/local
+
+	export GOPATH=/opt/raintank/go
+	export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+
 	cd /opt/raintank/raintank-workers
 	if [ ! -e config.js ]; then
         cp /opt/raintank/raintank-docker/metric/config.js config.js
     fi
+	go get -u github.com/raintank/raintank-metric
+	go install github.com/raintank/raintank-metric
+	raintank-metric 2>&1
 
 	if [ ! -e node_modules ] ; then
 		mkdir node_modules
@@ -61,26 +69,19 @@ elif [ $MODE == "code" ]; then
 	fi
 	npm install
 
-
-	curl -SL https://storage.googleapis.com/golang/go1.4.linux-amd64.tar.gz | tar -xzC /usr/local
-
-	export GOPATH=/opt/raintank/go
-	export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
-
 	cd /opt/raintank
-	git clone -b raintank-api --recursive git@github.com:torkelo/grafana-pro.git
-	cd grafana-pro
+	git clone -b develop git@github.com:grafana/grafana.git
+	cd grafana
 
 	if [ ! -e conf/grafana.custom.ini ]; then
 		cp /opt/raintank/raintank-docker/grafana-pro/grafana.custom.ini /opt/raintank/grafana-pro/conf/
 	fi
 
-	mkdir -p /opt/raintank/go/src/github.com/torkelo \
-    && ln -s /opt/raintank/grafana-pro /opt/raintank/go/src/github.com/torkelo/grafana-pro \
+	mkdir -p /opt/raintank/go/src/github.com/grafana \
+    && ln -s /opt/raintank/grafana /opt/raintank/go/src/github.com/grafana/grafana \
     && go run build.go setup \
 	&& go run build.go build
 	
-	cd grafana
 	npm install
 	npm install -g grunt-cli
 	grunt -f
