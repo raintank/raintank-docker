@@ -74,7 +74,7 @@ elif [ $MODE == "code" ]; then
 	cd grafana
 
 	if [ ! -e conf/grafana.custom.ini ]; then
-		cp /opt/raintank/raintank-docker/grafana-pro/grafana.custom.ini /opt/raintank/grafana-pro/conf/
+		cp /opt/raintank/raintank-docker/grafana/grafana.custom.ini /opt/raintank/grafana/conf/
 	fi
 
 	mkdir -p /opt/raintank/go/src/github.com/grafana \
@@ -87,8 +87,8 @@ elif [ $MODE == "code" ]; then
 	grunt -f
 
 	apt-get -y install sqlite3
-	sqlite3 /opt/raintank/grafana-pro/data/grafana.db < /opt/raintank/raintank-docker/grafana-pro/dump.sql
+	sqlite3 /opt/raintank/grafana/data/grafana.db < /opt/raintank/raintank-docker/grafana/dump.sql
 	if [ ! -e conf/grafana.custom.ini ]; then
-		cp /opt/raintank/raintank-docker/grafana-pro/grafana.custom.ini /opt/raintank/grafana-pro/conf/
+		cp /opt/raintank/raintank-docker/grafana/grafana.custom.ini /opt/raintank/grafana/conf/
 	fi
 fi
