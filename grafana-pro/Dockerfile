@@ -8,7 +8,7 @@ RUN curl -SL https://storage.googleapis.com/golang/go1.4.linux-amd64.tar.gz \
 
 ENV GOPATH /go
 ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
-RUN go get github.com/grafana/grafana
+RUN go get -u github.com/grafana/grafana
 WORKDIR $GOPATH/src/github.com/grafana/grafana
 RUN git checkout -t origin/develop \
 	go run build.go setup \
