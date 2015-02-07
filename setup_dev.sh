@@ -59,7 +59,6 @@ elif [ $MODE == "code" ]; then
     fi
 	go get -u github.com/raintank/raintank-metric
 	go install github.com/raintank/raintank-metric
-	raintank-metric 2>&1
 
 	if [ ! -e node_modules ] ; then
 		mkdir node_modules
