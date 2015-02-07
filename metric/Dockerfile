@@ -1,14 +1,16 @@
 FROM raintank/nodejs
 
 WORKDIR /opt
-
-#install api
-RUN echo 1422597474; git clone git://github.com/raintank/raintank-workers.git
-
+RUN mkdir -p /opt/raintank-workers
 WORKDIR /opt/raintank-workers
-RUN echo 1422597474; npm install
-RUN mkdir -p /var/log/raintank/
 
 ADD config.js /opt/raintank-workers/config.js
 
-CMD nodejs /opt/raintank-workers/metricStore.js >> /var/log/raintank/metric.log 2>&1
+RUN curl -SL https://storage.googleapis.com/golang/go1.4.linux-amd64.tar.gz \
+    | tar -xzC /usr/local
+
+ENV GOPATH /go
+ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
+RUN go get -u github.com/raintank/raintank-metric
+
+CMD raintank-metric 2>&1
