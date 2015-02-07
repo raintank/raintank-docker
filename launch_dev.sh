@@ -34,14 +34,14 @@ screen -S raintank -X screen -t graphite-api docker run -t -i -p 8888  --name gr
 
 sleep 10
 
-#grafana-pro
-echo starting grafana-pro container
-screen -S raintank -X screen -t grafana-pro docker run -t -i -p 80:3000 -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name grafana-pro  --link rabbitmq:rabbitmq --link graphite-api:graphite-api --link elasticsearch:elasticsearch -e GOPATH=/opt/raintank/go raintank/grafana-pro bash
+#grafana
+echo starting grafana container
+screen -S raintank -X screen -t grafana docker run -t -i -p 80:3000 -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name grafana --link rabbitmq:rabbitmq --link graphite-api:graphite-api --link elasticsearch:elasticsearch -e GOPATH=/opt/raintank/go raintank/grafana bash
 
 
 #raintank-collector-ctrl - this handles communication with the remote collector nodes.
 echo starting collector-ctrl container
-screen -S raintank -X screen -t collector-ctrl docker run -t -i -p 8181:8181 -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name raintank-collector-ctrl  --link grafana-pro:grafana-pro --link rabbitmq:rabbitmq raintank/collector-ctrl bash
+screen -S raintank -X screen -t collector-ctrl docker run -t -i -p 8181:8181 -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name raintank-collector-ctrl  --link grafana:grafana --link rabbitmq:rabbitmq raintank/collector-ctrl bash
 
 
 #raintank-metric - this app consumes the metric data written to the message queue and sends it to influxdb.  The app also performs threshold checking and data roll-ups
@@ -52,14 +52,14 @@ sleep 10
 
 #raintank-collector - this is an instance of an edge collector.
 echo starting collector container
-screen -S raintank -X screen -t collector docker run -t -i -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name raintank-collector  --link raintank-collector-ctrl:collector-ctrl --link grafana-pro:grafana-pro raintank/collector bash
+screen -S raintank -X screen -t collector docker run -t -i -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name raintank-collector  --link raintank-collector-ctrl:collector-ctrl --link grafana:grafana raintank/collector bash
 
 echo "all containers started."
 
 sleep 5
 echo "starting services up in containers"
 screen -S raintank -p graphite-api -X stuff 'start-graphite.py\n'
-screen -S raintank -p grafana-pro -X stuff 'cd /opt/raintank/grafana-pro; /opt/raintank/grafana-pro/bin/grafana web\n'
+screen -S raintank -p grafana -X stuff 'cd /opt/raintank/grafana; /opt/raintank/grafana/bin/grafana web\n'
 screen -S raintank -p collector-ctrl -X stuff 'cd /opt/raintank/collector-ctrl; nodejs app.js\n'
 screen -S raintank -p metric -X stuff 'cd /opt/raintank/raintank-workers; nodejs metricStore.js\n'
 screen -S raintank -p collector -X stuff 'cd /opt/raintank/raintank-collector; nodejs app.js\n'
