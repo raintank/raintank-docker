@@ -8,11 +8,11 @@ RUN curl -SL https://storage.googleapis.com/golang/go1.4.linux-amd64.tar.gz \
 
 ENV GOPATH /go
 ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
-RUN go get -u github.com/grafana/grafana
+RUN go get github.com/grafana/grafana; true
 WORKDIR $GOPATH/src/github.com/grafana/grafana
 RUN git checkout -t origin/develop \
-	go run build.go setup \
-	go run build.go build
+	&& go run build.go setup \
+	&& go run build.go build
 RUN npm install && npm install -g grunt-cli && grunt -f
 
 ADD grafana.custom.ini $GOPATH/src/github.com/grafana/grafana/conf/grafana.custom.ini
