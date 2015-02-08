@@ -9,8 +9,8 @@ RUN curl -SL https://storage.googleapis.com/golang/go1.4.linux-amd64.tar.gz \
 ENV GOPATH /go
 ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
 WORKDIR /opt/raintank/grafana
-RUN mkdir -p /go/src/github.com/raintank \
-    && ln -s /opt/raintank/grafana /go/src/github.com/raintank/grafana \
+RUN mkdir -p /go/src/github.com/grafana \
+    && ln -s /opt/raintank/grafana /go/src/github.com/grafana/grafana \
     && go run build.go setup \
 	&& go run build.go build
 RUN npm install && npm install -g grunt-cli && grunt -f
