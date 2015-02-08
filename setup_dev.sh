@@ -73,15 +73,15 @@ elif [ $MODE == "code" ]; then
 	npm install
 
 	cd /opt/raintank
-	git clone -b develop git@github.com:grafana/grafana.git
+	git clone --recursive git@github.com:raintank/grafana.git
 	cd grafana
 
 	if [ ! -e conf/grafana.custom.ini ]; then
 		cp /opt/raintank/raintank-docker/grafana/grafana.custom.ini /opt/raintank/grafana/conf/
 	fi
 
-	mkdir -p /opt/raintank/go/src/github.com/grafana \
-    && ln -s /opt/raintank/grafana /opt/raintank/go/src/github.com/grafana/grafana \
+	mkdir -p /opt/raintank/go/src/github.com/raintank \
+    && ln -s /opt/raintank/grafana /opt/raintank/go/src/github.com/raintank/grafana \
     && go run build.go setup \
 	&& go run build.go build
 	

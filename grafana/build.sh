@@ -4,19 +4,19 @@
 # github private key and you will need to have been granted access
 # to this repo be able to clone.
 
-if [ -e grafana-pro ]; then
-	cd grafana-pro
+if [ -e grafana ]; then
+	cd grafana
 	git pull && git submodule update --recursive && cd ..
 else
-	git clone -b raintank-api --recursive \
-	    git@github.com:torkelo/grafana-pro.git
+	git clone --recursive \
+	    git@github.com:raintank/grafana.git
 fi
 STATE=$?
 if [ $STATE -ne 0 ]; then
-	echo "Failed to get grafana-pro repo."
+	echo "Failed to get grafana repo."
 	echo "Check that your github private SSH key is working on this host"
 	exit $STATE
 fi
 
-docker build -t raintank/grafana-pro ./ 
+docker build -t raintank/grafana ./ 
 
