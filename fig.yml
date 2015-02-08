@@ -40,7 +40,7 @@ raintankCollectorCtrl:
   image: raintank/collector-ctrl
   links:
     - rabbitmq:rabbitmq
-    - grafana:grafana-pro
+    - grafana:grafana
     - redis:redis
   ports:
     - "8181:8181"
