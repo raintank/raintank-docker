@@ -1,6 +1,8 @@
 FROM raintank/nodejs
 
-COPY grafana/ /opt/raintank/grafana
+WORKDIR /opt/raintank
+RUN git clone git://github.com/raintank/grafana.git
+
 ENV GOPATH /go
 
 RUN curl -SL https://storage.googleapis.com/golang/go1.4.linux-amd64.tar.gz \
