@@ -9,7 +9,7 @@ var config = {};
 config.numCPUs = 1;
 
 config.api = {
-  host: "grafana-pro",
+  host: "grafana",
   port: 3000,
   path: "/api/"
 };
@@ -26,6 +26,11 @@ config.elasticSearch = {
 config.carbon = {
   host: 'influxdb',
   port: 2003
+}
+
+config.redis = {
+  host: "redis",
+  port: 6379
 }
 
 /*-------------------------------------------------------*/

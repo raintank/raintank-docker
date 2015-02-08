@@ -12,7 +12,7 @@ config.serverUrl = "http://collector-ctrl:8181";
 config.token = "3wJvQ3G7dZ0ZPGGAk1f2dEqSSLNl3MWGccj5Mm6w22Y2Iy0L1Xp8QH9WplfYV7Gd";
 config.numCPUs = 1;
 config.api = {
-  host: "grafana-pro",
+  host: "grafana",
   port: 3000,
   path: "/api/"
 };

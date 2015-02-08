@@ -80,8 +80,8 @@ elif [ $MODE == "code" ]; then
 		cp /opt/raintank/raintank-docker/grafana/grafana.custom.ini /opt/raintank/grafana/conf/
 	fi
 
-	mkdir -p /opt/raintank/go/src/github.com/raintank \
-    && ln -s /opt/raintank/grafana /opt/raintank/go/src/github.com/raintank/grafana \
+	mkdir -p /opt/raintank/go/src/github.com/grafana \
+    && ln -s /opt/raintank/grafana /opt/raintank/go/src/github.com/grafana/grafana \
     && go run build.go setup \
 	&& go run build.go build
 	

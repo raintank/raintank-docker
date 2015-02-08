@@ -5,6 +5,10 @@ elasticsearch:
     - "9300"
   volumes:
     - /data
+redis:
+  image: redis
+  ports:
+    - "6379"
 rabbitmq:
   image: raintank/rabbitmq
   ports:
@@ -25,8 +29,8 @@ graphiteApi:
     - influxdb:influxdb
   environment:
     GRAPHITE_influxdb_host: influxdb
-grafanaPro:
-  image: raintank/grafana-pro
+grafana:
+  image: raintank/grafana
   ports:
     - "80:3000"
   links: 
@@ -36,7 +40,8 @@ raintankCollectorCtrl:
   image: raintank/collector-ctrl
   links:
     - rabbitmq:rabbitmq
-    - grafanaPro:grafana-pro
+    - grafana:grafana-pro
+    - redis:redis
   ports:
     - "8181:8181"
   volumes:
@@ -47,13 +52,14 @@ raintankMetric:
     - rabbitmq:rabbitmq
     - elasticsearch:elasticsearch
     - influxdb:influxdb
+    - redis:redis
   volumes:
     - /var/docker/raintank/logs:/var/log/raintank
 raintankCollector:
   image: raintank/collector
   links:
     - raintankCollectorCtrl:collector-ctrl
-    - grafanaPro:grafana-pro
+    - grafana:grafana
   volumes:
     - /var/docker/raintank/logs:/var/log/raintank
 

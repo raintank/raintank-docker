@@ -9,7 +9,7 @@ var config = {};
 config.numCPUs = 1;
 
 config.api = {
-  host: "grafana-pro",
+  host: "grafana",
   port: 3000,
   path: "/api/"
 };
@@ -17,6 +17,11 @@ config.api = {
 config.queue = {
   url: 'amqp://rabbitmq',
 };
+
+config.redis = {
+  host: "redis",
+  port: 6379
+}
 
 /*-------------------------------------------------------*/
 function parseEnv(name, value, cnf) {

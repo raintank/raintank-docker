@@ -16,7 +16,11 @@
 echo launching elasticsearch
 docker run -d -p 9200  -v /data --name elasticsearch dockerfile/elasticsearch:latest
 
-#mongodb
+#redis
+echo launching redis
+docker run -d -p 6379 --name redis redis
+
+#rabbitmq
 echo launching rabbitmq
 docker run -d -p 5672 -p 15672 --name rabbitmq raintank/rabbitmq
 
@@ -41,12 +45,12 @@ screen -S raintank -X screen -t grafana docker run -t -i -p 80:3000 -v /var/dock
 
 #raintank-collector-ctrl - this handles communication with the remote collector nodes.
 echo starting collector-ctrl container
-screen -S raintank -X screen -t collector-ctrl docker run -t -i -p 8181:8181 -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name raintank-collector-ctrl  --link grafana:grafana --link rabbitmq:rabbitmq raintank/collector-ctrl bash
+screen -S raintank -X screen -t collector-ctrl docker run -t -i -p 8181:8181 -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name raintank-collector-ctrl --link redis:redis --link grafana:grafana --link rabbitmq:rabbitmq raintank/collector-ctrl bash
 
 
 #raintank-metric - this app consumes the metric data written to the message queue and sends it to influxdb.  The app also performs threshold checking and data roll-ups
 echo starting metric container
-screen -S raintank -X screen -t metric docker run -t -i -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name raintank-metric  --link elasticsearch:elasticsearch --link rabbitmq:rabbitmq --link influxdb:influxdb raintank/metric bash
+screen -S raintank -X screen -t metric docker run -t -i -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name raintank-metric --link redis:redis --link elasticsearch:elasticsearch --link rabbitmq:rabbitmq --link influxdb:influxdb raintank/metric bash
 
 sleep 10
 
