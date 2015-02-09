@@ -23,7 +23,7 @@ elif [ $MODE == "code" ]; then
 
 	mkdir -p /opt/raintank/node_modules
 	cd /opt/raintank
-	for i in raintank-docker raintank-collector raintank-workers raintank-queue; do 
+	for i in raintank-docker raintank-collector raintank-collector-ctrl raintank-workers raintank-queue grafana; do 
 		if [ -d /opt/raintank/$i ]; then
 			cd /opt/raintank/$i
 			git fetch
@@ -31,7 +31,7 @@ elif [ $MODE == "code" ]; then
 			git pull
 		else
 			cd /opt/raintank
-			git clone -b $BRANCH https://github.com/raintank/$i.git
+			git clone -b $BRANCH git@github.com:raintank/$i.git
 		fi
 	done
 	## temporary for raintank-docker
@@ -72,9 +72,7 @@ elif [ $MODE == "code" ]; then
 	fi
 	npm install
 
-	cd /opt/raintank
-	git clone --recursive git@github.com:raintank/grafana.git
-	cd grafana
+	cd /opt/raintank/grafana
 
 	if [ ! -e conf/grafana.custom.ini ]; then
 		cp /opt/raintank/raintank-docker/grafana/grafana.custom.ini /opt/raintank/grafana/conf/
