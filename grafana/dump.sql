@@ -121,7 +121,6 @@ INSERT INTO "migration_log" VALUES(23,'add unique index location.account_id_slug
 INSERT INTO "migration_log" VALUES(24,'create monitor_type table','CREATE TABLE IF NOT EXISTS `monitor_type` (
 `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL
 , `name` TEXT NOT NULL
-, `panel_template` TEXT NOT NULL
 , `created` DATETIME NOT NULL
 , `updated` DATETIME NOT NULL
 );',1,'','2015-02-06 09:49:08');
@@ -255,11 +254,9 @@ CREATE TABLE `location` (
 CREATE TABLE `monitor_type` (
 `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL
 , `name` TEXT NOT NULL
-, `panel_template` TEXT NOT NULL
 , `created` DATETIME NOT NULL
 , `updated` DATETIME NOT NULL
 );
-INSERT INTO "monitor_type" VALUES(1,'HTTP','{"error":false,"span":4,"editable":true,"type":"graph","id":4,"datasource":"raintank","renderer":"flot","x-axis":true,"y-axis":true,"scale":1,"y_formats":["ms","bytes"],"grid":{"leftMax":null,"rightMax":null,"leftMin":null,"rightMin":null,"threshold1":null,"threshold2":null,"threshold1Color":"rgba(216, 200, 27, 0.27)","threshold2Color":"rgba(234, 112, 112, 0.22)"},"annotate":{"enable":false},"resolution":100,"lines":true,"fill":1,"linewidth":1,"points":false,"pointradius":5,"bars":false,"stack":true,"legend":{"show":true,"values":false,"min":false,"max":false,"current":false,"total":false,"avg":false},"percentage":false,"zerofill":true,"nullPointMode":"null","steppedLine":false,"tooltip":{"query_as_alias":true,"value_type":"individual","shared":true},"targets":[{"target":"aliasByNode(raintank.service.%monitor%.%location%.http.{dns,connect,send,wait,recv,dataLength}, 5)"}],"aliasColors":{"connect":"#1F78C1","send":"#447EBC","recv":"#82B5D8","wait":"#5195CE","dns":"#0A437C","dataLength":"#6D1F62"},"seriesOverrides":[{"alias":"dataLength","yaxis":2,"stack":false,"fill":0,"zindex":2},{"alias":"dns","zindex":-3},{"alias":"connect","zindex":-2},{"alias":"send","zindex":-1},{"alias":"wait","zindex":0},{"alias":"recv","zindex":1}],"title":"%location%"}','2015-01-27 17:53:03','2015-01-27 17:53:03');
 CREATE TABLE `monitor_type_setting` (
 `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL
 , `monitor_type_id` INTEGER NOT NULL
