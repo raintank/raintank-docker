@@ -12,6 +12,7 @@ ENV GOPATH /go
 ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
 WORKDIR /opt/raintank/grafana
 RUN mkdir -p /go/src/github.com/grafana \
+    && mkdir -p /opt/raintank/grafana/data \
     && ln -s /opt/raintank/grafana /go/src/github.com/grafana/grafana \
     && go run build.go setup \
 	&& go run build.go build
@@ -21,7 +22,7 @@ ADD grafana.custom.ini /opt/raintank/grafana/conf/grafana.custom.ini
 EXPOSE 3000
 
 ADD dump.sql /tmp/dump.sql
-RUN apt-get -y install sqlite3 \
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install sqlite3 \
     && cat /tmp/dump.sql | sqlite3 /opt/raintank/grafana/data/grafana.db \
     && rm /tmp/dump.sql
 
