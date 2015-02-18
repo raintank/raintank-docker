@@ -2,9 +2,6 @@ FROM raintank/nodejs
 
 WORKDIR /opt/raintank
 RUN git clone git://github.com/raintank/grafana.git
-WORKDIR /opt/raintank/grafana
-RUN git checkout ct_location_err
-WORKDIR /opt/raintank
 
 ENV GOPATH /go
 

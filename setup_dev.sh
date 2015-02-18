@@ -37,8 +37,6 @@ elif [ $MODE == "code" ]; then
 	## temporary for raintank-docker
 	cd /opt/raintank/raintank-docker
 	git checkout ct
-	cd /opt/raintank/grafana
-	git checkout ct_location_err
 	## end temporary raintank-docker
 
 	if [ ! -e /opt/raintank/node_modules/raintank-queue ] ; then
