@@ -32,4 +32,8 @@ stream = open('/etc/graphite-api.yaml', 'w')
 yaml.dump(config, stream, default_flow_style=False)
 stream.close()
 
-os.system('/usr/local/bin/gunicorn graphite_api.app:app -b 0.0.0.0:8888 -w 2 --log-level debug')
+#os.system('/usr/local/bin/gunicorn graphite_api.app:app -b 0.0.0.0:8888 -w 2 --log-level debug')
+from graphite_api.app import app
+
+app.run(debug=True, port=8888, host="0.0.0.0", use_reloader=False)
+

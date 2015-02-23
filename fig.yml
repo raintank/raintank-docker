@@ -14,28 +14,33 @@ rabbitmq:
   ports:
     - "5672"
     - "15672"
-influxdb:
-  image: raintank/influxdb
+mysql:
+  image: mysql
   ports:
-    - "8083"
-    - "8086"
-    - "2003"
+    - "3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: rootpass
+    MYSQL_DATABASE: grafana
+    MYSQL_USER: grafana
+    MYSQL_PASSWORD: password
 graphiteApi:
   image: raintank/graphite-api
   ports:
     - "8888"
   links:
     - elasticsearch:elasticsearch
-    - influxdb:influxdb
   environment:
-    GRAPHITE_influxdb_host: influxdb
+    GRAPHITE_influxdb_host: 10.82.84.2
 grafana:
   image: raintank/grafana
   ports:
-    - "80:3000"
+    - "3000"
   links: 
     - rabbitmq:rabbitmq
     - graphiteApi:graphite-api
+    - mysql:mysql
+  volumes:
+    - /var/docker/raintank/grafana/conf:/opt/raintank/grafana/conf
 raintankCollectorCtrl:
   image: raintank/collector-ctrl
   links:
@@ -43,7 +48,16 @@ raintankCollectorCtrl:
     - grafana:grafana
     - redis:redis
   ports:
-    - "8181:8181"
+    - "8181"
+  volumes:
+    - /var/docker/raintank/logs:/var/log/raintank
+raintankEvent:
+  image: raintank/event
+  links:
+    - rabbitmq:rabbitmq
+    - elasticsearch:elasticsearch
+    - redis:redis
+    - grafana:grafana
   volumes:
     - /var/docker/raintank/logs:/var/log/raintank
 raintankMetric:
@@ -51,15 +65,20 @@ raintankMetric:
   links:
     - rabbitmq:rabbitmq
     - elasticsearch:elasticsearch
-    - influxdb:influxdb
     - redis:redis
   volumes:
     - /var/docker/raintank/logs:/var/log/raintank
-raintankCollector:
-  image: raintank/collector
+  environment:
+    RAINTANK_carbon_host: 10.82.84.2
+proxy:
+  image: dockerfile/nginx
+  ports:
+    - "80:80"
+    - "443:443"
+    - "8443:8443"
   links:
-    - raintankCollectorCtrl:collector-ctrl
     - grafana:grafana
+    - raintankCollectorCtrl:collector-ctrl
   volumes:
-    - /var/docker/raintank/logs:/var/log/raintank
-
+    - /var/docker/raintank/nginx/sites:/etc/nginx/sites-enabled
+    - /var/docker/raintank/nginx/certs:/etc/nginx/certs
