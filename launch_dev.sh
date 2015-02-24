@@ -54,6 +54,12 @@ screen -S raintank -X screen -t metric docker run -t -i -v /var/docker/raintank/
 
 sleep 10
 
+# golang metrics
+echo starting golang metric container
+screen -S raintank -X screen -t golang-metric docker run -t -i -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name golang-metric --link redis:redis --link elasticsearch:elasticsearch --link rabbitmq:rabbitmq --link influxdb:influxdb raintank/golang-metrics bash
+
+sleep 10
+
 #raintank-collector - this is an instance of an edge collector.
 echo starting collector container
 screen -S raintank -X screen -t collector docker run -t -i -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name raintank-collector  --link raintank-collector-ctrl:collector-ctrl --link grafana:grafana raintank/collector bash
