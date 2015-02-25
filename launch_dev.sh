@@ -20,6 +20,10 @@ docker run -d -p 9200  -v /data --name elasticsearch dockerfile/elasticsearch:la
 echo launching redis
 docker run -d -p 6379 --name redis redis
 
+#mysql
+echo launching mysql
+docker run -d -p 3306 --name mysql mysql
+
 #rabbitmq
 echo launching rabbitmq
 docker run -d -p 5672 -p 15672 --name rabbitmq raintank/rabbitmq
@@ -40,7 +44,7 @@ sleep 10
 
 #grafana
 echo starting grafana container
-screen -S raintank -X screen -t grafana docker run -t -i -p 80:3000 -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name grafana --link rabbitmq:rabbitmq --link graphite-api:graphite-api --link elasticsearch:elasticsearch -e GOPATH=/opt/raintank/go raintank/grafana bash
+screen -S raintank -X screen -t grafana docker run -t -i -p 80:3000 -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name grafana --link rabbitmq:rabbitmq --link graphite-api:graphite-api --link elasticsearch:elasticsearch --link mysql:mysql -e GOPATH=/opt/raintank/go raintank/grafana bash
 
 
 #raintank-collector-ctrl - this handles communication with the remote collector nodes.
