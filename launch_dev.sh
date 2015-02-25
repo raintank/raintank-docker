@@ -22,7 +22,7 @@ docker run -d -p 6379 --name redis redis
 
 #mysql
 echo launching mysql
-docker run -d -p 3306 --name mysql mysql
+docker run -d -p 3306 -e MYSQL_ROOT_PASSWORD=rootpass -e MYSQL_DATABASE=grafana -e MYSQL_USER=grafana -e MYSQL_PASSWORD=password --name mysql mysql
 
 #rabbitmq
 echo launching rabbitmq
