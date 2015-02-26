@@ -58,7 +58,13 @@ screen -S raintank -X screen -t metric docker run -t -i -v /var/docker/raintank/
 
 sleep 10
 
-# golang metrics
+#raintank-event - this app consumes the event data written to the message queue and sends it to influxdb.
+echo starting metric container
+screen -S raintank -X screen -t event docker run -t -i -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name raintank-event --link redis:redis --link elasticsearch:elasticsearch --link rabbitmq:rabbitmq --link influxdb:influxdb raintank/event bash
+
+sleep 10
+
+# golang metrics - this app consumes the metric and event data written to the message queue and sends them to elasticsearch and (for metrics) to influxdb.
 echo starting golang metric container
 screen -S raintank -X screen -t golang-metric docker run -t -i -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name golang-metric --link redis:redis --link elasticsearch:elasticsearch --link rabbitmq:rabbitmq --link influxdb:influxdb raintank/golang-metrics bash
 
@@ -76,4 +82,5 @@ screen -S raintank -p graphite-api -X stuff 'start-graphite.py\n'
 screen -S raintank -p grafana -X stuff 'cd /opt/raintank/grafana; /opt/raintank/grafana/bin/grafana web\n'
 screen -S raintank -p collector-ctrl -X stuff 'cd /opt/raintank/collector-ctrl; nodejs app.js\n'
 screen -S raintank -p metric -X stuff 'cd /opt/raintank/raintank-workers; nodejs metricStore.js\n'
+screen -S raintank -p event -X stuff 'cd /opt/raintank/raintank-workers; nodejs eventWorker.js\n'
 screen -S raintank -p collector -X stuff 'cd /opt/raintank/raintank-collector; nodejs app.js\n'
