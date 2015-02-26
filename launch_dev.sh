@@ -79,7 +79,7 @@ echo "all containers started."
 sleep 5
 echo "starting services up in containers"
 screen -S raintank -p graphite-api -X stuff 'start-graphite.py\n'
-screen -S raintank -p grafana -X stuff 'cd /opt/raintank/grafana; /opt/raintank/grafana/bin/grafana web\n'
+screen -S raintank -p grafana -X stuff 'mysql -u root -prootpass -h mysql grafana < /opt/raintank/raintank-docker/grafana/mysql-api-key-insert.sql; cd /opt/raintank/grafana; /opt/raintank/grafana/bin/grafana web\n'
 screen -S raintank -p collector-ctrl -X stuff 'cd /opt/raintank/collector-ctrl; nodejs app.js\n'
 screen -S raintank -p metric -X stuff 'cd /opt/raintank/raintank-workers; nodejs metricStore.js\n'
 screen -S raintank -p event -X stuff 'cd /opt/raintank/raintank-workers; nodejs eventWorker.js\n'
