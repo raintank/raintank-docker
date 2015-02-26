@@ -59,7 +59,7 @@ screen -S raintank -X screen -t metric docker run -t -i -v /var/docker/raintank/
 sleep 10
 
 #raintank-event - this app consumes the event data written to the message queue and sends it to influxdb.
-echo starting metric container
+echo starting event container
 screen -S raintank -X screen -t event docker run -t -i -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name raintank-event --link redis:redis --link elasticsearch:elasticsearch --link rabbitmq:rabbitmq --link influxdb:influxdb raintank/event bash
 
 sleep 10
