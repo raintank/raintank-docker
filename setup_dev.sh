@@ -59,8 +59,8 @@ elif [ $MODE == "code" ]; then
 
 	cd /opt/raintank/raintank-workers
 	if [ ! -e config.js ]; then
-        cp /opt/raintank/raintank-docker/metric/config.js config.js
-    fi
+        	cp /opt/raintank/raintank-docker/metric/config.js config.js
+        fi
 	go get -u github.com/raintank/raintank-metric
 	go install github.com/raintank/raintank-metric
 
