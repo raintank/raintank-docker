@@ -66,7 +66,7 @@ sleep 10
 
 # golang metrics - this app consumes the metric and event data written to the message queue and sends them to elasticsearch and (for metrics) to influxdb.
 echo starting golang metric container
-screen -S raintank -X screen -t golang-metric docker run -t -i -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name golang-metric --link redis:redis --link elasticsearch:elasticsearch --link rabbitmq:rabbitmq --link influxdb:influxdb raintank/golang-metrics bash
+screen -S raintank -X screen -t golang-metric docker run -t -i -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name golang-metric --link redis:redis --link elasticsearch:elasticsearch --link rabbitmq:rabbitmq --link influxdb:influxdb -e GOPATH=/opt/raintank/go raintank/golang-metrics bash
 
 sleep 10
 
