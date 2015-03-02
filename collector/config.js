@@ -9,7 +9,7 @@ config.location = {
     "public": true
 };
 config.serverUrl = "http://collector-ctrl:8181";
-config.token = "jmZ9fD7VclvKEJRhemhmkjPQFZNTt5g6t1Lk6GmBrxwwUQKNhiIv92c9tUXO6Q1n";
+config.token = "eyJrIjoiU01uVlFiSGl6RDROcjVFVGNEMlZMdTBuOVRKcWpFcjAiLCJuIjoiYmxlcmsiLCJpZCI6MX0=";
 config.numCPUs = 1;
 config.api = {
   host: "grafana",
