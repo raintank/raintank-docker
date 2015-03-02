@@ -6,7 +6,7 @@ for i in $(ls -r); do
 		if [ -e build.sh ]; then
 			sh build.sh
 		else
-			docker build --no-cache=true -t raintank/$i .
+			docker build -t raintank/$i .
 		fi
 		STATE=$?
 		if [ $STATE -ne 0 ] ;then 

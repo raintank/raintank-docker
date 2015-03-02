@@ -14,6 +14,11 @@ rabbitmq:
   ports:
     - "5672"
     - "15672"
+influxdb:
+  image: raintank/influxdb
+  ports:
+    - "8086"
+    - "8083"
 mysql:
   image: mysql
   ports:
@@ -29,8 +34,9 @@ graphiteApi:
     - "8888"
   links:
     - elasticsearch:elasticsearch
+    - influxdb:influxdb
   environment:
-    GRAPHITE_influxdb_host: 10.82.84.2
+    GRAPHITE_influxdb_host: influxdb
 grafana:
   image: raintank/grafana
   ports:
@@ -49,8 +55,6 @@ raintankCollectorCtrl:
     - redis:redis
   ports:
     - "8181"
-  volumes:
-    - /var/docker/raintank/logs:/var/log/raintank
 raintankEvent:
   image: raintank/event
   links:
@@ -58,18 +62,15 @@ raintankEvent:
     - elasticsearch:elasticsearch
     - redis:redis
     - grafana:grafana
-  volumes:
-    - /var/docker/raintank/logs:/var/log/raintank
 raintankMetric:
   image: raintank/metric
   links:
     - rabbitmq:rabbitmq
     - elasticsearch:elasticsearch
     - redis:redis
-  volumes:
-    - /var/docker/raintank/logs:/var/log/raintank
+    - influxdb:influxdb
   environment:
-    RAINTANK_carbon_host: 10.82.84.2
+    RAINTANK_carbon_host: influxdb
 proxy:
   image: dockerfile/nginx
   ports:
@@ -82,3 +83,8 @@ proxy:
   volumes:
     - /var/docker/raintank/nginx/sites:/etc/nginx/sites-enabled
     - /var/docker/raintank/nginx/certs:/etc/nginx/certs
+raintankCollector:
+  image: raintank/collector
+  links:
+    - raintankCollectorCtrl:collector-ctrl
+    - grafana:grafana
