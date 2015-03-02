@@ -19,6 +19,9 @@ influxdb:
   ports:
     - "8086"
     - "8083"
+    - "2003"
+  volumes:
+    - /opt/influxdb/shared/data
 mysql:
   image: mysql
   ports:
@@ -28,6 +31,8 @@ mysql:
     MYSQL_DATABASE: grafana
     MYSQL_USER: grafana
     MYSQL_PASSWORD: password
+  volumes:
+    - /var/lib/mysql
 graphiteApi:
   image: raintank/graphite-api
   ports:
@@ -46,7 +51,8 @@ grafana:
     - graphiteApi:graphite-api
     - mysql:mysql
   volumes:
-    - /var/docker/raintank/grafana/conf:/opt/raintank/grafana/conf
+    - grafana/conf:/opt/raintank/grafana/conf
+    - /opt/raintank/grafana/data
 raintankCollectorCtrl:
   image: raintank/collector-ctrl
   links:
@@ -75,14 +81,12 @@ proxy:
   image: dockerfile/nginx
   ports:
     - "80:80"
-    - "443:443"
-    - "8443:8443"
+    - "8181:8181"
   links:
     - grafana:grafana
     - raintankCollectorCtrl:collector-ctrl
   volumes:
-    - /var/docker/raintank/nginx/sites:/etc/nginx/sites-enabled
-    - /var/docker/raintank/nginx/certs:/etc/nginx/certs
+    - proxy/sites:/etc/nginx/sites-enabled
 raintankCollector:
   image: raintank/collector
   links:

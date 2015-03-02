@@ -21,7 +21,6 @@ RUN echo 1425289957 && mkdir -p /go/src/github.com/grafana \
 RUN echo 1425289957 &&  npm install && npm install -g grunt-cli && grunt -f
 RUN apt-get update && apt-get install -y mysql-client
 
-ADD grafana.custom.ini /opt/raintank/grafana/conf/grafana.custom.ini
 EXPOSE 3000
 
 RUN mkdir -p /var/log/raintank
