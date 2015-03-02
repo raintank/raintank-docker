@@ -50,6 +50,7 @@ grafana:
     - rabbitmq:rabbitmq
     - graphiteApi:graphite-api
     - mysql:mysql
+    - elasticsearch:elasticsearch
   volumes:
     - grafana/conf:/opt/raintank/grafana/conf
     - /opt/raintank/grafana/data
