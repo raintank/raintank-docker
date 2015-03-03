@@ -1,0 +1,15 @@
+{
+	"numCPUs": 1,
+	"api": {
+  		"host": "grafana",
+  		"port": 3000,
+  		"path": "/api/"
+	},
+	"queue": {
+  		"url": "amqp://rabbitmq"
+	},
+	"redis": {
+  		"host": "redis",
+  		"port": 6379
+  	}
+}

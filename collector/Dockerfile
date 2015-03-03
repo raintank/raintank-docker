@@ -12,7 +12,7 @@ RUN echo 1425289957; git clone git://github.com/raintank/raintank-collector.git
 WORKDIR /opt/raintank/raintank-collector
 RUN echo 1425289957; npm install
 
-ADD config.js /opt/raintank/raintank-collector/config.js
+COPY config.json /opt/raintank/raintank-collector/config/config.json
 
 RUN mkdir -p /var/log/raintank
 

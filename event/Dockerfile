@@ -13,7 +13,7 @@ WORKDIR /opt/raintank/raintank-workers
 RUN echo 1425289957; npm install
 RUN mkdir -p /var/log/raintank/
 
-ADD config.js /opt/raintank/raintank-workers/config.js
+COPY config.json /opt/raintank/raintank-workers/config/config.json
 
 RUN mkdir -p /var/log/raintank
 
