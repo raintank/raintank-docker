@@ -1,14 +1,20 @@
 FROM raintank/nodejs
 
-WORKDIR /opt
+RUN apt-get update && apt-get -y install supervisor
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-#install collector
-RUN echo 1422597474; git clone git://github.com/raintank/raintank-collector-ctrl.git
+RUN mkdir -p /opt/raintank
+WORKDIR /opt/raintank
 
-WORKDIR /opt/raintank-collector-ctrl
-RUN echo 1422597474; npm install
+#install collector-ctrl
+RUN echo 1425288058; git clone git://github.com/raintank/raintank-collector-ctrl.git
 
-ADD config.js /opt/raintank-collector-ctrl/config.js
+WORKDIR /opt/raintank/raintank-collector-ctrl
+RUN echo 1425288058; npm install
+
+COPY config.json /opt/raintank/raintank-collector-ctrl/config/config.json
 EXPOSE 8181
 
-CMD nodejs /opt/raintank-collector-ctrl/app.js >> /var/log/raintank/collector-ctrl.log 2>&1
+RUN mkdir -p /var/log/raintank
+
+CMD ["/usr/bin/supervisord"]

@@ -5,6 +5,10 @@ elasticsearch:
     - "9300"
   volumes:
     - /data
+redis:
+  image: redis
+  ports:
+    - "6379"
 rabbitmq:
   image: raintank/rabbitmq
   ports:
@@ -13,9 +17,22 @@ rabbitmq:
 influxdb:
   image: raintank/influxdb
   ports:
-    - "8083"
     - "8086"
+    - "8083"
     - "2003"
+  volumes:
+    - /opt/influxdb/shared/data
+mysql:
+  image: mysql
+  ports:
+    - "3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: rootpass
+    MYSQL_DATABASE: grafana
+    MYSQL_USER: grafana
+    MYSQL_PASSWORD: password
+  volumes:
+    - /var/lib/mysql
 graphiteApi:
   image: raintank/graphite-api
   ports:
@@ -25,35 +42,54 @@ graphiteApi:
     - influxdb:influxdb
   environment:
     GRAPHITE_influxdb_host: influxdb
-grafanaPro:
-  image: raintank/grafana-pro
+grafana:
+  image: raintank/grafana
   ports:
-    - "80:3000"
+    - "3000"
   links: 
     - rabbitmq:rabbitmq
     - graphiteApi:graphite-api
+    - mysql:mysql
+    - elasticsearch:elasticsearch
+  volumes:
+    - grafana/conf:/opt/raintank/grafana/conf
+    - /opt/raintank/grafana/data
 raintankCollectorCtrl:
   image: raintank/collector-ctrl
   links:
     - rabbitmq:rabbitmq
-    - grafanaPro:grafana-pro
+    - grafana:grafana
+    - redis:redis
   ports:
-    - "8181:8181"
-  volumes:
-    - /var/docker/raintank/logs:/var/log/raintank
+    - "8181"
+raintankEvent:
+  image: raintank/event
+  links:
+    - rabbitmq:rabbitmq
+    - elasticsearch:elasticsearch
+    - redis:redis
+    - grafana:grafana
 raintankMetric:
   image: raintank/metric
   links:
     - rabbitmq:rabbitmq
     - elasticsearch:elasticsearch
+    - redis:redis
     - influxdb:influxdb
+  environment:
+    RAINTANK_carbon_host: influxdb
+proxy:
+  image: dockerfile/nginx
+  ports:
+    - "80:80"
+    - "8181:8181"
+  links:
+    - grafana:grafana
+    - raintankCollectorCtrl:collector-ctrl
   volumes:
-    - /var/docker/raintank/logs:/var/log/raintank
+    - proxy/sites:/etc/nginx/sites-enabled
 raintankCollector:
   image: raintank/collector
   links:
     - raintankCollectorCtrl:collector-ctrl
-    - grafanaPro:grafana-pro
-  volumes:
-    - /var/docker/raintank/logs:/var/log/raintank
-
+    - grafana:grafana

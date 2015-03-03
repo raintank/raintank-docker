@@ -5,7 +5,7 @@ for i in $(ls -r); do
 		cd $i
 		if [ -e build.sh ]; then
 			sh build.sh
-		else
+		elif [ -e Dockerfile ]; then
 			docker build -t raintank/$i .
 		fi
 		STATE=$?

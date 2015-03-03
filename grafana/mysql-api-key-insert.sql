@@ -1,0 +1,1 @@
+INSERT IGNORE INTO `api_key` VALUES (1,1,'collector','36ee55a451e554cfe1c662d229d161dc63e538fbf938034fba7b6687ca8429c7bbb0bb0c5f1cfef412345c4b22bfa1a331e4','RaintankAdmin','2015-02-06 09:49:44','2015-02-06 09:49:44');

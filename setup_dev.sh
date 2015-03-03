@@ -23,7 +23,7 @@ elif [ $MODE == "code" ]; then
 
 	mkdir -p /opt/raintank/node_modules
 	cd /opt/raintank
-	for i in raintank-docker raintank-collector raintank-workers raintank-queue; do 
+	for i in raintank-docker raintank-collector raintank-collector-ctrl raintank-workers raintank-queue grafana; do 
 		if [ -d /opt/raintank/$i ]; then
 			cd /opt/raintank/$i
 			git fetch
@@ -31,9 +31,13 @@ elif [ $MODE == "code" ]; then
 			git pull
 		else
 			cd /opt/raintank
-			git clone -b $BRANCH https://github.com/raintank/$i.git
+			git clone -b $BRANCH git@github.com:raintank/$i.git
 		fi
 	done
+	## temporary for raintank-docker
+	cd /opt/raintank/raintank-docker
+	git checkout ct
+	## end temporary raintank-docker
 
 	if [ ! -e /opt/raintank/node_modules/raintank-queue ] ; then
 		ln -s /opt/raintank/raintank-queue /opt/raintank/node_modules/raintank-queue
@@ -48,10 +52,17 @@ elif [ $MODE == "code" ]; then
 	cd /opt/raintank/raintank-queue
 	npm install
 
+	curl -SL https://storage.googleapis.com/golang/go1.4.linux-amd64.tar.gz | tar -xzC /usr/local
+
+	export GOPATH=/opt/raintank/go
+	export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+
 	cd /opt/raintank/raintank-workers
 	if [ ! -e config.js ]; then
-        cp /opt/raintank/raintank-docker/metric/config.js config.js
-    fi
+        	cp /opt/raintank/raintank-docker/metric/config.js config.js
+        fi
+	go get -u github.com/raintank/raintank-metric
+	go install github.com/raintank/raintank-metric
 
 	if [ ! -e node_modules ] ; then
 		mkdir node_modules
@@ -61,33 +72,22 @@ elif [ $MODE == "code" ]; then
 	fi
 	npm install
 
-
-	curl -SL https://storage.googleapis.com/golang/go1.4.linux-amd64.tar.gz | tar -xzC /usr/local
-
-	export GOPATH=/opt/raintank/go
-	export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
-
-	cd /opt/raintank
-	git clone -b raintank-api --recursive git@github.com:torkelo/grafana-pro.git
-	cd grafana-pro
+	cd /opt/raintank/grafana
 
 	if [ ! -e conf/grafana.custom.ini ]; then
-		cp /opt/raintank/raintank-docker/grafana-pro/grafana.custom.ini /opt/raintank/grafana-pro/conf/
+		cp /opt/raintank/raintank-docker/grafana/grafana.custom.ini /opt/raintank/grafana/conf/
 	fi
 
-	mkdir -p /opt/raintank/go/src/github.com/torkelo \
-    && ln -s /opt/raintank/grafana-pro /opt/raintank/go/src/github.com/torkelo/grafana-pro \
+	mkdir -p /opt/raintank/go/src/github.com/grafana \
+    && ln -s /opt/raintank/grafana /opt/raintank/go/src/github.com/grafana/grafana \
     && go run build.go setup \
 	&& go run build.go build
 	
-	cd grafana
 	npm install
 	npm install -g grunt-cli
 	grunt -f
 
-	apt-get -y install sqlite3
-	sqlite3 /opt/raintank/grafana-pro/data/grafana.db < /opt/raintank/raintank-docker/grafana-pro/dump.sql
 	if [ ! -e conf/grafana.custom.ini ]; then
-		cp /opt/raintank/raintank-docker/grafana-pro/grafana.custom.ini /opt/raintank/grafana-pro/conf/
+		cp /opt/raintank/raintank-docker/grafana/grafana.custom.ini /opt/raintank/grafana/conf/
 	fi
 fi
