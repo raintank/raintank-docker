@@ -13,74 +13,41 @@
 #
 
 #elasticSearch
-echo launching elasticsearch
-docker run -d -p 9200  -v /data --name elasticsearch dockerfile/elasticsearch:latest
-
-#redis
-echo launching redis
-docker run -d -p 6379 --name redis redis
-
-#mysql
-echo launching mysql
-docker run -d -p 3306 -e MYSQL_ROOT_PASSWORD=rootpass -e MYSQL_DATABASE=grafana -e MYSQL_USER=grafana -e MYSQL_PASSWORD=password --name mysql mysql
-
-#rabbitmq
-echo launching rabbitmq
-docker run -d -p 5672 -p 15672 --name rabbitmq raintank/rabbitmq
-
-#influxdb
-echo launching influxdb
-docker run -d -p 8083 -p 8086 -p 2003 --name influxdb raintank/influxdb
-
+fig -f fig-dev.yaml up -d
 sleep 5
 echo starting screen session
 screen -S raintank -d -m -t shell bash
 sleep 1
-#graphite-api
-echo starting graphite-api container
-screen -S raintank -X screen -t graphite-api docker run -t -i -p 8888  --name graphite-api --link elasticsearch:elasticsearch --link influxdb:influxdb -e GRAPHITE_influxdb_host=influxdb raintank/graphite-api bash
 
-sleep 10
+#graphite-api
+screen -S raintank -X screen -t graphite-api docker exec -t -i raintankdocker_graphiteApi_1 bash
 
 #grafana
-echo starting grafana container
-screen -S raintank -X screen -t grafana docker run -t -i -p 80:3000 -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name grafana --link rabbitmq:rabbitmq --link graphite-api:graphite-api --link elasticsearch:elasticsearch --link mysql:mysql -e GOPATH=/opt/raintank/go raintank/grafana bash
-
+screen -S raintank -X screen -t grafana docker exec -t -i raintankdocker_grafana_1 bash
 
 #raintank-collector-ctrl - this handles communication with the remote collector nodes.
-echo starting collector-ctrl container
-screen -S raintank -X screen -t collector-ctrl docker run -t -i -p 8181:8181 -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name raintank-collector-ctrl --link redis:redis --link grafana:grafana --link rabbitmq:rabbitmq raintank/collector-ctrl bash
-
+screen -S raintank -X screen -t collector-ctrl docker exec -t -i raintankdocker_raintankCollectorCtrl_1 bash
 
 #raintank-metric - this app consumes the metric data written to the message queue and sends it to influxdb.  The app also performs threshold checking and data roll-ups
-echo starting metric container
-screen -S raintank -X screen -t metric docker run -t -i -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name raintank-metric --link redis:redis --link elasticsearch:elasticsearch --link rabbitmq:rabbitmq --link influxdb:influxdb raintank/metric bash
+screen -S raintank -X screen -t metric docker exec -t -i raintankdocker_raintankMetric_1 bash
 
-sleep 10
-
-#raintank-event - this app consumes the event data written to the message queue and sends it to influxdb.
-echo starting event container
-screen -S raintank -X screen -t event docker run -t -i -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name raintank-event --link redis:redis --link elasticsearch:elasticsearch --link rabbitmq:rabbitmq --link influxdb:influxdb raintank/event bash
-
-sleep 10
+#raintank-event - consumes events from rabbitmq and writes them to Elasticsearch.
+screen -S raintank -X screen -t event docker exec -t -i raintankdocker_raintankEvent_1 bash
 
 # golang metrics - this app consumes the metric and event data written to the message queue and sends them to elasticsearch and (for metrics) to influxdb.
-echo starting golang metric container
-screen -S raintank -X screen -t golang-metric docker run -t -i -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name golang-metric --link redis:redis --link elasticsearch:elasticsearch --link rabbitmq:rabbitmq --link influxdb:influxdb -e GOPATH=/opt/raintank/go raintank/golang-metrics bash
-
-sleep 10
+#echo starting golang metric container
+#screen -S raintank -X screen -t golang-metric docker run -t -i -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name golang-metric --link redis:redis --link elasticsearch:elasticsearch --link rabbitmq:rabbitmq --link influxdb:influxdb -e GOPATH=/opt/raintank/go raintank/golang-metrics bash
 
 #raintank-collector - this is an instance of an edge collector.
-echo starting collector container
-screen -S raintank -X screen -t collector docker run -t -i -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name raintank-collector  --link raintank-collector-ctrl:collector-ctrl --link grafana:grafana raintank/collector bash
-
-echo "all containers started."
+screen -S raintank -X screen -t collector docker exec -t -i raintankdocker_raintankCollector_1 bash
 
 sleep 5
-echo "starting services up in containers"
-screen -S raintank -p graphite-api -X stuff 'start-graphite.py\n'
-screen -S raintank -p grafana -X stuff 'mysql -u root -prootpass -h mysql grafana < /opt/raintank/raintank-docker/grafana/mysql-api-key-insert.sql; cd /opt/raintank/grafana; /opt/raintank/grafana/bin/grafana web\n'
-screen -S raintank -p collector-ctrl -X stuff 'cd /opt/raintank/collector-ctrl; nodejs app.js\n'
-screen -S raintank -p metric -X stuff 'cd /opt/raintank/raintank-workers; nodejs metricStore.js\n'
-screen -S raintank -p event -X stuff 'cd /opt/raintank/raintank-workers; nodejs eventWorker.js\n'
-screen -S raintank -p collector -X stuff 'cd /opt/raintank/raintank-collector; nodejs app.js\n'
+screen -S raintank -p graphite-api -X stuff 'tail -10f /var/log/raintank/graphite-api.log\n'
+screen -S raintank -p grafana -X stuff 'supervisorctl restart all; tail -10f /var/log/raintank/grafana.log\n'
+screen -S raintank -p collector-ctrl -X stuff 'supervisorctl restart all; tail -10f /var/log/raintank/collector-ctrl.log\n'
+screen -S raintank -p metric -X stuff 'tail -10f /var/log/raintank/metricStore.log\n'
+screen -S raintank -p event -X stuff 'tail -10f /var/log/raintank/eventWorker.log\n'
+screen -S raintank -p collector -X stuff 'supervisorctl restart all; tail -10f /var/log/raintank/collector.log\n'
+
+
+screen -r
