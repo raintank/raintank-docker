@@ -34,10 +34,6 @@ elif [ $MODE == "code" ]; then
 			git clone -b $BRANCH git@github.com:raintank/$i.git
 		fi
 	done
-	## temporary for raintank-docker
-	cd /opt/raintank/raintank-docker
-	git checkout ct
-	## end temporary raintank-docker
 
 	if [ ! -e /opt/raintank/node_modules/raintank-queue ] ; then
 		ln -s /opt/raintank/raintank-queue /opt/raintank/node_modules/raintank-queue
