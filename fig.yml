@@ -62,22 +62,6 @@ raintankCollectorCtrl:
     - redis:redis
   ports:
     - "8181"
-raintankEvent:
-  image: raintank/event
-  links:
-    - rabbitmq:rabbitmq
-    - elasticsearch:elasticsearch
-    - redis:redis
-    - grafana:grafana
-raintankMetric:
-  image: raintank/metric
-  links:
-    - rabbitmq:rabbitmq
-    - elasticsearch:elasticsearch
-    - redis:redis
-    - influxdb:influxdb
-  environment:
-    RAINTANK_carbon_host: influxdb
 proxy:
   image: dockerfile/nginx
   ports:
