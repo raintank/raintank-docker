@@ -70,10 +70,6 @@ elif [ $MODE == "code" ]; then
 
 	cd /opt/raintank/grafana
 
-	if [ ! -e conf/grafana.custom.ini ]; then
-		cp /opt/raintank/raintank-docker/grafana/grafana.custom.ini /opt/raintank/grafana/conf/
-	fi
-
 	mkdir -p /opt/raintank/go/src/github.com/grafana \
     && ln -s /opt/raintank/grafana /opt/raintank/go/src/github.com/grafana/grafana \
     && go run build.go setup \
@@ -81,7 +77,7 @@ elif [ $MODE == "code" ]; then
 	
 	npm install
 	npm install -g grunt-cli
-	grunt -f
+	grunt
 
 	if [ ! -e conf/grafana.custom.ini ]; then
 		cp /opt/raintank/raintank-docker/grafana/grafana.custom.ini /opt/raintank/grafana/conf/
