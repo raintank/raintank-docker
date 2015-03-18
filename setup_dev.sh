@@ -23,7 +23,7 @@ elif [ $MODE == "code" ]; then
 
 	mkdir -p /opt/raintank/node_modules
 	cd /opt/raintank
-	for i in raintank-docker raintank-collector raintank-collector-ctrl raintank-workers raintank-queue grafana; do 
+	for i in raintank-docker raintank-collector raintank-collector-ctrl raintank-workers raintank-metric grafana; do 
 		if [ -d /opt/raintank/$i ]; then
 			cd /opt/raintank/$i
 			git fetch
@@ -45,7 +45,7 @@ elif [ $MODE == "code" ]; then
 	fi
 	npm install
 
-	cd /opt/raintank/raintank-queue
+	cd /opt/raintank/raintank-collector-ctrl
 	npm install
 
 	curl -SL https://storage.googleapis.com/golang/go1.4.linux-amd64.tar.gz | tar -xzC /usr/local

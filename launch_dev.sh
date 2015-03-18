@@ -13,7 +13,7 @@
 #
 
 #elasticSearch
-fig -f fig-dev.yaml up -d
+docker-compose -f fig-dev.yaml up -d
 sleep 5
 echo starting screen session
 screen -S raintank -d -m -t shell bash
@@ -31,13 +31,6 @@ screen -S raintank -X screen -t collector-ctrl docker exec -t -i raintankdocker_
 #raintank-metric - this app consumes the metric data written to the message queue and sends it to influxdb.  The app also performs threshold checking and data roll-ups
 screen -S raintank -X screen -t metric docker exec -t -i raintankdocker_raintankMetric_1 bash
 
-#raintank-event - consumes events from rabbitmq and writes them to Elasticsearch.
-screen -S raintank -X screen -t event docker exec -t -i raintankdocker_raintankEvent_1 bash
-
-# golang metrics - this app consumes the metric and event data written to the message queue and sends them to elasticsearch and (for metrics) to influxdb.
-#echo starting golang metric container
-#screen -S raintank -X screen -t golang-metric docker run -t -i -v /var/docker/raintank/logs:/var/log/raintank -v /opt/raintank:/opt/raintank --name golang-metric --link redis:redis --link elasticsearch:elasticsearch --link rabbitmq:rabbitmq --link influxdb:influxdb -e GOPATH=/opt/raintank/go raintank/golang-metrics bash
-
 #raintank-collector - this is an instance of an edge collector.
 screen -S raintank -X screen -t collector docker exec -t -i raintankdocker_raintankCollector_1 bash
 
@@ -45,8 +38,7 @@ sleep 5
 screen -S raintank -p graphite-api -X stuff 'tail -10f /var/log/raintank/graphite-api.log\n'
 screen -S raintank -p grafana -X stuff 'supervisorctl restart all; tail -10f /var/log/raintank/grafana.log\n'
 screen -S raintank -p collector-ctrl -X stuff 'supervisorctl restart all; tail -10f /var/log/raintank/collector-ctrl.log\n'
-screen -S raintank -p metric -X stuff 'tail -10f /var/log/raintank/metricStore.log\n'
-screen -S raintank -p event -X stuff 'tail -10f /var/log/raintank/eventWorker.log\n'
+screen -S raintank -p metric -X stuff 'tail -10f /var/log/raintank/metric.log\n'
 screen -S raintank -p collector -X stuff 'supervisorctl restart all; tail -10f /var/log/raintank/collector.log\n'
 
 
