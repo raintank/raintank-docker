@@ -1,6 +1,6 @@
 FROM raintank/nodejs
 
-RUN apt-get update && apt-get -y install supervisor
+RUN apt-get update && apt-get -y install supervisor fping
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 RUN mkdir -p /opt/raintank
