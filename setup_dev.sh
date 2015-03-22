@@ -68,6 +68,6 @@ elif [ $MODE == "code" ]; then
 	grunt
 
 	if [ ! -e conf/custom.ini ]; then
-		cp /opt/raintank/raintank-docker/grafana/custom.ini /opt/raintank/grafana/conf/
+		cp /opt/raintank/raintank-docker/grafana/conf/custom.ini /opt/raintank/grafana/conf/
 	fi
 fi
