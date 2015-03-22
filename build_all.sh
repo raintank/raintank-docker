@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for i in $(ls -r); do
+for i in *; do
 	if [ -d $i ]; then
 		cd $i
 		if [ -e build.sh ]; then

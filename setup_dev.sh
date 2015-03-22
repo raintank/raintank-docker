@@ -1,17 +1,10 @@
 #!/bin/bash
 
-BRANCH=$1
-MODE=$2
 GITHUBURL="https://github.com/"
 
 # set the default branch to master if one is not supplied.
-if [ x"$BRANCH" == "x" ]; then
-	BRANCH=master
-fi
-
-if [ x"$MODE" == "x" ]; then
-	MODE=docker
-fi
+BRANCH=${1:-master}
+MODE=${2:-docker}
 
 if [ "$MODE" == "docker" ]; then
 	DIR=$(dirname $0)
