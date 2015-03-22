@@ -22,6 +22,20 @@ influxdb:
     - "2003"
   volumes:
     - /opt/influxdb/shared/data
+#cassandra:
+#  image: spotify/cassandra
+#  ports:
+#    - "9160"
+#    - "8888"
+#kariosdb:
+#  image: raintank/kairosdb
+#  ports:
+#    - "4242"
+#    - "8080"
+#  links:
+#    - cassandra:cassandra
+#  environment:
+#    KDB_HOST_LIST: cassandra:9160
 mysql:
   image: mysql
   ports:
@@ -40,6 +54,7 @@ graphiteApi:
   links:
     - elasticsearch:elasticsearch
     - influxdb:influxdb
+#    - kairosdb:kairosdb
   environment:
     GRAPHITE_influxdb_host: influxdb
 grafana:
@@ -72,6 +87,7 @@ raintankMetric:
     - elasticsearch:elasticsearch
     - redis:redis
     - influxdb:influxdb
+#    - kairosdb:kairosdb
   volumes:
     - /opt/raintank:/opt/raintank
 proxy:

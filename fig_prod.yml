@@ -4,7 +4,7 @@ elasticsearch:
     - "9200"
     - "9300"
   volumes:
-    - /data/easlitcsearch:/data
+    - /data/elasitcsearch:/data
 redis:
   image: redis
   ports:

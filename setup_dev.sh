@@ -23,7 +23,7 @@ elif [ $MODE == "code" ]; then
 
 	mkdir -p /opt/raintank/node_modules
 	cd /opt/raintank
-	for i in raintank-docker raintank-collector raintank-collector-ctrl raintank-workers raintank-metric grafana; do 
+	for i in raintank-docker raintank-collector raintank-collector-ctrl raintank-queue raintank-metric grafana; do 
 		if [ -d /opt/raintank/$i ]; then
 			cd /opt/raintank/$i
 			git fetch
@@ -53,20 +53,8 @@ elif [ $MODE == "code" ]; then
 	export GOPATH=/opt/raintank/go
 	export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
-	cd /opt/raintank/raintank-workers
-	if [ ! -e config.js ]; then
-        	cp /opt/raintank/raintank-docker/metric/config.js config.js
-        fi
-	go get -u github.com/raintank/raintank-metric
-	go install github.com/raintank/raintank-metric
-
-	if [ ! -e node_modules ] ; then
-		mkdir node_modules
-	fi
-	if [ ! -e node_modules/raintank-queue ]; then
-		ln -s /opt/raintank/node_modules/raintank-queue node_modules/raintank-queue
-	fi
-	npm install
+	#go get -u github.com/raintank/raintank-metric
+	#go install github.com/raintank/raintank-metric
 
 	cd /opt/raintank/grafana
 
@@ -79,7 +67,7 @@ elif [ $MODE == "code" ]; then
 	npm install -g grunt-cli
 	grunt
 
-	if [ ! -e conf/grafana.custom.ini ]; then
-		cp /opt/raintank/raintank-docker/grafana/grafana.custom.ini /opt/raintank/grafana/conf/
+	if [ ! -e conf/custom.ini ]; then
+		cp /opt/raintank/raintank-docker/grafana/custom.ini /opt/raintank/grafana/conf/
 	fi
 fi
