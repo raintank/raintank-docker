@@ -58,10 +58,11 @@ elif [ $MODE == "code" ]; then
 
 	cd /opt/raintank/grafana
 
-	mkdir -p /opt/raintank/go/src/github.com/grafana \
-    && ln -s /opt/raintank/grafana /opt/raintank/go/src/github.com/grafana/grafana \
-    && go run build.go setup \
-	&& go run build.go build
+	mkdir -p /opt/raintank/go/src/github.com/grafana
+	if [ ! -e /opt/raintank/go/src/github.com/grafana/grafana ]; then
+		ln -s /opt/raintank/grafana /opt/raintank/go/src/github.com/grafana/grafana
+	fi
+	go run build.go setup && go run build.go build
 	
 	npm install
 	npm install -g grunt-cli
