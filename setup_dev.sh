@@ -40,8 +40,8 @@ elif [ $MODE == "code" ]; then
 	fi
 
 	cd /opt/raintank/raintank-collector
-	if [ ! -e config.js ]; then
-		cp /opt/raintank/raintank-docker/collector/config.js config.js
+	if [ ! -e config/config.json ]; then
+		cp /opt/raintank/raintank-docker/collector/config/config.json config/config.json
 	fi
 	npm install
 
