@@ -27,7 +27,7 @@ cassandra:
   ports:
     - "9160"
     - "8888"
-kariosdb:
+kairosdb:
   image: raintank/kairosdb
   ports:
     - "4242"
