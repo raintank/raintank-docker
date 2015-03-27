@@ -11,6 +11,7 @@ redis:
     - "6379"
 rabbitmq:
   image: raintank/rabbitmq
+  command: /usr/lib/rabbitmq/lib/rabbitmq_server-3.5.0/sbin/rabbitmq-server
   ports:
     - "5672"
     - "15672"
