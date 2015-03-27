@@ -10,7 +10,7 @@ RUN pip install gunicorn Flask-Cache elasticsearch
 
 RUN echo 1424177507 \
     && pip install git+https://github.com/raintank/graphite-api.git \
-	&& pip install git+https://github.com/raintank/graphite-influxdb.git
+	&& pip install git+https://github.com/raintank/graphite-kairosdb.git
 
 RUN mkdir -p /var/lib/graphite
 EXPOSE 8888
