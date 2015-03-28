@@ -1,7 +1,9 @@
 FROM dockerfile/java:oracle-java7
 
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update && apt-get -y install python
+RUN apt-get update && apt-get -y install python supervisor
+
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # KairosDB
 ADD https://github.com/kairosdb/kairosdb/releases/download/v0.9.4/kairosdb_0.9.4-6_all.deb  /kairosdb_latest_all.deb
@@ -14,4 +16,4 @@ EXPOSE 4242 8080
 ADD start_kairosdb.py /usr/bin/start_kairosdb.py
 RUN chmod a+x /usr/bin/start_kairosdb.py
 
-CMD ["start_kairosdb.py"]
+CMD ["/usr/bin/supervisord"]
