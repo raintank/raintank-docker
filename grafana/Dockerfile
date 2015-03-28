@@ -4,11 +4,11 @@ RUN apt-get update && apt-get -y install supervisor libfontconfig1 libfreetype6 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 WORKDIR /opt/raintank
-RUN echo 1425289957 && git clone git://github.com/raintank/grafana.git
+RUN echo 1427269853 && git clone git://github.com/raintank/grafana.git
 
 ENV GOPATH /go
 
-RUN curl -SL https://storage.googleapis.com/golang/go1.4.linux-amd64.tar.gz \
+RUN curl -SL https://storage.googleapis.com/golang/go1.4.2.linux-amd64.tar.gz \
     | tar -xzC /usr/local
 
 ENV GOPATH /go

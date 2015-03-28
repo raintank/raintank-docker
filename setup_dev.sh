@@ -2,6 +2,7 @@
 
 BRANCH=$1
 MODE=$2
+GITHUBURL="https://github.com/"
 
 # set the default branch to master if one is not supplied.
 if [ x"$BRANCH" == "x" ]; then
@@ -31,7 +32,7 @@ elif [ $MODE == "code" ]; then
 			git pull
 		else
 			cd /opt/raintank
-			git clone -b $BRANCH git@github.com:raintank/$i.git
+			git clone -b $BRANCH ${GITHUBURL}raintank/$i.git
 		fi
 	done
 
@@ -41,7 +42,7 @@ elif [ $MODE == "code" ]; then
 
 	cd /opt/raintank/raintank-collector
 	if [ ! -e config/config.json ]; then
-		cp /opt/raintank/raintank-docker/collector/config/config.json config/config.json
+		cp /opt/raintank/raintank-docker/collector/config.json config/config.json
 	fi
 	npm install
 

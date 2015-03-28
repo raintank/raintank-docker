@@ -11,6 +11,7 @@ redis:
     - "6379"
 rabbitmq:
   image: raintank/rabbitmq
+  command: /usr/lib/rabbitmq/lib/rabbitmq_server-3.5.0/sbin/rabbitmq-server
   ports:
     - "5672"
     - "15672"
@@ -22,20 +23,20 @@ influxdb:
     - "2003"
   volumes:
     - /opt/influxdb/shared/data
-#cassandra:
-#  image: spotify/cassandra
-#  ports:
-#    - "9160"
-#    - "8888"
-#kariosdb:
-#  image: raintank/kairosdb
-#  ports:
-#    - "4242"
-#    - "8080"
-#  links:
-#    - cassandra:cassandra
-#  environment:
-#    KDB_HOST_LIST: cassandra:9160
+cassandra:
+  image: spotify/cassandra
+  ports:
+    - "9160"
+    - "8888"
+kairosdb:
+  image: raintank/kairosdb
+  ports:
+    - "4242"
+    - "8080"
+  links:
+    - cassandra:cassandra
+  environment:
+    KDB_HOST_LIST: cassandra:9160
 mysql:
   image: mysql
   ports:
@@ -54,7 +55,7 @@ graphiteApi:
   links:
     - elasticsearch:elasticsearch
     - influxdb:influxdb
-#    - kairosdb:kairosdb
+    - kairosdb:kairosdb
   environment:
     GRAPHITE_influxdb_host: influxdb
 grafana:
@@ -87,7 +88,7 @@ raintankMetric:
     - elasticsearch:elasticsearch
     - redis:redis
     - influxdb:influxdb
-#    - kairosdb:kairosdb
+    - kairosdb:kairosdb
   volumes:
     - /opt/raintank:/opt/raintank
 proxy:

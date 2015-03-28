@@ -2,16 +2,12 @@ cache:
   CACHE_DIR: /tmp/graphite-api-cache
   CACHE_TYPE: filesystem
 finders:
-- graphite_influxdb.InfluxdbFinder
+- graphite_kairosdb.KairosdbFinder
 functions:
 - graphite_api.functions.SeriesFunctions
 - graphite_api.functions.PieFunctions
-influxdb:
-  db: raintank
-  host: influxdb
-  pass: graphite
-  port: 8086
-  user: graphite
+kairosdb:
+  uri: http://kairosdb:8080
   es:
     url: http://elasticsearch:9200/
 search_index: /var/lib/graphite/index
