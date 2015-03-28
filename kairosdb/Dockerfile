@@ -16,4 +16,5 @@ EXPOSE 4242 8080
 ADD start_kairosdb.py /usr/bin/start_kairosdb.py
 RUN chmod a+x /usr/bin/start_kairosdb.py
 
+RUN mkdir -p /var/log/raintank
 CMD ["/usr/bin/supervisord"]
