@@ -1,0 +1,85 @@
+elasticsearch:
+  image: dockerfile/elasticsearch:latest
+  ports: 
+    - "9200"
+    - "9300"
+  volumes:
+    - /data
+redis:
+  image: redis
+  ports:
+    - "6379"
+rabbitmq:
+  image: raintank/rabbitmq
+  command: /usr/lib/rabbitmq/lib/rabbitmq_server-3.5.0/sbin/rabbitmq-server
+  ports:
+    - "5672"
+    - "15672"
+influxdb:
+  image: raintank/influxdb
+  ports:
+    - "8086"
+    - "8083"
+    - "2003"
+  volumes:
+    - /opt/influxdb/shared/data
+cassandra:
+  image: spotify/cassandra
+  ports:
+    - "9160"
+    - "8888"
+kairosdb:
+  image: raintank/kairosdb
+  ports:
+    - "4242"
+    - "8080"
+  links:
+    - cassandra:cassandra
+  environment:
+    KDB_HOST_LIST: cassandra:9160
+mysql:
+  image: mysql
+  ports:
+    - "3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: rootpass
+    MYSQL_DATABASE: grafana
+    MYSQL_USER: grafana
+    MYSQL_PASSWORD: password
+  volumes:
+    - /var/lib/mysql
+graphiteApi:
+  image: raintank/graphite-api
+  ports:
+    - "8888"
+  links:
+    - elasticsearch:elasticsearch
+    - influxdb:influxdb
+    - kairosdb:kairosdb
+  environment:
+    GRAPHITE_influxdb_host: influxdb
+grafana:
+  image: raintank/grafana
+  ports:
+    - "80"
+  links: 
+    - rabbitmq:rabbitmq
+    - graphiteApi:graphite-api
+    - mysql:mysql
+    - elasticsearch:elasticsearch
+  volumes:
+    - grafana/conf:/opt/raintank/grafana/conf
+    - /opt/raintank/grafana/data
+raintankMetric:
+  image: raintank/golang-metrics
+  links:
+    - rabbitmq:rabbitmq
+    - elasticsearch:elasticsearch
+    - redis:redis
+    - influxdb:influxdb
+    - kairosdb:kairosdb
+    - grafana:grafana
+raintankCollector:
+  image: raintank/collector
+  links:
+    - grafana:grafana
