@@ -19,9 +19,8 @@ RUN echo 1425289957 && mkdir -p /go/src/github.com/grafana \
     && go run build.go setup \
 	&& go run build.go build
 RUN echo 1425289957 &&  npm install && npm install -g grunt-cli && grunt
-RUN apt-get update && apt-get install -y mysql-client
 
-EXPOSE 3000
+EXPOSE 80
 
 RUN mkdir -p /var/log/raintank
 

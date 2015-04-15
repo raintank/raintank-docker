@@ -61,7 +61,7 @@ graphiteApi:
 grafana:
   image: raintank/grafana
   ports:
-    - "3000"
+    - "80"
   links: 
     - rabbitmq:rabbitmq
     - graphiteApi:graphite-api
@@ -71,16 +71,6 @@ grafana:
     - /opt/raintank:/opt/raintank
     - grafana/conf:/opt/raintank/grafana/conf
     - /opt/raintank/grafana/data
-raintankCollectorCtrl:
-  image: raintank/collector-ctrl
-  links:
-    - rabbitmq:rabbitmq
-    - grafana:grafana
-    - redis:redis
-  ports:
-    - "8181"
-  volumes:
-    - /opt/raintank:/opt/raintank
 raintankMetric:
   image: raintank/golang-metrics
   links:
@@ -89,22 +79,12 @@ raintankMetric:
     - redis:redis
     - influxdb:influxdb
     - kairosdb:kairosdb
+    - grafana:grafana
   volumes:
     - /opt/raintank:/opt/raintank
-proxy:
-  image: dockerfile/nginx
-  ports:
-    - "80:80"
-    - "8181:8181"
-  links:
-    - grafana:grafana
-    - raintankCollectorCtrl:collector-ctrl
-  volumes:
-    - proxy/sites:/etc/nginx/sites-enabled
 raintankCollector:
   image: raintank/collector
   links:
-    - raintankCollectorCtrl:collector-ctrl
     - grafana:grafana
   volumes:
     - /opt/raintank:/opt/raintank
