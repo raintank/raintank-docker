@@ -61,7 +61,7 @@ graphiteApi:
 grafana:
   image: raintank/grafana
   ports:
-    - "80"
+    - "80:80"
   links: 
     - rabbitmq:rabbitmq
     - graphiteApi:graphite-api
