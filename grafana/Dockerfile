@@ -18,7 +18,7 @@ RUN echo 1425289957 && mkdir -p /go/src/github.com/grafana \
     && ln -s /opt/raintank/grafana /go/src/github.com/grafana/grafana \
     && go run build.go setup \
 	&& go run build.go build
-RUN echo 1425289957 &&  npm install && npm install -g grunt-cli && grunt
+RUN echo 1425289957 &&  npm install && npm install -g grunt-cli && grunt build
 
 EXPOSE 80
 
