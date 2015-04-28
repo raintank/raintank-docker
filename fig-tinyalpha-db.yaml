@@ -3,6 +3,8 @@ cassandra:
   ports:
     - "9160"
     - "8888"
+  volumes:
+    - /var/lib/cassandra
 kairosdb:
   image: raintank/kairosdb
   ports:
