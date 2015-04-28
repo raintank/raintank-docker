@@ -25,7 +25,6 @@ screen -S raintank -X screen -t graphite-api docker exec -t -i raintankdocker_gr
 #grafana
 screen -S raintank -X screen -t grafana docker exec -t -i raintankdocker_grafana_1 bash
 
-
 #raintank-metric - this app consumes the metric data written to the message queue and sends it to influxdb.  The app also performs threshold checking and data roll-ups
 screen -S raintank -X screen -t metric docker exec -t -i raintankdocker_raintankMetric_1 bash
 
