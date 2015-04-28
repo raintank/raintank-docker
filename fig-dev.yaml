@@ -61,7 +61,7 @@ grafana:
     - elasticsearch:elasticsearch
   volumes:
     - /opt/raintank/grafana:/go/src/github.com/raintank/grafana
-    - grafana/conf:/go/src/github.com/raintank/grafana/conf
+    - grafana/conf:/etc/grafana/
     - /go/src/github.com/raintank/grafana/data
 raintankMetric:
   image: raintank/golang-metrics
@@ -73,9 +73,10 @@ raintankMetric:
     - grafana:grafana
   volumes:
     - /opt/raintank/raintank-metric:/go/src/github.com/raintank/raintank-metric
+    - golang-metrics/conf:/etc/raintank/
 raintankCollector:
   image: raintank/collector
   links:
     - grafana:grafana
   volumes:
-    - /opt/raintank:/opt/raintank
+    - /opt/raintank/collector:/opt/raintank/collector
