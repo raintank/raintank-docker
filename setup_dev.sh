@@ -36,29 +36,21 @@ elif [ $MODE == "code" ]; then
 		fi
 	done
 
+	# start collector
 	cd /opt/raintank/raintank-collector
 	if [ ! -e config/config.json ]; then
 		cp /opt/raintank/raintank-docker/collector/config.json config/config.json
 	fi
 	npm install
+	# end Collector
 
-
+	# install go
 	curl -SL https://storage.googleapis.com/golang/go1.4.linux-amd64.tar.gz | tar -xzC /usr/local
-
-	export GOPATH=/opt/raintank/go
+	export GOPATH=/go
 	export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
-
-	#go get -u github.com/raintank/raintank-metric
-	#go install github.com/raintank/raintank-metric
+	# end 
 
 	cd /opt/raintank/grafana
-
-	mkdir -p /opt/raintank/go/src/github.com/grafana
-	if [ ! -e /opt/raintank/go/src/github.com/grafana/grafana ]; then
-		ln -s /opt/raintank/grafana /opt/raintank/go/src/github.com/grafana/grafana
-	fi
-	go run build.go setup && go run build.go build
-	
 	npm install
 	npm install -g grunt-cli
 	grunt

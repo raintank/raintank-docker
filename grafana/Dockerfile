@@ -14,14 +14,14 @@ RUN ln -s /go/src/github.com/raintank/grafana /go/src/github.com/grafana/grafana
 
 ENV GOPATH /go
 ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
+RUN go get github.com/raintank/grafana
 WORKDIR /go/src/github.com/raintank/grafana
-RUN go run build.go setup \
-	&& go run build.go build
 RUN npm install && npm install -g grunt-cli && grunt build
 
 EXPOSE 80
 EXPOSE 443
 
 RUN mkdir -p /var/log/raintank
+COPY conf/custom.ini /etc/grafana/custom.ini
 
 CMD ["/usr/bin/supervisord"]
