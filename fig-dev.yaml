@@ -70,7 +70,6 @@ raintankMetric:
     - elasticsearch:elasticsearch
     - redis:redis
     - kairosdb:kairosdb
-    - grafana:grafana
   volumes:
     - /opt/raintank/raintank-metric:/go/src/github.com/raintank/raintank-metric
     - golang-metrics/conf:/etc/raintank/
@@ -79,4 +78,4 @@ raintankCollector:
   links:
     - grafana:grafana
   volumes:
-    - /opt/raintank/collector:/opt/raintank/collector
+    - /opt/raintank/raintank-collector:/opt/raintank/raintank-collector
