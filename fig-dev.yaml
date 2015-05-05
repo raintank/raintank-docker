@@ -60,7 +60,7 @@ grafana:
     - mysql:mysql
     - elasticsearch:elasticsearch
   volumes:
-    - /opt/raintank/grafana:/go/src/github.com/raintank/grafana
+    - raintank_code/grafana:/go/src/github.com/raintank/grafana
     - grafana/conf:/etc/grafana/
     - /go/src/github.com/raintank/grafana/data
 raintankMetric:
@@ -71,11 +71,11 @@ raintankMetric:
     - redis:redis
     - kairosdb:kairosdb
   volumes:
-    - /opt/raintank/raintank-metric:/go/src/github.com/raintank/raintank-metric
+    - raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
     - golang-metrics/conf:/etc/raintank/
 raintankCollector:
   image: raintank/collector
   links:
     - grafana:grafana
   volumes:
-    - /opt/raintank/raintank-collector:/opt/raintank/raintank-collector
+    - raintank_code/raintank-collector:/opt/raintank/raintank-collector

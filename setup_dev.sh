@@ -6,6 +6,7 @@ GITHUBURL="https://github.com/"
 BRANCH=${1:-master}
 MODE=${2:-docker}
 
+# important: if you change this, you must also update fig-dev.yaml accordingly
 RT_CODE="$(pwd)/raintank_code"
 
 if [ "$MODE" == "docker" ]; then
