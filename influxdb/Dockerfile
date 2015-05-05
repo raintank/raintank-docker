@@ -1,5 +1,6 @@
 FROM library/ubuntu
 
+RUN apt-get update && apt-get -y install curl
 RUN mkdir -p /opt/influxdb/shared/data
 
 ADD http://s3.amazonaws.com/influxdb/influxdb_latest_amd64.deb /influxdb.deb

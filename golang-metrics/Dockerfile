@@ -1,6 +1,6 @@
 FROM raintank/nodejs
 
-RUN apt-get update && apt-get -y install supervisor
+RUN apt-get update && apt-get -y install supervisor curl
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 ENV GOPATH /go
