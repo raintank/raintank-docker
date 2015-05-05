@@ -1,9 +1,9 @@
+#!/bin/bash
 ## Launch development environment using docker and screen.
 #
 # USAGE
 # 
-# run this script,
-#   sh launch.sh
+#   ./launch.sh
 #
 # once it has completed, attach to the raintank screen session
 #   screen -r raintank
