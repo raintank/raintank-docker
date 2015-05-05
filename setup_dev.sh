@@ -6,12 +6,14 @@ GITHUBURL="https://github.com/"
 BRANCH=${1:-master}
 MODE=${2:-docker}
 
+RT_CODE="$(pwd)/raintank_code"
+
 if [ "$MODE" == "docker" ]; then
 	DIR=$(dirname $0)
 	DIR=$(readlink -e $DIR)
 	SCRIPT=$(basename $0)
-	mkdir -p /opt/raintank
-	docker run --rm -t -i -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK -v $DIR:/tmp/scripts -v /opt/raintank:/opt/raintank -v /root:/root raintank/nodejs /tmp/scripts/$SCRIPT $BRANCH code
+	mkdir -p $RT_CODE
+	docker run --rm -t -i -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK -v $DIR:/tmp/scripts -v $RT_CODE:/opt/raintank -v /root:/root raintank/nodejs /tmp/scripts/$SCRIPT $BRANCH code
 
 elif [ $MODE == "code" ]; then
 
