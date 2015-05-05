@@ -1,4 +1,4 @@
-FROM dockerfile/ubuntu
+FROM library/ubuntu
 
 RUN mkdir -p /opt/influxdb/shared/data
 

@@ -1,4 +1,4 @@
-FROM dockerfile/ubuntu
+FROM library/ubuntu
 
 RUN apt-get update && apt-get -y upgrade
 
