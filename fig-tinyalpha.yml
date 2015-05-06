@@ -1,5 +1,5 @@
 elasticsearch:
-  image: dockerfile/elasticsearch:latest
+  image: library/elasticsearch:latest
   ports: 
     - "9200"
     - "9300"

@@ -1,24 +1,20 @@
 #!/bin/bash
 
-BRANCH=$1
-MODE=$2
 GITHUBURL="https://github.com/"
 
 # set the default branch to master if one is not supplied.
-if [ x"$BRANCH" == "x" ]; then
-	BRANCH=master
-fi
+BRANCH=${1:-master}
+MODE=${2:-docker}
 
-if [ x"$MODE" == "x" ]; then
-	MODE=docker
-fi
+# important: if you change this, you must also update fig-dev.yaml accordingly
+RT_CODE="$(pwd)/raintank_code"
 
 if [ "$MODE" == "docker" ]; then
 	DIR=$(dirname $0)
 	DIR=$(readlink -e $DIR)
 	SCRIPT=$(basename $0)
-	mkdir -p /opt/raintank
-	docker run --rm -t -i -v $DIR:/tmp/scripts -v /opt/raintank:/opt/raintank -v /root:/root raintank/nodejs /tmp/scripts/$SCRIPT $BRANCH code
+	mkdir -p $RT_CODE
+	docker run --rm -t -i -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK -v $DIR:/tmp/scripts -v $RT_CODE:/opt/raintank -v /root:/root raintank/nodejs /tmp/scripts/$SCRIPT $BRANCH code
 
 elif [ $MODE == "code" ]; then
 

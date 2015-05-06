@@ -1,6 +1,6 @@
 FROM raintank/nodejs
 
-RUN apt-get update && apt-get -y install supervisor libfontconfig1 libfreetype6 libjpeg8 libstdc++6
+RUN apt-get update && apt-get -y install supervisor libfontconfig1 libfreetype6 libjpeg8 libstdc++6 curl
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 ENV GOPATH /go

@@ -1,4 +1,4 @@
-FROM dockerfile/java:oracle-java7
+FROM library/java:7
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get -y install python supervisor
