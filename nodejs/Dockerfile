@@ -1,8 +1,6 @@
 FROM library/ubuntu
 
-RUN apt-get update && apt-get -y upgrade
-
-RUN apt-get -y install nodejs nodejs-legacy nodejs-dev npm git curl
+RUN apt-get update && apt-get -y upgrade && apt-get -y install nodejs nodejs-legacy nodejs-dev npm git curl
 
 # target directory for all applications
 RUN mkdir /opt/raintank
