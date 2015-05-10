@@ -14,14 +14,25 @@ if [ "$MODE" == "docker" ]; then
 	DIR=$(readlink -e $DIR)
 	SCRIPT=$(basename $0)
 	mkdir -p $RT_CODE
-	docker run --rm -t -i -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK -v $DIR:/tmp/scripts -v $RT_CODE:/opt/raintank -v /root:/root raintank/nodejs /tmp/scripts/$SCRIPT $BRANCH code
+
+	maps=("-v" $SSH_AUTH_SOCK:$SSH_AUTH_SOCK "-v" "$DIR:/tmp/scripts" "-v" "/root:/root")
+	cd $RT_CODE
+	for i in *; do
+		maps=("${maps[@]}" "-v" "$RT_CODE/$i:/opt/raintank/$i")
+	done
+	cd -
+	docker run --rm -t -i -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK "${maps[@]}" raintank/nodejs /tmp/scripts/$SCRIPT $BRANCH code
 
 elif [ $MODE == "code" ]; then
 
 	mkdir -p /opt/raintank/node_modules
 	cd /opt/raintank
 	for i in raintank-docker raintank-collector raintank-metric grafana; do 
-		if [ -d /opt/raintank/$i ]; then
+		echo "> processing code for $i"
+		if [ -f /opt/raintank/$i/.notouch ]; then
+			echo "Skipping due to .notouch"
+			continue
+		elif [ -d /opt/raintank/$i ]; then
 			cd /opt/raintank/$i
 			git fetch
 			git checkout $BRANCH
