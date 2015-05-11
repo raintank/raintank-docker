@@ -15,13 +15,17 @@ if [ "$MODE" == "docker" ]; then
 	SCRIPT=$(basename $0)
 	mkdir -p $RT_CODE
 
-	maps=("-v" $SSH_AUTH_SOCK:$SSH_AUTH_SOCK "-v" "$DIR:/tmp/scripts" "-v" "/root:/root")
+	args=("-v" "$DIR:/tmp/scripts" "-v" "/root:/root")
 	cd $RT_CODE
 	for i in *; do
-		maps=("${maps[@]}" "-v" "$RT_CODE/$i:/opt/raintank/$i")
+		args=("${args[@]}" "-v" "$RT_CODE/$i:/opt/raintank/$i")
 	done
 	cd -
-	docker run --rm -t -i -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK "${maps[@]}" raintank/nodejs /tmp/scripts/$SCRIPT $BRANCH code
+	if [ -n "$SSH_AUTH_SOCK" ]; then
+		args=("${args[@]}" "-v" $SSH_AUTH_SOCK:$SSH_AUTH_SOCK -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK)
+	fi
+
+	docker run --rm -t -i "${args[@]}" raintank/nodejs /tmp/scripts/$SCRIPT $BRANCH code
 
 elif [ $MODE == "code" ]; then
 
