@@ -16,6 +16,7 @@ ENV GOPATH /go
 ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
 RUN go get github.com/raintank/grafana
 RUN go get github.com/Unknwon/bra
+RUN go get github.com/tools/godep
 WORKDIR /go/src/github.com/raintank/grafana
 RUN npm install && npm install -g grunt-cli && grunt build
 
