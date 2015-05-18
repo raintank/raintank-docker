@@ -2,16 +2,20 @@
 ## Launch development environment using docker and screen.
 #
 # USAGE
-# 
+#
 #   ./launch.sh
 #
 # once it has completed, attach to the raintank screen session
 #   screen -r raintank
 #
 # there will now be a screen window for each of the running components, and an additional screen window running a shell.
-# You can 
 #
 
+if screen -ls | grep -q '[0-9]\.raintank[[:space:]]'; then
+  echo "Running devstack screen session detected!" >&2
+  echo "You probably want to run ./stop_dev.sh first!" >&2
+  exit 2
+fi
 #elasticSearch
 docker-compose -f fig-dev.yaml up -d
 sleep 5
