@@ -1,9 +1,9 @@
 #!/bin/bash
 
 function build () {
+	[ -e $1/build.sh -o -e $1/Dockerfile ] || return
 	local service=$1
 	cd $service
-	[ -e build.sh -o -e Dockerfile ] || continue
 	echo "##### $service ####"
 	if [ -e build.sh ]; then
 		echo "##### -> ./build.sh"
