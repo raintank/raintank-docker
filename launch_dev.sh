@@ -47,7 +47,8 @@ screen -S raintank -X screen -t mysql-cli docker exec -t -i $(docker ps | awk '/
 
 sleep 5
 screen -S raintank -p graphite-api -X stuff 'tail -10f /var/log/raintank/graphite-api.log\n'
-screen -S raintank -p grafana -X stuff 'supervisorctl restart all; tail -10f /var/log/raintank/grafana.log\n'
+screen -S raintank -p mysql -X stuff 'INSERT INTO api_key (`org_id`,`name`,`key`,`role`,`is_admin`,`created`,`updated`) VALUES (1,"devstack-admin","bcc429f8b9b2a0f5e5fef92416a4f24e8abd3332a619d33e8961db21cefe4a9b0ed81369dbdc6a800063aba2731256aa67fc","Admin",0,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);\n'
+screen -S raintank -p grafana -X stuff 'supervisorctl restart all; sleep 5; /tmp/create-influxdb-dev-datasource.sh &> /var/log/raintank/grafana.log; tail -10f /var/log/raintank/grafana.log\n'
 screen -S raintank -p metric -X stuff 'tail -10f /var/log/raintank/metric.log\n'
 screen -S raintank -p collector -X stuff 'supervisorctl restart all; tail -10f /var/log/raintank/collector.log\n'
 screen -S raintank -p statsdaemon -X stuff 'tail -f /var/log/statsdaemon.log\n'

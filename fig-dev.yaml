@@ -62,11 +62,13 @@ grafana:
   ports:
     - "80:80"
     - "443:443"
-  links: 
+  links:
     - rabbitmq:rabbitmq
     - graphiteApi:graphite-api
     - mysql:mysql
     - elasticsearch:elasticsearch
+    - influxdb:influxdb
+    - statsdaemon:statsdaemon
   volumes:
     - raintank_code/grafana:/go/src/github.com/raintank/grafana
     - grafana/conf:/etc/grafana/
