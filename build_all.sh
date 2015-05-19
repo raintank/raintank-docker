@@ -20,6 +20,11 @@ function build () {
 	cd ..
 }
 
+if [ -n "$1" ]; then
+  build $1
+  exit 0
+fi
+
 # first build containers on which others depend
 build nodejs
 
