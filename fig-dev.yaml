@@ -14,6 +14,14 @@ rabbitmq:
   ports:
     - "5672"
     - "15672"
+influxdb:
+  image: raintank/influxdb
+  ports:
+    - "8086"
+    - "8083"
+    - "2003"
+  volumes:
+    - /opt/influxdb/shared/data
 cassandra:
   image: spotify/cassandra
   ports:
@@ -45,6 +53,7 @@ graphiteApi:
     - "8888"
   links:
     - elasticsearch:elasticsearch
+    - influxdb:influxdb
     - kairosdb:kairosdb
   environment:
     GRAPHITE_kairosdb_uri: http://kairosdb:8080
@@ -78,3 +87,7 @@ raintankCollector:
     - grafana:grafana
   volumes:
     - raintank_code/raintank-collector:/opt/raintank/raintank-collector
+statsdaemon:
+  image: raintank/statsdaemon
+  links:
+    - influxdb:influxdb

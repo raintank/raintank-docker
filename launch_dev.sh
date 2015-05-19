@@ -29,6 +29,12 @@ screen -S raintank -X screen -t graphite-api docker exec -t -i raintankdocker_gr
 #grafana
 screen -S raintank -X screen -t grafana docker exec -t -i raintankdocker_grafana_1 bash
 
+#statsdaemon
+screen -S raintank -X screen -t statsdaemon docker exec -t -i raintankdocker_statsdaemon_1 bash
+
+#influxdb
+screen -S raintank -X screen -t influxdb docker exec -t -i raintankdocker_influxdb_1 bash
+
 
 #raintank-metric - this app consumes the metric data written to the message queue and sends it to influxdb.  The app also performs threshold checking and data roll-ups
 screen -S raintank -X screen -t metric docker exec -t -i raintankdocker_raintankMetric_1 bash
@@ -44,5 +50,7 @@ screen -S raintank -p graphite-api -X stuff 'tail -10f /var/log/raintank/graphit
 screen -S raintank -p grafana -X stuff 'supervisorctl restart all; tail -10f /var/log/raintank/grafana.log\n'
 screen -S raintank -p metric -X stuff 'tail -10f /var/log/raintank/metric.log\n'
 screen -S raintank -p collector -X stuff 'supervisorctl restart all; tail -10f /var/log/raintank/collector.log\n'
+screen -S raintank -p statsdaemon -X stuff 'tail -f /var/log/statsdaemon.log\n'
+screen -S raintank -p influxdb -X stuff 'tail -f /opt/influxdb/shared/log.txt\n'
 
 screen -r raintank
