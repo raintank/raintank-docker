@@ -33,9 +33,6 @@ screen -S raintank -X screen -t grafana docker exec -t -i raintankdocker_grafana
 #raintank-metric - this app consumes the metric data written to the message queue and sends it to influxdb.  The app also performs threshold checking and data roll-ups
 screen -S raintank -X screen -t metric docker exec -t -i raintankdocker_raintankMetric_1 bash
 
-#raintank-collector - this is an instance of an edge collector.
-screen -S raintank -X screen -t collector docker exec -t -i raintankdocker_raintankCollector_1 bash
-
 # open a mysql cli for convenience
 screen -S raintank -X screen -t mysql-cli docker exec -t -i $(docker ps | awk '/raintankdocker_mysql_1/ {print $1}') mysql -prootpass grafana
 
@@ -43,6 +40,9 @@ sleep 5
 screen -S raintank -p graphite-api -X stuff 'tail -10f /var/log/raintank/graphite-api.log\n'
 screen -S raintank -p grafana -X stuff 'supervisorctl restart all; tail -10f /var/log/raintank/grafana.log\n'
 screen -S raintank -p metric -X stuff 'tail -10f /var/log/raintank/metric.log\n'
-screen -S raintank -p collector -X stuff 'supervisorctl restart all; tail -10f /var/log/raintank/collector.log\n'
+
+#raintank-collector - this is an instance of an edge collector.
+./launch_dev_collector.sh dev-1
+
 
 screen -r
