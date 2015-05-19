@@ -45,4 +45,4 @@ screen -S raintank -p grafana -X stuff 'supervisorctl restart all; tail -10f /va
 screen -S raintank -p metric -X stuff 'tail -10f /var/log/raintank/metric.log\n'
 screen -S raintank -p collector -X stuff 'supervisorctl restart all; tail -10f /var/log/raintank/collector.log\n'
 
-screen -r
+screen -r raintank
