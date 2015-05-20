@@ -1,7 +1,7 @@
 elasticsearch:
   image: library/elasticsearch:latest
-  ports: 
-    - "9200"
+  ports:
+    - "9200:9200"
     - "9300"
   volumes:
     - /data
@@ -17,8 +17,8 @@ rabbitmq:
 influxdb:
   image: raintank/influxdb
   ports:
-    - "8086"
-    - "8083"
+    - "8086:8086"
+    - "8083:8083"
     - "2003"
   volumes:
     - /opt/influxdb/shared/data
@@ -91,5 +91,7 @@ raintankCollector:
     - raintank_code/raintank-collector:/opt/raintank/raintank-collector
 statsdaemon:
   image: raintank/statsdaemon
+  ports:
+    - "8126:8126"
   links:
     - influxdb:influxdb
