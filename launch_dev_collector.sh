@@ -4,7 +4,7 @@
 
 id=$1
 [ -n "$id" ] || id=$(mktemp -u XXXXXXXXXXX)
-docker_name=raintankdocker_raintankMetric_$id
+docker_name=raintankdocker_raintankCollector_$id
 
 eval $(grep ^RT_CODE setup_dev.sh)
 
