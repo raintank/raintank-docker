@@ -9,7 +9,7 @@ docker_name=raintankdocker_raintankCollector_$id
 eval $(grep ^RT_CODE setup_dev.sh)
 
 docker run --link=raintankdocker_grafana_1:grafana \
-           -v $RT_CODE:/opt/raintank/raintank-collector \
+           -v $RT_CODE/raintank-collector:/opt/raintank/raintank-collector \
            -e RAINTANK_collector_name=$id -d \
            --name=$docker_name \
            raintank/collector
