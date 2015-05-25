@@ -13,10 +13,11 @@ RUN echo 1424177507 \
 RUN mkdir -p /var/lib/graphite
 EXPOSE 8888
 ADD graphite-api.yaml /etc/graphite-api.yaml
-RUN mkdir /log
-VOLUME /log
+
 ADD start-graphite.py /usr/bin/start-graphite.py
 RUN chmod a+x /usr/bin/start-graphite.py
 
 RUN mkdir -p /var/log/raintank
+VOLUME /var/log/raintank
+
 CMD ["/usr/bin/supervisord"]
