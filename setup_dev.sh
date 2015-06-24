@@ -49,22 +49,18 @@ elif [ $MODE == "code" ]; then
 		fi
 	done
 
-	# start collector
+  echo "> collector > assuring config"
 	cd /opt/raintank/raintank-collector
 	if [ ! -e config/config.json ]; then
 		cp /opt/raintank/raintank-docker/collector/config.json config/config.json
 	fi
-
 	echo "> collector > npm install"
 	npm install
-	# end Collector
 
-	# install go
 	echo "> installing go"
 	curl -SL https://storage.googleapis.com/golang/go1.4.linux-amd64.tar.gz | tar -xzC /usr/local
 	export GOPATH=/go
 	export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
-	# end
 
 	echo "> grafana > npm install"
 	cd /opt/raintank/grafana
@@ -73,6 +69,7 @@ elif [ $MODE == "code" ]; then
 	echo "> grafana > grunt"
 	grunt
 
+  echo "> grafana > assuring config"
 	if [ ! -e conf/custom.ini ]; then
 		cp /opt/raintank/raintank-docker/grafana/conf/custom.ini /opt/raintank/grafana/conf/
 	fi
