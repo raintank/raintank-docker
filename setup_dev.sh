@@ -49,18 +49,18 @@ elif [ $MODE == "code" ]; then
 		fi
 	done
 
+	echo "> installing go"
+	curl -SL https://storage.googleapis.com/golang/go1.4.linux-amd64.tar.gz | tar -xzC /usr/local
+	export GOPATH=/go
+	export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+
   echo "> collector > assuring config"
 	cd /opt/raintank/raintank-collector
 	if [ ! -e etc/raintank.json ]; then
 		cp /opt/raintank/raintank-docker/collector/config.json etc/raintank.json
 	fi
-	echo "> collector > npm install"
-	npm install
-
-	echo "> installing go"
-	curl -SL https://storage.googleapis.com/golang/go1.4.linux-amd64.tar.gz | tar -xzC /usr/local
-	export GOPATH=/go
-	export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+	echo "> collector > build"
+	./build.sh
 
 	echo "> grafana > npm install"
 	cd /opt/raintank/grafana
