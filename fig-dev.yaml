@@ -83,12 +83,6 @@ raintankMetric:
   volumes:
     - raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
     - golang-metrics/conf:/etc/raintank/
-raintankCollector:
-  image: raintank/collector
-  links:
-    - grafana:grafana
-  volumes:
-    - raintank_code/raintank-collector:/opt/raintank/raintank-collector
 statsdaemon:
   image: raintank/statsdaemon
   ports:
