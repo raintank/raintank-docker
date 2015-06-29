@@ -13,7 +13,7 @@ rabbitmq:
   image: raintank/rabbitmq
   ports:
     - "5672"
-    - "15672"
+    - "15672:15672"
 influxdb:
   image: raintank/influxdb
   ports:
