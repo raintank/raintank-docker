@@ -6,9 +6,8 @@ RUN apt-get update && apt-get -y install python supervisor
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # KairosDB
-ADD https://github.com/kairosdb/kairosdb/releases/download/v0.9.4/kairosdb_0.9.4-6_all.deb  /kairosdb_latest_all.deb
-RUN dpkg -i /kairosdb_latest_all.deb
-RUN rm -f /kairosdb_latest_all.deb
+RUN curl --location https://github.com/kairosdb/kairosdb/releases/download/v0.9.4/kairosdb_0.9.4-6_all.deb -o /kairosdb_all.deb
+RUN dpkg -i /kairosdb_all.deb && rm -f /kairosdb_all.deb
 
 ADD kairosdb.properties /opt/kairosdb/conf/kairosdb.properties.tmpl
 EXPOSE 4242 8080
