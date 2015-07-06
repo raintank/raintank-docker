@@ -63,17 +63,13 @@ elif [ $MODE == "code" ]; then
 	./build.sh
 
   echo "> grafana >config fix"
- cp /opt/raintank/grafana/conf/custom.ini /opt/raintank/grafana/conf/custom.ini.backup
- cp -ax /opt/raintank/raintank-docker/grafana-dev/conf/custom.ini /opt/raintank/grafana/conf/custom.ini
-	echo "> grafana > npm install"
 	cd /opt/raintank/grafana
+ cp conf/custom.ini conf/custom.ini.backup
+ cp -ax /opt/raintank/raintank-docker/grafana-dev/conf/custom.ini conf/custom.ini
+	echo "> grafana > npm install"
 	npm install
 	npm install -g grunt-cli
 	echo "> grafana > grunt"
 	grunt
 
-  echo "> grafana > assuring config"
-	if [ ! -e conf/custom.ini ]; then
-		cp /opt/raintank/raintank-docker/grafana/conf/custom.ini /opt/raintank/grafana/conf/
-	fi
 fi
