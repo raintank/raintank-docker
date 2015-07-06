@@ -62,6 +62,9 @@ elif [ $MODE == "code" ]; then
 	echo "> collector > build"
 	./build.sh
 
+  echo "> grafana >config fix"
+ cp /opt/raintank/grafana/conf/custom.ini /opt/raintank/grafana/conf/custom.ini.backup
+ cp -ax /opt/raintank/raintank-docker/grafana-dev/conf/custom.ini /opt/raintank/grafana/conf/custom.ini
 	echo "> grafana > npm install"
 	cd /opt/raintank/grafana
 	npm install

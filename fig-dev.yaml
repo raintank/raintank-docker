@@ -58,7 +58,7 @@ graphiteApi:
   environment:
     GRAPHITE_kairosdb_uri: http://kairosdb:8080
 grafana:
-  image: raintank/grafana
+  image: raintank/grafana-dev
   ports:
     - "80:80"
     - "443:443"
