@@ -17,8 +17,9 @@ if [ "$MODE" == "docker" ]; then
 
 	args=("-v" "$DIR:/tmp/scripts" "-v" "/root:/root")
 	cd $RT_CODE
+  args=("${args[@]}" "-v" "$DIR:/opt/raintank/raintank-docker")
   # assure the directories exist (irrespective of what we'll do with them, see below) so we can set up the volumes
-	for i in raintank-docker raintank-collector raintank-metric grafana; do
+	for i in raintank-collector raintank-metric grafana; do
 	  mkdir -p $i
 		args=("${args[@]}" "-v" "$RT_CODE/$i:/opt/raintank/$i")
 	done
@@ -33,7 +34,7 @@ elif [ $MODE == "code" ]; then
 
 	mkdir -p /opt/raintank/node_modules
 	cd /opt/raintank
-	for i in raintank-docker raintank-collector raintank-metric grafana; do
+	for i in raintank-collector raintank-metric grafana; do
 		echo "> processing code for $i"
 		if [ -f /opt/raintank/$i/.notouch ]; then
 			echo "Skipping due to .notouch"
