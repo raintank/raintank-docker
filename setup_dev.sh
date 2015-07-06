@@ -27,7 +27,7 @@ if [ "$MODE" == "docker" ]; then
 		args=("${args[@]}" "-v" $SSH_AUTH_SOCK:$SSH_AUTH_SOCK -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK)
 	fi
 
-	docker run --rm -t -i "${args[@]}" raintank/nodejs /tmp/scripts/$SCRIPT $BRANCH code
+	docker run --rm -t -i "${args[@]}" raintank/nodejsgo /tmp/scripts/$SCRIPT $BRANCH code
 
 elif [ $MODE == "code" ]; then
 
@@ -49,8 +49,7 @@ elif [ $MODE == "code" ]; then
 		fi
 	done
 
-	echo "> installing go"
-	curl -SL https://storage.googleapis.com/golang/go1.4.linux-amd64.tar.gz | tar -xzC /usr/local
+	echo "> configuring go"
 	export GOPATH=/go
 	export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 

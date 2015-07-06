@@ -27,10 +27,11 @@ fi
 
 # first build containers on which others depend
 build nodejs
+build nodejsgo
 build grafana
 
 # then build the rest
 for i in *; do
-	[ -d $i ] && [[ $i != nodejs ]] && [[ $i != grafana ]]&& build $i
+	[ -d $i ] && [[ $i != nodejs ]] && [[ $i != nodejsgo ]] && [[ $i != grafana ]] && build $i
 done
 exit 0
