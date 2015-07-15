@@ -6,6 +6,7 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 ENV GOPATH /go
 ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
 RUN go get -u github.com/raintank/raintank-metric
+RUN go get github.com/Unknwon/bra
 
 COPY conf/raintank.conf /etc/raintank-metric/raintank.conf
 
