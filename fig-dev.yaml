@@ -75,6 +75,8 @@ grafana:
     - /go/src/github.com/raintank/grafana/data
 raintankMetric:
   image: raintank/golang-metrics
+  ports:
+    - "8765:8765"
   links:
     - rabbitmq:rabbitmq
     - elasticsearch:elasticsearch
