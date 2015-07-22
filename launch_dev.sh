@@ -44,7 +44,7 @@ screen -S raintank -X screen -t mysql-cli docker exec -t -i $(docker ps | awk '/
 
 sleep 5
 screen -S raintank -p graphite-api -X stuff 'tail -10f /var/log/raintank/graphite-api.log\n'
-screen -S raintank -p grafana -X stuff '/tmp/create-influxdb-dev-datasource.sh &> /var/log/raintank/create-influxdb-datasource.log; tail -10f /var/log/raintank/*\n'
+screen -S raintank -p grafana -X stuff '/tmp/create-influxdb-dev-datasource.sh &> /var/log/raintank/create-influxdb-datasource.log; tail -f /var/log/raintank/*\n'
 screen -S raintank -p metric -X stuff 'tail -10f /var/log/raintank/metric.log\n'
 screen -S raintank -p statsdaemon -X stuff 'tail -f /var/log/statsdaemon.log\n'
 screen -S raintank -p influxdb -X stuff 'tail -f /opt/influxdb/shared/log.txt\n'
