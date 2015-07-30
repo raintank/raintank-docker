@@ -15,4 +15,5 @@ docker run --link=raintankdocker_grafana_1:grafana \
            raintank/collector
 
 screen -S raintank -X screen -t collector-$id docker exec -t -i $docker_name bash
-screen -S raintank -p collector-$id -X stuff 'supervisorctl restart all; tail -10f /var/log/raintank/*\n'
+screen -S raintank -p collector-$id -X stuff 'supervisorctl restart all; touch /var/log/raintank/collector.log\n'
+screen -S raintank -p collector-$id -X stuff 'tail -10f /var/log/raintank/collector.log\n'
