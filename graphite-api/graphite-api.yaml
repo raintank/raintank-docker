@@ -7,7 +7,10 @@ functions:
 - graphite_api.functions.SeriesFunctions
 - graphite_api.functions.PieFunctions
 kairosdb:
-  uri: http://kairosdb:8080
+  cassandra:
+    hosts:
+      - cassandra
+    port: 9042
   es:
     url: http://elasticsearch:9200/
 search_index: /var/lib/graphite/index
