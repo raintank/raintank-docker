@@ -25,6 +25,7 @@ influxdb:
 cassandra:
   image: spotify/cassandra
   ports:
+    - "9042"
     - "9160"
     - "8888"
 kairosdb:
@@ -54,7 +55,7 @@ graphiteApi:
   links:
     - elasticsearch:elasticsearch
     - influxdb:influxdb
-    - kairosdb:kairosdb
+    - cassandra:cassandra
   environment:
     GRAPHITE_kairosdb_uri: http://kairosdb:8080
 grafana:
