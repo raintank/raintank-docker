@@ -35,7 +35,7 @@ nsqtokairos:
     - nsqd:nsqd
     - kairosdb:kairosdb
   volumes:
-    - raintank_code/nsq_to_kairos:/go/src/github.com/raintank/raintank-metric
+    - raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
 nsqtoelasticsearch:
   image: raintank/nsq_to_elasticsearch
@@ -44,7 +44,7 @@ nsqtoelasticsearch:
     - redis:redis
     - elasticsearch:elasticsearch
   volumes:
-    - raintank_code/nsq_to_kairos:/go/src/github.com/raintank/raintank-metric
+    - raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
 influxdb:
   image: raintank/influxdb
