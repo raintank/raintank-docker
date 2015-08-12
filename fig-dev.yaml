@@ -19,7 +19,7 @@ nsqd:
   ports:
     - "4150:4150"
     - "4151:4151"
-  command: "/nsqd"
+  command: "/nsqd -max-msg-size=10024768 -sync-every=1 --mem-queue-size=0"
 
 nsqadmin:
   image: nsqio/nsq
