@@ -51,7 +51,7 @@ screen -S raintank -p grafana -X stuff '/tmp/create-influxdb-dev-datasource.sh &
 screen -S raintank -p grafana -X stuff 'cat /var/log/raintank/create-influxdb-datasource.log\n'
 screen -S raintank -p grafana -X stuff 'tail -10f /var/log/raintank/grafana-dev.log\n'
 screen -S raintank -p nsqtokairos -X stuff 'cd /go/src/github.com/raintank/raintank-metric/nsq_to_kairos\n'
-screen -S raintank -p nsqtokairos -X stuff './nsq_to_kairos --topic metrics --channel tokairos --nsqd-tcp-address nsqd:4150\n'
+screen -S raintank -p nsqtokairos -X stuff './nsq_to_kairos --topic metrics --channel tokairos --nsqd-tcp-address nsqd:4150 2>&1 | tee /var/log/raintank/nsq-to-kairos.log\n'
 screen -S raintank -p nsqtoelasticsearch -X stuff 'cd /go/src/github.com/raintank/raintank-metric/nsq_to_elasticsearch\n'
 screen -S raintank -p nsqtoelasticsearch -X stuff './nsq_to_elasticsearch --topic metrics --channel toelasticsearch --nsqd-tcp-address nsqd:4150\n'
 screen -S raintank -p statsdaemon -X stuff 'tail -f /var/log/statsdaemon.log\n'
@@ -61,4 +61,5 @@ screen -S raintank -p influxdb -X stuff 'tail -f /opt/influxdb/shared/log.txt\n'
 ./launch_dev_collector.sh dev-1
 
 
-screen -r raintank
+echo "now it's time to:"
+echo "screen -r raintank"
