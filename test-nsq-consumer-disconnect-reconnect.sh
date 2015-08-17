@@ -48,10 +48,3 @@ read
 log "STEP 8. killing nsq_to_kairos as well, again"
 docker exec raintankdocker_nsqtokairos_1 pkill -f nsq_to_kairos
 log "STEP 9. have fun disecting the logs"
-
-# TODO:
-# issues seen:
-# * when restarting nsq_to_kairos, nsqadmin doesn't tell any producers or channels!
-# * same under high load scenarios
-# io timeout
-
