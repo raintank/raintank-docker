@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function log () {
-  echo "$(date +'%F %H:%m:%S') $1"
+  echo "$(date +'%F %H:%M:%S') $1"
 }
 
 log "STEP 1. starting stack"
