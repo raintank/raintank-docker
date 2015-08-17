@@ -35,6 +35,9 @@ screen -S raintank -X screen -t statsdaemon docker exec -t -i raintankdocker_sta
 #influxdb
 screen -S raintank -X screen -t influxdb docker exec -t -i raintankdocker_influxdb_1 bash
 
+#kairos
+screen -S raintank -X screen -t kairosdb docker exec -t -i raintankdocker_kairosdb_1 bash
+
 
 #nsqtokairos
 screen -S raintank -X screen -t nsqtokairos docker exec -t -i raintankdocker_nsqtokairos_1 bash
@@ -50,6 +53,7 @@ screen -S raintank -p graphite-api -X stuff 'tail -10f /var/log/raintank/graphit
 screen -S raintank -p grafana -X stuff '/tmp/create-influxdb-dev-datasource.sh &> /var/log/raintank/create-influxdb-datasource.log; touch /var/log/raintank/grafana-dev.log\n'
 screen -S raintank -p grafana -X stuff 'cat /var/log/raintank/create-influxdb-datasource.log\n'
 screen -S raintank -p grafana -X stuff 'tail -10f /var/log/raintank/grafana-dev.log\n'
+screen -S raintank -p kairosdb -X stuff 'tail -f /opt/kairosdb/log/kairosdb.log\n'
 screen -S raintank -p nsqtokairos -X stuff 'cd /go/src/github.com/raintank/raintank-metric/nsq_to_kairos\n'
 screen -S raintank -p nsqtokairos -X stuff './nsq_to_kairos --topic metrics --channel tokairos --nsqd-tcp-address nsqd:4150 2>&1 | tee /var/log/raintank/nsq-to-kairos.log\n'
 screen -S raintank -p nsqtoelasticsearch -X stuff 'cd /go/src/github.com/raintank/raintank-metric/nsq_to_elasticsearch\n'
