@@ -16,35 +16,42 @@ done
 log "STEP 3. stack is running. in particular grafana and nsq_to_kairos:"
 pgrep -fl grafana-server
 pgrep -fl nsq_to_kairos
+log "now waiting for grafana to start publishing.."
 log "open http://localhost:4171/topic/metrics to monitor state"
+while ! docker exec raintankdocker_grafana_1 grep -q PUBLISH /var/log/raintank/grafana-dev.log; do
+  sleep 1
+done
+
+log "STEP 4. publishing started"
 log "let it running for 1 minute.."
 sleep 60
 
-log "STEP 4. kill nsq-to-kairos"
+log "STEP 5. kill nsq-to-kairos"
 docker exec raintankdocker_nsqtokairos_1 pkill -f nsq_to_kairos
 log "wait 5 minutes"
 sleep 300
 
-log "STEP 5. restarting nsq_to_kairos"
+log "STEP 6. restarting nsq_to_kairos"
 screen -S raintank -p nsqtokairos -X stuff './nsq_to_kairos --topic metrics --channel tokairos --nsqd-tcp-address nsqd:4150 2>&1 | tee /var/log/raintank/nsq-to-kairos2.log\n'
 log "wait another minute..."
 sleep 60
 
-log "STEP 6. stop grafana aka producer"
-docker exec raintankdocker_grafana_1 supervisorctl stop all
-log "please open http://localhost:4171/topic/metrics and confirm that no more messages are in flight/depth/requeued"
+log "STEP 7. stop grafana aka producer"
+# this would be the cleanest, but doesn't work properly due to https://github.com/Unknwon/bra/issues/4
+#docker exec raintankdocker_grafana_1 supervisorctl stop all
+# luckily this works too (bra doesn't restart it)
+docker exec raintankdocker_grafana_1 pkill -f grafana-server
+log "please open http://localhost:4171/topic/metrics and http://localhost:4171/topic/metrics-lowprio and confirm that no more messages are in flight/depth/requeued"
 log "press enter to continue"
 read
 
-log "STEP 7. killing nsq_to_kairos as well, again"
+log "STEP 8. killing nsq_to_kairos as well, again"
 docker exec raintankdocker_nsqtokairos_1 pkill -f nsq_to_kairos
-log "STEP 8. have fun disecting the logs"
+log "STEP 9. have fun disecting the logs"
 
 # TODO:
 # issues seen:
 # * when restarting nsq_to_kairos, nsqadmin doesn't tell any producers or channels!
-# 1 requeued message stuck for.. > 10min ? but amountof messages actually works out fine
+# * same under high load scenarios
 # io timeout
-# all messages seem to have made it across, but not in kairos -> kairos bug?
-# some message id's only in CON, not PUB
 
