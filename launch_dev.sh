@@ -51,6 +51,8 @@ screen -S raintank -X screen -t nsqtoelasticsearch docker exec -t -i raintankdoc
 screen -S raintank -X screen -t mysql-cli docker exec -t -i $(docker ps | awk '/raintankdocker_mysql_1/ {print $1}') mysql -prootpass grafana
 
 sleep 5
+# TODO remove the line below, his gets merged mainline
+screen -S raintank -p graphite-api -X stuff 'pip install --upgrade git+https://github.com/raintank/graphite-kairosdb@metric_schema && supervisorctl restart all\n'
 screen -S raintank -p graphite-api -X stuff 'tail -10f /var/log/raintank/graphite-api.log\n'
 screen -S raintank -p grafana -X stuff '/tmp/create-influxdb-dev-datasource.sh &> /var/log/raintank/create-influxdb-datasource.log; touch /var/log/raintank/grafana-dev.log\n'
 screen -S raintank -p grafana -X stuff 'cat /var/log/raintank/create-influxdb-datasource.log\n'
