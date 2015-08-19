@@ -18,7 +18,7 @@ pgrep -fl grafana-server
 pgrep -fl nsq_to_kairos
 log "now waiting for grafana to start publishing.."
 log "open http://localhost:4171/topic/metrics to monitor state"
-while ! docker exec raintankdocker_grafana_1 grep -q PUBLISH /var/log/raintank/grafana-dev.log; do
+while ! docker exec raintankdocker_grafana_1 grep -q 'published metrics' /var/log/raintank/grafana-dev.log; do
   sleep 1
 done
 
