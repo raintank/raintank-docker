@@ -60,7 +60,10 @@ elif [ $MODE == "code" ]; then
 		cp /opt/raintank/raintank-docker/collector/config.json etc/raintank.json
 	fi
 	echo "> collector > build"
-	./pkg/build.sh
+	#./pkg/build.sh
+	npm install
+	go get -u -f github.com/raintank/raintank-probe
+  cp $(which raintank-probe) .
 
   echo "> grafana >config fix"
 	cd /opt/raintank/grafana
