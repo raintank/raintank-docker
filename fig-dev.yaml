@@ -52,6 +52,16 @@ nsqtoelasticsearch:
   volumes:
     - raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
+nsqevents:
+  image: raintank/nsq_events
+  ports:
+    - "6062:6060"
+  links:
+    - nsqd:nsqd
+    - elasticsearch:elasticsearch
+  volumes:
+    - raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
+
 influxdb:
   image: raintank/influxdb
   ports:
