@@ -16,35 +16,33 @@ if screen -ls | grep -q '[0-9]\.raintank[[:space:]]'; then
   echo "You probably want to run ./stop_dev.sh first!" >&2
   exit 2
 fi
-#elasticSearch
+
+echo "docker-compose bringing up containers..."
 docker-compose -f fig-dev.yaml up -d
-sleep 5
-echo starting screen session
+
+echo "starting screen session..."
 screen -S raintank -d -m -t shell bash
-sleep 1
 
-#graphite-api
+num=$(grep '^[a-z]' fig-dev.yaml | wc -l)
+while [ $(docker ps | grep -c raintankdocker) -ne $num ]; do
+  echo "waiting for all $num containers to run..."
+  sleep 0.5
+done
+
+echo "opening screen tabs..."
+
 screen -S raintank -X screen -t graphite-api docker exec -t -i raintankdocker_graphiteApi_1 bash
-
-#grafana
 screen -S raintank -X screen -t grafana docker exec -t -i raintankdocker_grafana_1 bash
-
-#statsdaemon
 screen -S raintank -X screen -t statsdaemon docker exec -t -i raintankdocker_statsdaemon_1 bash
-
-#influxdb
 screen -S raintank -X screen -t influxdb docker exec -t -i raintankdocker_influxdb_1 bash
-
-#kairos
 screen -S raintank -X screen -t kairosdb docker exec -t -i raintankdocker_kairosdb_1 bash
 screen -S raintank -X screen -t nsq_metrics_to_kairos docker exec -t -i raintankdocker_nsqmetricstokairos_1 bash
 screen -S raintank -X screen -t nsq_metrics_to_elasticsearch docker exec -t -i raintankdocker_nsqmetricstoelasticsearch_1 bash
 screen -S raintank -X screen -t nsq_probe_events_to_elasticsearch docker exec -t -i raintankdocker_nsqprobeeventstoelasticsearch_1 bash
-# open a mysql cli for convenience
 screen -S raintank -X screen -t mysql-cli docker exec -t -i $(docker ps | awk '/raintankdocker_mysql_1/ {print $1}') mysql -prootpass grafana
 
-sleep 5
-# TODO remove the line below, his gets merged mainline
+echo "starting commands in screen tabs..."
+# TODO remove the line below, when this gets merged mainline
 screen -S raintank -p graphite-api -X stuff 'pip install --upgrade git+https://github.com/raintank/graphite-kairosdb@metric_schema && supervisorctl restart all\n'
 screen -S raintank -p graphite-api -X stuff 'tail -10f /var/log/raintank/graphite-api.log\n'
 screen -S raintank -p grafana -X stuff '/tmp/create-influxdb-dev-datasource.sh &> /var/log/raintank/create-influxdb-datasource.log; touch /var/log/raintank/grafana-dev.log\n'
@@ -60,9 +58,8 @@ screen -S raintank -p nsq_probe_events_to_elasticsearch -X stuff './nsq_probe_ev
 screen -S raintank -p statsdaemon -X stuff 'tail -f /var/log/statsdaemon.log\n'
 screen -S raintank -p influxdb -X stuff 'tail -f /opt/influxdb/shared/log.txt\n'
 
-#raintank-collector - this is an instance of an edge collector.
+echo "starting collector..."
 ./launch_dev_collector.sh dev-1
-
 
 echo "now it's time to:"
 echo "screen -r raintank"
