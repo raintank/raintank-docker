@@ -5,6 +5,6 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 ENV GOPATH /go
 ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
-#RUN go get -u github.com/raintank/raintank-metric/nsq_to_kairos
+#RUN go get -u github.com/raintank/raintank-metric/nsq_metrics_to_kairos
 
 CMD ["/usr/bin/supervisord"]

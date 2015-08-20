@@ -31,8 +31,8 @@ nsqadmin:
   links:
     - nsqd:nsqd
 
-nsqtokairos:
-  image: raintank/nsq_to_kairos
+nsqmetricstokairos:
+  image: raintank/nsq_metrics_to_kairos
   ports:
     - "6060:6060"
   links:
@@ -41,8 +41,8 @@ nsqtokairos:
   volumes:
     - raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
-nsqtoelasticsearch:
-  image: raintank/nsq_to_elasticsearch
+nsqmetricstoelasticsearch:
+  image: raintank/nsq_metrics_to_elasticsearch
   ports:
     - "6061:6060"
   links:
@@ -52,8 +52,8 @@ nsqtoelasticsearch:
   volumes:
     - raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
-nsqevents:
-  image: raintank/nsq_events
+nsqprobeeventstoelasticsearch:
+  image: raintank/nsq_probe_events_to_elasticsearch
   ports:
     - "6062:6060"
   links:
