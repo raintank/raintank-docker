@@ -1,9 +1,14 @@
 #!/bin/bash
 
-# launch a collector with the given identifier (or a randomly generated one), and hook it into the screen session
+# launch a collector with an auto-assigned id, based on an incrementing counter, and hook it into the screen session
+# don't run this script concurrently
 
-id=$1
-[ -n "$id" ] || id=$(mktemp -u XXXXXXXXXXX)
+highest=$(docker ps | grep raintankdocker_raintankCollector_dev | sed 's#.*raintankdocker_raintankCollector_dev##' | sort -n | tail -n 1)
+docker ps | grep raintankdocker_raintankCollector_dev
+# if no containers yet, start at 1
+[ -z "$highest" ] && highest=0
+id=dev$((highest+1))
+
 docker_name=raintankdocker_raintankCollector_$id
 
 eval $(grep ^RT_CODE setup_dev.sh)

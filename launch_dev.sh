@@ -59,7 +59,7 @@ screen -S raintank -p statsdaemon -X stuff 'tail -f /var/log/statsdaemon.log\n'
 screen -S raintank -p influxdb -X stuff 'tail -f /opt/influxdb/shared/log.txt\n'
 
 echo "starting collector..."
-./launch_dev_collector.sh dev-1
+./launch_dev_collector.sh
 
 echo "now it's time to:"
 echo "screen -r raintank"
