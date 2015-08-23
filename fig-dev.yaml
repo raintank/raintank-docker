@@ -40,7 +40,7 @@ nsqmetricstokairos:
     - kairosdb:kairosdb
     - statsdaemon:statsdaemon
   volumes:
-    - raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
+    - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
 nsqmetricstoelasticsearch:
   image: raintank/nsq_metrics_to_elasticsearch
@@ -52,7 +52,7 @@ nsqmetricstoelasticsearch:
     - elasticsearch:elasticsearch
     - statsdaemon:statsdaemon
   volumes:
-    - raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
+    - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
 nsqprobeeventstoelasticsearch:
   image: raintank/nsq_probe_events_to_elasticsearch
@@ -63,7 +63,7 @@ nsqprobeeventstoelasticsearch:
     - elasticsearch:elasticsearch
     - statsdaemon:statsdaemon
   volumes:
-    - raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
+    - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
 influxdb:
   image: raintank/influxdb
@@ -123,8 +123,8 @@ grafana:
     - statsdaemon:statsdaemon
     - nsqd:nsqd
   volumes:
-    - raintank_code/grafana:/go/src/github.com/raintank/grafana
-    - grafana/conf:/etc/grafana/
+    - ./raintank_code/grafana:/go/src/github.com/raintank/grafana
+    - ./grafana/conf:/etc/grafana/
     - /go/src/github.com/raintank/grafana/data
 
 statsdaemon:
