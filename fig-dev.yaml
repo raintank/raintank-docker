@@ -38,6 +38,7 @@ nsqmetricstokairos:
   links:
     - nsqd:nsqd
     - kairosdb:kairosdb
+    - statsdaemon:statsdaemon
   volumes:
     - raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
@@ -49,6 +50,7 @@ nsqmetricstoelasticsearch:
     - nsqd:nsqd
     - redis:redis
     - elasticsearch:elasticsearch
+    - statsdaemon:statsdaemon
   volumes:
     - raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
@@ -59,6 +61,7 @@ nsqprobeeventstoelasticsearch:
   links:
     - nsqd:nsqd
     - elasticsearch:elasticsearch
+    - statsdaemon:statsdaemon
   volumes:
     - raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
