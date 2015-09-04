@@ -42,8 +42,6 @@ screen -S raintank -X screen -t nsq_metrics_to_elasticsearch docker exec -t -i r
 screen -S raintank -X screen -t nsq_probe_events_to_elasticsearch docker exec -t -i raintankdocker_nsqprobeeventstoelasticsearch_1 bash
 
 echo "starting commands in screen tabs..."
-# TODO remove the line below, when this gets merged mainline
-screen -S raintank -p graphite-api -X stuff 'pip install --upgrade git+https://github.com/raintank/graphite-kairosdb@metric_schema && supervisorctl restart all\n'
 screen -S raintank -p graphite-api -X stuff 'tail -10f /var/log/raintank/graphite-api.log\n'
 screen -S raintank -p grafana -X stuff '/tmp/create-influxdb-dev-datasource.sh &> /var/log/raintank/create-influxdb-datasource.log; touch /var/log/raintank/grafana-dev.log\n'
 screen -S raintank -p grafana -X stuff 'cat /var/log/raintank/create-influxdb-datasource.log\n'
