@@ -6,7 +6,7 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 RUN pip install gunicorn Flask-Cache elasticsearch
 
-RUN echo 1439369492 \
+RUN echo 1441371127 \
     && pip install git+https://github.com/raintank/graphite-api.git \
 	&& pip install git+https://github.com/raintank/graphite-kairosdb.git
 
