@@ -33,5 +33,5 @@ while true; do
 done
 mysql_id=$(sed 's#.*"id":\([0-9]\+\),"org_id":[0-9]\+,"slug":"'$id'".*#\1#' <<< "$data")
 # make it a "public" collector so different orgs can use it
-curl -X POST -H "Authorization: Basic YWRtaW46YWRtaW4=" -F "public=true" -F "name=$id" -F "id=$mysql_id" 'http://localhost/api/collectors'
+curl -X POST -H "Authorization: Basic YWRtaW46YWRtaW4=" -F "public=true" -F "enabled=true" -F "name=$id" -F "id=$mysql_id" 'http://localhost/api/collectors'
 echo
