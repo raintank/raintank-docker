@@ -43,7 +43,9 @@ screen -S raintank -X screen -t nsq_probe_events_to_elasticsearch docker exec -t
 
 echo "starting commands in screen tabs..."
 screen -S raintank -p graphite-api -X stuff 'tail -10f /var/log/raintank/graphite-api.log\n'
-screen -S raintank -p grafana -X stuff '/tmp/create-influxdb-dev-datasource.sh &> /var/log/raintank/create-influxdb-datasource.log; touch /var/log/raintank/grafana-dev.log\n'
+screen -S raintank -p grafana -X stuff '/tmp/create-influxdb-dev-datasource.sh &> /var/log/raintank/create-influxdb-datasource.log;\n'
+screen -S raintank -p grafana -X stuff '/tmp/prepare-nsqd.sh &> /var/log/raintank/prepare-nsqd.log;\n'
+screen -S raintank -p grafana -X stuff 'touch /var/log/raintank/grafana-dev.log\n'
 screen -S raintank -p grafana -X stuff 'cat /var/log/raintank/create-influxdb-datasource.log\n'
 screen -S raintank -p grafana -X stuff 'tail -10f /var/log/raintank/grafana-dev.log\n'
 screen -S raintank -p kairosdb -X stuff 'tail -f /opt/kairosdb/log/kairosdb.log\n'
