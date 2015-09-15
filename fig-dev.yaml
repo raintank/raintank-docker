@@ -42,6 +42,13 @@ nsqmetricstokairos:
   volumes:
     - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
+nsqmetricstostdout:
+  image: raintank/nsq_metrics_to_stdout
+  links:
+    - nsqd:nsqd
+  volumes:
+    - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
+
 nsqmetricstoelasticsearch:
   image: raintank/nsq_metrics_to_elasticsearch
   ports:
