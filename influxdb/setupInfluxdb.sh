@@ -4,10 +4,8 @@
 PID=$!
 
 #wait for server to come be ready.
-NOTRUNNING=1
-while [ $NOTRUNNING -eq 1 ] ; do
-  netstat -lntp|grep "::8086" > /dev/null
-  NOTRUNNING=$?
+while true; do
+  netstat -lntp | grep -q "8086" && break
   sleep 1
 done
 
