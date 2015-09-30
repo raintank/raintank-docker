@@ -46,11 +46,11 @@ nsqmetricstank:
   image: raintank/nsq_metrics_tank
   ports:
     - "6063:6063"
-    - "6064:6064"
   links:
     - nsqd:nsqd
     - statsdaemon:statsdaemon
     - influxdb:influxdb
+    - cassandra:cassandra
   volumes:
     - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
