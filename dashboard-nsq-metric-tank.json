@@ -789,7 +789,7 @@
       "collapse": false,
       "panels": [
         {
-          "title": "no title (click here)",
+          "title": "cassandra responses",
           "error": false,
           "span": 6,
           "editable": true,
@@ -861,7 +861,8 @@
             }
           ],
           "aliasColors": {},
-          "seriesOverrides": []
+          "seriesOverrides": [],
+          "links": []
         },
         {
           "title": "chunk operations",
