@@ -126,6 +126,7 @@ graphiteApi:
     - elasticsearch:elasticsearch
     - influxdb:influxdb
     - cassandra:cassandra
+    - nsqmetricstank:nsqmetricstank
   environment:
     GRAPHITE_kairosdb_uri: http://kairosdb:8080
 grafana:

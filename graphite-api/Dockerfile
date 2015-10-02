@@ -8,7 +8,8 @@ RUN pip install gunicorn Flask-Cache elasticsearch
 
 RUN echo 1441371127 \
     && pip install git+https://github.com/raintank/graphite-api.git \
-	&& pip install git+https://github.com/raintank/graphite-kairosdb.git
+	&& pip install git+https://github.com/raintank/graphite-kairosdb.git \
+	&& pip install git+https://github.com/raintank/graphite-raintank.git
 
 RUN mkdir -p /var/lib/graphite
 EXPOSE 8888

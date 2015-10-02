@@ -2,15 +2,13 @@ cache:
   CACHE_DIR: /tmp/graphite-api-cache
   CACHE_TYPE: filesystem
 finders:
-- graphite_kairosdb.KairosdbFinder
+- graphite_raintank.RaintankFinder
 functions:
 - graphite_api.functions.SeriesFunctions
 - graphite_api.functions.PieFunctions
-kairosdb:
-  cassandra:
-    hosts:
-      - cassandra
-    port: 9042
+raintank:
+  tank:
+  	url: http://nsqmetricstank:6063/
   es:
     url: http://elasticsearch:9200/
 search_index: /var/lib/graphite/index
