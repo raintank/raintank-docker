@@ -37,7 +37,6 @@ screen -S raintank -X screen -t statsdaemon docker exec -t -i raintankdocker_sta
 screen -S raintank -X screen -t influxdb docker exec -t -i raintankdocker_influxdb_1 bash
 screen -S raintank -X screen -t kairosdb docker exec -t -i raintankdocker_kairosdb_1 bash
 screen -S raintank -X screen -t mysql-cli docker exec -t -i raintankdocker_mysql_1 bash
-screen -S raintank -X screen -t nsq_metrics_to_kairos docker exec -t -i raintankdocker_nsqmetricstokairos_1 bash
 screen -S raintank -X screen -t nsq_metrics_tank docker exec -t -i raintankdocker_nsqmetricstank_1 bash
 screen -S raintank -X screen -t nsq_metrics_to_stdout docker exec -t -i raintankdocker_nsqmetricstostdout_1 bash
 screen -S raintank -X screen -t nsq_metrics_to_elasticsearch docker exec -t -i raintankdocker_nsqmetricstoelasticsearch_1 bash
@@ -53,9 +52,7 @@ screen -S raintank -p grafana -X stuff 'tail -10f /var/log/raintank/grafana-dev.
 screen -S raintank -p kairosdb -X stuff 'tail -f /opt/kairosdb/log/kairosdb.log\n'
 screen -S raintank -p mysql-cli -X stuff 'while sleep 1; do mysql -prootpass grafana; done\n'
 screen -S raintank -p nsq_metrics_tank -X stuff 'cd /go/src/github.com/raintank/raintank-metric/nsq_metrics_tank\n'
-screen -S raintank -p nsq_metrics_tank -X stuff './nsq_metrics_tank --statsd-addr statsdaemon:8125 --nsqd-tcp-address nsqd:4150 --listen :6063 --cassandra-addrs cassandra &> /var/log/raintank/nsq_metrics_tank.log &\n'
-screen -S raintank -p nsq_metrics_to_kairos -X stuff 'cd /go/src/github.com/raintank/raintank-metric/nsq_metrics_to_kairos\n'
-screen -S raintank -p nsq_metrics_to_kairos -X stuff './nsq_metrics_to_kairos --kairos-addr kairosdb:8080 --statsd-addr statsdaemon:8125 --nsqd-tcp-address nsqd:4150 2>&1 | tee /var/log/raintank/nsq_metrics_to_kairos.log\n'
+screen -S raintank -p nsq_metrics_tank -X stuff '/wait.sh cassandra:9042 && ./nsq_metrics_tank --statsd-addr statsdaemon:8125 --nsqd-tcp-address nsqd:4150 --listen :6063 --cassandra-addrs cassandra &> /var/log/raintank/nsq_metrics_tank.log &\n'
 screen -S raintank -p nsq_metrics_to_stdout -X stuff 'cd /go/src/github.com/raintank/raintank-metric/nsq_metrics_to_stdout\n'
 screen -S raintank -p nsq_metrics_to_stdout -X stuff './nsq_metrics_to_stdout --nsqd-tcp-address nsqd:4150\n'
 screen -S raintank -p nsq_metrics_to_elasticsearch -X stuff 'cd /go/src/github.com/raintank/raintank-metric/nsq_metrics_to_elasticsearch\n'
