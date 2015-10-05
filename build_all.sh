@@ -29,7 +29,6 @@ function build () {
 }
 
 if [ "rebuild" == "$1" ]; then
-  echo "rebuild"
   rebuild=1
 fi
 

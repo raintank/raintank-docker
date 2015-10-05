@@ -7,6 +7,7 @@ To provision a full stack using docker:
 - install docker-compose - http://docs.docker.com/compose/install/
 - clone this git repo.
 - cd in the dir and run './build_all.sh'.  This will build all of the raintank images.
+- alteratively, run './build_all.sh rebuild' to force a rebuild of all raintank images (but keeping base images such as ubuntu etc)
 - to run as production, user docker-compose to run the containers
 
 for your convenience, here is the appropriate code (tested on ubuntu 14.04)
