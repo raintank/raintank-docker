@@ -30,7 +30,7 @@ while true; do
     break
   fi
   echo "waiting for collector $id to be known to grafana..."
-  sleep 0.5
+  sleep 1
 done
 mysql_id=$(sed 's#.*"id":\([0-9]\+\),"org_id":[0-9]\+,"slug":"'$id'".*#\1#' <<< "$data")
 # make it a "public" collector so different orgs can use it
