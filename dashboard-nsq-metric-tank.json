@@ -1,5 +1,5 @@
 {
-  "id": 1,
+  "id": null,
   "title": "New dashboard",
   "originalTitle": "New dashboard",
   "tags": [],
@@ -815,11 +815,11 @@
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "lines": true,
+          "lines": false,
           "fill": 0,
           "linewidth": 2,
-          "points": false,
-          "pointradius": 5,
+          "points": true,
+          "pointradius": 1,
           "bars": false,
           "stack": false,
           "percentage": false,
@@ -832,7 +832,7 @@
             "total": false,
             "avg": false
           },
-          "nullPointMode": "connected",
+          "nullPointMode": "null",
           "steppedLine": false,
           "tooltip": {
             "value_type": "cumulative",
@@ -891,10 +891,10 @@
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "lines": true,
+          "lines": false,
           "fill": 0,
           "linewidth": 1,
-          "points": false,
+          "points": true,
           "pointradius": 1,
           "bars": false,
           "stack": false,
