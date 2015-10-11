@@ -1,9 +1,17 @@
 #!/bin/bash
 
+rebuild=0
+
 function build () {
 	[ -e $1/build.sh -o -e $1/Dockerfile ] || return
 	local service=$1
-	cd $service
+  cd $service
+
+  if [ $rebuild -eq 1 ]; then
+		echo "##### -> docker rmi raintank/$service ."
+		docker rmi raintank/$service
+  fi
+
 	echo "##### $service ####"
 	if [ -e build.sh ]; then
 		echo "##### -> ./build.sh"
@@ -20,9 +28,8 @@ function build () {
 	cd ..
 }
 
-if [ -n "$1" ]; then
-  build $1
-  exit 0
+if [ "rebuild" == "$1" ]; then
+  rebuild=1
 fi
 
 # first build containers on which others depend

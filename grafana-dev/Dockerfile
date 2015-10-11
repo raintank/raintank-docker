@@ -9,6 +9,8 @@ RUN chmod +x /tmp/create-influxdb-dev-datasource.sh
 ADD prepare-nsqd.sh /tmp/prepare-nsqd.sh
 RUN chmod +x /tmp/prepare-nsqd.sh
 
+ADD dashboards /tmp/dashboards
+
 RUN apt-get -y install mysql-client
 
 CMD ["/usr/bin/supervisord"]
