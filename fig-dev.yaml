@@ -77,7 +77,7 @@ influxdb:
   ports:
     - "8086:8086"
     - "8083:8083"
-    - "2003"
+    - "2003:2003"
   volumes:
     - /opt/influxdb/shared/data
 cassandra:
@@ -109,7 +109,7 @@ mysql:
 graphiteApi:
   image: raintank/graphite-api
   ports:
-    - "8888"
+    - "8888:8888"
   links:
     - elasticsearch:elasticsearch
     - statsdaemon:statsdaemon
