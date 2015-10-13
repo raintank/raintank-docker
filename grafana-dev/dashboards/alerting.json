@@ -354,7 +354,7 @@
       "collapse": false,
       "panels": [
         {
-          "title": "internal jobqueue",
+          "title": "jobqueue",
           "error": false,
           "span": 6,
           "editable": true,
@@ -410,8 +410,8 @@
               "target": "",
               "function": "mean",
               "column": "value",
-              "series": "stats.gauges.grafana.dev.alert-jobqueue-internal.items",
-              "query": "select mean(value) from \"stats.gauges.grafana.dev.alert-jobqueue-internal.items\" where $timeFilter group by time($interval) fill(0) order asc",
+              "series": "stats.gauges.grafana.dev.alert-jobqueue-preamqp.items",
+              "query": "select mean(value) from \"stats.gauges.grafana.dev.alert-jobqueue-preamqp.items\" where $timeFilter group by time($interval) fill(0) order asc",
               "alias": "items",
               "fill": "0",
               "interval": "1s"
@@ -420,8 +420,8 @@
               "target": "",
               "function": "mean",
               "column": "value",
-              "series": "stats.gauges.grafana.dev.alert-jobqueue-internal.size",
-              "query": "select mean(value) from \"stats.gauges.grafana.dev.alert-jobqueue-internal.size\" where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "stats.gauges.grafana.dev.alert-jobqueue-preamqp.size",
+              "query": "select mean(value) from \"stats.gauges.grafana.dev.alert-jobqueue-preamqp.size\" where $timeFilter group by time($interval) fill(null) order asc",
               "alias": "size",
               "fill": "null",
               "interval": "1s"
@@ -430,8 +430,8 @@
               "target": "",
               "function": "mean",
               "column": "value",
-              "series": "stats.grafana.dev.alert-dispatcher.jobs-skipped-due-to-slow-internal-jobqueue",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-dispatcher.jobs-skipped-due-to-slow-internal-jobqueue\" where $timeFilter group by time($interval) fill(0) order asc",
+              "series": "stats.grafana.dev.alert-dispatcher.jobs-skipped-due-to-slow-preamqp-jobqueue",
+              "query": "select mean(value) from \"stats.grafana.dev.alert-dispatcher.jobs-skipped-due-to-slow-preamqp-jobqueue\" where $timeFilter group by time($interval) fill(0) order asc",
               "alias": "skipped",
               "interval": "1s",
               "fill": "0"
