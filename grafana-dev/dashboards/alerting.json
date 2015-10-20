@@ -700,7 +700,7 @@
               "fill": 0
             },
             {
-              "alias": "num collectors",
+              "alias": "num executors",
               "fill": 2,
               "linewidth": 0,
               "yaxis": 2
@@ -745,7 +745,7 @@
               "target": ""
             },
             {
-              "alias": "num collectors",
+              "alias": "num executors",
               "column": "value",
               "function": "mean",
               "query": "select mean(value) from /stats.gauges.grafana.dev.alert-executor.*num/ where $timeFilter group by time($interval) order asc",
