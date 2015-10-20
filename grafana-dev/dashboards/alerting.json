@@ -1,7 +1,7 @@
 {
   "id": null,
   "title": "Alerting",
-  "originalTitle": "alerting.json",
+  "originalTitle": "Alerting",
   "tags": [],
   "style": "dark",
   "timezone": "browser",
@@ -16,8 +16,8 @@
       "panels": [
         {
           "aliasColors": {
-            "tickqueue items": "#508642",
             "skipped": "#890F02",
+            "tickqueue items": "#508642",
             "tickqueue size": "#EF843C"
           },
           "bars": false,
@@ -77,15 +77,15 @@
               "target": ""
             },
             {
-              "target": "",
-              "function": "mean",
-              "column": "value",
-              "series": "stats.grafana.dev.alert-dispatcher.ticks-skipped-due-to-slow-tickqueue",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-dispatcher.ticks-skipped-due-to-slow-tickqueue\" where $timeFilter group by time($interval) fill(0) order asc",
               "alias": "skipped",
+              "column": "value",
+              "fill": "0",
+              "function": "mean",
               "hide": false,
               "interval": "1s",
-              "fill": "0"
+              "query": "select mean(value) from \"stats.grafana.dev.alert-dispatcher.ticks-skipped-due-to-slow-tickqueue\" where $timeFilter group by time($interval) fill(0) order asc",
+              "series": "stats.grafana.dev.alert-dispatcher.ticks-skipped-due-to-slow-tickqueue",
+              "target": ""
             }
           ],
           "timeFrom": null,
@@ -167,12 +167,12 @@
           "targets": [
             {
               "column": "value",
+              "fill": "0",
               "function": "mean",
+              "interval": "1s",
               "query": "select mean(value) from \"stats.grafana.dev.alert-dispatcher.num-getschedules\" where $timeFilter group by time($interval) fill(0) order asc",
               "series": "stats.grafana.dev.alert-dispatcher.num-getschedules",
-              "target": "",
-              "fill": "0",
-              "interval": "1s"
+              "target": ""
             }
           ],
           "timeFrom": null,
@@ -265,394 +265,435 @@
           ]
         },
         {
-          "title": "job schedules and creations",
-          "error": false,
-          "span": 4,
-          "editable": true,
-          "type": "graph",
-          "id": 8,
+          "aliasColors": {},
+          "bars": false,
           "datasource": "influxdb",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 8,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "schedules seen per second",
+              "column": "value",
+              "fill": "0",
+              "function": "mean",
+              "hide": false,
+              "interval": "1s",
+              "query": "select mean(value) from \"stats.grafana.dev.alert-dispatcher.job-schedules-seen\" where $timeFilter group by time($interval) fill(0) order asc",
+              "series": "stats.grafana.dev.alert-dispatcher.job-schedules-seen",
+              "target": "stats.grafana.dev.alert-dispatcher.job-schedules-seen"
+            },
+            {
+              "alias": "jobs scheduled per second",
+              "column": "value",
+              "fill": "0",
+              "function": "first",
+              "hide": false,
+              "interval": "1s",
+              "query": "select first(value) from \"stats.grafana.dev.alert-dispatcher.jobs-scheduled\" where $timeFilter group by time($interval) fill(0) order asc",
+              "series": "stats.grafana.dev.alert-dispatcher.jobs-scheduled",
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "job schedules and creations",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
           "x-axis": true,
           "y-axis": true,
           "y_formats": [
             "short",
             "short"
-          ],
-          "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": null,
-            "rightMin": null,
-            "rightLogBase": 1,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 1,
-          "linewidth": 2,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "nullPointMode": "null as zero",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "timeFrom": null,
-          "timeShift": null,
-          "targets": [
-            {
-              "target": "stats.grafana.dev.alert-dispatcher.job-schedules-seen",
-              "function": "mean",
-              "column": "value",
-              "series": "stats.grafana.dev.alert-dispatcher.job-schedules-seen",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-dispatcher.job-schedules-seen\" where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "schedules seen per second",
-              "hide": false,
-              "interval": "1s",
-              "fill": "0"
-            },
-            {
-              "target": "",
-              "function": "first",
-              "column": "value",
-              "series": "stats.grafana.dev.alert-dispatcher.jobs-scheduled",
-              "query": "select first(value) from \"stats.grafana.dev.alert-dispatcher.jobs-scheduled\" where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "jobs scheduled per second",
-              "interval": "1s",
-              "fill": "0",
-              "hide": false
-            }
-          ],
-          "aliasColors": {},
-          "seriesOverrides": [],
-          "links": []
+          ]
         }
       ],
       "title": "New row"
     },
     {
-      "title": "New row",
-      "height": "250px",
-      "editable": true,
       "collapse": false,
+      "editable": true,
+      "height": 220,
       "panels": [
         {
-          "title": "jobqueue",
-          "error": false,
-          "span": 6,
-          "editable": true,
-          "type": "graph",
-          "id": 5,
+          "aliasColors": {
+            "size": "#E0752D",
+            "skipped": "#890F02"
+          },
+          "bars": false,
           "datasource": "influxdb",
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
-          ],
+          "editable": true,
+          "error": false,
+          "fill": 1,
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
-            "rightMax": null,
             "leftMin": null,
-            "rightMin": null,
             "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
             "threshold1": null,
-            "threshold2": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "lines": true,
-          "fill": 1,
-          "linewidth": 2,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
+          "id": 5,
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
+            "avg": false,
             "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
             "total": false,
-            "avg": false
+            "values": false
           },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
           "nullPointMode": "null",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "timeFrom": null,
-          "timeShift": null,
-          "targets": [
-            {
-              "target": "",
-              "function": "mean",
-              "column": "value",
-              "series": "stats.gauges.grafana.dev.alert-jobqueue-preamqp.items",
-              "query": "select mean(value) from \"stats.gauges.grafana.dev.alert-jobqueue-preamqp.items\" where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "items",
-              "fill": "0",
-              "interval": "1s"
-            },
-            {
-              "target": "",
-              "function": "mean",
-              "column": "value",
-              "series": "stats.gauges.grafana.dev.alert-jobqueue-preamqp.size",
-              "query": "select mean(value) from \"stats.gauges.grafana.dev.alert-jobqueue-preamqp.size\" where $timeFilter group by time($interval) fill(null) order asc",
-              "alias": "size",
-              "fill": "null",
-              "interval": "1s"
-            },
-            {
-              "target": "",
-              "function": "mean",
-              "column": "value",
-              "series": "stats.grafana.dev.alert-dispatcher.jobs-skipped-due-to-slow-preamqp-jobqueue",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-dispatcher.jobs-skipped-due-to-slow-preamqp-jobqueue\" where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "skipped",
-              "interval": "1s",
-              "fill": "0"
-            }
-          ],
-          "aliasColors": {
-            "skipped": "#890F02",
-            "size": "#E0752D"
-          },
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
           "seriesOverrides": [
             {
               "alias": "size",
               "color": "#E24D42"
             }
           ],
-          "links": []
-        },
-        {
-          "title": "info",
-          "error": false,
-          "span": 6,
-          "editable": true,
-          "type": "text",
-          "id": 6,
-          "mode": "markdown",
-          "content": "executors read from the jobqueue and execute the alerting job.    \n__if they can't keep up with the rate of new jobs, than this queue will fill up and the executors will skip the jobs__  \nthe size of this queue should comfortably encompass the amount of jobs scheduled at any point in time.\n\n\n   \n\n**alert outcomes** below:  \n\nno results should ever contain missing values, but if they do, than the results become unknown",
-          "style": {},
-          "links": []
-        }
-      ]
-    },
-    {
-      "title": "New row",
-      "height": "250px",
-      "editable": true,
-      "collapse": false,
-      "panels": [
-        {
-          "title": "executor incoming jobs per second",
-          "error": false,
-          "span": 4,
-          "editable": true,
+          "span": 4.00421052631579,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "items",
+              "column": "value",
+              "fill": "0",
+              "function": "mean",
+              "interval": "1s",
+              "query": "select mean(value) from \"stats.gauges.grafana.dev.alert-jobqueue-preamqp.items\" where $timeFilter group by time($interval) fill(0) order asc",
+              "series": "stats.gauges.grafana.dev.alert-jobqueue-preamqp.items",
+              "target": "",
+              "refId": "A"
+            },
+            {
+              "alias": "size",
+              "column": "value",
+              "fill": "null",
+              "function": "mean",
+              "interval": "1s",
+              "query": "select mean(value) from \"stats.gauges.grafana.dev.alert-jobqueue-preamqp.size\" where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "stats.gauges.grafana.dev.alert-jobqueue-preamqp.size",
+              "target": "",
+              "refId": "A"
+            },
+            {
+              "alias": "skipped",
+              "column": "value",
+              "fill": "0",
+              "function": "mean",
+              "interval": "1s",
+              "query": "select mean(value) from \"stats.grafana.dev.alert-dispatcher.jobs-skipped-due-to-slow-preamqp-jobqueue\" where $timeFilter group by time($interval) fill(0) order asc",
+              "series": "stats.grafana.dev.alert-dispatcher.jobs-skipped-due-to-slow-preamqp-jobqueue",
+              "target": "",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "preamqp jobqueue",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
           "type": "graph",
-          "id": 9,
-          "datasource": "influxdb",
-          "renderer": "flot",
           "x-axis": true,
           "y-axis": true,
           "y_formats": [
             "short",
             "short"
-          ],
+          ]
+        },
+        {
+          "aliasColors": {
+            "size": "#E0752D",
+            "skipped": "#890F02"
+          },
+          "bars": false,
+          "datasource": "influxdb",
+          "editable": true,
+          "error": false,
+          "fill": 1,
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
-            "rightMax": null,
             "leftMin": null,
-            "rightMin": null,
             "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
             "threshold1": null,
-            "threshold2": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "lines": true,
-          "fill": 1,
-          "linewidth": 2,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
+          "id": 11,
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
+            "avg": false,
             "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
             "total": false,
-            "avg": false
+            "values": false
           },
-          "nullPointMode": "null as zero",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "timeFrom": null,
-          "timeShift": null,
-          "targets": [
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
             {
-              "target": "",
-              "function": "mean",
-              "column": "value",
-              "series": "stats.grafana.dev.alert-executor.original-todo",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.original-todo\" where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "todo",
-              "interval": "1s",
-              "fill": "0",
-              "hide": false
-            },
-            {
-              "target": "",
-              "function": "mean",
-              "column": "value",
-              "series": "stats.grafana.dev.alert-executor.already-done",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.already-done\" where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "already done",
-              "interval": "1s",
-              "fill": "0"
+              "alias": "size",
+              "color": "#E24D42"
             }
           ],
+          "span": 3.996420641447368,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "items",
+              "column": "value",
+              "fill": "0",
+              "function": "mean",
+              "interval": "1s",
+              "query": "select mean(value) from \"stats.gauges.grafana.dev.alert-jobqueue-internal.items\" where $timeFilter group by time($interval) fill(0) order asc",
+              "series": "stats.gauges.grafana.dev.alert-jobqueue-internal.items",
+              "target": "",
+              "refId": "A"
+            },
+            {
+              "alias": "size",
+              "column": "value",
+              "fill": "null",
+              "function": "mean",
+              "interval": "1s",
+              "query": "select mean(value) from \"stats.gauges.grafana.dev.alert-jobqueue-internal.size\" where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "stats.gauges.grafana.dev.alert-jobqueue-internal.size",
+              "target": "",
+              "refId": "A"
+            },
+            {
+              "alias": "skipped",
+              "column": "value",
+              "fill": "0",
+              "function": "mean",
+              "interval": "1s",
+              "query": "select mean(value) from \"stats.grafana.dev.alert-dispatcher.jobs-skipped-due-to-slow-internal-jobqueue\" where $timeFilter group by time($interval) fill(0) order asc",
+              "series": "stats.grafana.dev.alert-dispatcher.jobs-skipped-due-to-slow-internal-jobqueue",
+              "target": "",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "internal jobqueue",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        },
+        {
+          "content": "executors read from the jobqueue and execute the alerting job.    \n__if they can't keep up with the rate of new jobs, than this queue will fill up and the executors will skip the jobs__  \nthe size of this queue should comfortably encompass the amount of jobs scheduled at any point in time.\n   \n\n**alert outcomes** below:  \n\nno results should ever contain missing values, but if they do, than the results become unknown",
+          "editable": true,
+          "error": false,
+          "id": 6,
+          "links": [],
+          "mode": "markdown",
+          "span": 3.9993688322368417,
+          "style": {},
+          "title": "info",
+          "type": "text"
+        }
+      ],
+      "title": "New row"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
           "aliasColors": {
             "already done": "#2F575E",
             "out of date": "#F29191"
           },
-          "seriesOverrides": [],
-          "links": []
-        },
-        {
-          "title": "job execution duration in ms",
-          "error": false,
-          "span": 4,
-          "editable": true,
-          "type": "graph",
-          "id": 7,
+          "bars": false,
           "datasource": "influxdb",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 9,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "todo",
+              "column": "value",
+              "fill": "0",
+              "function": "mean",
+              "hide": false,
+              "interval": "1s",
+              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.original-todo\" where $timeFilter group by time($interval) fill(0) order asc",
+              "series": "stats.grafana.dev.alert-executor.original-todo",
+              "target": ""
+            },
+            {
+              "alias": "already done",
+              "column": "value",
+              "fill": "0",
+              "function": "mean",
+              "interval": "1s",
+              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.already-done\" where $timeFilter group by time($interval) fill(0) order asc",
+              "series": "stats.grafana.dev.alert-executor.already-done",
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "executor incoming jobs per second",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
           "x-axis": true,
           "y-axis": true,
           "y_formats": [
             "short",
             "short"
-          ],
-          "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": null,
-            "rightMin": null,
-            "rightLogBase": 1,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 1,
-          "linewidth": 2,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "nullPointMode": "null",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "timeFrom": null,
-          "timeShift": null,
-          "targets": [
-            {
-              "target": "",
-              "function": "mean",
-              "column": "value",
-              "series": "stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.mean",
-              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.mean\" where $timeFilter group by time($interval) order asc",
-              "alias": "parse-evaluate mean",
-              "interval": "",
-              "fill": ""
-            },
-            {
-              "target": "",
-              "function": "mean",
-              "column": "value",
-              "series": "stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.upper",
-              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.upper\" where $timeFilter group by time($interval) order asc",
-              "alias": "parse-evaluate upper"
-            },
-            {
-              "target": "",
-              "function": "mean",
-              "column": "value",
-              "series": "stats.timers.grafana.dev.alert-executor.job_query_graphite.mean",
-              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_query_graphite.mean\" where $timeFilter group by time($interval) order asc",
-              "alias": "query-graphite-mean"
-            },
-            {
-              "target": "",
-              "function": "mean",
-              "column": "value",
-              "series": "stats.timers.grafana.dev.alert-executor.job_query_graphite.upper",
-              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_query_graphite.upper\" where $timeFilter group by time($interval) order asc",
-              "alias": "query-graphite upper"
-            },
-            {
-              "target": "",
-              "function": "mean",
-              "column": "value",
-              "series": "/stats.gauges.grafana.dev.alert-executor.*num/",
-              "query": "select mean(value) from /stats.gauges.grafana.dev.alert-executor.*num/ where $timeFilter group by time($interval) order asc",
-              "alias": "num collectors"
-            }
-          ],
+          ]
+        },
+        {
           "aliasColors": {
             "parse-evaluate mean": "#508642",
             "parse-evaluate upper": "#3F6833",
-            "query-graphite-mean": "#C15C17",
-            "query-graphite upper": "#99440A"
+            "query-graphite upper": "#99440A",
+            "query-graphite-mean": "#C15C17"
           },
+          "bars": false,
+          "datasource": "influxdb",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 7,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
           "seriesOverrides": [
             {
               "alias": "/graphite/",
@@ -660,124 +701,114 @@
             },
             {
               "alias": "num collectors",
-              "yaxis": 2,
+              "fill": 2,
               "linewidth": 0,
-              "fill": 2
+              "yaxis": 2
             }
           ],
-          "links": []
-        },
-        {
-          "title": "alert outcomes",
-          "error": false,
           "span": 4,
-          "editable": true,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "parse-evaluate mean",
+              "column": "value",
+              "fill": "",
+              "function": "mean",
+              "interval": "",
+              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.mean\" where $timeFilter group by time($interval) order asc",
+              "series": "stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.mean",
+              "target": ""
+            },
+            {
+              "alias": "parse-evaluate upper",
+              "column": "value",
+              "function": "mean",
+              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.upper\" where $timeFilter group by time($interval) order asc",
+              "series": "stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.upper",
+              "target": ""
+            },
+            {
+              "alias": "query-graphite-mean",
+              "column": "value",
+              "function": "mean",
+              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_query_graphite.mean\" where $timeFilter group by time($interval) order asc",
+              "series": "stats.timers.grafana.dev.alert-executor.job_query_graphite.mean",
+              "target": ""
+            },
+            {
+              "alias": "query-graphite upper",
+              "column": "value",
+              "function": "mean",
+              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_query_graphite.upper\" where $timeFilter group by time($interval) order asc",
+              "series": "stats.timers.grafana.dev.alert-executor.job_query_graphite.upper",
+              "target": ""
+            },
+            {
+              "alias": "num collectors",
+              "column": "value",
+              "function": "mean",
+              "query": "select mean(value) from /stats.gauges.grafana.dev.alert-executor.*num/ where $timeFilter group by time($interval) order asc",
+              "series": "/stats.gauges.grafana.dev.alert-executor.*num/",
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "job execution duration in ms",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
           "type": "graph",
-          "id": 10,
-          "datasource": "influxdb",
-          "renderer": "flot",
           "x-axis": true,
           "y-axis": true,
           "y_formats": [
             "short",
-            "none"
-          ],
+            "short"
+          ]
+        },
+        {
+          "aliasColors": {
+            "crit": "#58140C",
+            "unknown": "#806EB7"
+          },
+          "bars": false,
+          "datasource": "influxdb",
+          "editable": true,
+          "error": false,
+          "fill": 1,
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
-            "rightMax": null,
             "leftMin": null,
-            "rightMin": null,
             "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
             "threshold1": null,
-            "threshold2": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "lines": true,
-          "fill": 1,
-          "linewidth": 2,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
+          "id": 10,
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
+            "avg": false,
             "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
             "total": false,
-            "avg": false
+            "values": false
           },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
           "nullPointMode": "null as zero",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "timeFrom": null,
-          "timeShift": null,
-          "targets": [
-            {
-              "target": "",
-              "function": "mean",
-              "column": "value",
-              "series": "stats.grafana.dev.alert-executor.alert-outcomes.ok",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.alert-outcomes.ok\" where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "ok",
-              "fill": "0",
-              "interval": "1s"
-            },
-            {
-              "target": "",
-              "function": "mean",
-              "column": "value",
-              "series": "stats.grafana.dev.alert-executor.alert-outcomes.critical",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.alert-outcomes.critical\" where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "crit",
-              "fill": "0",
-              "interval": "1s"
-            },
-            {
-              "target": "",
-              "function": "mean",
-              "column": "value",
-              "series": "stats.grafana.dev.alert-executor.alert-outcomes.unknown",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.alert-outcomes.unknown\" where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "unknown",
-              "fill": "0",
-              "interval": "1s",
-              "hide": false
-            },
-            {
-              "target": "",
-              "function": "mean",
-              "column": "value",
-              "series": "stats.timers.grafana.dev.alert-executor.graphite-missingVals.sum",
-              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.graphite-missingVals.sum\" where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "missing-values",
-              "fill": "0",
-              "interval": "1s",
-              "hide": false
-            },
-            {
-              "target": "",
-              "function": "mean",
-              "column": "value",
-              "series": "stats.grafana.dev.alert-executor.graphite-emptyresponse",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.graphite-emptyresponse\" where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "empty response",
-              "hide": false,
-              "interval": "1s",
-              "fill": "0"
-            }
-          ],
-          "aliasColors": {
-            "unknown": "#806EB7",
-            "crit": "#58140C"
-          },
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "rightYAxisLabel": "missing-values",
           "seriesOverrides": [
             {
               "alias": "missing-values",
@@ -785,55 +816,124 @@
               "points": true
             }
           ],
-          "links": [],
-          "rightYAxisLabel": "missing-values"
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "ok",
+              "column": "value",
+              "fill": "0",
+              "function": "mean",
+              "interval": "1s",
+              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.alert-outcomes.ok\" where $timeFilter group by time($interval) fill(0) order asc",
+              "series": "stats.grafana.dev.alert-executor.alert-outcomes.ok",
+              "target": ""
+            },
+            {
+              "alias": "crit",
+              "column": "value",
+              "fill": "0",
+              "function": "mean",
+              "interval": "1s",
+              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.alert-outcomes.critical\" where $timeFilter group by time($interval) fill(0) order asc",
+              "series": "stats.grafana.dev.alert-executor.alert-outcomes.critical",
+              "target": ""
+            },
+            {
+              "alias": "unknown",
+              "column": "value",
+              "fill": "0",
+              "function": "mean",
+              "hide": false,
+              "interval": "1s",
+              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.alert-outcomes.unknown\" where $timeFilter group by time($interval) fill(0) order asc",
+              "series": "stats.grafana.dev.alert-executor.alert-outcomes.unknown",
+              "target": ""
+            },
+            {
+              "alias": "missing-values",
+              "column": "value",
+              "fill": "0",
+              "function": "mean",
+              "hide": false,
+              "interval": "1s",
+              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.graphite-missingVals.sum\" where $timeFilter group by time($interval) fill(0) order asc",
+              "series": "stats.timers.grafana.dev.alert-executor.graphite-missingVals.sum",
+              "target": ""
+            },
+            {
+              "alias": "empty response",
+              "column": "value",
+              "fill": "0",
+              "function": "mean",
+              "hide": false,
+              "interval": "1s",
+              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.graphite-emptyresponse\" where $timeFilter group by time($interval) fill(0) order asc",
+              "series": "stats.grafana.dev.alert-executor.graphite-emptyresponse",
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "alert outcomes",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "none"
+          ]
         }
-      ]
+      ],
+      "title": "New row"
     },
     {
-      "title": "New row",
-      "height": "250px",
+      "collapse": false,
       "editable": true,
-      "collapse": false,
-      "panels": []
-    }
-  ],
-  "nav": [
-    {
-      "collapse": false,
-      "enable": true,
-      "notice": false,
-      "now": true,
-      "refresh_intervals": [
-        "5s",
-        "10s",
-        "30s",
-        "1m",
-        "5m",
-        "15m",
-        "30m",
-        "1h",
-        "2h",
-        "1d"
-      ],
-      "status": "Stable",
-      "time_options": [
-        "5m",
-        "15m",
-        "1h",
-        "6h",
-        "12h",
-        "24h",
-        "2d",
-        "7d",
-        "30d"
-      ],
-      "type": "timepicker"
+      "height": "250px",
+      "panels": [],
+      "title": "New row"
     }
   ],
   "time": {
     "from": "now-15m",
     "to": "now"
+  },
+  "timepicker": {
+    "collapse": false,
+    "enable": true,
+    "notice": false,
+    "now": true,
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "status": "Stable",
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ],
+    "type": "timepicker"
   },
   "templating": {
     "list": []
@@ -842,7 +942,7 @@
     "list": []
   },
   "refresh": false,
-  "schemaVersion": 6,
-  "version": 1,
+  "schemaVersion": 7,
+  "version": 0,
   "links": []
 }
