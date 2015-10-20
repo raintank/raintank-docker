@@ -713,44 +713,53 @@
             {
               "alias": "parse-evaluate mean",
               "column": "value",
-              "fill": "",
+              "fill": "null",
               "function": "mean",
               "interval": "",
-              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.mean\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.mean\" where $timeFilter group by time($interval) fill(null) order asc",
               "series": "stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.mean",
-              "target": ""
+              "target": "",
+              "refId": "A"
             },
             {
               "alias": "parse-evaluate upper",
               "column": "value",
               "function": "mean",
-              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.upper\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.upper\" where $timeFilter group by time($interval) fill(null) order asc",
               "series": "stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.upper",
-              "target": ""
+              "target": "",
+              "refId": "A",
+              "fill": "null"
             },
             {
               "alias": "query-graphite-mean",
               "column": "value",
               "function": "mean",
-              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_query_graphite.mean\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_query_graphite.mean\" where $timeFilter group by time($interval) fill(null) order asc",
               "series": "stats.timers.grafana.dev.alert-executor.job_query_graphite.mean",
-              "target": ""
+              "target": "",
+              "refId": "A",
+              "fill": "null"
             },
             {
               "alias": "query-graphite upper",
               "column": "value",
               "function": "mean",
-              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_query_graphite.upper\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_query_graphite.upper\" where $timeFilter group by time($interval) fill(null) order asc",
               "series": "stats.timers.grafana.dev.alert-executor.job_query_graphite.upper",
-              "target": ""
+              "target": "",
+              "refId": "A",
+              "fill": "null"
             },
             {
               "alias": "num executors",
               "column": "value",
               "function": "mean",
-              "query": "select mean(value) from /stats.gauges.grafana.dev.alert-executor.*num/ where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from /stats.gauges.grafana.dev.alert-executor.*num/ where $timeFilter group by time($interval) fill(null) order asc",
               "series": "/stats.gauges.grafana.dev.alert-executor.*num/",
-              "target": ""
+              "target": "",
+              "refId": "A",
+              "fill": "null"
             }
           ],
           "timeFrom": null,
@@ -890,13 +899,6 @@
           ]
         }
       ],
-      "title": "New row"
-    },
-    {
-      "collapse": false,
-      "editable": true,
-      "height": "250px",
-      "panels": [],
       "title": "New row"
     }
   ],
