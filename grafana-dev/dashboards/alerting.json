@@ -812,7 +812,7 @@
           "lines": true,
           "linewidth": 2,
           "links": [],
-          "nullPointMode": "null as zero",
+          "nullPointMode": "null",
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -837,53 +837,57 @@
             {
               "alias": "ok",
               "column": "value",
-              "fill": "0",
+              "fill": "null",
               "function": "mean",
               "interval": "1s",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.alert-outcomes.ok\" where $timeFilter group by time($interval) fill(0) order asc",
+              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.alert-outcomes.ok\" where $timeFilter group by time($interval) fill(null) order asc",
               "series": "stats.grafana.dev.alert-executor.alert-outcomes.ok",
-              "target": ""
+              "target": "",
+              "refId": "A"
             },
             {
               "alias": "crit",
               "column": "value",
-              "fill": "0",
+              "fill": "null",
               "function": "mean",
               "interval": "1s",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.alert-outcomes.critical\" where $timeFilter group by time($interval) fill(0) order asc",
+              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.alert-outcomes.critical\" where $timeFilter group by time($interval) fill(null) order asc",
               "series": "stats.grafana.dev.alert-executor.alert-outcomes.critical",
-              "target": ""
+              "target": "",
+              "refId": "A"
             },
             {
               "alias": "unknown",
               "column": "value",
-              "fill": "0",
+              "fill": "null",
               "function": "mean",
               "hide": false,
               "interval": "1s",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.alert-outcomes.unknown\" where $timeFilter group by time($interval) fill(0) order asc",
+              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.alert-outcomes.unknown\" where $timeFilter group by time($interval) fill(null) order asc",
               "series": "stats.grafana.dev.alert-executor.alert-outcomes.unknown",
-              "target": ""
+              "target": "",
+              "refId": "A"
             },
             {
               "alias": "missing-values",
               "column": "value",
-              "fill": "0",
+              "fill": "null",
               "function": "mean",
               "hide": false,
               "interval": "1s",
-              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.graphite-missingVals.sum\" where $timeFilter group by time($interval) fill(0) order asc",
+              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.graphite-missingVals.sum\" where $timeFilter group by time($interval) fill(null) order asc",
               "series": "stats.timers.grafana.dev.alert-executor.graphite-missingVals.sum",
-              "target": ""
+              "target": "",
+              "refId": "A"
             },
             {
               "alias": "empty response",
               "column": "value",
-              "fill": "0",
+              "fill": "null",
               "function": "mean",
               "hide": false,
               "interval": "1s",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.graphite-emptyresponse\" where $timeFilter group by time($interval) fill(0) order asc",
+              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.graphite-emptyresponse\" where $timeFilter group by time($interval) fill(null) order asc",
               "series": "stats.grafana.dev.alert-executor.graphite-emptyresponse",
               "target": "",
               "refId": "A"
