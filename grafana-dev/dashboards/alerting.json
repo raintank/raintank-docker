@@ -823,6 +823,11 @@
               "alias": "missing-values",
               "lines": false,
               "points": true
+            },
+            {
+              "alias": "/execution delay/",
+              "yaxis": 2,
+              "linewidth": 0
             }
           ],
           "span": 4,
@@ -880,7 +885,20 @@
               "interval": "1s",
               "query": "select mean(value) from \"stats.grafana.dev.alert-executor.graphite-emptyresponse\" where $timeFilter group by time($interval) fill(0) order asc",
               "series": "stats.grafana.dev.alert-executor.graphite-emptyresponse",
-              "target": ""
+              "target": "",
+              "refId": "A"
+            },
+            {
+              "refId": "B",
+              "rawQuery": true,
+              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_execution_delay.mean\" where $timeFilter group by time($interval) order asc",
+              "alias": "execution delay mean"
+            },
+            {
+              "refId": "C",
+              "rawQuery": true,
+              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_execution_delay.upper_90\" where $timeFilter group by time($interval) order asc",
+              "alias": "execution delay p90"
             }
           ],
           "timeFrom": null,
@@ -895,7 +913,7 @@
           "y-axis": true,
           "y_formats": [
             "short",
-            "none"
+            "ms"
           ]
         }
       ],
