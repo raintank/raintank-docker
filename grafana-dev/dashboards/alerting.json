@@ -686,13 +686,13 @@
             "total": false,
             "values": false
           },
-          "lines": true,
+          "lines": false,
           "linewidth": 2,
           "links": [],
           "nullPointMode": "null",
           "percentage": false,
-          "pointradius": 5,
-          "points": false,
+          "pointradius": 1,
+          "points": true,
           "renderer": "flot",
           "seriesOverrides": [
             {
@@ -703,7 +703,9 @@
               "alias": "num executors",
               "fill": 2,
               "linewidth": 0,
-              "yaxis": 2
+              "yaxis": 2,
+              "lines": true,
+              "points": false
             }
           ],
           "span": 4,
@@ -717,49 +719,49 @@
               "function": "mean",
               "interval": "",
               "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.mean\" where $timeFilter group by time($interval) fill(null) order asc",
+              "refId": "A",
               "series": "stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.mean",
-              "target": "",
-              "refId": "A"
+              "target": ""
             },
             {
               "alias": "parse-evaluate upper",
               "column": "value",
+              "fill": "null",
               "function": "mean",
               "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.upper\" where $timeFilter group by time($interval) fill(null) order asc",
-              "series": "stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.upper",
-              "target": "",
               "refId": "A",
-              "fill": "null"
+              "series": "stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.upper",
+              "target": ""
             },
             {
               "alias": "query-graphite-mean",
               "column": "value",
+              "fill": "null",
               "function": "mean",
               "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_query_graphite.mean\" where $timeFilter group by time($interval) fill(null) order asc",
-              "series": "stats.timers.grafana.dev.alert-executor.job_query_graphite.mean",
-              "target": "",
               "refId": "A",
-              "fill": "null"
+              "series": "stats.timers.grafana.dev.alert-executor.job_query_graphite.mean",
+              "target": ""
             },
             {
               "alias": "query-graphite upper",
               "column": "value",
+              "fill": "null",
               "function": "mean",
               "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_query_graphite.upper\" where $timeFilter group by time($interval) fill(null) order asc",
-              "series": "stats.timers.grafana.dev.alert-executor.job_query_graphite.upper",
-              "target": "",
               "refId": "A",
-              "fill": "null"
+              "series": "stats.timers.grafana.dev.alert-executor.job_query_graphite.upper",
+              "target": ""
             },
             {
               "alias": "num executors",
               "column": "value",
+              "fill": "null",
               "function": "mean",
               "query": "select mean(value) from /stats.gauges.grafana.dev.alert-executor.*num/ where $timeFilter group by time($interval) fill(null) order asc",
-              "series": "/stats.gauges.grafana.dev.alert-executor.*num/",
-              "target": "",
               "refId": "A",
-              "fill": "null"
+              "series": "/stats.gauges.grafana.dev.alert-executor.*num/",
+              "target": ""
             }
           ],
           "timeFrom": null,
@@ -826,8 +828,8 @@
             },
             {
               "alias": "/execution delay/",
-              "yaxis": 2,
-              "linewidth": 0
+              "linewidth": 0,
+              "yaxis": 2
             }
           ],
           "span": 4,
@@ -841,9 +843,9 @@
               "function": "mean",
               "interval": "1s",
               "query": "select mean(value) from \"stats.grafana.dev.alert-executor.alert-outcomes.ok\" where $timeFilter group by time($interval) fill(null) order asc",
+              "refId": "A",
               "series": "stats.grafana.dev.alert-executor.alert-outcomes.ok",
-              "target": "",
-              "refId": "A"
+              "target": ""
             },
             {
               "alias": "crit",
@@ -852,9 +854,9 @@
               "function": "mean",
               "interval": "1s",
               "query": "select mean(value) from \"stats.grafana.dev.alert-executor.alert-outcomes.critical\" where $timeFilter group by time($interval) fill(null) order asc",
+              "refId": "A",
               "series": "stats.grafana.dev.alert-executor.alert-outcomes.critical",
-              "target": "",
-              "refId": "A"
+              "target": ""
             },
             {
               "alias": "unknown",
@@ -864,9 +866,9 @@
               "hide": false,
               "interval": "1s",
               "query": "select mean(value) from \"stats.grafana.dev.alert-executor.alert-outcomes.unknown\" where $timeFilter group by time($interval) fill(null) order asc",
+              "refId": "A",
               "series": "stats.grafana.dev.alert-executor.alert-outcomes.unknown",
-              "target": "",
-              "refId": "A"
+              "target": ""
             },
             {
               "alias": "missing-values",
@@ -876,9 +878,9 @@
               "hide": false,
               "interval": "1s",
               "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.graphite-missingVals.sum\" where $timeFilter group by time($interval) fill(null) order asc",
+              "refId": "A",
               "series": "stats.timers.grafana.dev.alert-executor.graphite-missingVals.sum",
-              "target": "",
-              "refId": "A"
+              "target": ""
             },
             {
               "alias": "empty response",
@@ -888,21 +890,21 @@
               "hide": false,
               "interval": "1s",
               "query": "select mean(value) from \"stats.grafana.dev.alert-executor.graphite-emptyresponse\" where $timeFilter group by time($interval) fill(null) order asc",
+              "refId": "A",
               "series": "stats.grafana.dev.alert-executor.graphite-emptyresponse",
-              "target": "",
-              "refId": "A"
+              "target": ""
             },
             {
-              "refId": "B",
-              "rawQuery": true,
+              "alias": "execution delay mean",
               "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_execution_delay.mean\" where $timeFilter group by time($interval) order asc",
-              "alias": "execution delay mean"
+              "rawQuery": true,
+              "refId": "B"
             },
             {
-              "refId": "C",
-              "rawQuery": true,
+              "alias": "execution delay p90",
               "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_execution_delay.upper_90\" where $timeFilter group by time($interval) order asc",
-              "alias": "execution delay p90"
+              "rawQuery": true,
+              "refId": "C"
             }
           ],
           "timeFrom": null,
