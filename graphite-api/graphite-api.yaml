@@ -15,3 +15,6 @@ kairosdb:
     url: http://elasticsearch:9200/
 search_index: /var/lib/graphite/index
 time_zone: America/New_York
+statsd:
+  host: 'statsdaemon'
+  port: 8125

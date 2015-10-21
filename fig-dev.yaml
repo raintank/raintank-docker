@@ -112,6 +112,7 @@ graphiteApi:
     - "8888"
   links:
     - elasticsearch:elasticsearch
+    - statsdaemon:statsdaemon
     - influxdb:influxdb
     - cassandra:cassandra
   environment:
