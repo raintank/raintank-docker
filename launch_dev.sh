@@ -41,6 +41,7 @@ screen -S raintank -X screen -t nsq_metrics_tank docker exec -t -i raintankdocke
 screen -S raintank -X screen -t nsq_metrics_to_stdout docker exec -t -i raintankdocker_nsqmetricstostdout_1 bash
 screen -S raintank -X screen -t nsq_metrics_to_elasticsearch docker exec -t -i raintankdocker_nsqmetricstoelasticsearch_1 bash
 screen -S raintank -X screen -t nsq_probe_events_to_elasticsearch docker exec -t -i raintankdocker_nsqprobeeventstoelasticsearch_1 bash
+screen -S raintank -X screen -t measure bash
 
 echo "starting commands in screen tabs..."
 screen -S raintank -p graphite-api -X stuff 'tail -10f /var/log/raintank/graphite-api.log\n'
@@ -63,6 +64,7 @@ screen -S raintank -p nsq_probe_events_to_elasticsearch -X stuff '/wait.sh elast
 screen -S raintank -p nsq_probe_events_to_elasticsearch -X stuff './nsq_probe_events_to_elasticsearch --elastic-addr elasticsearch:9200 --statsd-addr statsdaemon:8125 --nsqd-tcp-address nsqd:4150\n'
 screen -S raintank -p statsdaemon -X stuff 'tail -f /var/log/statsdaemon.log\n'
 screen -S raintank -p influxdb -X stuff 'tail -f /opt/influxdb/shared/log.txt\n'
+screen -S raintank -p measure -X stuff './measure.sh\n'
 
 echo "starting collector..."
 ./launch_dev_collector.sh
