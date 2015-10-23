@@ -1,0 +1,387 @@
+{
+  "id": 3,
+  "title": "sys",
+  "originalTitle": "sys",
+  "tags": [],
+  "style": "dark",
+  "timezone": "browser",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": false,
+  "rows": [
+    {
+      "collapse": false,
+      "editable": true,
+      "height": 208,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "influxdb",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 1,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 5.5741127348643005,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "grafana",
+              "column": "value",
+              "query": "select mean(value) from \"measure.grafana_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "A",
+              "series": "measure.grafana_cpu",
+              "target": ""
+            },
+            {
+              "alias": "cassandra",
+              "column": "value",
+              "query": "select mean(value) from \"measure.cassandra_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "B",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "kairosdb",
+              "column": "value",
+              "hide": true,
+              "query": "select mean(value) from \"measure.kairosdb_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "C",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "NMT",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.nmt_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "D",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "NMK",
+              "column": "value",
+              "hide": true,
+              "query": "select mean(value) from \"measure.nmk_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "E",
+              "series": "measure.cassandra_cpu"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "CPU",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "influxdb",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 2,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6.4258872651356995,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "grafana",
+              "column": "value",
+              "query": "select mean(value) from \"measure.grafana_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "A",
+              "series": "measure.grafana_cpu",
+              "target": ""
+            },
+            {
+              "alias": "cassandra",
+              "column": "value",
+              "query": "select mean(value) from \"measure.cassandra_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "B",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "kairosdb",
+              "column": "value",
+              "hide": true,
+              "query": "select mean(value) from \"measure.kairosdb_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "C",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "NMT",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.nmt_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "D",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "NMK",
+              "column": "value",
+              "hide": true,
+              "query": "select mean(value) from \"measure.nmk_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "E",
+              "series": "measure.cassandra_cpu"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "RSS",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "kbytes",
+            "short"
+          ]
+        }
+      ],
+      "title": "Row"
+    },
+    {
+      "title": "New row",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "graphite watcher",
+          "error": false,
+          "span": 12,
+          "editable": true,
+          "type": "graph",
+          "id": 3,
+          "datasource": "influxdb",
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "s",
+            "short"
+          ],
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "rightLogBase": 1,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": false,
+          "fill": 1,
+          "linewidth": 2,
+          "points": true,
+          "pointradius": 2,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": true,
+            "min": false,
+            "max": false,
+            "current": true,
+            "total": false,
+            "avg": false,
+            "alignAsTable": true,
+            "rightSide": true
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "",
+              "series": "graphite-watcher.lag.upper",
+              "alias": "lag max",
+              "column": "value",
+              "query": "select mean(value) from \"graphite-watcher.lag.upper\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "hide": false
+            },
+            {
+              "refId": "B",
+              "target": "",
+              "series": "graphite-watcher.lag.upper",
+              "alias": "lag p99",
+              "column": "value",
+              "query": "select mean(value) from \"graphite-watcher.lag.upper_99\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "hide": false
+            },
+            {
+              "refId": "C",
+              "target": "",
+              "series": "graphite-watcher.lag.mean",
+              "alias": "lag mean",
+              "column": "value",
+              "query": "select mean(value) from \"graphite-watcher.lag.mean\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "hide": false
+            },
+            {
+              "refId": "D",
+              "series": "graphite-watcher.num_metrics",
+              "column": "value",
+              "query": "select last(value) from \"graphite-watcher.num_metrics\" where $timeFilter group by time($interval) order asc",
+              "alias": "num metrics in ES",
+              "rawQuery": true,
+              "hide": false
+            }
+          ],
+          "aliasColors": {
+            "lag max": "#890F02",
+            "lag p99": "#C15C17",
+            "lag mean": "#F2C96D",
+            "num metrics in ES": "#0A437C"
+          },
+          "seriesOverrides": [
+            {
+              "alias": "num metrics in ES",
+              "yaxis": 2,
+              "fill": 5,
+              "linewidth": 0,
+              "lines": true,
+              "points": false
+            }
+          ],
+          "leftYAxisLabel": "",
+          "rightYAxisLabel": "num",
+          "links": []
+        }
+      ]
+    }
+  ],
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "timepicker": {
+    "now": true,
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "templating": {
+    "list": []
+  },
+  "annotations": {
+    "list": []
+  },
+  "schemaVersion": 7,
+  "version": 0,
+  "links": []
+}
