@@ -10,7 +10,8 @@ RUN ln -s /go/src/github.com/raintank/grafana /go/src/github.com/grafana/grafana
 ENV GOPATH /go
 ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
 
-RUN go get github.com/raintank/grafana || true
+# insecure due to bosun.org issue with cloudflare
+RUN go get -insecure github.com/raintank/grafana || true
 RUN go get github.com/Unknwon/bra
 RUN go get github.com/tools/godep
 WORKDIR /go/src/github.com/grafana/grafana
