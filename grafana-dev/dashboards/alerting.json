@@ -965,7 +965,21 @@
     "list": []
   },
   "annotations": {
-    "list": []
+    "list": [
+      {
+        "name": "events",
+        "datasource": "influxdb",
+        "showLine": true,
+        "iconColor": "#C0C6BE",
+        "lineColor": "rgba(255, 96, 96, 0.592157)",
+        "iconSize": 13,
+        "enable": true,
+        "query": "select type, text from events where $timeFilter",
+        "titleColumn": "type",
+        "tagsColumn": "tags",
+        "textColumn": "text"
+      }
+    ]
   },
   "refresh": false,
   "schemaVersion": 7,
