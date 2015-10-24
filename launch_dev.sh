@@ -71,6 +71,9 @@ screen -S raintank -p statsdaemon -X stuff 'tail -f /var/log/statsdaemon.log\n'
 screen -S raintank -p influxdb -X stuff 'tail -f /opt/influxdb/shared/log.txt\n'
 screen -S raintank -p measure -X stuff './measure.sh\n'
 
+./wait.sh localhost:8086
+curl -X POST "localhost:8086/db/raintank/series?u=graphite&p=graphite" -d '[{"name": "events","columns": ["type","tags","text"],"points": [["devstack-start", "start", "devstack started"]]}]'
+
 echo "starting collector..."
 ./launch_dev_collector.sh
 
