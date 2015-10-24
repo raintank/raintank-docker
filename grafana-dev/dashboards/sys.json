@@ -353,7 +353,7 @@
         {
           "title": "graphite-api durations",
           "error": false,
-          "span": 6,
+          "span": 4,
           "editable": true,
           "type": "graph",
           "id": 4,
@@ -377,11 +377,11 @@
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "lines": true,
+          "lines": false,
           "fill": 0,
           "linewidth": 2,
-          "points": false,
-          "pointradius": 5,
+          "points": true,
+          "pointradius": 1,
           "bars": false,
           "stack": false,
           "percentage": false,
@@ -432,7 +432,77 @@
               "query": "select mean(value) from \"stats.timers.graphite-api.search_series.es_search.query_duration.mean\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "hide": false
-            },
+            }
+          ],
+          "aliasColors": {
+            "search ES p90": "#EAB839",
+            "search ES mean": "#967302",
+            "unmarshal raintank resp p90": "#508642",
+            "unmarshal raintank resp mean": "#3F6833",
+            "raintank_query p90": "#65C5DB",
+            "raintank_query mean": "#052B51"
+          },
+          "seriesOverrides": [
+            {
+              "alias": "/p90/",
+              "yaxis": 2
+            }
+          ],
+          "links": []
+        },
+        {
+          "title": "graphite-api durations",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "graph",
+          "id": 6,
+          "datasource": "influxdb",
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "s",
+            "s"
+          ],
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "rightLogBase": 1,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": false,
+          "fill": 0,
+          "linewidth": 2,
+          "points": true,
+          "pointradius": 1,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "targets": [
             {
               "refId": "D",
               "target": "",
@@ -472,18 +542,13 @@
             "raintank_query p90": "#65C5DB",
             "raintank_query mean": "#052B51"
           },
-          "seriesOverrides": [
-            {
-              "alias": "/p90/",
-              "yaxis": 2
-            }
-          ],
+          "seriesOverrides": [],
           "links": []
         },
         {
           "title": "graphite-api ops/s",
           "error": false,
-          "span": 6,
+          "span": 4,
           "editable": true,
           "type": "graph",
           "id": 5,
@@ -536,7 +601,7 @@
             {
               "refId": "A",
               "target": "",
-              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.count_ps",
+              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
               "alias": "raintank_query",
               "column": "value",
               "query": "select mean(value) from \"stats.timers.graphite-api.fetch.raintank_query.query_duration.count_ps\" where $timeFilter group by time($interval) order asc",
@@ -547,7 +612,7 @@
             {
               "refId": "B",
               "target": "",
-              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.count_ps",
+              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
               "alias": "unmarshal raintank resp",
               "column": "value",
               "query": "select mean(value) from \"stats.timers.graphite-api.fetch.unmarshal_raintank_resp.duration.count_ps\" where $timeFilter group by time($interval) order asc",
@@ -558,7 +623,7 @@
             {
               "refId": "C",
               "target": "",
-              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.count_ps",
+              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
               "alias": "search ES",
               "column": "value",
               "query": "select mean(value) from \"stats.timers.graphite-api.search_series.es_search.query_duration.count_ps\" where $timeFilter group by time($interval) order asc",
