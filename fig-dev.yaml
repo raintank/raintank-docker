@@ -39,6 +39,16 @@ nsqadmin:
   links:
     - nsqd:nsqd
 
+graphitewatcher:
+  image: raintank/graphite-watcher
+  hostname: watcher
+  links:
+    - elasticsearch:elasticsearch
+    - influxdb:influxdb
+    - graphiteApi:graphite-api
+  volumes:
+    - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
+
 nsqmetricstank:
   image: raintank/nsq_metrics_tank
   hostname: nmt

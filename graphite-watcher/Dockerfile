@@ -1,0 +1,11 @@
+FROM raintank/nodejsgo
+
+RUN apt-get update && apt-get -y install supervisor
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY wait.sh /wait.sh
+
+ENV GOPATH /go
+ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
+#RUN go get -u github.com/raintank/raintank-metric/graphite-watcher
+
+CMD ["/usr/bin/supervisord"]
