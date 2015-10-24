@@ -11,7 +11,7 @@ done
 
 # assure no collectors images occupying the name, which can happen by stopped containers
 for id in $(docker ps -a | grep raintankdocker_raintankCollector | cut -d' ' -f1); do
-  docker rm $id
+  docker rm -v $id
 done
 
 echo "Stopped docker dev environment"
