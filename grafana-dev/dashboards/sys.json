@@ -15,12 +15,33 @@
       "height": 208,
       "panels": [
         {
-          "aliasColors": {},
+          "aliasColors": {
+            "graphite-api 1": "#E0F9D7",
+            "graphite-api 2": "#FCEACA",
+            "graphite-api 3": "#CFFAFF",
+            "graphite-api 4": "#F9E2D2",
+            "graphite-api 5": "#FCE2DE",
+            "graphite-api 6": "#BADFF4",
+            "graphite-api 7": "#F9D9F9",
+            "graphite-api 8": "#DEDAF7",
+            "graphite-api 9": "#6ED0E0",
+            "graphite-api 10": "#B7DBAB",
+            "graphite-api 11": "#65C5DB",
+            "graphite-api 12": "#E5A8E2",
+            "graphite-api 13": "#AEA2E0",
+            "graphite-api 14": "#64B0C8",
+            "graphite-api 15": "#E5A8E2",
+            "graphite-api 16": "#DEDAF7",
+            "graphite-api 17": "#DEDAF7",
+            "grafana": "#511749",
+            "cassandra": "#BF1B00",
+            "NMT": "#EAB839"
+          },
           "bars": false,
           "datasource": "influxdb",
           "editable": true,
           "error": false,
-          "fill": 1,
+          "fill": 0,
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
@@ -44,11 +65,11 @@
             "values": false
           },
           "lines": true,
-          "linewidth": 2,
+          "linewidth": 1,
           "links": [],
-          "nullPointMode": "connected",
+          "nullPointMode": "null",
           "percentage": false,
-          "pointradius": 5,
+          "pointradius": 1,
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
@@ -99,6 +120,159 @@
               "rawQuery": true,
               "refId": "E",
               "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "graphite-api 1",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.1_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "F",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "graphite-api 2",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.2_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "G",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "graphite-api 3",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.3_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "H",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "graphite-api 4",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.4_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "I",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "graphite-api 5",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.5_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "J",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "graphite-api 6",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.6_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "K",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "graphite-api 7",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.7_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "L",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "graphite-api 8",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.8_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "M",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "graphite-api 9",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.9_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "N",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "graphite-api 10",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.10_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "O",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "graphite-api 11",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.11_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "P",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "graphite-api 12",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.12_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "Q",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "graphite-api 13",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.13_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "R",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "graphite-api 14",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.14_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "S",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "graphite-api 15",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.15_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "T",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "graphite-api 16",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.16_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "U",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "graphite-api 17",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.17_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "V",
+              "series": "measure.cassandra_cpu"
             }
           ],
           "timeFrom": null,
@@ -117,12 +291,33 @@
           ]
         },
         {
-          "aliasColors": {},
+          "aliasColors": {
+            "graphite-api 1": "#E0F9D7",
+            "graphite-api 2": "#FCEACA",
+            "graphite-api 3": "#CFFAFF",
+            "graphite-api 4": "#F9E2D2",
+            "graphite-api 5": "#FCE2DE",
+            "graphite-api 6": "#BADFF4",
+            "graphite-api 7": "#F9D9F9",
+            "graphite-api 8": "#DEDAF7",
+            "graphite-api 9": "#6ED0E0",
+            "graphite-api 10": "#B7DBAB",
+            "graphite-api 11": "#65C5DB",
+            "graphite-api 12": "#E5A8E2",
+            "graphite-api 13": "#AEA2E0",
+            "graphite-api 14": "#64B0C8",
+            "graphite-api 15": "#E5A8E2",
+            "graphite-api 16": "#DEDAF7",
+            "graphite-api 17": "#DEDAF7",
+            "grafana": "#511749",
+            "cassandra": "#BF1B00",
+            "NMT": "#EAB839"
+          },
           "bars": false,
           "datasource": "influxdb",
           "editable": true,
           "error": false,
-          "fill": 1,
+          "fill": 0,
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
@@ -146,7 +341,7 @@
             "values": false
           },
           "lines": true,
-          "linewidth": 2,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
           "percentage": false,
@@ -201,6 +396,159 @@
               "rawQuery": true,
               "refId": "E",
               "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "graphite-api 1",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.1_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "F",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "graphite-api 2",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.2_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "G",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "graphite-api 3",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.3_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "H",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "graphite-api 4",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.4_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "I",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "graphite-api 5",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.5_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "J",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "graphite-api 6",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.6_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "K",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "graphite-api 7",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.7_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "L",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "graphite-api 8",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.8_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "M",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "graphite-api 9",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.9_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "N",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "graphite-api 10",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.10_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "O",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "graphite-api 11",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.11_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "P",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "graphite-api 12",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.12_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "Q",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "graphite-api 13",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.13_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "R",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "graphite-api 14",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.14_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "S",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "graphite-api 15",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.15_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "T",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "graphite-api 16",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.16_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "U",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "graphite-api 17",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.17_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "V",
+              "series": "measure.cassandra_rss"
             }
           ],
           "timeFrom": null,
@@ -222,433 +570,433 @@
       "title": "Row"
     },
     {
-      "title": "New row",
-      "height": "250px",
-      "editable": true,
       "collapse": false,
+      "editable": true,
+      "height": "250px",
       "panels": [
         {
-          "title": "graphite watcher",
-          "error": false,
-          "span": 12,
-          "editable": true,
-          "type": "graph",
-          "id": 3,
+          "aliasColors": {
+            "lag max": "#890F02",
+            "lag mean": "#F2C96D",
+            "lag p99": "#C15C17",
+            "num metrics in ES": "#0A437C"
+          },
+          "bars": false,
           "datasource": "influxdb",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 3,
+          "leftYAxisLabel": "",
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": false,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 2,
+          "points": true,
           "renderer": "flot",
+          "rightYAxisLabel": "num",
+          "seriesOverrides": [
+            {
+              "alias": "num metrics in ES",
+              "fill": 5,
+              "lines": true,
+              "linewidth": 0,
+              "points": false,
+              "yaxis": 2
+            }
+          ],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "lag max",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"graphite-watcher.lag.upper\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "A",
+              "series": "graphite-watcher.lag.upper",
+              "target": ""
+            },
+            {
+              "alias": "lag p99",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"graphite-watcher.lag.upper_99\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "B",
+              "series": "graphite-watcher.lag.upper",
+              "target": ""
+            },
+            {
+              "alias": "lag mean",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"graphite-watcher.lag.mean\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "C",
+              "series": "graphite-watcher.lag.mean",
+              "target": ""
+            },
+            {
+              "alias": "num metrics in ES",
+              "column": "value",
+              "hide": false,
+              "query": "select last(value) from \"graphite-watcher.num_metrics\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "D",
+              "series": "graphite-watcher.num_metrics"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "graphite watcher",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
           "x-axis": true,
           "y-axis": true,
           "y_formats": [
             "s",
             "short"
-          ],
-          "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": null,
-            "rightMin": null,
-            "rightLogBase": 1,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": false,
-          "fill": 1,
-          "linewidth": 2,
-          "points": true,
-          "pointradius": 2,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": true,
-            "min": false,
-            "max": false,
-            "current": true,
-            "total": false,
-            "avg": false,
-            "alignAsTable": true,
-            "rightSide": true
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "timeFrom": null,
-          "timeShift": null,
-          "targets": [
-            {
-              "refId": "A",
-              "target": "",
-              "series": "graphite-watcher.lag.upper",
-              "alias": "lag max",
-              "column": "value",
-              "query": "select mean(value) from \"graphite-watcher.lag.upper\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "hide": false
-            },
-            {
-              "refId": "B",
-              "target": "",
-              "series": "graphite-watcher.lag.upper",
-              "alias": "lag p99",
-              "column": "value",
-              "query": "select mean(value) from \"graphite-watcher.lag.upper_99\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "hide": false
-            },
-            {
-              "refId": "C",
-              "target": "",
-              "series": "graphite-watcher.lag.mean",
-              "alias": "lag mean",
-              "column": "value",
-              "query": "select mean(value) from \"graphite-watcher.lag.mean\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "hide": false
-            },
-            {
-              "refId": "D",
-              "series": "graphite-watcher.num_metrics",
-              "column": "value",
-              "query": "select last(value) from \"graphite-watcher.num_metrics\" where $timeFilter group by time($interval) order asc",
-              "alias": "num metrics in ES",
-              "rawQuery": true,
-              "hide": false
-            }
-          ],
-          "aliasColors": {
-            "lag max": "#890F02",
-            "lag p99": "#C15C17",
-            "lag mean": "#F2C96D",
-            "num metrics in ES": "#0A437C"
-          },
-          "seriesOverrides": [
-            {
-              "alias": "num metrics in ES",
-              "yaxis": 2,
-              "fill": 5,
-              "linewidth": 0,
-              "lines": true,
-              "points": false
-            }
-          ],
-          "leftYAxisLabel": "",
-          "rightYAxisLabel": "num",
-          "links": []
+          ]
         }
-      ]
+      ],
+      "title": "New row"
     },
     {
-      "title": "New row",
-      "height": "250px",
-      "editable": true,
       "collapse": false,
+      "editable": true,
+      "height": "250px",
       "panels": [
         {
-          "title": "graphite-api durations",
-          "error": false,
-          "span": 4,
-          "editable": true,
-          "type": "graph",
-          "id": 4,
+          "aliasColors": {
+            "raintank_query mean": "#052B51",
+            "raintank_query p90": "#65C5DB",
+            "search ES mean": "#967302",
+            "search ES p90": "#EAB839",
+            "unmarshal raintank resp mean": "#3F6833",
+            "unmarshal raintank resp p90": "#508642"
+          },
+          "bars": false,
           "datasource": "influxdb",
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "s",
-            "s"
-          ],
+          "editable": true,
+          "error": false,
+          "fill": 0,
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
-            "rightMax": null,
             "leftMin": null,
-            "rightMin": null,
             "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
             "threshold1": null,
-            "threshold2": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "lines": false,
-          "fill": 0,
-          "linewidth": 2,
-          "points": true,
-          "pointradius": 1,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
+          "id": 4,
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
+            "avg": false,
             "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
             "total": false,
-            "avg": false
+            "values": false
           },
+          "lines": false,
+          "linewidth": 2,
+          "links": [],
           "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "timeFrom": null,
-          "timeShift": null,
-          "targets": [
-            {
-              "refId": "A",
-              "target": "",
-              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
-              "alias": "raintank_query mean",
-              "column": "value",
-              "query": "select mean(value) from \"stats.timers.graphite-api.fetch.raintank_query.query_duration.mean\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "hide": false
-            },
-            {
-              "refId": "B",
-              "target": "",
-              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
-              "alias": "unmarshal raintank resp mean",
-              "column": "value",
-              "query": "select mean(value) from \"stats.timers.graphite-api.fetch.unmarshal_raintank_resp.duration.mean\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "hide": false
-            },
-            {
-              "refId": "C",
-              "target": "",
-              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
-              "alias": "search ES mean",
-              "column": "value",
-              "query": "select mean(value) from \"stats.timers.graphite-api.search_series.es_search.query_duration.mean\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "hide": false
-            }
-          ],
-          "aliasColors": {
-            "search ES p90": "#EAB839",
-            "search ES mean": "#967302",
-            "unmarshal raintank resp p90": "#508642",
-            "unmarshal raintank resp mean": "#3F6833",
-            "raintank_query p90": "#65C5DB",
-            "raintank_query mean": "#052B51"
-          },
+          "percentage": false,
+          "pointradius": 1,
+          "points": true,
+          "renderer": "flot",
           "seriesOverrides": [
             {
               "alias": "/p90/",
               "yaxis": 2
             }
           ],
-          "links": []
-        },
-        {
-          "title": "graphite-api durations",
-          "error": false,
           "span": 4,
-          "editable": true,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "raintank_query mean",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"stats.timers.graphite-api.fetch.raintank_query.query_duration.mean\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "A",
+              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
+              "target": ""
+            },
+            {
+              "alias": "unmarshal raintank resp mean",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"stats.timers.graphite-api.fetch.unmarshal_raintank_resp.duration.mean\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "B",
+              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
+              "target": ""
+            },
+            {
+              "alias": "search ES mean",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"stats.timers.graphite-api.search_series.es_search.query_duration.mean\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "C",
+              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "graphite-api durations",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
           "type": "graph",
-          "id": 6,
-          "datasource": "influxdb",
-          "renderer": "flot",
           "x-axis": true,
           "y-axis": true,
           "y_formats": [
             "s",
             "s"
-          ],
+          ]
+        },
+        {
+          "aliasColors": {
+            "raintank_query mean": "#052B51",
+            "raintank_query p90": "#65C5DB",
+            "search ES mean": "#967302",
+            "search ES p90": "#EAB839",
+            "unmarshal raintank resp mean": "#3F6833",
+            "unmarshal raintank resp p90": "#508642"
+          },
+          "bars": false,
+          "datasource": "influxdb",
+          "editable": true,
+          "error": false,
+          "fill": 0,
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
-            "rightMax": null,
             "leftMin": null,
-            "rightMin": null,
             "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
             "threshold1": null,
-            "threshold2": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "lines": false,
-          "fill": 0,
-          "linewidth": 2,
-          "points": true,
-          "pointradius": 1,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
+          "id": 6,
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
+            "avg": false,
             "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
             "total": false,
-            "avg": false
+            "values": false
           },
+          "lines": false,
+          "linewidth": 2,
+          "links": [],
           "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 1,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
           "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "timeFrom": null,
-          "timeShift": null,
           "targets": [
             {
-              "refId": "D",
-              "target": "",
-              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
               "alias": "raintank_query p90",
               "column": "value",
+              "hide": false,
               "query": "select mean(value) from \"stats.timers.graphite-api.fetch.raintank_query.query_duration.upper_90\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
-              "hide": false
+              "refId": "D",
+              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
+              "target": ""
             },
             {
-              "refId": "E",
-              "target": "",
-              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
               "alias": "unmarshal raintank resp p90",
               "column": "value",
+              "hide": false,
               "query": "select mean(value) from \"stats.timers.graphite-api.fetch.unmarshal_raintank_resp.duration.upper_90\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
-              "hide": false
+              "refId": "E",
+              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
+              "target": ""
             },
             {
-              "refId": "F",
-              "target": "",
-              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
               "alias": "search ES p90",
               "column": "value",
+              "hide": false,
               "query": "select mean(value) from \"stats.timers.graphite-api.search_series.es_search.query_duration.upper_90\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
-              "hide": false
+              "refId": "F",
+              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
+              "target": ""
             }
           ],
-          "aliasColors": {
-            "search ES p90": "#EAB839",
-            "search ES mean": "#967302",
-            "unmarshal raintank resp p90": "#508642",
-            "unmarshal raintank resp mean": "#3F6833",
-            "raintank_query p90": "#65C5DB",
-            "raintank_query mean": "#052B51"
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "graphite-api durations",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
           },
-          "seriesOverrides": [],
-          "links": []
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "s",
+            "s"
+          ]
         },
         {
-          "title": "graphite-api ops/s",
-          "error": false,
-          "span": 4,
-          "editable": true,
-          "type": "graph",
-          "id": 5,
+          "aliasColors": {
+            "raintank_query mean": "#052B51",
+            "raintank_query p90": "#65C5DB",
+            "search ES mean": "#967302",
+            "search ES p90": "#EAB839",
+            "unmarshal raintank resp mean": "#3F6833",
+            "unmarshal raintank resp p90": "#508642"
+          },
+          "bars": false,
           "datasource": "influxdb",
+          "editable": true,
+          "error": false,
+          "fill": 7,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 5,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 0,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "/p90/",
+              "yaxis": 2
+            }
+          ],
+          "span": 4,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "raintank_query",
+              "column": "value",
+              "hide": false,
+              "interval": "1s",
+              "query": "select mean(value) from \"stats.timers.graphite-api.fetch.raintank_query.query_duration.count_ps\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "A",
+              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
+              "target": ""
+            },
+            {
+              "alias": "unmarshal raintank resp",
+              "column": "value",
+              "hide": false,
+              "interval": "1s",
+              "query": "select mean(value) from \"stats.timers.graphite-api.fetch.unmarshal_raintank_resp.duration.count_ps\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "B",
+              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
+              "target": ""
+            },
+            {
+              "alias": "search ES",
+              "column": "value",
+              "hide": false,
+              "interval": "1s",
+              "query": "select mean(value) from \"stats.timers.graphite-api.search_series.es_search.query_duration.count_ps\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "C",
+              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "graphite-api ops/s",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
           "x-axis": true,
           "y-axis": true,
           "y_formats": [
             "none",
             "s"
-          ],
-          "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": null,
-            "rightMin": null,
-            "rightLogBase": 1,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 7,
-          "linewidth": 0,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": true,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "timeFrom": null,
-          "timeShift": null,
-          "targets": [
-            {
-              "refId": "A",
-              "target": "",
-              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
-              "alias": "raintank_query",
-              "column": "value",
-              "query": "select mean(value) from \"stats.timers.graphite-api.fetch.raintank_query.query_duration.count_ps\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "hide": false,
-              "interval": "1s"
-            },
-            {
-              "refId": "B",
-              "target": "",
-              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
-              "alias": "unmarshal raintank resp",
-              "column": "value",
-              "query": "select mean(value) from \"stats.timers.graphite-api.fetch.unmarshal_raintank_resp.duration.count_ps\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "hide": false,
-              "interval": "1s"
-            },
-            {
-              "refId": "C",
-              "target": "",
-              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
-              "alias": "search ES",
-              "column": "value",
-              "query": "select mean(value) from \"stats.timers.graphite-api.search_series.es_search.query_duration.count_ps\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "hide": false,
-              "interval": "1s"
-            }
-          ],
-          "aliasColors": {
-            "search ES p90": "#EAB839",
-            "search ES mean": "#967302",
-            "unmarshal raintank resp p90": "#508642",
-            "unmarshal raintank resp mean": "#3F6833",
-            "raintank_query p90": "#65C5DB",
-            "raintank_query mean": "#052B51"
-          },
-          "seriesOverrides": [
-            {
-              "alias": "/p90/",
-              "yaxis": 2
-            }
-          ],
-          "links": []
+          ]
         }
-      ]
+      ],
+      "title": "New row"
     }
   ],
   "time": {
@@ -687,21 +1035,21 @@
   "annotations": {
     "list": [
       {
-        "name": "events",
         "datasource": "influxdb",
-        "showLine": true,
-        "iconColor": "#C0C6BE",
-        "lineColor": "rgba(255, 96, 96, 0.592157)",
-        "iconSize": 13,
         "enable": true,
+        "iconColor": "#C0C6BE",
+        "iconSize": 13,
+        "lineColor": "rgba(255, 96, 96, 0.592157)",
+        "name": "events",
         "query": "select type, text from events where $timeFilter",
-        "titleColumn": "type",
+        "showLine": true,
         "tagsColumn": "tags",
-        "textColumn": "text"
+        "textColumn": "text",
+        "titleColumn": "type"
       }
     ]
   },
   "schemaVersion": 7,
-  "version": 0,
+  "version": 1,
   "links": []
 }
