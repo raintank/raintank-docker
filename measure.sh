@@ -1,32 +1,23 @@
 #!/bin/bash
 
-while true; do
-  echo "$(date) measuring.."
-  c_cpu=$(ps aux | grep -v awk | awk '/java.*cassandra/ { print $3}')
-  c_rss=$(ps aux | grep -v awk | awk '/java.*cassandra/ { print $6}')
-  g_cpu=$(ps aux | grep -v awk | awk '/grafana-server/ { print $3}')
-  g_rss=$(ps aux | grep -v awk | awk '/grafana-server/ { print $6}')
-  kairos_cpu=$(ps aux | grep -v awk | awk '/java.*kairosdb/ {print $3}')
-  kairos_rss=$(ps aux | grep -v awk | awk '/java.*kairosdb/ {print $6}')
-  nmt_cpu=$(ps aux | grep -v awk | awk '/nsq_metrics_tank/ {print $3}')
-  nmt_rss=$(ps aux | grep -v awk | awk '/nsq_metrics_tank/ {print $6}')
-  nmk_cpu=$(ps aux | grep -v awk | awk '/nsq_metrics_to_kairos/ {print $3}')
-  nmk_rss=$(ps aux | grep -v awk | awk '/nsq_metrics_to_kairos/ {print $6}')
-  ts=$(date +%s)
-  ( cat << EOF
-measure.cassandra_cpu $c_cpu $ts
-measure.cassandra_rss $c_rss $ts
-measure.grafana_cpu $g_cpu $ts
-measure.grafana_rss $g_rss $ts
-measure.kairosdb_cpu $kairos_cpu $ts
-measure.kairosdb_rss $kairos_rss $ts
-measure.nmt_cpu $nmt_cpu $ts
-measure.nmt_rss $nmt_rss $ts
-measure.nmk_cpu $nmk_cpu $ts
-measure.nmk_rss $nmk_rss $ts
-EOF
-ps aux | grep -v awk | awk 'BEGIN { worker = 0} /python.*gunicorn/ {worker++; print "measure.graphite-api." worker "_cpu", $3}' | sed "s#\$# $ts#"
-ps aux | grep -v awk | awk 'BEGIN { worker = 0} /python.*gunicorn/ {worker++; print "measure.graphite-api." worker "_rss", $6}' | sed "s#\$# $ts#"
-) | nc -c localhost 2003
-  sleep 10
-done
+COLUMNS=512 top -b -c | grep -v sed | sed -u -n \
+  -e 's#`-.*java.*cassandra.*#cassandra#p' \
+  -e 's#`-.*grafana-server.*#grafana#p' \
+  -e 's#`-.*java.*kairosdb.*#kairosdb#p' \
+  -e 's#`-.*nsq_metrics_tank.*#nmt#p' \
+  -e 's#`-.*nsq_metrics_to_kairos.*#nmk#p' \
+  -e 's#`-.*python.*gunicorn.*#graphite-api#p' \
+  | awk '{print $6,$7,$11;fflush();}' \
+  | while read mem cpu process; do
+    ts=$(date +%s)
+    mem=${mem/m/}
+    if [ "$process" != "graphite-api" ]; then
+      graphite_api_i=0
+      echo "measure.${process}_cpu $cpu $ts"
+      echo "measure.${process}_rss $mem $ts"
+    else
+      graphite_api_i=$((graphite_api_i + 1))
+      echo "measure.${process}.${graphite_api_i}_cpu $cpu $ts"
+      echo "measure.${process}.${graphite_api_i}_rss $mem $ts"
+    fi
+done | nc -c localhost 2003
