@@ -1,5 +1,5 @@
 {
-  "id": 3,
+  "id": null,
   "title": "sys",
   "originalTitle": "sys",
   "tags": [],
@@ -16,23 +16,6 @@
       "panels": [
         {
           "aliasColors": {
-            "graphite-api 1": "#E0F9D7",
-            "graphite-api 2": "#FCEACA",
-            "graphite-api 3": "#CFFAFF",
-            "graphite-api 4": "#F9E2D2",
-            "graphite-api 5": "#FCE2DE",
-            "graphite-api 6": "#BADFF4",
-            "graphite-api 7": "#F9D9F9",
-            "graphite-api 8": "#DEDAF7",
-            "graphite-api 9": "#6ED0E0",
-            "graphite-api 10": "#B7DBAB",
-            "graphite-api 11": "#65C5DB",
-            "graphite-api 12": "#E5A8E2",
-            "graphite-api 13": "#AEA2E0",
-            "graphite-api 14": "#64B0C8",
-            "graphite-api 15": "#E5A8E2",
-            "graphite-api 16": "#DEDAF7",
-            "graphite-api 17": "#DEDAF7",
             "grafana": "#511749",
             "cassandra": "#BF1B00",
             "NMT": "#EAB839"
@@ -73,7 +56,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 5.5741127348643005,
+          "span": 6,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -122,157 +105,67 @@
               "series": "measure.cassandra_cpu"
             },
             {
-              "alias": "graphite-api 1",
+              "alias": "elasticsearch",
               "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.1_cpu\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"measure.elasticsearch_cpu\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "F",
-              "series": "measure.cassandra_cpu"
+              "series": "measure.elasticsearch_cpu"
             },
             {
-              "alias": "graphite-api 2",
+              "alias": "nsqd",
               "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.2_cpu\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"measure.nsqd_cpu\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "G",
-              "series": "measure.cassandra_cpu"
+              "series": "measure.nsqd_cpu"
             },
             {
-              "alias": "graphite-api 3",
+              "alias": "NME",
               "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.3_cpu\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"measure.nme_cpu\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "H",
-              "series": "measure.cassandra_cpu"
+              "series": "measure.nme_cpu"
             },
             {
-              "alias": "graphite-api 4",
+              "alias": "npee",
               "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.4_cpu\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"measure.npee_cpu\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "I",
-              "series": "measure.cassandra_cpu"
+              "series": "measure.npee_cpu"
             },
             {
-              "alias": "graphite-api 5",
+              "alias": "redis",
               "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.5_cpu\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"measure.redis_cpu\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "J",
-              "series": "measure.cassandra_cpu"
+              "series": "measure.redis_cpu"
             },
             {
-              "alias": "graphite-api 6",
+              "alias": "rabbit",
               "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.6_cpu\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"measure.rabbit_cpu\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "K",
-              "series": "measure.cassandra_cpu"
+              "series": "measure.rabbit_cpu"
             },
             {
-              "alias": "graphite-api 7",
+              "alias": "statsdaemon",
               "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.7_cpu\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"measure.statsdaemon_cpu\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "L",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "graphite-api 8",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.8_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "M",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "graphite-api 9",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.9_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "N",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "graphite-api 10",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.10_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "O",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "graphite-api 11",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.11_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "P",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "graphite-api 12",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.12_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "Q",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "graphite-api 13",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.13_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "R",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "graphite-api 14",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.14_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "S",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "graphite-api 15",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.15_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "T",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "graphite-api 16",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.16_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "U",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "graphite-api 17",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.17_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "V",
-              "series": "measure.cassandra_cpu"
+              "series": "measure.statsdaemon_cpu"
             }
           ],
           "timeFrom": null,
@@ -291,28 +184,7 @@
           ]
         },
         {
-          "aliasColors": {
-            "graphite-api 1": "#E0F9D7",
-            "graphite-api 2": "#FCEACA",
-            "graphite-api 3": "#CFFAFF",
-            "graphite-api 4": "#F9E2D2",
-            "graphite-api 5": "#FCE2DE",
-            "graphite-api 6": "#BADFF4",
-            "graphite-api 7": "#F9D9F9",
-            "graphite-api 8": "#DEDAF7",
-            "graphite-api 9": "#6ED0E0",
-            "graphite-api 10": "#B7DBAB",
-            "graphite-api 11": "#65C5DB",
-            "graphite-api 12": "#E5A8E2",
-            "graphite-api 13": "#AEA2E0",
-            "graphite-api 14": "#64B0C8",
-            "graphite-api 15": "#E5A8E2",
-            "graphite-api 16": "#DEDAF7",
-            "graphite-api 17": "#DEDAF7",
-            "grafana": "#511749",
-            "cassandra": "#BF1B00",
-            "NMT": "#EAB839"
-          },
+          "aliasColors": {},
           "bars": false,
           "datasource": "influxdb",
           "editable": true,
@@ -343,13 +215,228 @@
           "lines": true,
           "linewidth": 1,
           "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 1,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "1",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.1_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "A",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "2",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.2_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "B",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "3",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.3_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "C",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "4",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.4_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "D",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "5",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.5_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "E",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "6",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.6_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "F",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "7",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.7_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "G",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "8",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.8_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "H",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "9",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.9_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "I",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "10",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.10_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "J",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "11",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.11_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "K",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "12",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.12_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "L",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "13",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.13_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "M",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "14",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.14_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "N",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "15",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.15_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "O",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "16",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.16_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "P",
+              "series": "measure.cassandra_cpu"
+            },
+            {
+              "alias": "17",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.17_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "Q",
+              "series": "measure.cassandra_cpu"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "CPU graphite-api",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        },
+        {
+          "aliasColors": {
+            "grafana": "#511749",
+            "cassandra": "#BF1B00",
+            "NMT": "#EAB839"
+          },
+          "bars": false,
+          "datasource": "influxdb",
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 3,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
           "nullPointMode": "connected",
           "percentage": false,
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 6.4258872651356995,
+          "span": 6,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -398,162 +485,283 @@
               "series": "measure.cassandra_cpu"
             },
             {
-              "alias": "graphite-api 1",
+              "alias": "elasticsearch",
               "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.1_rss\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"measure.elasticsearch_rss\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "F",
-              "series": "measure.cassandra_rss"
+              "series": "measure.elasticsearch_rss"
             },
             {
-              "alias": "graphite-api 2",
+              "alias": "nsqd",
               "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.2_rss\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"measure.nsqd_rss\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "G",
-              "series": "measure.cassandra_rss"
+              "series": "measure.nsqd_rss"
             },
             {
-              "alias": "graphite-api 3",
+              "alias": "NME",
               "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.3_rss\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"measure.nme_rss\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "H",
-              "series": "measure.cassandra_rss"
+              "series": "measure.nme_rss"
             },
             {
-              "alias": "graphite-api 4",
+              "alias": "npee",
               "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.4_rss\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"measure.npee_rss\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "I",
-              "series": "measure.cassandra_rss"
+              "series": "measure.npee_rss"
             },
             {
-              "alias": "graphite-api 5",
+              "alias": "redis",
               "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.5_rss\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"measure.redis_rss\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "J",
-              "series": "measure.cassandra_rss"
+              "series": "measure.redis_rss"
             },
             {
-              "alias": "graphite-api 6",
+              "alias": "rabbit",
               "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.6_rss\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"measure.rabbit_rss\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "K",
-              "series": "measure.cassandra_rss"
+              "series": "measure.rabbit_rss"
             },
             {
-              "alias": "graphite-api 7",
+              "alias": "statsdaemon",
               "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.7_rss\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"measure.statsdaemon_rss\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "L",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "graphite-api 8",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.8_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "M",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "graphite-api 9",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.9_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "N",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "graphite-api 10",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.10_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "O",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "graphite-api 11",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.11_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "P",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "graphite-api 12",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.12_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "Q",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "graphite-api 13",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.13_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "R",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "graphite-api 14",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.14_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "S",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "graphite-api 15",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.15_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "T",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "graphite-api 16",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.16_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "U",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "graphite-api 17",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.17_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "V",
-              "series": "measure.cassandra_rss"
+              "series": "measure.statsdaemon_rss"
             }
           ],
           "timeFrom": null,
           "timeShift": null,
           "title": "RSS",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "mbytes",
+            "short"
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "influxdb",
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 4,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "1",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.1_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "A",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "2",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.2_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "B",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "3",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.3_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "C",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "4",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.4_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "D",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "5",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.5_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "E",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "6",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.6_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "F",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "7",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.7_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "G",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "8",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.8_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "H",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "9",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.9_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "I",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "10",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.10_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "J",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "11",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.11_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "K",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "12",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.12_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "L",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "13",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.13_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "M",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "14",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.14_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "N",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "15",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.15_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "O",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "16",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.16_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "P",
+              "series": "measure.cassandra_rss"
+            },
+            {
+              "alias": "17",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.graphite-api.17_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "Q",
+              "series": "measure.cassandra_rss"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "RSS graphite-api",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
@@ -598,7 +806,7 @@
             "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "id": 3,
+          "id": 5,
           "leftYAxisLabel": "",
           "legend": {
             "alignAsTable": true,
@@ -723,7 +931,7 @@
             "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "id": 4,
+          "id": 6,
           "legend": {
             "avg": false,
             "current": false,
@@ -823,7 +1031,7 @@
             "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "id": 6,
+          "id": 7,
           "legend": {
             "avg": false,
             "current": false,
@@ -918,7 +1126,7 @@
             "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "id": 5,
+          "id": 8,
           "legend": {
             "avg": false,
             "current": false,
