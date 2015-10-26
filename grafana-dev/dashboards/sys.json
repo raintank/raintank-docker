@@ -16,9 +16,9 @@
       "panels": [
         {
           "aliasColors": {
-            "grafana": "#511749",
+            "NMT": "#EAB839",
             "cassandra": "#BF1B00",
-            "NMT": "#EAB839"
+            "grafana": "#511749"
           },
           "bars": false,
           "datasource": "influxdb",
@@ -396,9 +396,9 @@
         },
         {
           "aliasColors": {
-            "grafana": "#511749",
+            "NMT": "#EAB839",
             "cassandra": "#BF1B00",
-            "NMT": "#EAB839"
+            "grafana": "#511749"
           },
           "bars": false,
           "datasource": "influxdb",
@@ -822,7 +822,7 @@
           "lines": false,
           "linewidth": 2,
           "links": [],
-          "nullPointMode": "connected",
+          "nullPointMode": "null",
           "percentage": false,
           "pointradius": 2,
           "points": true,
@@ -1136,13 +1136,13 @@
             "total": false,
             "values": false
           },
-          "lines": true,
+          "lines": false,
           "linewidth": 0,
           "links": [],
           "nullPointMode": "connected",
           "percentage": false,
-          "pointradius": 5,
-          "points": false,
+          "pointradius": 1,
+          "points": true,
           "renderer": "flot",
           "seriesOverrides": [
             {
@@ -1151,7 +1151,7 @@
             }
           ],
           "span": 4,
-          "stack": true,
+          "stack": false,
           "steppedLine": false,
           "targets": [
             {
