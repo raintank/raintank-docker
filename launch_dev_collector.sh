@@ -11,9 +11,11 @@ id=dev$((highest+1))
 docker_name=raintankdocker_raintankCollector_$id
 
 eval $(grep ^RT_CODE setup_dev.sh)
+eval $(grep ^RT_LOGS setup_dev.sh)
 
 docker run --link=raintankdocker_grafana_1:grafana \
            -v $RT_CODE/raintank-collector:/opt/raintank/raintank-collector \
+           -v $RT_LOGS:/var/log/raintank \
            -e RAINTANK_collector_name=$id -d \
            --name=$docker_name \
            -h collector-$id \

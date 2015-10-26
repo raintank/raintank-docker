@@ -47,6 +47,7 @@ graphitewatcher:
     - influxdb:influxdb
     - graphiteApi:graphite-api
   volumes:
+    - ./logs:/var/log/raintank
     - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
 nsqmetricstank:
@@ -60,6 +61,7 @@ nsqmetricstank:
     - influxdb:influxdb
     - cassandra:cassandra
   volumes:
+    - ./logs:/var/log/raintank
     - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
 nsqmetricstostdout:
@@ -81,6 +83,7 @@ nsqmetricstoelasticsearch:
     - elasticsearch:elasticsearch
     - statsdaemon:statsdaemon
   volumes:
+    - ./logs:/var/log/raintank
     - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
 nsqprobeeventstoelasticsearch:
@@ -93,6 +96,7 @@ nsqprobeeventstoelasticsearch:
     - elasticsearch:elasticsearch
     - statsdaemon:statsdaemon
   volumes:
+    - ./logs:/var/log/raintank
     - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
 influxdb:
@@ -139,6 +143,8 @@ graphiteApi:
     - nsqmetricstank:nsqmetricstank
   environment:
     GRAPHITE_kairosdb_uri: http://kairosdb:8080
+  volumes:
+    - ./logs:/var/log/raintank
 
 grafana:
   image: raintank/grafana-dev
@@ -156,6 +162,7 @@ grafana:
     - nsqd:nsqd
   volumes:
     - ./raintank_code/grafana:/go/src/github.com/raintank/grafana
+    - ./logs:/var/log/raintank
     - ./grafana/conf:/etc/grafana/
     - /go/src/github.com/raintank/grafana/data
 

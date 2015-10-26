@@ -8,6 +8,7 @@ MODE=${2:-docker}
 
 # important: if you change this, you must also update fig-dev.yaml accordingly
 RT_CODE="$(pwd)/raintank_code"
+RT_LOGS="$(pwd)/logs"
 
 if [ "$MODE" == "docker" ]; then
 	DIR=$(dirname $0)
