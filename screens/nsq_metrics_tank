@@ -1,0 +1,3 @@
+cd /go/src/github.com/raintank/raintank-metric/nsq_metrics_tank
+/wait.sh cassandra:9042 && ./nsq_metrics_tank --chunkspan 120 --numchunks 5 --statsd-addr statsdaemon:8125 --nsqd-tcp-address nsqd:4150 --listen :6063 --cassandra-addrs cassandra &> /var/log/raintank/nsq_metrics_tank.log &
+tail -f /var/log/raintank/nsq_metrics_tank.log

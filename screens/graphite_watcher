@@ -1,0 +1,4 @@
+touch /var/log/raintank/graphite-watcher.log
+cd /go/src/github.com/raintank/raintank-metric/graphite-watcher
+/wait.sh elasticsearch:9200 influxdb:2003 graphite-api:8888 && ./graphite-watcher elasticsearch:9200 influxdb:2003 graphite-api:8888 &> /var/log/raintank/graphite-watcher.log &
+tail -f /var/log/raintank/graphite-watcher.log

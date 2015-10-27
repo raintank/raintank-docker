@@ -1,0 +1,1 @@
+while sleep 1; do mysql -prootpass grafana; done
