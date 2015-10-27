@@ -28,7 +28,7 @@ while [ $(docker ps | grep -c raintankdocker) -ne $num ]; do
   echo "waiting for all $num containers to run..."
   sleep 0.5
 done
-
+sleep 10
 echo "opening screen tabs..."
 
 screen -S raintank -X screen -t graphite-api docker exec -t -i raintankdocker_graphiteApi_1 bash
@@ -43,6 +43,7 @@ screen -S raintank -X screen -t nsq_metrics_to_stdout docker exec -t -i raintank
 screen -S raintank -X screen -t nsq_metrics_to_elasticsearch docker exec -t -i raintankdocker_nsqmetricstoelasticsearch_1 bash
 screen -S raintank -X screen -t nsq_probe_events_to_elasticsearch docker exec -t -i raintankdocker_nsqprobeeventstoelasticsearch_1 bash
 screen -S raintank -X screen -t measure bash
+screen -S raintank -X screen -t benchmark docker exec -t -i raintankdocker_benchmark_1 bash
 
 echo "starting commands in screen tabs..."
 screen -S raintank -p graphite-api -X stuff 'tail -10f /var/log/raintank/graphite-api.log\n'

@@ -173,3 +173,7 @@ statsdaemon:
     - "8126:8126"
   links:
     - influxdb:influxdb
+
+benchmark:
+  image: raintank/benchmark
+  hostname: benchmark
