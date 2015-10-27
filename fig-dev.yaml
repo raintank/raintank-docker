@@ -177,3 +177,5 @@ statsdaemon:
 benchmark:
   image: raintank/benchmark
   hostname: benchmark
+  volumes:
+    - ./results:/opt/raintank/raintank-tsdb-benchmark/results

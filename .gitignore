@@ -1,3 +1,4 @@
 .*.sw?
 raintank_code
 logs/*
+results/*
