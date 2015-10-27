@@ -23,7 +23,6 @@ docker run --link=raintankdocker_grafana_1:grafana \
 
 screen -S raintank -X screen -t collector-$id docker exec -t -i $docker_name bash
 screen -S raintank -p collector-$id -X stuff 'supervisorctl restart all; touch /var/log/raintank/collector.log\n'
-screen -S raintank -p collector-$id -X stuff 'tail -10f /var/log/raintank/collector.log\n'
 
 while true; do
   data=$(curl -s -X GET -H "Authorization: Basic YWRtaW46YWRtaW4=" 'http://localhost/api/collectors')
@@ -36,4 +35,9 @@ done
 mysql_id=$(sed 's#.*"id":\([0-9]\+\),"org_id":[0-9]\+,"slug":"'$id'".*#\1#' <<< "$data")
 # make it a "public" collector so different orgs can use it
 curl -X POST -H "Authorization: Basic YWRtaW46YWRtaW4=" -F "public=true" -F "enabled=true" -F "name=$id" -F "id=$mysql_id" 'http://localhost/api/collectors'
+
+# restart the collector after making it public.
+screen -S raintank -p collector-$id -X stuff 'supervisorctl restart all\n'
+screen -S raintank -p collector-$id -X stuff 'tail -10f /var/log/raintank/collector.log\n'
+
 echo
