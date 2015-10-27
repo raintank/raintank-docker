@@ -36,3 +36,8 @@ Screen based Dev environment
 - attach to the screen session with 'screen -r raintank'.  To navigate between all of the screen windows press 'CTRL-a then "' (double quote).  This will provide the list of windows running, use the arrow keys to select the desired window then press enter.
 
 You can now connect to the install per the instructions above.
+
+Switching branches
+==================
+in a new branch, you can just run `/build_all.sh`, which updates the "latest" images.
+If your latest images have been overridden by being in a different branch, `./restore_branch_images.sh` will sync up the latest tags to the images you last generated on this branch.
