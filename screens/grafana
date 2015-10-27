@@ -1,0 +1,5 @@
+/tmp/create-influxdb-dev-datasource.sh &> /var/log/raintank/create-influxdb-datasource.log
+/tmp/prepare-nsqd.sh &> /var/log/raintank/prepare-nsqd.log
+touch /var/log/raintank/grafana-dev.log
+cat /var/log/raintank/create-influxdb-datasource.log
+tail -10f /var/log/raintank/grafana-dev.log
