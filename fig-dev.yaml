@@ -1,21 +1,28 @@
 elasticsearch:
   image: library/elasticsearch:latest
+  hostname: elasticsearch
   ports:
     - "9200:9200"
     - "9300"
   volumes:
     - /data
+
 redis:
   image: redis
+  hostname: redis
   ports:
     - "6379"
+
 rabbitmq:
   image: raintank/rabbitmq
+  hostname: rabbitmq
   ports:
     - "5672"
     - "15672:15672"
+
 nsqd:
   image: nsqio/nsq:v0.3.6
+  hostname: nsqd
   ports:
     - "4150:4150"
     - "4151:4151"
@@ -25,6 +32,7 @@ nsqd:
 
 nsqadmin:
   image: nsqio/nsq:v0.3.6
+  hostname: nsqadmin
   ports:
     - "4171:4171"
   command: "/nsqadmin --nsqd-http-address=nsqd:4151"
@@ -57,6 +65,7 @@ nsq_metrics_to_kairos:
 
 nsq_metrics_to_stdout:
   image: raintank/nsq_metrics_to_stdout
+  hostname: nms
   links:
     - nsqd:nsqd
   volumes:
@@ -64,6 +73,7 @@ nsq_metrics_to_stdout:
 
 nsq_metrics_to_elasticsearch:
   image: raintank/nsq_metrics_to_elasticsearch
+  hostname: nme
   ports:
     - "6061:6060"
   links:
@@ -77,6 +87,7 @@ nsq_metrics_to_elasticsearch:
 
 nsq_probe_events_to_elasticsearch:
   image: raintank/nsq_probe_events_to_elasticsearch
+  hostname: npee
   ports:
     - "6062:6060"
   links:
@@ -89,20 +100,25 @@ nsq_probe_events_to_elasticsearch:
 
 influxdb:
   image: raintank/influxdb
+  hostname: influxdb
   ports:
     - "8086:8086"
     - "8083:8083"
     - "2003:2003"
   volumes:
     - /opt/influxdb/shared/data
+
 cassandra:
   image: spotify/cassandra
+  hostname: cassandra
   ports:
     - "9042"
     - "9160"
     - "8888"
+
 kairosdb:
   image: raintank/kairosdb
+  hostname: kairosdb
   ports:
     - "4242"
     - "8080"
@@ -110,8 +126,10 @@ kairosdb:
     - cassandra:cassandra
   environment:
     KDB_HOST_LIST: cassandra:9160
+
 mysql:
   image: mysql
+  hostname: mysql
   ports:
     - "3306"
   environment:
@@ -124,6 +142,7 @@ mysql:
 
 graphite_api:
   image: raintank/graphite-api
+  hostname: graphite
   ports:
     - "8888:8888"
   links:
@@ -138,6 +157,7 @@ graphite_api:
 
 grafana:
   image: raintank/grafana-dev
+  hostname: grafana
   ports:
     - "80:80"
     - "443:443"
@@ -157,6 +177,7 @@ grafana:
 
 statsdaemon:
   image: raintank/statsdaemon
+  hostname: statsdaemon
   ports:
     - "8126:8126"
   links:

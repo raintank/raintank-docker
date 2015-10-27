@@ -18,6 +18,7 @@ docker run --link=raintankdocker_grafana_1:grafana \
            -v $RT_LOGS:/var/log/raintank \
            -e RAINTANK_collector_name=$id -d \
            --name=$docker_name \
+           -h collector-$id \
            raintank/collector
 
 screen -S raintank -X screen -t collector-$id docker exec -t -i $docker_name bash
