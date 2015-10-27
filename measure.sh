@@ -1,11 +1,14 @@
 #!/bin/bash
 
+# kairosdb has such a long process line where kairos only shows up at the end and top doesn't show it
+kairosdb_pid=$(pgrep -fl 'java.*kairosdb' | grep java | cut -d' ' -f 1)
+
 COLUMNS=512 top -b -c | grep -v sed | sed -u -n \
+  -e "s#\($kairosdb_pid root.* \)\(.- java.*\)#\1 kairosdb#p" \
   -e 's#`-.*java.*cassandra.*#cassandra#p' \
   -e 's#`-.*java.*elasticsearch.*#elasticsearch#p' \
   -e 's#`-.*grafana-server.*#grafana#p' \
-  -e 's#`-.*java.*kairosdb.*#kairosdb#p' \
-  -e 's#`- /nsqd*#nsqd#p' \
+  -e 's#`- /nsqd .*#nsqd#p' \
   -e 's#`-.*nsq_metrics_tank.*#nmt#p' \
   -e 's#`-.*nsq_metrics_to_kairos.*#nmk#p' \
   -e 's#`-.*nsq_metrics_to_elastic.*#nme#p' \
