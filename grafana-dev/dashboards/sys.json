@@ -80,7 +80,7 @@
             {
               "alias": "kairosdb",
               "column": "value",
-              "hide": true,
+              "hide": false,
               "query": "select mean(value) from \"measure.kairosdb_cpu\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "C",
@@ -89,7 +89,7 @@
             {
               "alias": "NMT",
               "column": "value",
-              "hide": false,
+              "hide": true,
               "query": "select mean(value) from \"measure.nmt_cpu\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "D",
@@ -98,7 +98,7 @@
             {
               "alias": "NMK",
               "column": "value",
-              "hide": true,
+              "hide": false,
               "query": "select mean(value) from \"measure.nmk_cpu\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "E",
@@ -460,7 +460,7 @@
             {
               "alias": "kairosdb",
               "column": "value",
-              "hide": true,
+              "hide": false,
               "query": "select mean(value) from \"measure.kairosdb_rss\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "C",
@@ -469,7 +469,7 @@
             {
               "alias": "NMT",
               "column": "value",
-              "hide": false,
+              "hide": true,
               "query": "select mean(value) from \"measure.nmt_rss\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "D",
@@ -478,7 +478,7 @@
             {
               "alias": "NMK",
               "column": "value",
-              "hide": true,
+              "hide": false,
               "query": "select mean(value) from \"measure.nmk_rss\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "E",
@@ -909,10 +909,11 @@
           "aliasColors": {
             "raintank_query mean": "#052B51",
             "raintank_query p90": "#65C5DB",
-            "search ES mean": "#967302",
+            "search ES mean": "#65C5DB",
             "search ES p90": "#EAB839",
             "unmarshal raintank resp mean": "#3F6833",
-            "unmarshal raintank resp p90": "#508642"
+            "unmarshal raintank resp p90": "#508642",
+            "kairosdb_query mean": "#3F6833"
           },
           "bars": false,
           "datasource": "influxdb",
@@ -960,9 +961,9 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "raintank_query mean",
+              "alias": "kairosdb_query mean",
               "column": "value",
-              "hide": false,
+              "hide": true,
               "query": "select mean(value) from \"stats.timers.graphite-api.fetch.raintank_query.query_duration.mean\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "A",
@@ -972,7 +973,7 @@
             {
               "alias": "unmarshal raintank resp mean",
               "column": "value",
-              "hide": false,
+              "hide": true,
               "query": "select mean(value) from \"stats.timers.graphite-api.fetch.unmarshal_raintank_resp.duration.mean\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "B",
@@ -986,6 +987,16 @@
               "query": "select mean(value) from \"stats.timers.graphite-api.search_series.es_search.query_duration.mean\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "C",
+              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
+              "target": ""
+            },
+            {
+              "alias": "kairosdb_query mean",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"stats.timers.graphite-api.fetch.kairosdb_query.query_duration.mean\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "D",
               "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
               "target": ""
             }
@@ -1010,9 +1021,10 @@
             "raintank_query mean": "#052B51",
             "raintank_query p90": "#65C5DB",
             "search ES mean": "#967302",
-            "search ES p90": "#EAB839",
+            "search ES p90": "#65C5DB",
             "unmarshal raintank resp mean": "#3F6833",
-            "unmarshal raintank resp p90": "#508642"
+            "unmarshal raintank resp p90": "#508642",
+            "kairosdb_query p90": "#3F6833"
           },
           "bars": false,
           "datasource": "influxdb",
@@ -1057,7 +1069,7 @@
             {
               "alias": "raintank_query p90",
               "column": "value",
-              "hide": false,
+              "hide": true,
               "query": "select mean(value) from \"stats.timers.graphite-api.fetch.raintank_query.query_duration.upper_90\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "D",
@@ -1067,7 +1079,7 @@
             {
               "alias": "unmarshal raintank resp p90",
               "column": "value",
-              "hide": false,
+              "hide": true,
               "query": "select mean(value) from \"stats.timers.graphite-api.fetch.unmarshal_raintank_resp.duration.upper_90\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "E",
@@ -1081,6 +1093,16 @@
               "query": "select mean(value) from \"stats.timers.graphite-api.search_series.es_search.query_duration.upper_90\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "F",
+              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
+              "target": ""
+            },
+            {
+              "alias": "kairosdb_query p90",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"stats.timers.graphite-api.fetch.kairosdb_query.query_duration.upper_90\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "A",
               "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
               "target": ""
             }
@@ -1107,7 +1129,9 @@
             "search ES mean": "#967302",
             "search ES p90": "#EAB839",
             "unmarshal raintank resp mean": "#3F6833",
-            "unmarshal raintank resp p90": "#508642"
+            "unmarshal raintank resp p90": "#508642",
+            "search ES": "#65C5DB",
+            "kairosdb_query": "#3F6833"
           },
           "bars": false,
           "datasource": "influxdb",
@@ -1157,7 +1181,7 @@
             {
               "alias": "raintank_query",
               "column": "value",
-              "hide": false,
+              "hide": true,
               "interval": "1s",
               "query": "select mean(value) from \"stats.timers.graphite-api.fetch.raintank_query.query_duration.count_ps\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
@@ -1168,7 +1192,7 @@
             {
               "alias": "unmarshal raintank resp",
               "column": "value",
-              "hide": false,
+              "hide": true,
               "interval": "1s",
               "query": "select mean(value) from \"stats.timers.graphite-api.fetch.unmarshal_raintank_resp.duration.count_ps\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
@@ -1184,6 +1208,17 @@
               "query": "select mean(value) from \"stats.timers.graphite-api.search_series.es_search.query_duration.count_ps\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "C",
+              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
+              "target": ""
+            },
+            {
+              "alias": "kairosdb_query",
+              "column": "value",
+              "hide": false,
+              "interval": "1s",
+              "query": "select mean(value) from \"stats.timers.graphite-api.fetch.kairosdb_query.query_duration.count_ps\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "D",
               "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
               "target": ""
             }
