@@ -166,6 +166,33 @@
               "rawQuery": true,
               "refId": "L",
               "series": "measure.statsdaemon_cpu"
+            },
+            {
+              "alias": "coll-1",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.collector.1_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "M",
+              "series": "measure.statsdaemon_cpu"
+            },
+            {
+              "alias": "coll-2",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.collector.2_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "N",
+              "series": "measure.statsdaemon_cpu"
+            },
+            {
+              "alias": "coll-3",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.collector.3_cpu\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "O",
+              "series": "measure.statsdaemon_cpu"
             }
           ],
           "timeFrom": null,
@@ -393,7 +420,16 @@
             "short",
             "short"
           ]
-        },
+        }
+      ],
+      "title": "Row"
+    },
+    {
+      "title": "New row",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
         {
           "aliasColors": {
             "NMT": "#EAB839",
@@ -545,6 +581,33 @@
               "query": "select mean(value) from \"measure.statsdaemon_rss\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "L",
+              "series": "measure.statsdaemon_rss"
+            },
+            {
+              "alias": "coll-1",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.collector.1_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "M",
+              "series": "measure.statsdaemon_rss"
+            },
+            {
+              "alias": "coll-2",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.collector.2_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "N",
+              "series": "measure.statsdaemon_rss"
+            },
+            {
+              "alias": "coll-3",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"measure.collector.3_rss\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "O",
               "series": "measure.statsdaemon_rss"
             }
           ],
@@ -774,8 +837,7 @@
             "short"
           ]
         }
-      ],
-      "title": "Row"
+      ]
     },
     {
       "collapse": false,
@@ -907,13 +969,13 @@
       "panels": [
         {
           "aliasColors": {
+            "kairosdb_query mean": "#3F6833",
             "raintank_query mean": "#052B51",
             "raintank_query p90": "#65C5DB",
             "search ES mean": "#65C5DB",
             "search ES p90": "#EAB839",
             "unmarshal raintank resp mean": "#3F6833",
-            "unmarshal raintank resp p90": "#508642",
-            "kairosdb_query mean": "#3F6833"
+            "unmarshal raintank resp p90": "#508642"
           },
           "bars": false,
           "datasource": "influxdb",
@@ -1018,13 +1080,13 @@
         },
         {
           "aliasColors": {
+            "kairosdb_query p90": "#3F6833",
             "raintank_query mean": "#052B51",
             "raintank_query p90": "#65C5DB",
             "search ES mean": "#967302",
             "search ES p90": "#65C5DB",
             "unmarshal raintank resp mean": "#3F6833",
-            "unmarshal raintank resp p90": "#508642",
-            "kairosdb_query p90": "#3F6833"
+            "unmarshal raintank resp p90": "#508642"
           },
           "bars": false,
           "datasource": "influxdb",
@@ -1124,14 +1186,14 @@
         },
         {
           "aliasColors": {
+            "kairosdb_query": "#3F6833",
             "raintank_query mean": "#052B51",
             "raintank_query p90": "#65C5DB",
+            "search ES": "#65C5DB",
             "search ES mean": "#967302",
             "search ES p90": "#EAB839",
             "unmarshal raintank resp mean": "#3F6833",
-            "unmarshal raintank resp p90": "#508642",
-            "search ES": "#65C5DB",
-            "kairosdb_query": "#3F6833"
+            "unmarshal raintank resp p90": "#508642"
           },
           "bars": false,
           "datasource": "influxdb",
