@@ -39,18 +39,18 @@ nsqadmin:
   links:
     - nsqd:nsqd
 
-graphite_watcher:
+graphiteWatcher:
   image: raintank/graphite-watcher
   hostname: watcher
   links:
     - elasticsearch:elasticsearch
     - influxdb:influxdb
-    - graphite_api:graphite-api
+    - graphiteApi:graphite-api
   volumes:
     - ./logs:/var/log/raintank
     - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
-nsq_metrics_tank:
+nsqMetricsTank:
   image: raintank/nsq_metrics_tank
   hostname: nmt
   ports:
@@ -64,7 +64,7 @@ nsq_metrics_tank:
     - ./logs:/var/log/raintank
     - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
-nsq_metrics_to_stdout:
+nsqMetricsToStdout:
   image: raintank/nsq_metrics_to_stdout
   hostname: nms
   links:
@@ -72,7 +72,7 @@ nsq_metrics_to_stdout:
   volumes:
     - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
-nsq_metrics_to_elasticsearch:
+nsqMetricsToElasticsearch:
   image: raintank/nsq_metrics_to_elasticsearch
   hostname: nme
   ports:
@@ -86,7 +86,7 @@ nsq_metrics_to_elasticsearch:
     - ./logs:/var/log/raintank
     - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
-nsq_probe_events_to_elasticsearch:
+nsqProbeEventsToElasticsearch:
   image: raintank/nsq_probe_events_to_elasticsearch
   hostname: npee
   ports:
@@ -130,7 +130,7 @@ mysql:
   volumes:
     - /var/lib/mysql
 
-graphite_api:
+graphiteApi:
   image: raintank/graphite-api
   hostname: graphite
   ports:
@@ -140,7 +140,7 @@ graphite_api:
     - statsdaemon:statsdaemon
     - influxdb:influxdb
     - cassandra:cassandra
-    - nsq_metrics_tank:nsqmetricstank
+    - nsqMetricsTank:nsqmetricstank
   environment:
     GRAPHITE_kairosdb_uri: http://kairosdb:8080
   volumes:
@@ -154,7 +154,7 @@ grafana:
     - "443:443"
   links:
     - rabbitmq:rabbitmq
-    - graphite_api:graphite-api
+    - graphiteApi:graphite-api
     - mysql:mysql
     - elasticsearch:elasticsearch
     - influxdb:influxdb
