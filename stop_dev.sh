@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ -n "$STY" ]; then
+  echo "don't run this script in the screen session" >&2
+  exit 2
+fi
+
 screen -X -S raintank quit
 docker-compose -f fig-dev.yaml stop
 yes | docker-compose -f fig-dev.yaml rm
