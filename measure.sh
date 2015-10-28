@@ -17,17 +17,23 @@ COLUMNS=512 top -b -c | grep -v sed | sed -u -n \
   -e 's#`-.*redis-server.*#redis#p' \
   -e 's#`-.*rabbitmq_server.*#rabbit#p' \
   -e 's#`-.*/go/bin/statsdaemon.*#statsdaemon#p' \
+  -e 's#`-.*node.*raintank-collector.*#collector#p' \
   | awk '{print $6,$7,$11;fflush();}' \
   | while read mem cpu process; do
     ts=$(date +%s)
     mem=${mem/m/}
-    if [ "$process" != "graphite-api" ]; then
-      graphite_api_i=0
-      echo "measure.${process}_cpu $cpu $ts"
-      echo "measure.${process}_rss $mem $ts"
-    else
+    if [ "$process" == "graphite-api" ]; then
       graphite_api_i=$((graphite_api_i + 1))
       echo "measure.${process}.${graphite_api_i}_cpu $cpu $ts"
       echo "measure.${process}.${graphite_api_i}_rss $mem $ts"
+    elif [ "$process" == "collector" ]; then
+      collector_i=$((collector_i + 1))
+      echo "measure.${process}.${collector_i}_cpu $cpu $ts"
+      echo "measure.${process}.${collector_i}_rss $mem $ts"
+    else
+      graphite_api_i=0
+      collector_i=0
+      echo "measure.${process}_cpu $cpu $ts"
+      echo "measure.${process}_rss $mem $ts"
     fi
 done | nc -c localhost 2003
