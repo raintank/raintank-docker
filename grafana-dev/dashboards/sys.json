@@ -838,7 +838,7 @@
               "yaxis": 2
             }
           ],
-          "span": 12,
+          "span": 8,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -894,6 +894,84 @@
           "y-axis": true,
           "y_formats": [
             "s",
+            "short"
+          ]
+        },
+        {
+          "aliasColors": {
+            "lag max": "#890F02",
+            "lag mean": "#F2C96D",
+            "lag p99": "#C15C17",
+            "num metrics in ES": "#0A437C"
+          },
+          "bars": false,
+          "datasource": "influxdb",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 9,
+          "leftYAxisLabel": "",
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": false,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 2,
+          "points": true,
+          "renderer": "flot",
+          "rightYAxisLabel": "num",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "null_points",
+              "column": "value",
+              "hide": false,
+              "query": "select derivative(value) from \"graphite-watcher.null_points.counter\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "A",
+              "series": "graphite-watcher.null_points.counter",
+              "target": "",
+              "interval": "20s"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "graphite watcher - Null Points",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
             "short"
           ]
         }
