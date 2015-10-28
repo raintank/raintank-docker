@@ -22,15 +22,15 @@ docker run --link=raintankdocker_grafana_1:grafana \
            raintank/collector
 
 screen -S raintank -X screen -t collector-$id docker exec -t -i $docker_name bash
-screen -S raintank -p collector-$id -X stuff 'supervisorctl restart all; touch /var/log/raintank/collector.log\n'
+screen -S raintank -p collector-$id -X stuff '/wait.sh grafana:80 && supervisorctl start all; touch /var/log/raintank/collector.log\n'
 
 while true; do
   data=$(curl -s -X GET -H "Authorization: Basic YWRtaW46YWRtaW4=" 'http://localhost/api/collectors')
   if grep -q "\"$id\"" <<< "$data"; then
     break
   fi
-  echo "waiting for collector $id to be known to grafana..."
-  sleep 1
+  echo "waiting for grafana to compile and collector $id to be known to grafana..."
+  sleep 2
 done
 mysql_id=$(sed 's#.*"id":\([0-9]\+\),"org_id":[0-9]\+,"slug":"'$id'".*#\1#' <<< "$data")
 # make it a "public" collector so different orgs can use it
