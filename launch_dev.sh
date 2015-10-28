@@ -17,6 +17,9 @@ if screen -ls | grep -q '[0-9]\.raintank[[:space:]]'; then
   exit 2
 fi
 
+echo "cleaning logs..."
+rm -rf logs/*
+
 echo "docker-compose bringing up containers..."
 docker-compose -f fig-dev.yaml up -d
 
