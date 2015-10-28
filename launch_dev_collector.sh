@@ -42,3 +42,4 @@ sleep 5
 # restart the collector after making it public.
 screen -S raintank -p collector-$id -X stuff 'supervisorctl stop all && pkill -f -9 raintank-probe && supervisorctl start all\n'
 screen -S raintank -p collector-$id -X stuff 'tail -10f /var/log/raintank/collector.log\n'
+echo
