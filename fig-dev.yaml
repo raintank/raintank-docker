@@ -110,7 +110,7 @@ influxdb:
     - /opt/influxdb/shared/data
 
 cassandra:
-  image: spotify/cassandra
+  image: cassandra:2.1.9
   hostname: cassandra
   ports:
     - "9042"
