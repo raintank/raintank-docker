@@ -31,6 +31,10 @@ while [ $(docker ps | grep -c raintankdocker) -ne $num ]; do
   echo "waiting for all $num containers to run..."
   sleep 0.5
 done
+
+# wait for all docker containers to completely start.
+sleep 5
+
 echo "starting screen tabs..."
 for service in screens/*; do
   base=$(basename $service)

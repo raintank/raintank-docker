@@ -50,8 +50,8 @@ graphiteWatcher:
     - ./logs:/var/log/raintank
     - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
-nsqMetricsTank:
-  image: raintank/nsq_metrics_tank
+metricTank:
+  image: raintank/metric_tank
   hostname: nmt
   ports:
     - "6063:6063"
@@ -140,7 +140,7 @@ graphiteApi:
     - statsdaemon:statsdaemon
     - influxdb:influxdb
     - cassandra:cassandra
-    - nsqMetricsTank:nsqmetricstank
+    - metricTank:nsqmetricstank
   environment:
     GRAPHITE_kairosdb_uri: http://kairosdb:8080
   volumes:
