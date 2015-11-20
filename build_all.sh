@@ -29,8 +29,13 @@ function build () {
 	cd ..
 }
 
-if [ "rebuild" == "$1" ]; then
-  rebuild=1
+if [ -n "$1" ]; then
+	if [ "$1" == "rebuild" ]; then
+	  rebuild=1
+	else
+		build $1
+		exit 0
+	fi
 fi
 
 # first build containers on which others depend
