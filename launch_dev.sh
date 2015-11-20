@@ -31,6 +31,11 @@ while [ $(docker ps | grep -c raintankdocker) -ne $num ]; do
   echo "waiting for all $num containers to run..."
   sleep 0.5
 done
+
+# wait for all docker containers to completely start.
+# i still don't understand why this is needed (dieter) but AJ says he needs this :?
+sleep 5
+
 echo "starting screen tabs..."
 for service in screens/*; do
   base=$(basename $service)
@@ -43,7 +48,6 @@ for service in screens/*; do
     screen -S raintank -p $(basename $service) -X stuff "$line\n"
   done < $service
 done
-
 
 ./wait.sh localhost:8086
 curl -X POST "localhost:8086/db/raintank/series?u=graphite&p=graphite" -d '[{"name": "events","columns": ["type","tags","text"],"points": [["devstack-start", "start", "devstack started"]]}]'

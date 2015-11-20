@@ -1,0 +1,1192 @@
+{
+  "id": null,
+  "title": "NSQ Metric Tank",
+  "originalTitle": "NSQ Metric Tank",
+  "tags": [],
+  "style": "dark",
+  "timezone": "browser",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": false,
+  "rows": [
+    {
+      "collapse": false,
+      "editable": true,
+      "height": 217,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "influxdb",
+          "editable": true,
+          "error": false,
+          "fill": 10,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 9,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 2.8694736842105266,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "metrics in",
+              "query": "select mean(value) from \"stats.nsq_metrics_tank.nmt.metrics_received\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "A",
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "metrics in",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "-- Mixed --",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 1,
+          "leftYAxisLabel": "allocation",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "points per metric",
+              "yaxis": 2
+            }
+          ],
+          "span": 3.1112631064967107,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "alloc incl freed",
+              "column": "value",
+              "datasource": "influxdb",
+              "hide": true,
+              "query": "select mean(value) from \"metrics.nsq_metrics_tank.default.bytes_alloc_incl_freed.value\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "A",
+              "series": "metrics.nsq_metrics_tank.5-120.bytes_alloc_incl_freed.value"
+            },
+            {
+              "alias": "alloc not freed",
+              "column": "value",
+              "datasource": "influxdb",
+              "hide": false,
+              "query": "select mean(value) from \"metrics.nsq_metrics_tank.default.bytes_alloc_not_freed.value\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "B",
+              "series": "metrics.nsq_metrics_tank.5-120.bytes_alloc_not_freed.value"
+            },
+            {
+              "alias": "bytes_sys",
+              "column": "value",
+              "datasource": "influxdb",
+              "hide": false,
+              "query": "select mean(value) from \"metrics.nsq_metrics_tank.default.bytes_sys.value\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "C",
+              "series": "metrics.nsq_metrics_tank.5-120.bytes_sys.value"
+            },
+            {
+              "alias": "active metrics",
+              "column": "value",
+              "datasource": "influxdb",
+              "hide": false,
+              "query": "select mean(value) from \"metrics.nsq_metrics_tank.default.metrics_active.value\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "D",
+              "series": "metrics.nsq_metrics_tank.5-120.metrics_active.value"
+            },
+            {
+              "alias": "points per metric",
+              "column": "value",
+              "datasource": "influxdb",
+              "hide": false,
+              "query": "select mean(value) from \"metrics.nsq_metrics_tank.default.points_per_metric.mean\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "E",
+              "series": "metrics.nsq_metrics_tank.5-120.metrics_active.value"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "memory usage",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "bytes",
+            "short"
+          ]
+        },
+        {
+          "aliasColors": {
+            "95th": "#EAB839",
+            "999th": "#890F02",
+            "99th": "#99440A",
+            "mean": "#0A437C",
+            "median": "#3F6833"
+          },
+          "bars": false,
+          "datasource": "influxdb",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 2,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6.019263209292763,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "median",
+              "column": "value",
+              "hide": false,
+              "query": "select median(value) from \"metrics.nsq_metrics_tank.default.points_per_metric.50-percentile\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "A",
+              "series": "metrics.nsq_metrics_tank.default.points_per_metric.50-percentile",
+              "target": ""
+            },
+            {
+              "alias": "99th",
+              "column": "value",
+              "hide": false,
+              "query": "select median(value) from \"metrics.nsq_metrics_tank.default.points_per_metric.50-percentile\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "B",
+              "series": "metrics.nsq_metrics_tank.default.points_per_metric.50-percentile",
+              "target": ""
+            },
+            {
+              "alias": "95th",
+              "column": "value",
+              "hide": false,
+              "query": "select median(value) from \"metrics.nsq_metrics_tank.default.points_per_metric.95-percentile\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "C",
+              "series": "metrics.nsq_metrics_tank.default.points_per_metric.50-percentile",
+              "target": ""
+            },
+            {
+              "alias": "999th",
+              "column": "value",
+              "hide": false,
+              "query": "select median(value) from \"metrics.nsq_metrics_tank.default.points_per_metric.999-percentile\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "D",
+              "series": "metrics.nsq_metrics_tank.default.points_per_metric.999-percentile",
+              "target": ""
+            },
+            {
+              "alias": "mean",
+              "column": "value",
+              "hide": false,
+              "query": "select median(value) from \"metrics.nsq_metrics_tank.default.points_per_metric.mean\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "E",
+              "series": "metrics.nsq_metrics_tank.default.points_per_metric.50-percentile",
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "points per metric",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        }
+      ],
+      "title": "Row"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": 221,
+      "panels": [
+        {
+          "aliasColors": {
+            "mem max": "#3F6833",
+            "mem median": "#9AC48A",
+            "mem min": "#E0F9D7",
+            "mem p90": "#7EB26D",
+            "mem-cass max": "#890F02",
+            "mem-cass median": "#E24D42",
+            "mem-cass min": "#F9934E",
+            "mem-cass p90": "#EF843C"
+          },
+          "bars": false,
+          "datasource": "influxdb",
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 4,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 1,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "mem-cass min",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.lower\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "A",
+              "series": "stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.lower",
+              "target": ""
+            },
+            {
+              "alias": "mem-cass p90",
+              "column": "value",
+              "hide": true,
+              "query": "select mean(value) from \"stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.upper_90\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "C",
+              "series": "stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.lower",
+              "target": ""
+            },
+            {
+              "alias": "mem-cass med",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.median\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "D",
+              "series": "stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.lower",
+              "target": ""
+            },
+            {
+              "alias": "mem-cass max",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.upper\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "B",
+              "series": "stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.lower",
+              "target": ""
+            },
+            {
+              "alias": "mem min",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"stats.timers.nsq_metrics_tank.nmt.requests_span.mem.lower\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "E",
+              "series": "stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.lower",
+              "target": ""
+            },
+            {
+              "alias": "mem med",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"stats.timers.nsq_metrics_tank.nmt.requests_span.mem.median\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "F",
+              "series": "stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.lower",
+              "target": ""
+            },
+            {
+              "alias": "mem p90",
+              "column": "value",
+              "hide": true,
+              "query": "select mean(value) from \"stats.timers.nsq_metrics_tank.nmt.requests_span.mem.upper_90\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "G",
+              "series": "stats.timers.nsq_metrics_tank.nmt.requests_span.mem.lower",
+              "target": ""
+            },
+            {
+              "alias": "mem max",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"stats.timers.nsq_metrics_tank.nmt.requests_span.mem.upper\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "H",
+              "series": "stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.lower",
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "requests span",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "s",
+            "none"
+          ]
+        },
+        {
+          "aliasColors": {
+            "mem max": "#3F6833",
+            "mem median": "#9AC48A",
+            "mem min": "#E0F9D7",
+            "mem p90": "#7EB26D",
+            "mem-cass max": "#890F02",
+            "mem-cass median": "#E24D42",
+            "mem-cass min": "#F9934E",
+            "mem-cass p90": "#EF843C"
+          },
+          "bars": false,
+          "datasource": "influxdb",
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 10,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 1,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "mem-cass req/s",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.count_ps\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "I",
+              "series": "stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.lower",
+              "target": ""
+            },
+            {
+              "alias": "mem req/s",
+              "column": "value",
+              "hide": false,
+              "query": "select mean(value) from \"stats.timers.nsq_metrics_tank.nmt.requests_span.mem.count_ps\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "J",
+              "series": "stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.lower",
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "requests rate",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "hertz",
+            "none"
+          ]
+        },
+        {
+          "aliasColors": {
+            "max": "#890F02",
+            "p90": "#C15C17",
+            "median": "#CCA300"
+          },
+          "bars": false,
+          "datasource": "influxdb",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 5,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": false,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 1,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "median",
+              "column": "value",
+              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.request_handle_duration.median\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "A",
+              "series": "stats.timers.nsq_metrics_tank.nmt.request_handle_duration.median",
+              "target": ""
+            },
+            {
+              "alias": "p90",
+              "column": "value",
+              "hide": false,
+              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.request_handle_duration.upper_90\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "B",
+              "series": "stats.timers.nsq_metrics_tank.nmt.request_handle_duration.median",
+              "target": ""
+            },
+            {
+              "alias": "max",
+              "column": "value",
+              "hide": false,
+              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.request_handle_duration.upper\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "C",
+              "series": "stats.timers.nsq_metrics_tank.nmt.request_handle_duration.median",
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "request handle duration (all steps)",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "ms",
+            "short"
+          ]
+        }
+      ],
+      "title": "New row"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": 243,
+      "panels": [
+        {
+          "aliasColors": {
+            "size at load max": "#B7DBAB",
+            "size at load median": "#3F6833",
+            "size at load p90": "#508642",
+            "size at save max": "#CFFAFF",
+            "size at save median": "#052B51",
+            "size at save p90": "#65C5DB"
+          },
+          "bars": false,
+          "datasource": "influxdb",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 6,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": false,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 1,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "size at load median",
+              "column": "value",
+              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.chunk_size.at_load.median\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "A",
+              "series": "stats.timers.nsq_metrics_tank.nmt.chunk_size.at_load.mean"
+            },
+            {
+              "alias": "size at load p90",
+              "column": "value",
+              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.chunk_size.at_load.upper_90\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "B",
+              "series": "stats.timers.nsq_metrics_tank.nmt.chunk_size.at_load.mean"
+            },
+            {
+              "alias": "size at load max",
+              "column": "value",
+              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.chunk_size.at_load.upper\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "C",
+              "series": "stats.timers.nsq_metrics_tank.nmt.chunk_size.at_load.mean"
+            },
+            {
+              "alias": "size at save median",
+              "column": "value",
+              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.chunk_size.at_save.median\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "D",
+              "series": "stats.timers.nsq_metrics_tank.nmt.chunk_size.at_load.mean"
+            },
+            {
+              "alias": "size at save p90",
+              "column": "value",
+              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.chunk_size.at_save.upper_90\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "E",
+              "series": "stats.timers.nsq_metrics_tank.nmt.chunk_size.at_load.mean"
+            },
+            {
+              "alias": "size at save max",
+              "column": "value",
+              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.chunk_size.at_save.upper\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "F",
+              "series": "stats.timers.nsq_metrics_tank.nmt.chunk_size.at_load.mean"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "chunk sizes",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "bytes",
+            "short"
+          ]
+        },
+        {
+          "aliasColors": {
+            "get mean": "#052B51",
+            "get/s": "#052B51",
+            "mean": "#0A50A1",
+            "p90": "#65C5DB",
+            "put mean": "#58140C",
+            "put p90": "#F29191",
+            "put/s": "#BF1B00"
+          },
+          "bars": false,
+          "datasource": "influxdb",
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 3,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 1,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "put/s",
+              "column": "value",
+              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.cassandra_put_duration.count_ps\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "E",
+              "series": "stats.timers.nsq_metrics_tank.nmt.cassandra_put_duration.upper_90"
+            },
+            {
+              "alias": "get/s",
+              "column": "value",
+              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.cassandra_get_duration.count_ps\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "F",
+              "series": "stats.timers.nsq_metrics_tank.nmt.cassandra_put_duration.upper_90"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "cassandra req/s",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "hertz",
+            "short"
+          ]
+        },
+        {
+          "aliasColors": {
+            "get mean": "#052B51",
+            "get/s": "#052B51",
+            "mean": "#0A50A1",
+            "p90": "#65C5DB",
+            "put mean": "#58140C",
+            "put p90": "#F29191",
+            "put/s": "#BF1B00"
+          },
+          "bars": false,
+          "datasource": "influxdb",
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 11,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 1,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "put p90",
+              "column": "value",
+              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.cassandra_put_duration.upper_90\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "A",
+              "series": "stats.timers.nsq_metrics_tank.nmt.cassandra_put_duration.upper_90"
+            },
+            {
+              "alias": "put mean",
+              "column": "value",
+              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.cassandra_put_duration.mean\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "B",
+              "series": "stats.timers.nsq_metrics_tank.nmt.cassandra_put_duration.upper_90"
+            },
+            {
+              "alias": "get p90",
+              "column": "value",
+              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.cassandra_get_duration.upper_90\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "C",
+              "series": "stats.timers.nsq_metrics_tank.nmt.cassandra_put_duration.upper_90"
+            },
+            {
+              "alias": "get mean",
+              "column": "value",
+              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.cassandra_get_duration.mean\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "D",
+              "series": "stats.timers.nsq_metrics_tank.nmt.cassandra_put_duration.upper_90"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "cassandra durations",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "ms",
+            "short"
+          ]
+        }
+      ],
+      "title": "New row"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "influxdb",
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 7,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": false,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 1,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "chunks per row",
+              "column": "value",
+              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.cassandra_chunks_per_row.median\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "A",
+              "series": "stats.timers.nsq_metrics_tank.nmt.cassandra_chunks_per_row.median",
+              "target": ""
+            },
+            {
+              "alias": "rows per response",
+              "column": "value",
+              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.cassandra_rows_per_response.median\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "B",
+              "series": "stats.timers.nsq_metrics_tank.nmt.cassandra_chunks_per_row.median",
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "cassandra responses",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        },
+        {
+          "aliasColors": {
+            "create/s": "#70DBED",
+            "save_fail/s": "#BF1B00",
+            "save_ok/s": "#3F6833"
+          },
+          "bars": false,
+          "datasource": "influxdb",
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 8,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 1,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "create/s",
+              "column": "value",
+              "hide": false,
+              "query": "select median(value) from \"stats.nsq_metrics_tank.nmt.chunks.create\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "A",
+              "series": "stats.nsq_metrics_tank.nmt.chunks.create",
+              "target": ""
+            },
+            {
+              "alias": "clear/s",
+              "column": "value",
+              "hide": false,
+              "query": "select median(value) from \"stats.nsq_metrics_tank.nmt.chunks.clear\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "B",
+              "series": "stats.nsq_metrics_tank.nmt.chunks.clear",
+              "target": ""
+            },
+            {
+              "alias": "save_ok/s",
+              "column": "value",
+              "hide": false,
+              "query": "select median(value) from \"stats.nsq_metrics_tank.nmt.chunks.save_ok\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "C",
+              "series": "stats.nsq_metrics_tank.nmt.chunks.clear",
+              "target": ""
+            },
+            {
+              "alias": "save_fail/s",
+              "column": "value",
+              "hide": false,
+              "query": "select median(value) from \"stats.nsq_metrics_tank.nmt.chunks.save_fail\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "refId": "D",
+              "series": "stats.nsq_metrics_tank.nmt.chunks.clear",
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "chunk operations",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        }
+      ],
+      "title": "New row"
+    }
+  ],
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "timepicker": {
+    "collapse": false,
+    "enable": true,
+    "notice": false,
+    "now": true,
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "status": "Stable",
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ],
+    "type": "timepicker"
+  },
+  "templating": {
+    "list": []
+  },
+  "annotations": {
+    "list": [
+      {
+        "datasource": "influxdb",
+        "enable": true,
+        "iconColor": "#C0C6BE",
+        "iconSize": 13,
+        "lineColor": "rgba(255, 96, 96, 0.592157)",
+        "name": "events",
+        "query": "select type, text from events where $timeFilter",
+        "showLine": true,
+        "tagsColumn": "tags",
+        "textColumn": "text",
+        "titleColumn": "type"
+      }
+    ]
+  },
+  "schemaVersion": 7,
+  "version": 1,
+  "links": []
+}

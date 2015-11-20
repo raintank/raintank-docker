@@ -39,31 +39,32 @@ nsqadmin:
   links:
     - nsqd:nsqd
 
-graphite_watcher:
+graphiteWatcher:
   image: raintank/graphite-watcher
   hostname: watcher
   links:
     - elasticsearch:elasticsearch
     - influxdb:influxdb
-    - graphite_api:graphite-api
+    - graphiteApi:graphite-api
   volumes:
     - ./logs:/var/log/raintank
     - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
-nsq_metrics_to_kairos:
-  image: raintank/nsq_metrics_to_kairos
-  hostname: nmk
+metricTank:
+  image: raintank/metric_tank
+  hostname: nmt
   ports:
-    - "6060:6060"
+    - "6063:6063"
   links:
     - nsqd:nsqd
-    - kairosdb:kairosdb
     - statsdaemon:statsdaemon
+    - influxdb:influxdb
+    - cassandra:cassandra
   volumes:
     - ./logs:/var/log/raintank
     - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
-nsq_metrics_to_stdout:
+nsqMetricsToStdout:
   image: raintank/nsq_metrics_to_stdout
   hostname: nms
   links:
@@ -71,7 +72,7 @@ nsq_metrics_to_stdout:
   volumes:
     - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
-nsq_metrics_to_elasticsearch:
+nsqMetricsToElasticsearch:
   image: raintank/nsq_metrics_to_elasticsearch
   hostname: nme
   ports:
@@ -85,7 +86,7 @@ nsq_metrics_to_elasticsearch:
     - ./logs:/var/log/raintank
     - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
-nsq_probe_events_to_elasticsearch:
+nsqProbeEventsToElasticsearch:
   image: raintank/nsq_probe_events_to_elasticsearch
   hostname: npee
   ports:
@@ -109,23 +110,12 @@ influxdb:
     - /opt/influxdb/shared/data
 
 cassandra:
-  image: spotify/cassandra
+  image: cassandra:2.1.9
   hostname: cassandra
   ports:
     - "9042"
     - "9160"
     - "8888"
-
-kairosdb:
-  image: raintank/kairosdb
-  hostname: kairosdb
-  ports:
-    - "4242"
-    - "8080"
-  links:
-    - cassandra:cassandra
-  environment:
-    KDB_HOST_LIST: cassandra:9160
 
 mysql:
   image: mysql
@@ -140,7 +130,7 @@ mysql:
   volumes:
     - /var/lib/mysql
 
-graphite_api:
+graphiteApi:
   image: raintank/graphite-api
   hostname: graphite
   ports:
@@ -150,6 +140,7 @@ graphite_api:
     - statsdaemon:statsdaemon
     - influxdb:influxdb
     - cassandra:cassandra
+    - metricTank:nsqmetricstank
   environment:
     GRAPHITE_kairosdb_uri: http://kairosdb:8080
   volumes:
@@ -163,7 +154,7 @@ grafana:
     - "443:443"
   links:
     - rabbitmq:rabbitmq
-    - graphite_api:graphite-api
+    - graphiteApi:graphite-api
     - mysql:mysql
     - elasticsearch:elasticsearch
     - influxdb:influxdb
