@@ -1,2 +1,2 @@
 cd /go/src/github.com/raintank/raintank-metric/metric_tank
-/wait.sh cassandra:9042 && ./metric_tank --chunkspan 120 --numchunks 5 --statsd-addr statsdaemon:8125 --nsqd-tcp-address nsqd:4150 --listen :6063 --cassandra-addrs cassandra |tee /var/log/raintank/nsq_metrics_tank.log
+/wait.sh cassandra:9042 && ./metric_tank --chunkspan 120 --numchunks 5 --statsd-addr statsdaemon:8125 --nsqd-tcp-address nsqd:4150 --listen :6063 --cassandra-addrs cassandra 2>&1 |tee /var/log/raintank/nsq_metrics_tank.log
