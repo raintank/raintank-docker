@@ -58,7 +58,7 @@
           "targets": [
             {
               "alias": "metrics in",
-              "query": "select mean(value) from \"stats.nsq_metrics_tank.nmt.metrics_received\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"stats.metric_tank.metricstank.metrics_received\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "A",
               "target": ""
@@ -132,50 +132,50 @@
               "column": "value",
               "datasource": "influxdb",
               "hide": true,
-              "query": "select mean(value) from \"metrics.nsq_metrics_tank.default.bytes_alloc_incl_freed.value\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"metrics.metric_tank.default.bytes_alloc_incl_freed.value\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "A",
-              "series": "metrics.nsq_metrics_tank.5-120.bytes_alloc_incl_freed.value"
+              "series": "metrics.metric_tank.5-120.bytes_alloc_incl_freed.value"
             },
             {
               "alias": "alloc not freed",
               "column": "value",
               "datasource": "influxdb",
               "hide": false,
-              "query": "select mean(value) from \"metrics.nsq_metrics_tank.default.bytes_alloc_not_freed.value\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"metrics.metric_tank.default.bytes_alloc_not_freed.value\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "B",
-              "series": "metrics.nsq_metrics_tank.5-120.bytes_alloc_not_freed.value"
+              "series": "metrics.metric_tank.5-120.bytes_alloc_not_freed.value"
             },
             {
               "alias": "bytes_sys",
               "column": "value",
               "datasource": "influxdb",
               "hide": false,
-              "query": "select mean(value) from \"metrics.nsq_metrics_tank.default.bytes_sys.value\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"metrics.metric_tank.default.bytes_sys.value\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "C",
-              "series": "metrics.nsq_metrics_tank.5-120.bytes_sys.value"
+              "series": "metrics.metric_tank.5-120.bytes_sys.value"
             },
             {
               "alias": "active metrics",
               "column": "value",
               "datasource": "influxdb",
               "hide": false,
-              "query": "select mean(value) from \"metrics.nsq_metrics_tank.default.metrics_active.value\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"metrics.metric_tank.default.metrics_active.value\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "D",
-              "series": "metrics.nsq_metrics_tank.5-120.metrics_active.value"
+              "series": "metrics.metric_tank.5-120.metrics_active.value"
             },
             {
               "alias": "points per metric",
               "column": "value",
               "datasource": "influxdb",
               "hide": false,
-              "query": "select mean(value) from \"metrics.nsq_metrics_tank.default.points_per_metric.mean\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"metrics.metric_tank.default.points_per_metric.mean\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "E",
-              "series": "metrics.nsq_metrics_tank.5-120.metrics_active.value"
+              "series": "metrics.metric_tank.5-120.metrics_active.value"
             }
           ],
           "timeFrom": null,
@@ -245,50 +245,50 @@
               "alias": "median",
               "column": "value",
               "hide": false,
-              "query": "select median(value) from \"metrics.nsq_metrics_tank.default.points_per_metric.50-percentile\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"metrics.metric_tank.default.points_per_metric.50-percentile\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "A",
-              "series": "metrics.nsq_metrics_tank.default.points_per_metric.50-percentile",
+              "series": "metrics.metric_tank.default.points_per_metric.50-percentile",
               "target": ""
             },
             {
               "alias": "99th",
               "column": "value",
               "hide": false,
-              "query": "select median(value) from \"metrics.nsq_metrics_tank.default.points_per_metric.50-percentile\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"metrics.metric_tank.default.points_per_metric.50-percentile\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "B",
-              "series": "metrics.nsq_metrics_tank.default.points_per_metric.50-percentile",
+              "series": "metrics.metric_tank.default.points_per_metric.50-percentile",
               "target": ""
             },
             {
               "alias": "95th",
               "column": "value",
               "hide": false,
-              "query": "select median(value) from \"metrics.nsq_metrics_tank.default.points_per_metric.95-percentile\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"metrics.metric_tank.default.points_per_metric.95-percentile\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "C",
-              "series": "metrics.nsq_metrics_tank.default.points_per_metric.50-percentile",
+              "series": "metrics.metric_tank.default.points_per_metric.50-percentile",
               "target": ""
             },
             {
               "alias": "999th",
               "column": "value",
               "hide": false,
-              "query": "select median(value) from \"metrics.nsq_metrics_tank.default.points_per_metric.999-percentile\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"metrics.metric_tank.default.points_per_metric.999-percentile\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "D",
-              "series": "metrics.nsq_metrics_tank.default.points_per_metric.999-percentile",
+              "series": "metrics.metric_tank.default.points_per_metric.999-percentile",
               "target": ""
             },
             {
               "alias": "mean",
               "column": "value",
               "hide": false,
-              "query": "select median(value) from \"metrics.nsq_metrics_tank.default.points_per_metric.mean\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"metrics.metric_tank.default.points_per_metric.mean\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "E",
-              "series": "metrics.nsq_metrics_tank.default.points_per_metric.50-percentile",
+              "series": "metrics.metric_tank.default.points_per_metric.50-percentile",
               "target": ""
             }
           ],
@@ -370,80 +370,80 @@
               "alias": "mem-cass min",
               "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.lower\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.lower\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "A",
-              "series": "stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.lower",
+              "series": "stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.lower",
               "target": ""
             },
             {
               "alias": "mem-cass p90",
               "column": "value",
               "hide": true,
-              "query": "select mean(value) from \"stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.upper_90\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.upper_90\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "C",
-              "series": "stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.lower",
+              "series": "stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.lower",
               "target": ""
             },
             {
               "alias": "mem-cass med",
               "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.median\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.median\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "D",
-              "series": "stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.lower",
+              "series": "stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.lower",
               "target": ""
             },
             {
               "alias": "mem-cass max",
               "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.upper\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.upper\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "B",
-              "series": "stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.lower",
+              "series": "stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.lower",
               "target": ""
             },
             {
               "alias": "mem min",
               "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"stats.timers.nsq_metrics_tank.nmt.requests_span.mem.lower\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.requests_span.mem.lower\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "E",
-              "series": "stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.lower",
+              "series": "stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.lower",
               "target": ""
             },
             {
               "alias": "mem med",
               "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"stats.timers.nsq_metrics_tank.nmt.requests_span.mem.median\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.requests_span.mem.median\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "F",
-              "series": "stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.lower",
+              "series": "stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.lower",
               "target": ""
             },
             {
               "alias": "mem p90",
               "column": "value",
               "hide": true,
-              "query": "select mean(value) from \"stats.timers.nsq_metrics_tank.nmt.requests_span.mem.upper_90\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.requests_span.mem.upper_90\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "G",
-              "series": "stats.timers.nsq_metrics_tank.nmt.requests_span.mem.lower",
+              "series": "stats.timers.metric_tank.metricstank.requests_span.mem.lower",
               "target": ""
             },
             {
               "alias": "mem max",
               "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"stats.timers.nsq_metrics_tank.nmt.requests_span.mem.upper\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.requests_span.mem.upper\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "H",
-              "series": "stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.lower",
+              "series": "stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.lower",
               "target": ""
             }
           ],
@@ -517,20 +517,20 @@
               "alias": "mem-cass req/s",
               "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.count_ps\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.count_ps\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "I",
-              "series": "stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.lower",
+              "series": "stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.lower",
               "target": ""
             },
             {
               "alias": "mem req/s",
               "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"stats.timers.nsq_metrics_tank.nmt.requests_span.mem.count_ps\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.requests_span.mem.count_ps\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "J",
-              "series": "stats.timers.nsq_metrics_tank.nmt.requests_span.mem_and_cassandra.lower",
+              "series": "stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.lower",
               "target": ""
             }
           ],
@@ -598,30 +598,30 @@
             {
               "alias": "median",
               "column": "value",
-              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.request_handle_duration.median\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.request_handle_duration.median\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "A",
-              "series": "stats.timers.nsq_metrics_tank.nmt.request_handle_duration.median",
+              "series": "stats.timers.metric_tank.metricstank.request_handle_duration.median",
               "target": ""
             },
             {
               "alias": "p90",
               "column": "value",
               "hide": false,
-              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.request_handle_duration.upper_90\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.request_handle_duration.upper_90\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "B",
-              "series": "stats.timers.nsq_metrics_tank.nmt.request_handle_duration.median",
+              "series": "stats.timers.metric_tank.metricstank.request_handle_duration.median",
               "target": ""
             },
             {
               "alias": "max",
               "column": "value",
               "hide": false,
-              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.request_handle_duration.upper\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.request_handle_duration.upper\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "C",
-              "series": "stats.timers.nsq_metrics_tank.nmt.request_handle_duration.median",
+              "series": "stats.timers.metric_tank.metricstank.request_handle_duration.median",
               "target": ""
             }
           ],
@@ -700,50 +700,50 @@
             {
               "alias": "size at load median",
               "column": "value",
-              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.chunk_size.at_load.median\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.chunk_size.at_load.median\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "A",
-              "series": "stats.timers.nsq_metrics_tank.nmt.chunk_size.at_load.mean"
+              "series": "stats.timers.metric_tank.metricstank.chunk_size.at_load.mean"
             },
             {
               "alias": "size at load p90",
               "column": "value",
-              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.chunk_size.at_load.upper_90\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.chunk_size.at_load.upper_90\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "B",
-              "series": "stats.timers.nsq_metrics_tank.nmt.chunk_size.at_load.mean"
+              "series": "stats.timers.metric_tank.metricstank.chunk_size.at_load.mean"
             },
             {
               "alias": "size at load max",
               "column": "value",
-              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.chunk_size.at_load.upper\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.chunk_size.at_load.upper\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "C",
-              "series": "stats.timers.nsq_metrics_tank.nmt.chunk_size.at_load.mean"
+              "series": "stats.timers.metric_tank.metricstank.chunk_size.at_load.mean"
             },
             {
               "alias": "size at save median",
               "column": "value",
-              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.chunk_size.at_save.median\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.chunk_size.at_save.median\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "D",
-              "series": "stats.timers.nsq_metrics_tank.nmt.chunk_size.at_load.mean"
+              "series": "stats.timers.metric_tank.metricstank.chunk_size.at_load.mean"
             },
             {
               "alias": "size at save p90",
               "column": "value",
-              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.chunk_size.at_save.upper_90\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.chunk_size.at_save.upper_90\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "E",
-              "series": "stats.timers.nsq_metrics_tank.nmt.chunk_size.at_load.mean"
+              "series": "stats.timers.metric_tank.metricstank.chunk_size.at_load.mean"
             },
             {
               "alias": "size at save max",
               "column": "value",
-              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.chunk_size.at_save.upper\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.chunk_size.at_save.upper\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "F",
-              "series": "stats.timers.nsq_metrics_tank.nmt.chunk_size.at_load.mean"
+              "series": "stats.timers.metric_tank.metricstank.chunk_size.at_load.mean"
             }
           ],
           "timeFrom": null,
@@ -814,18 +814,18 @@
             {
               "alias": "put/s",
               "column": "value",
-              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.cassandra_put_duration.count_ps\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.cassandra_put_duration.count_ps\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "E",
-              "series": "stats.timers.nsq_metrics_tank.nmt.cassandra_put_duration.upper_90"
+              "series": "stats.timers.metric_tank.metricstank.cassandra_put_duration.upper_90"
             },
             {
               "alias": "get/s",
               "column": "value",
-              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.cassandra_get_duration.count_ps\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.cassandra_get_duration.count_ps\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "F",
-              "series": "stats.timers.nsq_metrics_tank.nmt.cassandra_put_duration.upper_90"
+              "series": "stats.timers.metric_tank.metricstank.cassandra_put_duration.upper_90"
             }
           ],
           "timeFrom": null,
@@ -896,34 +896,34 @@
             {
               "alias": "put p90",
               "column": "value",
-              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.cassandra_put_duration.upper_90\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.cassandra_put_duration.upper_90\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "A",
-              "series": "stats.timers.nsq_metrics_tank.nmt.cassandra_put_duration.upper_90"
+              "series": "stats.timers.metric_tank.metricstank.cassandra_put_duration.upper_90"
             },
             {
               "alias": "put mean",
               "column": "value",
-              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.cassandra_put_duration.mean\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.cassandra_put_duration.mean\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "B",
-              "series": "stats.timers.nsq_metrics_tank.nmt.cassandra_put_duration.upper_90"
+              "series": "stats.timers.metric_tank.metricstank.cassandra_put_duration.upper_90"
             },
             {
               "alias": "get p90",
               "column": "value",
-              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.cassandra_get_duration.upper_90\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.cassandra_get_duration.upper_90\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "C",
-              "series": "stats.timers.nsq_metrics_tank.nmt.cassandra_put_duration.upper_90"
+              "series": "stats.timers.metric_tank.metricstank.cassandra_put_duration.upper_90"
             },
             {
               "alias": "get mean",
               "column": "value",
-              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.cassandra_get_duration.mean\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.cassandra_get_duration.mean\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "D",
-              "series": "stats.timers.nsq_metrics_tank.nmt.cassandra_put_duration.upper_90"
+              "series": "stats.timers.metric_tank.metricstank.cassandra_put_duration.upper_90"
             }
           ],
           "timeFrom": null,
@@ -994,19 +994,19 @@
             {
               "alias": "chunks per row",
               "column": "value",
-              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.cassandra_chunks_per_row.median\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.cassandra_chunks_per_row.median\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "A",
-              "series": "stats.timers.nsq_metrics_tank.nmt.cassandra_chunks_per_row.median",
+              "series": "stats.timers.metric_tank.metricstank.cassandra_chunks_per_row.median",
               "target": ""
             },
             {
               "alias": "rows per response",
               "column": "value",
-              "query": "select median(value) from \"stats.timers.nsq_metrics_tank.nmt.cassandra_rows_per_response.median\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.cassandra_rows_per_response.median\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "B",
-              "series": "stats.timers.nsq_metrics_tank.nmt.cassandra_chunks_per_row.median",
+              "series": "stats.timers.metric_tank.metricstank.cassandra_chunks_per_row.median",
               "target": ""
             }
           ],
@@ -1075,40 +1075,40 @@
               "alias": "create/s",
               "column": "value",
               "hide": false,
-              "query": "select median(value) from \"stats.nsq_metrics_tank.nmt.chunks.create\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"stats.metric_tank.metricstank.chunks.create\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "A",
-              "series": "stats.nsq_metrics_tank.nmt.chunks.create",
+              "series": "stats.metric_tank.metricstank.chunks.create",
               "target": ""
             },
             {
               "alias": "clear/s",
               "column": "value",
               "hide": false,
-              "query": "select median(value) from \"stats.nsq_metrics_tank.nmt.chunks.clear\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"stats.metric_tank.metricstank.chunks.clear\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "B",
-              "series": "stats.nsq_metrics_tank.nmt.chunks.clear",
+              "series": "stats.metric_tank.metricstank.chunks.clear",
               "target": ""
             },
             {
               "alias": "save_ok/s",
               "column": "value",
               "hide": false,
-              "query": "select median(value) from \"stats.nsq_metrics_tank.nmt.chunks.save_ok\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"stats.metric_tank.metricstank.chunks.save_ok\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "C",
-              "series": "stats.nsq_metrics_tank.nmt.chunks.clear",
+              "series": "stats.metric_tank.metricstank.chunks.clear",
               "target": ""
             },
             {
               "alias": "save_fail/s",
               "column": "value",
               "hide": false,
-              "query": "select median(value) from \"stats.nsq_metrics_tank.nmt.chunks.save_fail\" where $timeFilter group by time($interval) order asc",
+              "query": "select median(value) from \"stats.metric_tank.metricstank.chunks.save_fail\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "D",
-              "series": "stats.nsq_metrics_tank.nmt.chunks.clear",
+              "series": "stats.metric_tank.metricstank.chunks.clear",
               "target": ""
             }
           ],
