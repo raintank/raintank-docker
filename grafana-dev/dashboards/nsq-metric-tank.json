@@ -132,7 +132,7 @@
               "column": "value",
               "datasource": "influxdb",
               "hide": true,
-              "query": "select mean(value) from \"metrics.metric_tank.default.bytes_alloc_incl_freed.value\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"stats.gauges.metric_tank.metricstank.bytes_alloc.incl_freed\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "A",
               "series": "metrics.metric_tank.5-120.bytes_alloc_incl_freed.value"
@@ -142,7 +142,7 @@
               "column": "value",
               "datasource": "influxdb",
               "hide": false,
-              "query": "select mean(value) from \"metrics.metric_tank.default.bytes_alloc_not_freed.value\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"stats.gauges.metric_tank.metricstank.bytes_alloc.not_freed\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "B",
               "series": "metrics.metric_tank.5-120.bytes_alloc_not_freed.value"
@@ -152,7 +152,7 @@
               "column": "value",
               "datasource": "influxdb",
               "hide": false,
-              "query": "select mean(value) from \"metrics.metric_tank.default.bytes_sys.value\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from \"stats.gauges.metric_tank.metricstank.bytes_sys\" where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "refId": "C",
               "series": "metrics.metric_tank.5-120.bytes_sys.value"
