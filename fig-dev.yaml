@@ -52,7 +52,7 @@ graphiteWatcher:
 
 metricTank:
   image: raintank/metric_tank
-  hostname: nmt
+  hostname: metricstank
   ports:
     - "6063:6063"
   links:
