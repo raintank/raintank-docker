@@ -9,7 +9,7 @@ COLUMNS=512 top -b -c | grep -v sed | sed -u -n \
   -e 's#`-.*java.*elasticsearch.*#elasticsearch#p' \
   -e 's#`-.*grafana-server.*#grafana#p' \
   -e 's#`- /nsqd .*#nsqd#p' \
-  -e 's#`- ./nsq_metrics_tank.*#nmt#p' \
+  -e 's#`- ./metric_tank.*#nmt#p' \
   -e 's#`- ./nsq_metrics_to_kairos.*#nmk#p' \
   -e 's#`- ./nsq_metrics_to_elastic.*#nme#p' \
   -e 's#`- ./nsq_probe_events_to_elastic.*#npee#p' \
