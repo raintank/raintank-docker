@@ -950,7 +950,14 @@
       "height": "250px",
       "panels": [
         {
-          "aliasColors": {},
+          "aliasColors": {
+            "chunks per row max": "#C15C17",
+            "chunks per row min": "#E5AC0E",
+            "chunks per row med": "#890F02",
+            "rows per resp med": "#052B51",
+            "rows per resp min": "#6ED0E0",
+            "rows per resp max": "#508642"
+          },
           "bars": false,
           "datasource": "influxdb",
           "editable": true,
@@ -976,7 +983,8 @@
             "min": false,
             "show": true,
             "total": false,
-            "values": false
+            "values": false,
+            "alignAsTable": false
           },
           "lines": false,
           "linewidth": 2,
@@ -986,28 +994,72 @@
           "pointradius": 1,
           "points": true,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "chunks per row max",
+              "fillBelowTo": "chunks per row min",
+              "lines": false
+            },
+            {
+              "alias": "chunks per row min",
+              "lines": false
+            }
+          ],
           "span": 6,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "alias": "chunks per row",
+              "alias": "chunks per row med",
               "column": "value",
-              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.cassandra_chunks_per_row.median\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
+              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.cassandra_chunks_per_row.median\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": false,
               "refId": "A",
               "series": "stats.timers.metric_tank.metricstank.cassandra_chunks_per_row.median",
-              "target": ""
+              "target": "",
+              "function": "mean"
             },
             {
-              "alias": "rows per response",
+              "refId": "C",
+              "function": "mean",
               "column": "value",
-              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.cassandra_rows_per_response.median\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
+              "series": "stats.timers.metric_tank.metricstank.cassandra_chunks_per_row.lower",
+              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.cassandra_chunks_per_row.lower\" where $timeFilter group by time($interval) order asc",
+              "alias": "chunks per row min"
+            },
+            {
+              "refId": "D",
+              "function": "mean",
+              "column": "value",
+              "series": "stats.timers.metric_tank.metricstank.cassandra_chunks_per_row.upper",
+              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.cassandra_chunks_per_row.upper\" where $timeFilter group by time($interval) order asc",
+              "alias": "chunks per row max"
+            },
+            {
+              "alias": "rows per resp med",
+              "column": "value",
+              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.cassandra_chunks_per_row.median\" where $timeFilter group by time($interval) order asc",
+              "rawQuery": false,
               "refId": "B",
               "series": "stats.timers.metric_tank.metricstank.cassandra_chunks_per_row.median",
-              "target": ""
+              "target": "",
+              "function": "mean"
+            },
+            {
+              "refId": "E",
+              "function": "mean",
+              "column": "value",
+              "series": "stats.timers.metric_tank.metricstank.cassandra_rows_per_response.lower",
+              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.cassandra_rows_per_response.lower\" where $timeFilter group by time($interval) order asc",
+              "alias": "rows per resp min"
+            },
+            {
+              "refId": "F",
+              "function": "mean",
+              "column": "value",
+              "series": "stats.timers.metric_tank.metricstank.cassandra_rows_per_response.upper",
+              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.cassandra_rows_per_response.upper\" where $timeFilter group by time($interval) order asc",
+              "alias": "rows per resp max"
             }
           ],
           "timeFrom": null,
