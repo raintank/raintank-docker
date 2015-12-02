@@ -1,9 +1,20 @@
+# aim for total-points around 800
+# should always be high res enough to serve graphs, but not too high for storage overhead + runtime aggregations
+# chunksize: ideally around 120 points (see go-tsz benchmarks) but no longer than 6h for simplicity
+# for raw let's try to keep 6h of data in RAM to serve the standard dashboards without cassandra
+# type       span-in-seconds   compression factor  retention   retention factor total-points  chunkspan points-per-chunk
+# raw        [1]10~120         0                   26h         1                780-93600     600       5~60[~600]
+# agg 10min  60*10   -> 600    5~60~[600]          9d          8.3              1296          21600     36
+# agg 2h     60*60*2 -> 7200   12                  60+14=74d   8.2              888           21600     3
+# agg 6h     60*60*6 -> 21600  3                   4y          19.8             5840          21600     1
+# TODO update numchunks to 36 (6h)once everything tested well, now lower (30min) to spot issues earlier
+# TODO update chunk retentions to 1 once https://github.com/raintank/raintank-metric/issues/65 is fixed
 cd /go/src/github.com/raintank/raintank-metric/metric_tank
 /wait.sh cassandra:9042
 ./metric_tank \
 	--chunkspan 600 \
 	--numchunks 3 \
-	--agg-settings 60:120:2,300:1800:2,400:600:1 \
+	--agg-settings 600:21600:2,7200:21600:2,21600:21600:2 \
 	--statsd-addr statsdaemon:8125 \
 	--nsqd-tcp-address nsqd:4150 \
 	--listen :6063 \
