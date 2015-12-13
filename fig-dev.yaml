@@ -44,7 +44,7 @@ graphiteWatcher:
   hostname: watcher
   links:
     - elasticsearch:elasticsearch
-    - influxdb:influxdb
+    - graphitemon:graphitemon
     - graphiteApi:graphite-api
   volumes:
     - ./logs:/var/log/raintank
@@ -58,7 +58,6 @@ metricTank:
   links:
     - nsqd:nsqd
     - statsdaemon:statsdaemon
-    - influxdb:influxdb
     - cassandra:cassandra
   volumes:
     - ./logs:/var/log/raintank
@@ -105,9 +104,15 @@ influxdb:
   ports:
     - "8086:8086"
     - "8083:8083"
-    - "2003:2003"
   volumes:
     - /opt/influxdb/shared/data
+
+graphitemon:
+  image:  hopsoft/graphite-statsd
+  hostname: graphitemon
+  ports:
+    - "2003:2003"
+    - "8000:80"
 
 cassandra:
   image: cassandra:2.1.9
@@ -138,7 +143,6 @@ graphiteApi:
   links:
     - elasticsearch:elasticsearch
     - statsdaemon:statsdaemon
-    - influxdb:influxdb
     - cassandra:cassandra
     - metricTank:nsqmetricstank
   environment:
@@ -172,7 +176,7 @@ statsdaemon:
   ports:
     - "8126:8126"
   links:
-    - influxdb:influxdb
+          - graphitemon:graphitemon
 
 benchmark:
   image: raintank/benchmark

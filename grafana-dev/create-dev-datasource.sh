@@ -13,7 +13,11 @@ echo 'INSERT INTO api_key (`org_id`,`name`,`key`,`role`,`is_admin`,`created`,`up
 echo 'api keys currently known:'
 echo 'select * from api_key;' | mysql -prootpass grafana -h mysql
 
-echo "> adding datasource"
+echo "> adding datasources"
+
+curl -H "Authorization: Bearer eyJrIjoiMEVUVE52c3ZITnhpVldyOTI5cVFQcUxQWGR6V213bUIiLCJuIjoiZGV2c3RhY2stYWRtaW4iLCJpZCI6MX0=" \
+  -H "content-type: application/json" \
+  'http://localhost/api/datasources' -X POST --data-binary '{"name":"graphite","type":"graphite","url":"http://localhost:8000","access":"direct","isDefault":false}'
 
 curl -H "Authorization: Bearer eyJrIjoiMEVUVE52c3ZITnhpVldyOTI5cVFQcUxQWGR6V213bUIiLCJuIjoiZGV2c3RhY2stYWRtaW4iLCJpZCI6MX0=" \
   -H "content-type: application/json" \
@@ -25,3 +29,4 @@ for file in /tmp/dashboards/*; do
     -H "content-type: application/json" \
     'http://localhost/api/dashboards/db' -X POST -d "{\"dashboard\": $(cat $file)}"
 done
+

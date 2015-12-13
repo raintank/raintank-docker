@@ -21,7 +21,7 @@
             "grafana": "#511749"
           },
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -61,138 +61,64 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "grafana",
-              "column": "value",
-              "query": "select mean(value) from \"measure.grafana_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "A",
-              "series": "measure.grafana_cpu",
-              "target": ""
+              "target": "alias(measure.grafana_cpu, 'grafana')"
             },
             {
-              "alias": "cassandra",
-              "column": "value",
-              "query": "select mean(value) from \"measure.cassandra_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "B",
-              "series": "measure.cassandra_cpu"
+              "target": "alias(measure.cassandra_cpu, 'cassandra')"
             },
             {
-              "alias": "kairosdb",
-              "column": "value",
-              "hide": true,
-              "query": "select mean(value) from \"measure.kairosdb_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "C",
-              "series": "measure.cassandra_cpu"
+              "target": "alias(measure.kairosdb_cpu, 'kairosdb')"
             },
             {
-              "alias": "NMT",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.nmt_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "D",
-              "series": "measure.cassandra_cpu"
+              "target": "alias(measure.nmt_cpu, 'nmt')"
             },
             {
-              "alias": "NMK",
-              "column": "value",
-              "hide": true,
-              "query": "select mean(value) from \"measure.nmk_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "E",
-              "series": "measure.cassandra_cpu"
+              "target": "alias(measure.nmk_cpu, 'nmk')"
             },
             {
-              "alias": "elasticsearch",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.elasticsearch_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "F",
-              "series": "measure.elasticsearch_cpu"
+              "target": "alias(measure.elasticsearch_cpu, 'elasticsearch')"
             },
             {
-              "alias": "nsqd",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.nsqd_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "G",
-              "series": "measure.nsqd_cpu"
+              "target": "alias(measure.nsqd_cpu, 'nsqd')"
             },
             {
-              "alias": "NME",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.nme_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "H",
-              "series": "measure.nme_cpu"
+              "target": "alias(measure.nme_cpu, 'nme')"
             },
             {
-              "alias": "npee",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.npee_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "I",
-              "series": "measure.npee_cpu"
+              "target": "alias(measure.npee_cpu, 'npee')"
             },
             {
-              "alias": "redis",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.redis_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "J",
-              "series": "measure.redis_cpu"
+              "target": "alias(measure.redis_cpu, 'redis')"
             },
             {
-              "alias": "rabbit",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.rabbit_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "K",
-              "series": "measure.rabbit_cpu"
+              "target": "alias(measure.rabbit_cpu, 'rabbit')"
             },
             {
-              "alias": "statsdaemon",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.statsdaemon_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "L",
-              "series": "measure.statsdaemon_cpu"
+              "target": "alias(measure.statsdaemon_cpu, 'statsdaemon')"
             },
             {
-              "alias": "coll-1",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.collector.1_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "M",
-              "series": "measure.statsdaemon_cpu"
+              "target": "alias(measure.collector.1_cpu, 'coll-1')"
             },
             {
-              "alias": "coll-2",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.collector.2_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "N",
-              "series": "measure.statsdaemon_cpu"
+              "target": "alias(measure.collector.2_cpu, 'coll-2')"
             },
             {
-              "alias": "coll-3",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.collector.3_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "O",
-              "series": "measure.statsdaemon_cpu"
+              "target": "alias(measure.collector.3_cpu, 'coll-3')"
             }
           ],
           "timeFrom": null,
@@ -213,7 +139,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -253,157 +179,8 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "1",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.1_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "A",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "2",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.2_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "B",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "3",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.3_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "C",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "4",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.4_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "D",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "5",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.5_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "E",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "6",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.6_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "F",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "7",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.7_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "G",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "8",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.8_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "H",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "9",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.9_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "I",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "10",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.10_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "J",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "11",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.11_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "K",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "12",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.12_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "L",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "13",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.13_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "M",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "14",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.14_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "N",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "15",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.15_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "O",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "16",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.16_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "P",
-              "series": "measure.cassandra_cpu"
-            },
-            {
-              "alias": "17",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.17_cpu\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "Q",
-              "series": "measure.cassandra_cpu"
+              "target": "aliasSub(measure.graphite-api.*_cpu, '.*\\.(.*)_cpu', '\\1')"
             }
           ],
           "timeFrom": null,
@@ -437,7 +214,7 @@
             "grafana": "#511749"
           },
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -477,138 +254,64 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "grafana",
-              "column": "value",
-              "query": "select mean(value) from \"measure.grafana_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "A",
-              "series": "measure.grafana_cpu",
-              "target": ""
+              "target": "alias(measure.grafana_rss, 'grafana')"
             },
             {
-              "alias": "cassandra",
-              "column": "value",
-              "query": "select mean(value) from \"measure.cassandra_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "B",
-              "series": "measure.cassandra_cpu"
+              "target": "alias(measure.cassandra_rss, 'cassandra')"
             },
             {
-              "alias": "kairosdb",
-              "column": "value",
-              "hide": true,
-              "query": "select mean(value) from \"measure.kairosdb_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "C",
-              "series": "measure.cassandra_cpu"
+              "target": "alias(measure.kairosdb_rss, 'kairosdb')"
             },
             {
-              "alias": "NMT",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.nmt_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "D",
-              "series": "measure.cassandra_cpu"
+              "target": "alias(measure.nmt_rss, 'nmt')"
             },
             {
-              "alias": "NMK",
-              "column": "value",
-              "hide": true,
-              "query": "select mean(value) from \"measure.nmk_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "E",
-              "series": "measure.cassandra_cpu"
+              "target": "alias(measure.nmk_rss, 'nmk')"
             },
             {
-              "alias": "elasticsearch",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.elasticsearch_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "F",
-              "series": "measure.elasticsearch_rss"
+              "target": "alias(measure.elasticsearch_rss, 'elasticsearch')"
             },
             {
-              "alias": "nsqd",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.nsqd_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "G",
-              "series": "measure.nsqd_rss"
+              "target": "alias(measure.nsqd_rss, 'nsqd')"
             },
             {
-              "alias": "NME",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.nme_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "H",
-              "series": "measure.nme_rss"
+              "target": "alias(measure.nme_rss, 'nme')"
             },
             {
-              "alias": "npee",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.npee_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "I",
-              "series": "measure.npee_rss"
+              "target": "alias(measure.npee_rss, 'npee')"
             },
             {
-              "alias": "redis",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.redis_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "J",
-              "series": "measure.redis_rss"
+              "target": "alias(measure.redis_rss, 'redis')"
             },
             {
-              "alias": "rabbit",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.rabbit_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "K",
-              "series": "measure.rabbit_rss"
+              "target": "alias(measure.rabbit_rss, 'rabbit')"
             },
             {
-              "alias": "statsdaemon",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.statsdaemon_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "L",
-              "series": "measure.statsdaemon_rss"
+              "target": "alias(measure.statsdaemon_rss, 'statsdaemon')"
             },
             {
-              "alias": "coll-1",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.collector.1_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "M",
-              "series": "measure.statsdaemon_rss"
+              "target": "alias(measure.collector.1_rss, 'coll-1')"
             },
             {
-              "alias": "coll-2",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.collector.2_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "N",
-              "series": "measure.statsdaemon_rss"
+              "target": "alias(measure.collector.2_rss, 'coll-2')"
             },
             {
-              "alias": "coll-3",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.collector.3_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "O",
-              "series": "measure.statsdaemon_rss"
+              "target": "alias(measure.collector.3_rss, 'coll-3')"
             }
           ],
           "timeFrom": null,
@@ -629,7 +332,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -669,157 +372,8 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "1",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.1_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "A",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "2",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.2_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "B",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "3",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.3_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "C",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "4",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.4_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "D",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "5",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.5_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "E",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "6",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.6_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "F",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "7",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.7_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "G",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "8",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.8_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "H",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "9",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.9_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "I",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "10",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.10_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "J",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "11",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.11_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "K",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "12",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.12_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "L",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "13",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.13_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "M",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "14",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.14_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "N",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "15",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.15_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "O",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "16",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.16_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "P",
-              "series": "measure.cassandra_rss"
-            },
-            {
-              "alias": "17",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"measure.graphite-api.17_rss\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "Q",
-              "series": "measure.cassandra_rss"
+              "target": "aliasSub(measure.graphite-api.*_rss, '.*\\.(.*)_rss', '\\1')"
             }
           ],
           "timeFrom": null,
@@ -852,7 +406,7 @@
             "num metrics in ES": "#0A437C"
           },
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -905,43 +459,20 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "lag max",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"graphite-watcher.lag.upper\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "A",
-              "series": "graphite-watcher.lag.upper",
-              "target": ""
+              "target": "alias(graphite-watcher.lag.upper, 'lag max')"
             },
             {
-              "alias": "lag p99",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"graphite-watcher.lag.upper_99\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "B",
-              "series": "graphite-watcher.lag.upper",
-              "target": ""
+              "target": "alias(graphite-watcher.lag.upper_90, 'lag p90')"
             },
             {
-              "alias": "lag mean",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"graphite-watcher.lag.mean\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "C",
-              "series": "graphite-watcher.lag.mean",
-              "target": ""
+              "target": "alias(graphite-watcher.lag.mean, 'lag mean')"
             },
             {
-              "alias": "num metrics in ES",
-              "column": "value",
-              "hide": false,
-              "query": "select last(value) from \"graphite-watcher.num_metrics\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "D",
-              "series": "graphite-watcher.num_metrics"
+              "target": "alias(graphite-watcher.num_metrics, 'num metrics in ES')"
             }
           ],
           "timeFrom": null,
@@ -967,7 +498,7 @@
             "num metrics in ES": "#0A437C"
           },
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -1011,15 +542,8 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "null_points",
-              "column": "value",
-              "hide": false,
-              "query": "select derivative(value) from \"graphite-watcher.null_points.counter\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "A",
-              "series": "graphite-watcher.null_points.counter",
-              "target": "",
-              "interval": "20s"
+              "target": "alias(graphite-watcher.null_points.counter, 'null points')"
             }
           ],
           "timeFrom": null,
@@ -1056,7 +580,7 @@
             "unmarshal raintank resp p90": "#508642"
           },
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -1101,34 +625,16 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "raintank_query mean",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"stats.timers.graphite-api.fetch.raintank_query.query_duration.mean\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "A",
-              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
-              "target": ""
+              "target": "alias(stats.timers.graphite-api.fetch.raintank_query.query_duration.mean, 'raintank_query mean')"
             },
             {
-              "alias": "unmarshal raintank resp mean",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"stats.timers.graphite-api.fetch.unmarshal_raintank_resp.duration.mean\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "B",
-              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
-              "target": ""
+              "target": "alias(stats.timers.graphite-api.fetch.unmarshal_raintank_resp.duration.mean, 'unmarshal raintank resp mean')"
             },
             {
-              "alias": "search ES mean",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"stats.timers.graphite-api.search_series.es_search.query_duration.mean\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "C",
-              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
-              "target": ""
+              "target": "alias(stats.timers.graphite-api.search_series.es_search.query_duration.mean, 'search ES mean')"
             }
           ],
           "timeFrom": null,
@@ -1157,7 +663,7 @@
             "unmarshal raintank resp p90": "#508642"
           },
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -1197,34 +703,16 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "raintank_query p90",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"stats.timers.graphite-api.fetch.raintank_query.query_duration.upper_90\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "D",
-              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
-              "target": ""
+              "target": "alias(stats.timers.graphite-api.fetch.raintank_query.query_duration.upper_90, 'raintank_query p90')"
             },
             {
-              "alias": "unmarshal raintank resp p90",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"stats.timers.graphite-api.fetch.unmarshal_raintank_resp.duration.upper_90\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "E",
-              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
-              "target": ""
+              "target": "alias(stats.timers.graphite-api.fetch.unmarshal_raintank_resp.duration.upper_90, 'unmarshal raintank resp p90')"
             },
             {
-              "alias": "search ES p90",
-              "column": "value",
-              "hide": false,
-              "query": "select mean(value) from \"stats.timers.graphite-api.search_series.es_search.query_duration.upper_90\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "F",
-              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
-              "target": ""
+              "target": "alias(stats.timers.graphite-api.search_series.es_search.query_duration.upper_90, 'search ES ps90')"
             }
           ],
           "timeFrom": null,
@@ -1254,7 +742,7 @@
             "unmarshal raintank resp p90": "#508642"
           },
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 7,
@@ -1299,37 +787,16 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "raintank_query",
-              "column": "value",
-              "hide": false,
-              "interval": "1s",
-              "query": "select mean(value) from \"stats.timers.graphite-api.fetch.raintank_query.query_duration.count_ps\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "A",
-              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
-              "target": ""
+              "target": "alias(stats.timers.graphite-api.fetch.raintank_query.query_duration.count_ps, 'raintank query')"
             },
             {
-              "alias": "unmarshal raintank resp",
-              "column": "value",
-              "hide": false,
-              "interval": "1s",
-              "query": "select mean(value) from \"stats.timers.graphite-api.fetch.unmarshal_raintank_resp.duration.count_ps\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "B",
-              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
-              "target": ""
+              "target": "alias(stats.timers.graphite-api.fetch.unmarshal_raintank_resp.duration.count_ps, 'unmarshal raintank resp')"
             },
             {
-              "alias": "search ES",
-              "column": "value",
-              "hide": false,
-              "interval": "1s",
-              "query": "select mean(value) from \"stats.timers.graphite-api.search_series.es_search.query_duration.count_ps\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
               "refId": "C",
-              "series": "stats.timers.graphite-api.fetch.raintank_query.query_duration.mean",
-              "target": ""
+              "target": "alias(stats.timers.graphite-api.search_series.es_search.query_duration.count_ps, 'search ES')"
             }
           ],
           "timeFrom": null,
