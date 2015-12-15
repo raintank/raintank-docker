@@ -108,7 +108,7 @@ influxdb:
     - /opt/influxdb/shared/data
 
 graphitemon:
-  image:  hopsoft/graphite-statsd
+  image:  raintank/graphite
   hostname: graphitemon
   ports:
     - "2003:2003"
