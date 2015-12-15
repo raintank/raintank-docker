@@ -460,19 +460,19 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(graphite-watcher.lag.upper, 'lag max')"
+              "target": "alias(graphite-watcher.$environment.lag.upper, 'lag max')"
             },
             {
               "refId": "B",
-              "target": "alias(graphite-watcher.lag.upper_90, 'lag p90')"
+              "target": "alias(graphite-watcher.$environment.lag.upper_90, 'lag p90')"
             },
             {
               "refId": "C",
-              "target": "alias(graphite-watcher.lag.mean, 'lag mean')"
+              "target": "alias(graphite-watcher.$environment.lag.mean, 'lag mean')"
             },
             {
               "refId": "D",
-              "target": "alias(graphite-watcher.num_metrics, 'num metrics in ES')"
+              "target": "alias(graphite-watcher.$environment.num_metrics, 'num metrics in ES')"
             }
           ],
           "timeFrom": null,
@@ -543,7 +543,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(graphite-watcher.null_points.counter, 'null points')"
+              "target": "alias(graphite-watcher.$environment.null_points.counter, 'null points')"
             }
           ],
           "timeFrom": null,
