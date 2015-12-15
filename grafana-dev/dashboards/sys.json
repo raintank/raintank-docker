@@ -202,10 +202,9 @@
       "title": "Row"
     },
     {
-      "title": "New row",
-      "height": "250px",
-      "editable": true,
       "collapse": false,
+      "editable": true,
+      "height": "250px",
       "panels": [
         {
           "aliasColors": {
@@ -391,7 +390,8 @@
             "short"
           ]
         }
-      ]
+      ],
+      "title": "New row"
     },
     {
       "collapse": false,
@@ -626,15 +626,15 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(stats.timers.graphite-api.fetch.raintank_query.query_duration.mean, 'raintank_query mean')"
+              "target": "alias(stats.$environment.timers.graphite-api.fetch.raintank_query.query_duration.mean, 'raintank_query mean')"
             },
             {
               "refId": "B",
-              "target": "alias(stats.timers.graphite-api.fetch.unmarshal_raintank_resp.duration.mean, 'unmarshal raintank resp mean')"
+              "target": "alias(stats.$environment.timers.graphite-api.fetch.unmarshal_raintank_resp.duration.mean, 'unmarshal raintank resp mean')"
             },
             {
               "refId": "C",
-              "target": "alias(stats.timers.graphite-api.search_series.es_search.query_duration.mean, 'search ES mean')"
+              "target": "alias(stats.$environment.timers.graphite-api.search_series.es_search.query_duration.mean, 'search ES mean')"
             }
           ],
           "timeFrom": null,
@@ -704,15 +704,15 @@
           "targets": [
             {
               "refId": "D",
-              "target": "alias(stats.timers.graphite-api.fetch.raintank_query.query_duration.upper_90, 'raintank_query p90')"
+              "target": "alias(stats.$environment.timers.graphite-api.fetch.raintank_query.query_duration.upper_90, 'raintank_query p90')"
             },
             {
               "refId": "E",
-              "target": "alias(stats.timers.graphite-api.fetch.unmarshal_raintank_resp.duration.upper_90, 'unmarshal raintank resp p90')"
+              "target": "alias(stats.$environment.timers.graphite-api.fetch.unmarshal_raintank_resp.duration.upper_90, 'unmarshal raintank resp p90')"
             },
             {
               "refId": "F",
-              "target": "alias(stats.timers.graphite-api.search_series.es_search.query_duration.upper_90, 'search ES ps90')"
+              "target": "alias(stats.$environment.timers.graphite-api.search_series.es_search.query_duration.upper_90, 'search ES ps90')"
             }
           ],
           "timeFrom": null,
@@ -788,15 +788,15 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(stats.timers.graphite-api.fetch.raintank_query.query_duration.count_ps, 'raintank query')"
+              "target": "alias(stats.$environment.timers.graphite-api.fetch.raintank_query.query_duration.count_ps, 'raintank query')"
             },
             {
               "refId": "B",
-              "target": "alias(stats.timers.graphite-api.fetch.unmarshal_raintank_resp.duration.count_ps, 'unmarshal raintank resp')"
+              "target": "alias(stats.$environment.timers.graphite-api.fetch.unmarshal_raintank_resp.duration.count_ps, 'unmarshal raintank resp')"
             },
             {
               "refId": "C",
-              "target": "alias(stats.timers.graphite-api.search_series.es_search.query_duration.count_ps, 'search ES')"
+              "target": "alias(stats.$environment.timers.graphite-api.search_series.es_search.query_duration.count_ps, 'search ES')"
             }
           ],
           "timeFrom": null,
@@ -849,7 +849,30 @@
     ]
   },
   "templating": {
-    "list": []
+    "list": [
+      {
+        "type": "query",
+        "datasource": "graphite",
+        "refresh_on_load": false,
+        "name": "environment",
+        "options": [
+          {
+            "text": "raintank-docker",
+            "value": "raintank-docker",
+            "selected": true
+          }
+        ],
+        "includeAll": false,
+        "allFormat": "glob",
+        "multi": false,
+        "multiFormat": "glob",
+        "query": "stats.*",
+        "current": {
+          "text": "raintank-docker",
+          "value": "raintank-docker"
+        }
+      }
+    ]
   },
   "annotations": {
     "list": [

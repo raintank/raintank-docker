@@ -61,13 +61,16 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(stats.timers.grafana.dev.alert-tickqueue.items.mean, 'tickqueue items')"
+              "target": "alias(stats.$environment.timers.grafana.dev.alert-tickqueue.items.mean, 'tickqueue items')",
+              "refId": "A"
             },
             {
-              "target": "alias(stats.gauges.grafana.dev.alert-tickqueue.size, 'tickqueue size')"
+              "target": "alias(stats.$environment.gauges.grafana.dev.alert-tickqueue.size, 'tickqueue size')",
+              "refId": "B"
             },
             {
-              "target": "alias(stats.grafana.dev.alert-dispatcher.ticks-skipped-due-to-slow-tickqueue, 'skipped')"
+              "target": "alias(stats.$environment.grafana.dev.alert-dispatcher.ticks-skipped-due-to-slow-tickqueue, 'skipped')",
+              "refId": "C"
             }
           ],
           "timeFrom": null,
@@ -148,7 +151,8 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "stats.grafana.dev.alert-dispatcher.num-getschedules"
+              "target": "stats.$environment.grafana.dev.alert-dispatcher.num-getschedules",
+              "refId": "A"
             }
           ],
           "timeFrom": null,
@@ -209,10 +213,12 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(stats.timers.grafana.dev.alert-dispatcher.get-schedules.median, 'median')"
+              "target": "alias(stats.$environment.timers.grafana.dev.alert-dispatcher.get-schedules.median, 'median')",
+              "refId": "A"
             },
             {
-              "target": "alias(stats.timers.grafana.dev.alert-dispatcher.get-schedules.upper, 'upper')"
+              "target": "alias(stats.$environment.timers.grafana.dev.alert-dispatcher.get-schedules.upper, 'upper')",
+              "refId": "B"
             }
           ],
           "timeFrom": null,
@@ -273,10 +279,12 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(stats.grafana.dev.alert-dispatcher.job-schedules-seen, 'schedules seen per second')"
+              "target": "alias(stats.$environment.grafana.dev.alert-dispatcher.job-schedules-seen, 'schedules seen per second')",
+              "refId": "A"
             },
             {
-              "target": "alias(stats.grafana.dev.alert-dispatcher.jobs-scheduled, 'jobs scheduled per second')"
+              "target": "alias(stats.$environment.grafana.dev.alert-dispatcher.jobs-scheduled, 'jobs scheduled per second')",
+              "refId": "B"
             }
           ],
           "timeFrom": null,
@@ -353,13 +361,14 @@
           "steppedLine": false,
           "targets": [
             {
-              "series": "alias(stats.gauges.grafana.dev.alert-jobqueue-preamqp.items, 'items')"
+              "series": "alias(stats.$environment.gauges.grafana.dev.alert-jobqueue-preamqp.items, 'items')"
             },
             {
-              "series": "alias(stats.gauges.grafana.dev.alert-jobqueue-preamqp.size, 'size')"
+              "series": "alias(stats.$environment.gauges.grafana.dev.alert-jobqueue-preamqp.size, 'size')"
             },
             {
-              "target": "alias(stats.grafana.dev.alert-dispatcher.jobs-skipped-due-to-slow-preamqp-jobqueue, 'skipped')"
+              "target": "alias(stats.$environment.grafana.dev.alert-dispatcher.jobs-skipped-due-to-slow-preamqp-jobqueue, 'skipped')",
+              "refId": "C"
             }
           ],
           "timeFrom": null,
@@ -428,13 +437,16 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(stats.gauges.grafana.dev.alert-jobqueue-internal.items, 'items')"
+              "target": "alias(stats.$environment.gauges.grafana.dev.alert-jobqueue-internal.items, 'items')",
+              "refId": "A"
             },
             {
-              "target": "alias(stats.gauges.grafana.dev.alert-jobqueue-internal.size, 'size')"
+              "target": "alias(stats.$environment.gauges.grafana.dev.alert-jobqueue-internal.size, 'size')",
+              "refId": "B"
             },
             {
-              "target": "stats.grafana.dev.alert-dispatcher.jobs-skipped-due-to-slow-internal-jobqueue, 'skipped')"
+              "target": "stats.$environment.grafana.dev.alert-dispatcher.jobs-skipped-due-to-slow-internal-jobqueue, 'skipped')",
+              "refId": "C"
             }
           ],
           "timeFrom": null,
@@ -518,10 +530,12 @@
           "steppedLine": false,
           "targets": [
             {
-            "target": "alias(stats.grafana.dev.alert-executor.original-todo, 'query')"
+              "target": "alias(stats.$environment.grafana.dev.alert-executor.original-todo, 'query')",
+              "refId": "A"
             },
             {
-              "target": "alias(stats.grafana.dev.alert-executor.already-done, 'alreaday done')"
+              "target": "alias(stats.$environment.grafana.dev.alert-executor.already-done, 'alreaday done')",
+              "refId": "B"
             }
           ],
           "timeFrom": null,
@@ -589,10 +603,10 @@
             {
               "alias": "num executors",
               "fill": 2,
-              "linewidth": 0,
-              "yaxis": 2,
               "lines": true,
-              "points": false
+              "linewidth": 0,
+              "points": false,
+              "yaxis": 2
             }
           ],
           "span": 4,
@@ -600,19 +614,24 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.mean, 'parse evaluate mean')"
+              "target": "alias(stats.$environment.timers.grafana.dev.alert-executor.job_parse-and-evaluate.mean, 'parse evaluate mean')",
+              "refId": "A"
             },
             {
-              "target": "alias(stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.upper, 'parse-evaluate upper')"
+              "target": "alias(stats.$environment.timers.grafana.dev.alert-executor.job_parse-and-evaluate.upper, 'parse-evaluate upper')",
+              "refId": "B"
             },
             {
-              "target": "alias(stats.timers.grafana.dev.alert-executor.job_query_graphite.mean, 'query-graphite mean')"
+              "target": "alias(stats.$environment.timers.grafana.dev.alert-executor.job_query_graphite.mean, 'query-graphite mean')",
+              "refId": "C"
             },
             {
-              "target": "alias(stats.timers.grafana.dev.alert-executor.job_query_graphite.upper, 'query-graphite upper')"
+              "target": "alias(stats.$environment.timers.grafana.dev.alert-executor.job_query_graphite.upper, 'query-graphite upper')",
+              "refId": "D"
             },
             {
-              "target": "alias(sum(stats.gauges.grafana.dev.alert-executor.*num), 'num executors')"
+              "target": "alias(sum(stats.$environment.gauges.grafana.dev.alert-executor.*num), 'num executors')",
+              "refId": "E"
             }
           ],
           "timeFrom": null,
@@ -688,19 +707,22 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "stats.grafana.dev.alert-executor.alert-outcomes.*"
+              "target": "stats.$environment.grafana.dev.alert-executor.alert-outcomes.*",
+              "refId": "A"
             },
             {
-              "target": "alias(stats.timers.grafana.dev.alert-executor.graphite-missingVals.sum, 'missing-values')"
+              "target": "alias(stats.$environment.timers.grafana.dev.alert-executor.graphite-missingVals.sum, 'missing-values')",
+              "refId": "B"
             },
             {
-              "target": "alias(stats.grafana.dev.alert-executor.graphite-emptyresponse, 'empty-response')"
+              "target": "alias(stats.$environment.grafana.dev.alert-executor.graphite-emptyresponse, 'empty-response')",
+              "refId": "C"
             },
             {
-              "query": "alias(stats.timers.grafana.dev.alert-executor.job_execution_delay.mean, 'execution delay mean')"
+              "query": "alias(stats.$environment.timers.grafana.dev.alert-executor.job_execution_delay.mean, 'execution delay mean')"
             },
             {
-              "query": "alias(stats.timers.grafana.dev.alert-executor.job_execution_delay.upper_90, 'execution delay p90')"
+              "query": "alias(stats.$environment.timers.grafana.dev.alert-executor.job_execution_delay.upper_90, 'execution delay p90')"
             }
           ],
           "timeFrom": null,
@@ -758,22 +780,46 @@
     "type": "timepicker"
   },
   "templating": {
-    "list": []
+    "list": [
+      {
+        "type": "query",
+        "datasource": "graphite",
+        "refresh_on_load": false,
+        "name": "environment",
+        "options": [
+          {
+            "text": "raintank-docker",
+            "value": "raintank-docker",
+            "selected": true
+          }
+        ],
+        "includeAll": false,
+        "allFormat": "glob",
+        "multi": false,
+        "multiFormat": "glob",
+        "query": "stats.*",
+        "current": {
+          "text": "raintank-docker",
+          "value": "raintank-docker",
+          "tags": []
+        }
+      }
+    ]
   },
   "annotations": {
     "list": [
       {
-        "name": "events",
         "datasource": "influxdb",
-        "showLine": true,
-        "iconColor": "#C0C6BE",
-        "lineColor": "rgba(255, 96, 96, 0.592157)",
-        "iconSize": 13,
         "enable": true,
+        "iconColor": "#C0C6BE",
+        "iconSize": 13,
+        "lineColor": "rgba(255, 96, 96, 0.592157)",
+        "name": "events",
         "query": "select type, text from events where $timeFilter",
-        "titleColumn": "type",
+        "showLine": true,
         "tagsColumn": "tags",
-        "textColumn": "text"
+        "textColumn": "text",
+        "titleColumn": "type"
       }
     ]
   },
