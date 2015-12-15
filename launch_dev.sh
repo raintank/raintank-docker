@@ -21,7 +21,7 @@ echo "cleaning logs..."
 rm -rf logs/*
 
 echo "docker-compose bringing up containers..."
-docker-compose -f fig-dev.yaml up -d
+docker-compose -f fig-dev.yaml up -d || exit $?
 
 echo "starting screen session..."
 screen -S raintank -d -m -t shell bash
