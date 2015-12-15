@@ -534,7 +534,7 @@
               "refId": "A"
             },
             {
-              "target": "alias(stats.$environment.grafana.dev.alert-executor.already-done, 'alreaday done')",
+              "target": "alias(stats.$environment.grafana.dev.alert-executor.already-done, 'already done')",
               "refId": "B"
             }
           ],
@@ -707,7 +707,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "stats.$environment.grafana.dev.alert-executor.alert-outcomes.*",
+              "target": "aliasByNode(stats.$environment.grafana.dev.alert-executor.alert-outcomes.*,6)",
               "refId": "A"
             },
             {
