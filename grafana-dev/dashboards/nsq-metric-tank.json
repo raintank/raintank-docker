@@ -827,7 +827,7 @@
               "lines": false
             }
           ],
-          "span": 6,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -913,7 +913,7 @@
           "points": true,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 6,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -948,6 +948,92 @@
             "short",
             "short"
           ]
+        },
+        {
+          "title": "metric def lookups",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "graph",
+          "isNew": true,
+          "id": 12,
+          "datasource": "graphite",
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "ms"
+          ],
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "rightLogBase": 1,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": false,
+          "fill": 1,
+          "linewidth": 2,
+          "points": true,
+          "pointradius": 1,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "alias(stats.$environment.metric_tank.metricstank.metricmeta_cache.hit, 'cache hit')"
+            },
+            {
+              "refId": "B",
+              "target": "aliasSub(stats.$environment.timers.metric_tank.metricstank.metricmeta_cache_lookup_duration.{median,upper_90}, '.*duration\\.(.*)', 'duration \\1')"
+            },
+            {
+              "refId": "C",
+              "target": "alias(stats.$environment.metric_tank.metricstank.metricmeta_cache.miss, 'cache miss')"
+            }
+          ],
+          "aliasColors": {
+            "cache hit": "#3F6833",
+            "metricdef lookup duration median": "#E0752D",
+            "metricdef lookup duration upper_90": "#BF1B00",
+            "duration upper_90": "#511749",
+            "duration median": "#BA43A9"
+          },
+          "seriesOverrides": [
+            {
+              "alias": "duration upper_90",
+              "yaxis": 2
+            },
+            {
+              "alias": "duration median",
+              "yaxis": 2
+            }
+          ],
+          "links": []
         }
       ],
       "title": "New row"
@@ -991,27 +1077,27 @@
   "templating": {
     "list": [
       {
-        "type": "query",
-        "datasource": "graphite",
-        "refresh_on_load": false,
-        "name": "environment",
-        "options": [
-          {
-            "text": "raintank-docker",
-            "value": "raintank-docker",
-            "selected": true
-          }
-        ],
-        "includeAll": false,
         "allFormat": "glob",
-        "multi": false,
-        "multiFormat": "glob",
-        "query": "stats.*",
         "current": {
           "text": "raintank-docker",
           "value": "raintank-docker"
         },
-        "regex": ""
+        "datasource": "graphite",
+        "includeAll": false,
+        "multi": false,
+        "multiFormat": "glob",
+        "name": "environment",
+        "options": [
+          {
+            "selected": true,
+            "text": "raintank-docker",
+            "value": "raintank-docker"
+          }
+        ],
+        "query": "stats.*",
+        "refresh_on_load": false,
+        "regex": "",
+        "type": "query"
       }
     ]
   },
