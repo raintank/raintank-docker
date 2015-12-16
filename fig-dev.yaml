@@ -59,6 +59,8 @@ metricTank:
     - nsqd:nsqd
     - statsdaemon:statsdaemon
     - cassandra:cassandra
+    - redis:redis
+    - elasticsearch:elasticsearch
   volumes:
     - ./logs:/var/log/raintank
     - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric

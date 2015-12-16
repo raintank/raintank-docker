@@ -18,5 +18,9 @@ cd /go/src/github.com/raintank/raintank-metric/metric_tank
 	--statsd-addr statsdaemon:8125 \
 	--nsqd-tcp-address nsqd:4150 \
 	--listen :6063 \
+	--elastic-addr elasticsearch:9200 \
+	--redis-addr redis:6379 \
 	--cassandra-addrs cassandra &>> /var/log/raintank/nsq_metrics_tank.log &
 tail -f /var/log/raintank/nsq_metrics_tank.log 
+
+
