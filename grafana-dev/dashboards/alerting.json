@@ -21,7 +21,7 @@
             "tickqueue size": "#EF843C"
           },
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -61,31 +61,16 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "tickqueue items",
-              "column": "value",
-              "function": "mean",
-              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-tickqueue.items.mean\" where $timeFilter group by time($interval) order asc",
-              "series": "stats.timers.grafana.dev.alert-tickqueue.items.mean",
-              "target": ""
+              "target": "alias(stats.$environment.timers.grafana.dev.alert-tickqueue.items.mean, 'tickqueue items')",
+              "refId": "A"
             },
             {
-              "alias": "tickqueue size",
-              "column": "value",
-              "function": "mean",
-              "query": "select mean(value) from \"stats.gauges.grafana.dev.alert-tickqueue.size\" where $timeFilter group by time($interval) order asc",
-              "series": "stats.gauges.grafana.dev.alert-tickqueue.size",
-              "target": ""
+              "target": "alias(stats.$environment.gauges.grafana.dev.alert-tickqueue.size, 'tickqueue size')",
+              "refId": "B"
             },
             {
-              "alias": "skipped",
-              "column": "value",
-              "fill": "0",
-              "function": "mean",
-              "hide": false,
-              "interval": "1s",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-dispatcher.ticks-skipped-due-to-slow-tickqueue\" where $timeFilter group by time($interval) fill(0) order asc",
-              "series": "stats.grafana.dev.alert-dispatcher.ticks-skipped-due-to-slow-tickqueue",
-              "target": ""
+              "target": "alias(stats.$environment.grafana.dev.alert-dispatcher.ticks-skipped-due-to-slow-tickqueue, 'skipped')",
+              "refId": "C"
             }
           ],
           "timeFrom": null,
@@ -126,7 +111,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -166,13 +151,8 @@
           "steppedLine": false,
           "targets": [
             {
-              "column": "value",
-              "fill": "0",
-              "function": "mean",
-              "interval": "1s",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-dispatcher.num-getschedules\" where $timeFilter group by time($interval) fill(0) order asc",
-              "series": "stats.grafana.dev.alert-dispatcher.num-getschedules",
-              "target": ""
+              "target": "stats.$environment.grafana.dev.alert-dispatcher.num-getschedules",
+              "refId": "A"
             }
           ],
           "timeFrom": null,
@@ -193,7 +173,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -233,20 +213,12 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "median",
-              "column": "value",
-              "function": "mean",
-              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-dispatcher.get-schedules.median\" where $timeFilter group by time($interval) order asc",
-              "series": "stats.timers.grafana.dev.alert-dispatcher.get-schedules.median",
-              "target": ""
+              "target": "alias(stats.$environment.timers.grafana.dev.alert-dispatcher.get-schedules.median, 'median')",
+              "refId": "A"
             },
             {
-              "alias": "upper",
-              "column": "value",
-              "function": "mean",
-              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-dispatcher.get-schedules.upper\" where $timeFilter group by time($interval) order asc",
-              "series": "stats.timers.grafana.dev.alert-dispatcher.get-schedules.upper",
-              "target": ""
+              "target": "alias(stats.$environment.timers.grafana.dev.alert-dispatcher.get-schedules.upper, 'upper')",
+              "refId": "B"
             }
           ],
           "timeFrom": null,
@@ -267,7 +239,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -307,26 +279,12 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "schedules seen per second",
-              "column": "value",
-              "fill": "0",
-              "function": "mean",
-              "hide": false,
-              "interval": "1s",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-dispatcher.job-schedules-seen\" where $timeFilter group by time($interval) fill(0) order asc",
-              "series": "stats.grafana.dev.alert-dispatcher.job-schedules-seen",
-              "target": "stats.grafana.dev.alert-dispatcher.job-schedules-seen"
+              "target": "alias(stats.$environment.grafana.dev.alert-dispatcher.job-schedules-seen, 'schedules seen per second')",
+              "refId": "A"
             },
             {
-              "alias": "jobs scheduled per second",
-              "column": "value",
-              "fill": "0",
-              "function": "first",
-              "hide": false,
-              "interval": "1s",
-              "query": "select first(value) from \"stats.grafana.dev.alert-dispatcher.jobs-scheduled\" where $timeFilter group by time($interval) fill(0) order asc",
-              "series": "stats.grafana.dev.alert-dispatcher.jobs-scheduled",
-              "target": ""
+              "target": "alias(stats.$environment.grafana.dev.alert-dispatcher.jobs-scheduled, 'jobs scheduled per second')",
+              "refId": "B"
             }
           ],
           "timeFrom": null,
@@ -358,7 +316,7 @@
             "skipped": "#890F02"
           },
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -403,37 +361,14 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "items",
-              "column": "value",
-              "fill": "0",
-              "function": "mean",
-              "interval": "1s",
-              "query": "select mean(value) from \"stats.gauges.grafana.dev.alert-jobqueue-preamqp.items\" where $timeFilter group by time($interval) fill(0) order asc",
-              "series": "stats.gauges.grafana.dev.alert-jobqueue-preamqp.items",
-              "target": "",
-              "refId": "A"
+              "series": "alias(stats.$environment.gauges.grafana.dev.alert-jobqueue-preamqp.items, 'items')"
             },
             {
-              "alias": "size",
-              "column": "value",
-              "fill": "null",
-              "function": "mean",
-              "interval": "1s",
-              "query": "select mean(value) from \"stats.gauges.grafana.dev.alert-jobqueue-preamqp.size\" where $timeFilter group by time($interval) fill(null) order asc",
-              "series": "stats.gauges.grafana.dev.alert-jobqueue-preamqp.size",
-              "target": "",
-              "refId": "A"
+              "series": "alias(stats.$environment.gauges.grafana.dev.alert-jobqueue-preamqp.size, 'size')"
             },
             {
-              "alias": "skipped",
-              "column": "value",
-              "fill": "0",
-              "function": "mean",
-              "interval": "1s",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-dispatcher.jobs-skipped-due-to-slow-preamqp-jobqueue\" where $timeFilter group by time($interval) fill(0) order asc",
-              "series": "stats.grafana.dev.alert-dispatcher.jobs-skipped-due-to-slow-preamqp-jobqueue",
-              "target": "",
-              "refId": "A"
+              "target": "alias(stats.$environment.grafana.dev.alert-dispatcher.jobs-skipped-due-to-slow-preamqp-jobqueue, 'skipped')",
+              "refId": "C"
             }
           ],
           "timeFrom": null,
@@ -457,7 +392,7 @@
             "skipped": "#890F02"
           },
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -502,37 +437,16 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "items",
-              "column": "value",
-              "fill": "0",
-              "function": "mean",
-              "interval": "1s",
-              "query": "select mean(value) from \"stats.gauges.grafana.dev.alert-jobqueue-internal.items\" where $timeFilter group by time($interval) fill(0) order asc",
-              "series": "stats.gauges.grafana.dev.alert-jobqueue-internal.items",
-              "target": "",
+              "target": "alias(stats.$environment.gauges.grafana.dev.alert-jobqueue-internal.items, 'items')",
               "refId": "A"
             },
             {
-              "alias": "size",
-              "column": "value",
-              "fill": "null",
-              "function": "mean",
-              "interval": "1s",
-              "query": "select mean(value) from \"stats.gauges.grafana.dev.alert-jobqueue-internal.size\" where $timeFilter group by time($interval) fill(null) order asc",
-              "series": "stats.gauges.grafana.dev.alert-jobqueue-internal.size",
-              "target": "",
-              "refId": "A"
+              "target": "alias(stats.$environment.gauges.grafana.dev.alert-jobqueue-internal.size, 'size')",
+              "refId": "B"
             },
             {
-              "alias": "skipped",
-              "column": "value",
-              "fill": "0",
-              "function": "mean",
-              "interval": "1s",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-dispatcher.jobs-skipped-due-to-slow-internal-jobqueue\" where $timeFilter group by time($interval) fill(0) order asc",
-              "series": "stats.grafana.dev.alert-dispatcher.jobs-skipped-due-to-slow-internal-jobqueue",
-              "target": "",
-              "refId": "A"
+              "target": "stats.$environment.grafana.dev.alert-dispatcher.jobs-skipped-due-to-slow-internal-jobqueue, 'skipped')",
+              "refId": "C"
             }
           ],
           "timeFrom": null,
@@ -576,7 +490,7 @@
             "out of date": "#F29191"
           },
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -616,25 +530,12 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "todo",
-              "column": "value",
-              "fill": "0",
-              "function": "mean",
-              "hide": false,
-              "interval": "1s",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.original-todo\" where $timeFilter group by time($interval) fill(0) order asc",
-              "series": "stats.grafana.dev.alert-executor.original-todo",
-              "target": ""
+              "target": "alias(stats.$environment.grafana.dev.alert-executor.original-todo, 'query')",
+              "refId": "A"
             },
             {
-              "alias": "already done",
-              "column": "value",
-              "fill": "0",
-              "function": "mean",
-              "interval": "1s",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.already-done\" where $timeFilter group by time($interval) fill(0) order asc",
-              "series": "stats.grafana.dev.alert-executor.already-done",
-              "target": ""
+              "target": "alias(stats.$environment.grafana.dev.alert-executor.already-done, 'already done')",
+              "refId": "B"
             }
           ],
           "timeFrom": null,
@@ -660,7 +561,7 @@
             "query-graphite-mean": "#C15C17"
           },
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -702,10 +603,10 @@
             {
               "alias": "num executors",
               "fill": 2,
-              "linewidth": 0,
-              "yaxis": 2,
               "lines": true,
-              "points": false
+              "linewidth": 0,
+              "points": false,
+              "yaxis": 2
             }
           ],
           "span": 4,
@@ -713,55 +614,24 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "parse-evaluate mean",
-              "column": "value",
-              "fill": "null",
-              "function": "mean",
-              "interval": "",
-              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.mean\" where $timeFilter group by time($interval) fill(null) order asc",
-              "refId": "A",
-              "series": "stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.mean",
-              "target": ""
+              "target": "alias(stats.$environment.timers.grafana.dev.alert-executor.job_parse-and-evaluate.mean, 'parse evaluate mean')",
+              "refId": "A"
             },
             {
-              "alias": "parse-evaluate upper",
-              "column": "value",
-              "fill": "null",
-              "function": "mean",
-              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.upper\" where $timeFilter group by time($interval) fill(null) order asc",
-              "refId": "A",
-              "series": "stats.timers.grafana.dev.alert-executor.job_parse-and-evaluate.upper",
-              "target": ""
+              "target": "alias(stats.$environment.timers.grafana.dev.alert-executor.job_parse-and-evaluate.upper, 'parse-evaluate upper')",
+              "refId": "B"
             },
             {
-              "alias": "query-graphite-mean",
-              "column": "value",
-              "fill": "null",
-              "function": "mean",
-              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_query_graphite.mean\" where $timeFilter group by time($interval) fill(null) order asc",
-              "refId": "A",
-              "series": "stats.timers.grafana.dev.alert-executor.job_query_graphite.mean",
-              "target": ""
+              "target": "alias(stats.$environment.timers.grafana.dev.alert-executor.job_query_graphite.mean, 'query-graphite mean')",
+              "refId": "C"
             },
             {
-              "alias": "query-graphite upper",
-              "column": "value",
-              "fill": "null",
-              "function": "mean",
-              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_query_graphite.upper\" where $timeFilter group by time($interval) fill(null) order asc",
-              "refId": "A",
-              "series": "stats.timers.grafana.dev.alert-executor.job_query_graphite.upper",
-              "target": ""
+              "target": "alias(stats.$environment.timers.grafana.dev.alert-executor.job_query_graphite.upper, 'query-graphite upper')",
+              "refId": "D"
             },
             {
-              "alias": "num executors",
-              "column": "value",
-              "fill": "null",
-              "function": "mean",
-              "query": "select mean(value) from /stats.gauges.grafana.dev.alert-executor.*num/ where $timeFilter group by time($interval) fill(null) order asc",
-              "refId": "A",
-              "series": "/stats.gauges.grafana.dev.alert-executor.*num/",
-              "target": ""
+              "target": "alias(sum(stats.$environment.gauges.grafana.dev.alert-executor.*num), 'num executors')",
+              "refId": "E"
             }
           ],
           "timeFrom": null,
@@ -785,7 +655,7 @@
             "unknown": "#806EB7"
           },
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -837,74 +707,22 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "ok",
-              "column": "value",
-              "fill": "null",
-              "function": "mean",
-              "interval": "1s",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.alert-outcomes.ok\" where $timeFilter group by time($interval) fill(null) order asc",
-              "refId": "A",
-              "series": "stats.grafana.dev.alert-executor.alert-outcomes.ok",
-              "target": ""
+              "target": "aliasByNode(stats.$environment.grafana.dev.alert-executor.alert-outcomes.*,6)",
+              "refId": "A"
             },
             {
-              "alias": "crit",
-              "column": "value",
-              "fill": "null",
-              "function": "mean",
-              "interval": "1s",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.alert-outcomes.critical\" where $timeFilter group by time($interval) fill(null) order asc",
-              "refId": "A",
-              "series": "stats.grafana.dev.alert-executor.alert-outcomes.critical",
-              "target": ""
-            },
-            {
-              "alias": "unknown",
-              "column": "value",
-              "fill": "null",
-              "function": "mean",
-              "hide": false,
-              "interval": "1s",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.alert-outcomes.unknown\" where $timeFilter group by time($interval) fill(null) order asc",
-              "refId": "A",
-              "series": "stats.grafana.dev.alert-executor.alert-outcomes.unknown",
-              "target": ""
-            },
-            {
-              "alias": "missing-values",
-              "column": "value",
-              "fill": "null",
-              "function": "mean",
-              "hide": false,
-              "interval": "1s",
-              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.graphite-missingVals.sum\" where $timeFilter group by time($interval) fill(null) order asc",
-              "refId": "A",
-              "series": "stats.timers.grafana.dev.alert-executor.graphite-missingVals.sum",
-              "target": ""
-            },
-            {
-              "alias": "empty response",
-              "column": "value",
-              "fill": "null",
-              "function": "mean",
-              "hide": false,
-              "interval": "1s",
-              "query": "select mean(value) from \"stats.grafana.dev.alert-executor.graphite-emptyresponse\" where $timeFilter group by time($interval) fill(null) order asc",
-              "refId": "A",
-              "series": "stats.grafana.dev.alert-executor.graphite-emptyresponse",
-              "target": ""
-            },
-            {
-              "alias": "execution delay mean",
-              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_execution_delay.mean\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
+              "target": "alias(stats.$environment.timers.grafana.dev.alert-executor.graphite-missingVals.sum, 'missing-values')",
               "refId": "B"
             },
             {
-              "alias": "execution delay p90",
-              "query": "select mean(value) from \"stats.timers.grafana.dev.alert-executor.job_execution_delay.upper_90\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
+              "target": "alias(stats.$environment.grafana.dev.alert-executor.graphite-emptyresponse, 'empty-response')",
               "refId": "C"
+            },
+            {
+              "query": "alias(stats.$environment.timers.grafana.dev.alert-executor.job_execution_delay.mean, 'execution delay mean')"
+            },
+            {
+              "query": "alias(stats.$environment.timers.grafana.dev.alert-executor.job_execution_delay.upper_90, 'execution delay p90')"
             }
           ],
           "timeFrom": null,
@@ -962,22 +780,46 @@
     "type": "timepicker"
   },
   "templating": {
-    "list": []
+    "list": [
+      {
+        "type": "query",
+        "datasource": "graphite",
+        "refresh_on_load": false,
+        "name": "environment",
+        "options": [
+          {
+            "text": "raintank-docker",
+            "value": "raintank-docker",
+            "selected": true
+          }
+        ],
+        "includeAll": false,
+        "allFormat": "glob",
+        "multi": false,
+        "multiFormat": "glob",
+        "query": "stats.*",
+        "current": {
+          "text": "raintank-docker",
+          "value": "raintank-docker",
+          "tags": []
+        }
+      }
+    ]
   },
   "annotations": {
     "list": [
       {
-        "name": "events",
         "datasource": "influxdb",
-        "showLine": true,
-        "iconColor": "#C0C6BE",
-        "lineColor": "rgba(255, 96, 96, 0.592157)",
-        "iconSize": 13,
         "enable": true,
+        "iconColor": "#C0C6BE",
+        "iconSize": 13,
+        "lineColor": "rgba(255, 96, 96, 0.592157)",
+        "name": "events",
         "query": "select type, text from events where $timeFilter",
-        "titleColumn": "type",
+        "showLine": true,
         "tagsColumn": "tags",
-        "textColumn": "text"
+        "textColumn": "text",
+        "titleColumn": "type"
       }
     ]
   },

@@ -17,7 +17,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 10,
@@ -57,11 +57,8 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "metrics in",
-              "query": "select mean(value) from \"stats.metric_tank.metricstank.metrics_received\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "A",
-              "target": ""
+              "target": "alias(stats.$environment.metric_tank.metricstank.metrics_received, 'metrics in')",
+              "refId": "A"
             }
           ],
           "timeFrom": null,
@@ -128,54 +125,34 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "alloc incl freed",
-              "column": "value",
-              "datasource": "influxdb",
+              "datasource": "graphite",
               "hide": true,
-              "query": "select mean(value) from \"stats.gauges.metric_tank.metricstank.bytes_alloc.incl_freed\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "A",
-              "series": "metrics.metric_tank.5-120.bytes_alloc_incl_freed.value"
+              "target": "alias(stats.$environment.gauges.metric_tank.metricstank.bytes_alloc.incl_freed, 'alloc incl freed')",
+              "refId": "A"
             },
             {
-              "alias": "alloc not freed",
-              "column": "value",
-              "datasource": "influxdb",
+              "datasource": "graphite",
               "hide": false,
-              "query": "select mean(value) from \"stats.gauges.metric_tank.metricstank.bytes_alloc.not_freed\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "B",
-              "series": "metrics.metric_tank.5-120.bytes_alloc_not_freed.value"
+              "target": "alias(stats.$environment.gauges.metric_tank.metricstank.bytes_alloc.not_freed, 'alloc not freed')",
+              "refId": "B"
             },
             {
-              "alias": "bytes_sys",
-              "column": "value",
-              "datasource": "influxdb",
+              "datasource": "graphite",
               "hide": false,
-              "query": "select mean(value) from \"stats.gauges.metric_tank.metricstank.bytes_sys\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "C",
-              "series": "metrics.metric_tank.5-120.bytes_sys.value"
+              "target": "alias(stats.$environment.gauges.metric_tank.metricstank.bytes_sys, 'bytes_sys')",
+              "refId": "C"
             },
             {
-              "alias": "active metrics",
-              "column": "value",
-              "datasource": "influxdb",
+              "datasource": "graphite",
               "hide": false,
-              "query": "select mean(value) from \"stats.gauges.metric_tank.metricstank.metrics_active\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "D",
-              "series": "metrics.metric_tank.5-120.metrics_active.value"
+              "target": "alias(stats.$environment.gauges.metric_tank.metricstank.metrics_active, 'metrics_active')",
+              "refId": "D"
             },
             {
-              "alias": "points per metric",
-              "column": "value",
-              "datasource": "influxdb",
+              "datasource": "graphite",
               "hide": false,
-              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.points_per_metric.mean\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "E",
-              "series": "metrics.metric_tank.5-120.metrics_active.value"
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.points_per_metric.mean, 'points per metric')",
+              "refId": "E"
             }
           ],
           "timeFrom": null,
@@ -202,7 +179,7 @@
             "median": "#3F6833"
           },
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -242,54 +219,14 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "median",
-              "column": "value",
               "hide": false,
-              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.points_per_metric.median\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "A",
-              "series": "stats.timers.metric_tank.metricstank.points_per_metric.median",
-              "target": ""
+              "target": "stats.$environment.timers.metric_tank.metricstank.points_per_metric.median",
+              "refId": "A"
             },
             {
-              "alias": "99th",
-              "column": "value",
               "hide": false,
-              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.points_per_metric.median\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "B",
-              "series": "stats.timers.metric_tank.metricstank.points_per_metric.median",
-              "target": ""
-            },
-            {
-              "alias": "90th",
-              "column": "value",
-              "hide": false,
-              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.points_per_metric.upper_90\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "C",
-              "series": "stats.timers.metric_tank.metricstank.points_per_metric.median",
-              "target": ""
-            },
-            {
-              "alias": "upper",
-              "column": "value",
-              "hide": false,
-              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.points_per_metric.upper\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "D",
-              "series": "stats.timers.metric_tank.metricstank.points_per_metric.999-percentile",
-              "target": ""
-            },
-            {
-              "alias": "mean",
-              "column": "value",
-              "hide": false,
-              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.points_per_metric.mean\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "E",
-              "series": "stats.timers.metric_tank.metricstank.points_per_metric.median",
-              "target": ""
+              "target": "stats.$environment.timers.metric_tank.metricstank.points_per_metric.999-percentile",
+              "refId": "B"
             }
           ],
           "timeFrom": null,
@@ -327,7 +264,7 @@
             "mem-cass p90": "#EF843C"
           },
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -367,84 +304,44 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "mem-cass min",
-              "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.lower\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "A",
-              "series": "stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.lower",
-              "target": ""
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.lower, 'mem-cass min')",
+              "refId": "A"
             },
             {
-              "alias": "mem-cass p90",
-              "column": "value",
               "hide": true,
-              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.upper_90\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "C",
-              "series": "stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.lower",
-              "target": ""
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.upper_90, 'mem-cass p90')",
+              "refId": "B"
             },
             {
-              "alias": "mem-cass med",
-              "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.median\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "D",
-              "series": "stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.lower",
-              "target": ""
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.median, 'mem-cass med')",
+              "refId": "C"
             },
             {
-              "alias": "mem-cass max",
-              "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.upper\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "B",
-              "series": "stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.lower",
-              "target": ""
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.upper, 'mem-cass max')",
+              "refId": "D"
             },
             {
-              "alias": "mem min",
-              "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.requests_span.mem.lower\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "E",
-              "series": "stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.lower",
-              "target": ""
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem.lower, 'mem min')",
+              "refId": "E"
             },
             {
-              "alias": "mem med",
-              "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.requests_span.mem.median\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "F",
-              "series": "stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.lower",
-              "target": ""
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem.median, 'mem med')",
+              "refId": "F"
             },
             {
-              "alias": "mem p90",
-              "column": "value",
               "hide": true,
-              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.requests_span.mem.upper_90\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "G",
-              "series": "stats.timers.metric_tank.metricstank.requests_span.mem.lower",
-              "target": ""
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem.upper_90, 'mem p90')",
+              "refId": "G"
             },
             {
-              "alias": "mem max",
-              "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.requests_span.mem.upper\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "H",
-              "series": "stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.lower",
-              "target": ""
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem.upper, 'mem max')",
+              "refId": "H"
             }
           ],
           "timeFrom": null,
@@ -474,7 +371,7 @@
             "mem-cass p90": "#EF843C"
           },
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -514,24 +411,14 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "mem-cass req/s",
-              "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.count_ps\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "I",
-              "series": "stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.lower",
-              "target": ""
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.count_ps, 'mem-cass req/s')",
+              "refId": "A"
             },
             {
-              "alias": "mem req/s",
-              "column": "value",
               "hide": false,
-              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.requests_span.mem.count_ps\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "J",
-              "series": "stats.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.lower",
-              "target": ""
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem.count_ps, 'mem req/s')",
+              "refId": "B"
             }
           ],
           "timeFrom": null,
@@ -552,11 +439,11 @@
         {
           "aliasColors": {
             "max": "#890F02",
-            "p90": "#C15C17",
-            "median": "#CCA300"
+            "median": "#CCA300",
+            "p90": "#C15C17"
           },
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -596,33 +483,16 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "median",
-              "column": "value",
-              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.request_handle_duration.median\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "A",
-              "series": "stats.timers.metric_tank.metricstank.request_handle_duration.median",
-              "target": ""
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.request_handle_duration.median, 'median')",
+              "refId": "A"
             },
             {
-              "alias": "p90",
-              "column": "value",
-              "hide": false,
-              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.request_handle_duration.upper_90\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "B",
-              "series": "stats.timers.metric_tank.metricstank.request_handle_duration.median",
-              "target": ""
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.request_handle_duration.upper_90, 'p90')",
+              "refId": "B"
             },
             {
-              "alias": "max",
-              "column": "value",
-              "hide": false,
-              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.request_handle_duration.upper\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "C",
-              "series": "stats.timers.metric_tank.metricstank.request_handle_duration.median",
-              "target": ""
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.request_handle_duration.upper, 'max')",
+              "refId": "C"
             }
           ],
           "timeFrom": null,
@@ -658,7 +528,7 @@
             "size at save p90": "#65C5DB"
           },
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -698,52 +568,28 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "size at load median",
-              "column": "value",
-              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.chunk_size.at_load.median\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "A",
-              "series": "stats.timers.metric_tank.metricstank.chunk_size.at_load.mean"
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.chunk_size.at_load.median, 'size at load median')",
+              "refId": "A"
             },
             {
-              "alias": "size at load p90",
-              "column": "value",
-              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.chunk_size.at_load.upper_90\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "B",
-              "series": "stats.timers.metric_tank.metricstank.chunk_size.at_load.mean"
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.chunk_size.at_load.upper_90, 'size at load p90')",
+              "refId": "B"
             },
             {
-              "alias": "size at load max",
-              "column": "value",
-              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.chunk_size.at_load.upper\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "C",
-              "series": "stats.timers.metric_tank.metricstank.chunk_size.at_load.mean"
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.chunk_size.at_load.upper, 'size at load max')",
+              "refId": "C"
             },
             {
-              "alias": "size at save median",
-              "column": "value",
-              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.chunk_size.at_save.median\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "D",
-              "series": "stats.timers.metric_tank.metricstank.chunk_size.at_load.mean"
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.chunk_size.at_save.median, 'size at save median')",
+              "refId": "D"
             },
             {
-              "alias": "size at save p90",
-              "column": "value",
-              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.chunk_size.at_save.upper_90\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "E",
-              "series": "stats.timers.metric_tank.metricstank.chunk_size.at_load.mean"
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.chunk_size.at_save.upper_90, 'size at save p90')",
+              "refId": "E"
             },
             {
-              "alias": "size at save max",
-              "column": "value",
-              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.chunk_size.at_save.upper\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "F",
-              "series": "stats.timers.metric_tank.metricstank.chunk_size.at_load.mean"
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.chunk_size.at_save.upper, 'size at save max')",
+              "refId": "F"
             }
           ],
           "timeFrom": null,
@@ -772,7 +618,7 @@
             "put/s": "#BF1B00"
           },
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -812,20 +658,12 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "put/s",
-              "column": "value",
-              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.cassandra_put_duration.count_ps\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "E",
-              "series": "stats.timers.metric_tank.metricstank.cassandra_put_duration.upper_90"
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_put_duration.count_ps, 'put/s')",
+              "refId": "A"
             },
             {
-              "alias": "get/s",
-              "column": "value",
-              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.cassandra_get_duration.count_ps\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "F",
-              "series": "stats.timers.metric_tank.metricstank.cassandra_put_duration.upper_90"
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_get_duration.count_ps, 'get/s')",
+              "refId": "B"
             }
           ],
           "timeFrom": null,
@@ -854,7 +692,7 @@
             "put/s": "#BF1B00"
           },
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -894,36 +732,20 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "put p90",
-              "column": "value",
-              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.cassandra_put_duration.upper_90\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "A",
-              "series": "stats.timers.metric_tank.metricstank.cassandra_put_duration.upper_90"
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_put_duration.upper_90, 'put p90')",
+              "refId": "A"
             },
             {
-              "alias": "put mean",
-              "column": "value",
-              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.cassandra_put_duration.mean\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "B",
-              "series": "stats.timers.metric_tank.metricstank.cassandra_put_duration.upper_90"
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_put_duration.mean, 'put mean')",
+              "refId": "B"
             },
             {
-              "alias": "get p90",
-              "column": "value",
-              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.cassandra_get_duration.upper_90\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "C",
-              "series": "stats.timers.metric_tank.metricstank.cassandra_put_duration.upper_90"
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_get_duration.upper_90, 'get p90')",
+              "refId": "C"
             },
             {
-              "alias": "get mean",
-              "column": "value",
-              "query": "select median(value) from \"stats.timers.metric_tank.metricstank.cassandra_get_duration.mean\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "D",
-              "series": "stats.timers.metric_tank.metricstank.cassandra_put_duration.upper_90"
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_get_duration.mean, 'get mean')",
+              "refId": "D"
             }
           ],
           "timeFrom": null,
@@ -952,14 +774,14 @@
         {
           "aliasColors": {
             "chunks per row max": "#C15C17",
-            "chunks per row min": "#E5AC0E",
             "chunks per row med": "#890F02",
+            "chunks per row min": "#E5AC0E",
+            "rows per resp max": "#508642",
             "rows per resp med": "#052B51",
-            "rows per resp min": "#6ED0E0",
-            "rows per resp max": "#508642"
+            "rows per resp min": "#6ED0E0"
           },
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -977,14 +799,14 @@
           },
           "id": 7,
           "legend": {
+            "alignAsTable": false,
             "avg": false,
             "current": false,
             "max": false,
             "min": false,
             "show": true,
             "total": false,
-            "values": false,
-            "alignAsTable": false
+            "values": false
           },
           "lines": false,
           "linewidth": 2,
@@ -1010,56 +832,28 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "chunks per row med",
-              "column": "value",
-              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.cassandra_chunks_per_row.median\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": false,
-              "refId": "A",
-              "series": "stats.timers.metric_tank.metricstank.cassandra_chunks_per_row.median",
-              "target": "",
-              "function": "mean"
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_chunks_per_row.median, 'chunks per row med')",
+              "refId": "A"
             },
             {
-              "refId": "C",
-              "function": "mean",
-              "column": "value",
-              "series": "stats.timers.metric_tank.metricstank.cassandra_chunks_per_row.lower",
-              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.cassandra_chunks_per_row.lower\" where $timeFilter group by time($interval) order asc",
-              "alias": "chunks per row min"
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_chunks_per_row.lower, 'chunks per row min')",
+              "refId": "B"
             },
             {
-              "refId": "D",
-              "function": "mean",
-              "column": "value",
-              "series": "stats.timers.metric_tank.metricstank.cassandra_chunks_per_row.upper",
-              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.cassandra_chunks_per_row.upper\" where $timeFilter group by time($interval) order asc",
-              "alias": "chunks per row max"
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_chunks_per_row.upper, 'chunks per row max')",
+              "refId": "C"
             },
             {
-              "alias": "rows per resp med",
-              "column": "value",
-              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.cassandra_chunks_per_row.median\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": false,
-              "refId": "B",
-              "series": "stats.timers.metric_tank.metricstank.cassandra_chunks_per_row.median",
-              "target": "",
-              "function": "mean"
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_chunks_per_row.median, 'rows per resp med')",
+              "refId": "D"
             },
             {
-              "refId": "E",
-              "function": "mean",
-              "column": "value",
-              "series": "stats.timers.metric_tank.metricstank.cassandra_rows_per_response.lower",
-              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.cassandra_rows_per_response.lower\" where $timeFilter group by time($interval) order asc",
-              "alias": "rows per resp min"
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_rows_per_response.lower, 'rows per resp min')",
+              "refId": "E"
             },
             {
-              "refId": "F",
-              "function": "mean",
-              "column": "value",
-              "series": "stats.timers.metric_tank.metricstank.cassandra_rows_per_response.upper",
-              "query": "select mean(value) from \"stats.timers.metric_tank.metricstank.cassandra_rows_per_response.upper\" where $timeFilter group by time($interval) order asc",
-              "alias": "rows per resp max"
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_rows_per_response.upper, 'rows per resp max')",
+              "refId": "F"
             }
           ],
           "timeFrom": null,
@@ -1084,7 +878,7 @@
             "save_ok/s": "#3F6833"
           },
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -1124,44 +918,20 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "create/s",
-              "column": "value",
-              "hide": false,
-              "query": "select median(value) from \"stats.metric_tank.metricstank.chunks.create\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "A",
-              "series": "stats.metric_tank.metricstank.chunks.create",
-              "target": ""
+              "target": "alias(stats.$environment.metric_tank.metricstank.chunks.create, 'create/s')",
+              "refId": "A"
             },
             {
-              "alias": "clear/s",
-              "column": "value",
-              "hide": false,
-              "query": "select median(value) from \"stats.metric_tank.metricstank.chunks.clear\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "B",
-              "series": "stats.metric_tank.metricstank.chunks.clear",
-              "target": ""
+              "target": "alias(stats.$environment.metric_tank.metricstank.chunks.clear, 'clear/s')",
+              "refId": "B"
             },
             {
-              "alias": "save_ok/s",
-              "column": "value",
-              "hide": false,
-              "query": "select median(value) from \"stats.metric_tank.metricstank.chunks.save_ok\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "C",
-              "series": "stats.metric_tank.metricstank.chunks.clear",
-              "target": ""
+              "target": "alias(stats.$environment.metric_tank.metricstank.chunks.save_ok, 'save_ok/s')",
+              "refId": "C"
             },
             {
-              "alias": "save_fail/s",
-              "column": "value",
-              "hide": false,
-              "query": "select median(value) from \"stats.metric_tank.metricstank.chunks.save_fail\" where $timeFilter group by time($interval) order asc",
-              "rawQuery": true,
-              "refId": "D",
-              "series": "stats.metric_tank.metricstank.chunks.clear",
-              "target": ""
+              "target": "alias(stats.$environment.metric_tank.metricstank.chunks.save_fail, 'save_fail/s')",
+              "refId": "D"
             }
           ],
           "timeFrom": null,
@@ -1219,7 +989,31 @@
     "type": "timepicker"
   },
   "templating": {
-    "list": []
+    "list": [
+      {
+        "type": "query",
+        "datasource": "graphite",
+        "refresh_on_load": false,
+        "name": "environment",
+        "options": [
+          {
+            "text": "raintank-docker",
+            "value": "raintank-docker",
+            "selected": true
+          }
+        ],
+        "includeAll": false,
+        "allFormat": "glob",
+        "multi": false,
+        "multiFormat": "glob",
+        "query": "stats.*",
+        "current": {
+          "text": "raintank-docker",
+          "value": "raintank-docker"
+        },
+        "regex": ""
+      }
+    ]
   },
   "annotations": {
     "list": [
@@ -1239,6 +1033,6 @@
     ]
   },
   "schemaVersion": 7,
-  "version": 1,
+  "version": 0,
   "links": []
 }
