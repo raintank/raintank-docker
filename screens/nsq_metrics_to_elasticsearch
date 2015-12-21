@@ -1,4 +1,0 @@
-cd /go/src/github.com/raintank/raintank-metric/nsq_metrics_to_elasticsearch
-/wait.sh elasticsearch:9200 redis:6379
-./nsq_metrics_to_elasticsearch --elastic-addr elasticsearch:9200 --redis-addr redis:6379 --statsd-addr statsdaemon:8125 --nsqd-tcp-address nsqd:4150 &> /var/log/raintank/nsq_metrics_to_elasticsearch.log &
-tail -f /var/log/raintank/nsq_metrics_to_elasticsearch.log
