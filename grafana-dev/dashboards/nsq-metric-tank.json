@@ -57,8 +57,8 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(stats.$environment.metric_tank.metricstank.metrics_received, 'metrics in')",
-              "refId": "A"
+              "refId": "A",
+              "target": "alias(stats.$environment.metric_tank.metricstank.metrics_received, 'metrics in')"
             }
           ],
           "timeFrom": null,
@@ -82,13 +82,13 @@
           "datasource": "-- Mixed --",
           "editable": true,
           "error": false,
-          "fill": 1,
+          "fill": 0,
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
-            "leftMin": null,
+            "leftMin": 0,
             "rightLogBase": 1,
-            "rightMax": null,
+            "rightMax": 100000,
             "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
@@ -107,7 +107,7 @@
             "values": false
           },
           "lines": true,
-          "linewidth": 2,
+          "linewidth": 3,
           "links": [],
           "nullPointMode": "null",
           "percentage": false,
@@ -116,8 +116,13 @@
           "renderer": "flot",
           "seriesOverrides": [
             {
-              "alias": "points per metric",
+              "alias": "total_points",
               "yaxis": 2
+            },
+            {
+              "alias": "bytes_per_point",
+              "yaxis": 2,
+              "linewidth": 1
             }
           ],
           "span": 3.1112631064967107,
@@ -127,32 +132,39 @@
             {
               "datasource": "graphite",
               "hide": true,
-              "target": "alias(stats.$environment.gauges.metric_tank.metricstank.bytes_alloc.incl_freed, 'alloc incl freed')",
-              "refId": "A"
+              "refId": "A",
+              "target": "alias(stats.$environment.gauges.metric_tank.metricstank.bytes_alloc.incl_freed, 'alloc incl freed')"
             },
             {
               "datasource": "graphite",
               "hide": false,
-              "target": "alias(stats.$environment.gauges.metric_tank.metricstank.bytes_alloc.not_freed, 'alloc not freed')",
-              "refId": "B"
+              "refId": "B",
+              "target": "alias(stats.$environment.gauges.metric_tank.metricstank.bytes_alloc.not_freed, 'alloc not freed')"
             },
             {
               "datasource": "graphite",
               "hide": false,
-              "target": "alias(stats.$environment.gauges.metric_tank.metricstank.bytes_sys, 'bytes_sys')",
-              "refId": "C"
+              "refId": "C",
+              "target": "alias(stats.$environment.gauges.metric_tank.metricstank.bytes_sys, 'bytes_sys')"
             },
             {
               "datasource": "graphite",
-              "hide": false,
-              "target": "alias(stats.$environment.gauges.metric_tank.metricstank.metrics_active, 'metrics_active')",
-              "refId": "D"
+              "hide": true,
+              "refId": "D",
+              "target": "alias(stats.$environment.gauges.metric_tank.metricstank.metrics_active, 'metrics_active')"
             },
             {
               "datasource": "graphite",
-              "hide": false,
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.points_per_metric.mean, 'points per metric')",
-              "refId": "E"
+              "hide": true,
+              "refId": "E",
+              "target": "alias(stats.$environment.gauges.metric_tank.metricstank.total_points, 'total_points')"
+            },
+            {
+              "refId": "F",
+              "datasource": "graphite",
+              "target": "alias(divideSeries(#B, #E), 'bytes_per_point')",
+              "textEditor": false,
+              "hide": false
             }
           ],
           "timeFrom": null,
@@ -167,7 +179,7 @@
           "y-axis": true,
           "y_formats": [
             "bytes",
-            "short"
+            "bytes"
           ]
         },
         {
@@ -176,7 +188,8 @@
             "999th": "#890F02",
             "99th": "#99440A",
             "mean": "#0A437C",
-            "median": "#3F6833"
+            "median": "#3F6833",
+            "total_points": "#65C5DB"
           },
           "bars": false,
           "datasource": "graphite",
@@ -213,25 +226,32 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "total_points",
+              "yaxis": 2,
+              "fill": 0,
+              "linewidth": 1
+            }
+          ],
           "span": 6.019263209292763,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
               "hide": false,
-              "target": "stats.$environment.timers.metric_tank.metricstank.points_per_metric.median",
-              "refId": "A"
+              "refId": "A",
+              "target": "aliasByNode(stats.$environment.gauges.metric_tank.metricstank.total_points, 5)"
             },
             {
               "hide": false,
-              "target": "stats.$environment.timers.metric_tank.metricstank.points_per_metric.999-percentile",
-              "refId": "B"
+              "refId": "B",
+              "target": "aliasByNode(stats.$environment.gauges.metric_tank.metricstank.metrics_active, 5)"
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "points per metric",
+          "title": "points & metrics",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
@@ -305,43 +325,43 @@
           "targets": [
             {
               "hide": false,
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.lower, 'mem-cass min')",
-              "refId": "A"
+              "refId": "A",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.lower, 'mem-cass min')"
             },
             {
               "hide": true,
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.upper_90, 'mem-cass p90')",
-              "refId": "B"
+              "refId": "B",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.upper_90, 'mem-cass p90')"
             },
             {
               "hide": false,
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.median, 'mem-cass med')",
-              "refId": "C"
+              "refId": "C",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.median, 'mem-cass med')"
             },
             {
               "hide": false,
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.upper, 'mem-cass max')",
-              "refId": "D"
+              "refId": "D",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.upper, 'mem-cass max')"
             },
             {
               "hide": false,
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem.lower, 'mem min')",
-              "refId": "E"
+              "refId": "E",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem.lower, 'mem min')"
             },
             {
               "hide": false,
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem.median, 'mem med')",
-              "refId": "F"
+              "refId": "F",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem.median, 'mem med')"
             },
             {
               "hide": true,
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem.upper_90, 'mem p90')",
-              "refId": "G"
+              "refId": "G",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem.upper_90, 'mem p90')"
             },
             {
               "hide": false,
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem.upper, 'mem max')",
-              "refId": "H"
+              "refId": "H",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem.upper, 'mem max')"
             }
           ],
           "timeFrom": null,
@@ -412,13 +432,13 @@
           "targets": [
             {
               "hide": false,
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.count_ps, 'mem-cass req/s')",
-              "refId": "A"
+              "refId": "A",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.count_ps, 'mem-cass req/s')"
             },
             {
               "hide": false,
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem.count_ps, 'mem req/s')",
-              "refId": "B"
+              "refId": "B",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem.count_ps, 'mem req/s')"
             }
           ],
           "timeFrom": null,
@@ -483,16 +503,16 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.request_handle_duration.median, 'median')",
-              "refId": "A"
+              "refId": "A",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.request_handle_duration.median, 'median')"
             },
             {
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.request_handle_duration.upper_90, 'p90')",
-              "refId": "B"
+              "refId": "B",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.request_handle_duration.upper_90, 'p90')"
             },
             {
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.request_handle_duration.upper, 'max')",
-              "refId": "C"
+              "refId": "C",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.request_handle_duration.upper, 'max')"
             }
           ],
           "timeFrom": null,
@@ -568,28 +588,28 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.chunk_size.at_load.median, 'size at load median')",
-              "refId": "A"
+              "refId": "A",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.chunk_size.at_load.median, 'size at load median')"
             },
             {
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.chunk_size.at_load.upper_90, 'size at load p90')",
-              "refId": "B"
+              "refId": "B",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.chunk_size.at_load.upper_90, 'size at load p90')"
             },
             {
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.chunk_size.at_load.upper, 'size at load max')",
-              "refId": "C"
+              "refId": "C",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.chunk_size.at_load.upper, 'size at load max')"
             },
             {
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.chunk_size.at_save.median, 'size at save median')",
-              "refId": "D"
+              "refId": "D",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.chunk_size.at_save.median, 'size at save median')"
             },
             {
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.chunk_size.at_save.upper_90, 'size at save p90')",
-              "refId": "E"
+              "refId": "E",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.chunk_size.at_save.upper_90, 'size at save p90')"
             },
             {
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.chunk_size.at_save.upper, 'size at save max')",
-              "refId": "F"
+              "refId": "F",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.chunk_size.at_save.upper, 'size at save max')"
             }
           ],
           "timeFrom": null,
@@ -658,12 +678,12 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_put_duration.count_ps, 'put/s')",
-              "refId": "A"
+              "refId": "A",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_put_duration.count_ps, 'put/s')"
             },
             {
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_get_duration.count_ps, 'get/s')",
-              "refId": "B"
+              "refId": "B",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_get_duration.count_ps, 'get/s')"
             }
           ],
           "timeFrom": null,
@@ -732,20 +752,20 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_put_duration.upper_90, 'put p90')",
-              "refId": "A"
+              "refId": "A",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_put_duration.upper_90, 'put p90')"
             },
             {
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_put_duration.mean, 'put mean')",
-              "refId": "B"
+              "refId": "B",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_put_duration.mean, 'put mean')"
             },
             {
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_get_duration.upper_90, 'get p90')",
-              "refId": "C"
+              "refId": "C",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_get_duration.upper_90, 'get p90')"
             },
             {
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_get_duration.mean, 'get mean')",
-              "refId": "D"
+              "refId": "D",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_get_duration.mean, 'get mean')"
             }
           ],
           "timeFrom": null,
@@ -832,28 +852,28 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_chunks_per_row.median, 'chunks per row med')",
-              "refId": "A"
+              "refId": "A",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_chunks_per_row.median, 'chunks per row med')"
             },
             {
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_chunks_per_row.lower, 'chunks per row min')",
-              "refId": "B"
+              "refId": "B",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_chunks_per_row.lower, 'chunks per row min')"
             },
             {
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_chunks_per_row.upper, 'chunks per row max')",
-              "refId": "C"
+              "refId": "C",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_chunks_per_row.upper, 'chunks per row max')"
             },
             {
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_chunks_per_row.median, 'rows per resp med')",
-              "refId": "D"
+              "refId": "D",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_chunks_per_row.median, 'rows per resp med')"
             },
             {
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_rows_per_response.lower, 'rows per resp min')",
-              "refId": "E"
+              "refId": "E",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_rows_per_response.lower, 'rows per resp min')"
             },
             {
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_rows_per_response.upper, 'rows per resp max')",
-              "refId": "F"
+              "refId": "F",
+              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_rows_per_response.upper, 'rows per resp max')"
             }
           ],
           "timeFrom": null,
@@ -918,20 +938,20 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(stats.$environment.metric_tank.metricstank.chunks.create, 'create/s')",
-              "refId": "A"
+              "refId": "A",
+              "target": "alias(stats.$environment.metric_tank.metricstank.chunks.create, 'create/s')"
             },
             {
-              "target": "alias(stats.$environment.metric_tank.metricstank.chunks.clear, 'clear/s')",
-              "refId": "B"
+              "refId": "B",
+              "target": "alias(stats.$environment.metric_tank.metricstank.chunks.clear, 'clear/s')"
             },
             {
-              "target": "alias(stats.$environment.metric_tank.metricstank.chunks.save_ok, 'save_ok/s')",
-              "refId": "C"
+              "refId": "C",
+              "target": "alias(stats.$environment.metric_tank.metricstank.chunks.save_ok, 'save_ok/s')"
             },
             {
-              "target": "alias(stats.$environment.metric_tank.metricstank.chunks.save_fail, 'save_fail/s')",
-              "refId": "D"
+              "refId": "D",
+              "target": "alias(stats.$environment.metric_tank.metricstank.chunks.save_fail, 'save_fail/s')"
             }
           ],
           "timeFrom": null,
@@ -950,58 +970,62 @@
           ]
         },
         {
-          "title": "metric def lookups",
-          "error": false,
-          "span": 4,
-          "editable": true,
-          "type": "graph",
-          "isNew": true,
-          "id": 12,
+          "aliasColors": {
+            "cache hit": "#3F6833",
+            "duration median": "#BA43A9",
+            "duration upper_90": "#511749",
+            "metricdef lookup duration median": "#E0752D",
+            "metricdef lookup duration upper_90": "#BF1B00"
+          },
+          "bars": false,
           "datasource": "graphite",
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "ms"
-          ],
+          "editable": true,
+          "error": false,
+          "fill": 1,
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
-            "rightMax": null,
             "leftMin": null,
-            "rightMin": null,
             "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
             "threshold1": null,
-            "threshold2": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "lines": false,
-          "fill": 1,
-          "linewidth": 2,
-          "points": true,
-          "pointradius": 1,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
+          "id": 12,
+          "isNew": true,
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
+            "avg": false,
             "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
             "total": false,
-            "avg": false
+            "values": false
           },
+          "lines": false,
+          "linewidth": 2,
+          "links": [],
           "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 1,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "duration upper_90",
+              "yaxis": 2
+            },
+            {
+              "alias": "duration median",
+              "yaxis": 2
+            }
+          ],
+          "span": 4,
+          "stack": false,
           "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "timeFrom": null,
-          "timeShift": null,
           "targets": [
             {
               "refId": "A",
@@ -1016,24 +1040,20 @@
               "target": "alias(stats.$environment.metric_tank.metricstank.metricmeta_cache.miss, 'cache miss')"
             }
           ],
-          "aliasColors": {
-            "cache hit": "#3F6833",
-            "metricdef lookup duration median": "#E0752D",
-            "metricdef lookup duration upper_90": "#BF1B00",
-            "duration upper_90": "#511749",
-            "duration median": "#BA43A9"
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "metric def lookups",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
           },
-          "seriesOverrides": [
-            {
-              "alias": "duration upper_90",
-              "yaxis": 2
-            },
-            {
-              "alias": "duration median",
-              "yaxis": 2
-            }
-          ],
-          "links": []
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "ms"
+          ]
         }
       ],
       "title": "New row"
