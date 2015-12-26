@@ -58,7 +58,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(stats.$environment.metric_tank.metricstank.metrics_received, 'metrics in')"
+              "target": "alias(stats.$environment.metric_tank.$host.metrics_received, 'metrics in')"
             }
           ],
           "timeFrom": null,
@@ -133,31 +133,31 @@
               "datasource": "graphite",
               "hide": true,
               "refId": "A",
-              "target": "alias(stats.$environment.gauges.metric_tank.metricstank.bytes_alloc.incl_freed, 'alloc incl freed')"
+              "target": "alias(stats.$environment.gauges.metric_tank.$host.bytes_alloc.incl_freed, 'alloc incl freed')"
             },
             {
               "datasource": "graphite",
               "hide": false,
               "refId": "B",
-              "target": "alias(stats.$environment.gauges.metric_tank.metricstank.bytes_alloc.not_freed, 'alloc not freed')"
+              "target": "alias(stats.$environment.gauges.metric_tank.$host.bytes_alloc.not_freed, 'alloc not freed')"
             },
             {
               "datasource": "graphite",
               "hide": false,
               "refId": "C",
-              "target": "alias(stats.$environment.gauges.metric_tank.metricstank.bytes_sys, 'bytes_sys')"
+              "target": "alias(stats.$environment.gauges.metric_tank.$host.bytes_sys, 'bytes_sys')"
             },
             {
               "datasource": "graphite",
               "hide": true,
               "refId": "D",
-              "target": "alias(stats.$environment.gauges.metric_tank.metricstank.metrics_active, 'metrics_active')"
+              "target": "alias(stats.$environment.gauges.metric_tank.$host.metrics_active, 'metrics_active')"
             },
             {
               "datasource": "graphite",
               "hide": true,
               "refId": "E",
-              "target": "alias(stats.$environment.gauges.metric_tank.metricstank.total_points, 'total_points')"
+              "target": "alias(stats.$environment.gauges.metric_tank.$host.total_points, 'total_points')"
             },
             {
               "refId": "F",
@@ -241,12 +241,12 @@
             {
               "hide": false,
               "refId": "A",
-              "target": "aliasByNode(stats.$environment.gauges.metric_tank.metricstank.total_points, 5)"
+              "target": "aliasByNode(stats.$environment.gauges.metric_tank.$host.total_points, 5)"
             },
             {
               "hide": false,
               "refId": "B",
-              "target": "aliasByNode(stats.$environment.gauges.metric_tank.metricstank.metrics_active, 5)"
+              "target": "aliasByNode(stats.$environment.gauges.metric_tank.$host.metrics_active, 5)"
             }
           ],
           "timeFrom": null,
@@ -326,42 +326,42 @@
             {
               "hide": false,
               "refId": "A",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.lower, 'mem-cass min')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.requests_span.mem_and_cassandra.lower, 'mem-cass min')"
             },
             {
               "hide": true,
               "refId": "B",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.upper_90, 'mem-cass p90')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.requests_span.mem_and_cassandra.upper_90, 'mem-cass p90')"
             },
             {
               "hide": false,
               "refId": "C",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.median, 'mem-cass med')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.requests_span.mem_and_cassandra.median, 'mem-cass med')"
             },
             {
               "hide": false,
               "refId": "D",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.upper, 'mem-cass max')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.requests_span.mem_and_cassandra.upper, 'mem-cass max')"
             },
             {
               "hide": false,
               "refId": "E",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem.lower, 'mem min')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.requests_span.mem.lower, 'mem min')"
             },
             {
               "hide": false,
               "refId": "F",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem.median, 'mem med')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.requests_span.mem.median, 'mem med')"
             },
             {
               "hide": true,
               "refId": "G",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem.upper_90, 'mem p90')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.requests_span.mem.upper_90, 'mem p90')"
             },
             {
               "hide": false,
               "refId": "H",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem.upper, 'mem max')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.requests_span.mem.upper, 'mem max')"
             }
           ],
           "timeFrom": null,
@@ -433,12 +433,12 @@
             {
               "hide": false,
               "refId": "A",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem_and_cassandra.count_ps, 'mem-cass req/s')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.requests_span.mem_and_cassandra.count_ps, 'mem-cass req/s')"
             },
             {
               "hide": false,
               "refId": "B",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.requests_span.mem.count_ps, 'mem req/s')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.requests_span.mem.count_ps, 'mem req/s')"
             }
           ],
           "timeFrom": null,
@@ -504,15 +504,15 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.request_handle_duration.median, 'median')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.request_handle_duration.median, 'median')"
             },
             {
               "refId": "B",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.request_handle_duration.upper_90, 'p90')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.request_handle_duration.upper_90, 'p90')"
             },
             {
               "refId": "C",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.request_handle_duration.upper, 'max')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.request_handle_duration.upper, 'max')"
             }
           ],
           "timeFrom": null,
@@ -589,27 +589,27 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.chunk_size.at_load.median, 'size at load median')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.chunk_size.at_load.median, 'size at load median')"
             },
             {
               "refId": "B",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.chunk_size.at_load.upper_90, 'size at load p90')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.chunk_size.at_load.upper_90, 'size at load p90')"
             },
             {
               "refId": "C",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.chunk_size.at_load.upper, 'size at load max')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.chunk_size.at_load.upper, 'size at load max')"
             },
             {
               "refId": "D",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.chunk_size.at_save.median, 'size at save median')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.chunk_size.at_save.median, 'size at save median')"
             },
             {
               "refId": "E",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.chunk_size.at_save.upper_90, 'size at save p90')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.chunk_size.at_save.upper_90, 'size at save p90')"
             },
             {
               "refId": "F",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.chunk_size.at_save.upper, 'size at save max')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.chunk_size.at_save.upper, 'size at save max')"
             }
           ],
           "timeFrom": null,
@@ -679,11 +679,11 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_put_duration.count_ps, 'put/s')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra_put_duration.count_ps, 'put/s')"
             },
             {
               "refId": "B",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_get_duration.count_ps, 'get/s')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra_get_duration.count_ps, 'get/s')"
             }
           ],
           "timeFrom": null,
@@ -753,19 +753,19 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_put_duration.upper_90, 'put p90')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra_put_duration.upper_90, 'put p90')"
             },
             {
               "refId": "B",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_put_duration.mean, 'put mean')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra_put_duration.mean, 'put mean')"
             },
             {
               "refId": "C",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_get_duration.upper_90, 'get p90')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra_get_duration.upper_90, 'get p90')"
             },
             {
               "refId": "D",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_get_duration.mean, 'get mean')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra_get_duration.mean, 'get mean')"
             }
           ],
           "timeFrom": null,
@@ -853,27 +853,27 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_chunks_per_row.median, 'chunks per row med')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra_chunks_per_row.median, 'chunks per row med')"
             },
             {
               "refId": "B",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_chunks_per_row.lower, 'chunks per row min')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra_chunks_per_row.lower, 'chunks per row min')"
             },
             {
               "refId": "C",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_chunks_per_row.upper, 'chunks per row max')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra_chunks_per_row.upper, 'chunks per row max')"
             },
             {
               "refId": "D",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_chunks_per_row.median, 'rows per resp med')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra_chunks_per_row.median, 'rows per resp med')"
             },
             {
               "refId": "E",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_rows_per_response.lower, 'rows per resp min')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra_rows_per_response.lower, 'rows per resp min')"
             },
             {
               "refId": "F",
-              "target": "alias(stats.$environment.timers.metric_tank.metricstank.cassandra_rows_per_response.upper, 'rows per resp max')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra_rows_per_response.upper, 'rows per resp max')"
             }
           ],
           "timeFrom": null,
@@ -939,19 +939,19 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(stats.$environment.metric_tank.metricstank.chunks.create, 'create/s')"
+              "target": "alias(stats.$environment.metric_tank.$host.chunks.create, 'create/s')"
             },
             {
               "refId": "B",
-              "target": "alias(stats.$environment.metric_tank.metricstank.chunks.clear, 'clear/s')"
+              "target": "alias(stats.$environment.metric_tank.$host.chunks.clear, 'clear/s')"
             },
             {
               "refId": "C",
-              "target": "alias(stats.$environment.metric_tank.metricstank.chunks.save_ok, 'save_ok/s')"
+              "target": "alias(stats.$environment.metric_tank.$host.chunks.save_ok, 'save_ok/s')"
             },
             {
               "refId": "D",
-              "target": "alias(stats.$environment.metric_tank.metricstank.chunks.save_fail, 'save_fail/s')"
+              "target": "alias(stats.$environment.metric_tank.$host.chunks.save_fail, 'save_fail/s')"
             }
           ],
           "timeFrom": null,
@@ -1029,15 +1029,15 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(stats.$environment.metric_tank.metricstank.metricmeta_cache.hit, 'cache hit')"
+              "target": "alias(stats.$environment.metric_tank.$host.metricmeta_cache.hit, 'cache hit')"
             },
             {
               "refId": "B",
-              "target": "aliasSub(stats.$environment.timers.metric_tank.metricstank.metricmeta_cache_lookup_duration.{median,upper_90}, '.*duration\\.(.*)', 'duration \\1')"
+              "target": "aliasSub(stats.$environment.timers.metric_tank.$host.metricmeta_cache_lookup_duration.{median,upper_90}, '.*duration\\.(.*)', 'duration \\1')"
             },
             {
               "refId": "C",
-              "target": "alias(stats.$environment.metric_tank.metricstank.metricmeta_cache.miss, 'cache miss')"
+              "target": "alias(stats.$environment.metric_tank.$host.metricmeta_cache.miss, 'cache miss')"
             }
           ],
           "timeFrom": null,
@@ -1115,6 +1115,31 @@
           }
         ],
         "query": "stats.*",
+        "refresh": true,
+        "refresh_on_load": false,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "allFormat": "glob",
+        "current": {
+          "text": "hello",
+          "value": "hello"
+        },
+        "datasource": "graphite",
+        "includeAll": false,
+        "multi": false,
+        "multiFormat": "glob",
+        "name": "host",
+        "options": [
+          {
+            "selected": true,
+            "text": "hello",
+            "value": "hello"
+          }
+        ],
+        "query": "stats.$environment.metric_tank.*",
+        "refresh": true,
         "refresh_on_load": false,
         "regex": "",
         "type": "query"
