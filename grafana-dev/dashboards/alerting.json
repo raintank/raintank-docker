@@ -386,8 +386,19 @@
           "renderer": "flot",
           "seriesOverrides": [
             {
-              "alias": "size",
-              "color": "#E24D42"
+              "alias": "/size/",
+              "color": "#705DA0",
+              "fill": 2,
+              "linewidth": 0
+            },
+            {
+              "alias": "/skipped/",
+              "color": "#890F02",
+              "points": true
+            },
+            {
+              "alias": "/items/",
+              "color": "#E5AC0E"
             }
           ],
           "span": 4.00421052631579,
@@ -464,8 +475,19 @@
           "renderer": "flot",
           "seriesOverrides": [
             {
-              "alias": "size",
-              "color": "#E24D42"
+              "alias": "/size/",
+              "color": "#705DA0",
+              "fill": 2,
+              "linewidth": 0
+            },
+            {
+              "alias": "/skipped/",
+              "color": "#890F02",
+              "points": true
+            },
+            {
+              "alias": "/items/",
+              "color": "#E5AC0E"
             }
           ],
           "span": 3.996420641447368,
