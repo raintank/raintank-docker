@@ -87,7 +87,7 @@
             },
             {
               "refId": "C",
-              "target": "aliasSub(stats.$environment.grafana.*.alert-dispatcher.ticks-skipped-due-to-slow-tickqueue, '.*\\.grafana\\.([^\\.]+)\\..*', '\\1 skipped due to slow')"
+              "target": "aliasSub(stats.$environment.grafana.*.alert-dispatcher.ticks-skipped-due-to-slow-tickqueue, '.*\\.grafana\\.([^\\.]+)\\..*', '\\1 skipped')"
             }
           ],
           "timeFrom": null,
@@ -396,15 +396,15 @@
           "targets": [
             {
               "refId": "A",
-              "series": "alias(stats.$environment.gauges.grafana.*.alert-jobqueue-preamqp.items, 'items')"
+              "target": "aliasSub(stats.$environment.gauges.grafana.*.alert-jobqueue-preamqp.items, '.*gauges.grafana.([^\\.]+)\\..*', '\\1 items')"
             },
             {
               "refId": "B",
-              "series": "alias(stats.$environment.gauges.grafana.*.alert-jobqueue-preamqp.size, 'size')"
+              "target": "aliasSub(stats.$environment.gauges.grafana.*.alert-jobqueue-preamqp.size, '.*gauges.grafana.([^\\.]+)\\..*', '\\1 size')"
             },
             {
               "refId": "C",
-              "target": "alias(stats.$environment.grafana.*.alert-dispatcher.jobs-skipped-due-to-slow-preamqp-jobqueue, 'skipped')"
+              "target": "aliasSub(stats.$environment.grafana.*.alert-dispatcher.jobs-skipped-due-to-slow-preamqp-jobqueue, '.*\\.grafana\\.([^\\.]+)\\..*', '\\1 skipped')"
             }
           ],
           "timeFrom": null,
@@ -474,15 +474,15 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(stats.$environment.gauges.grafana.*.alert-jobqueue-internal.items, 'items')"
+              "target": "aliasSub(stats.$environment.gauges.grafana.*.alert-jobqueue-internal.items, '.*gauges.grafana.([^\\.]+)\\..*', '\\1 items')"
             },
             {
               "refId": "B",
-              "target": "alias(stats.$environment.gauges.grafana.*.alert-jobqueue-internal.size, 'size')"
+              "target": "aliasSub(stats.$environment.gauges.grafana.*.alert-jobqueue-internal.size, '.*gauges.grafana.([^\\.]+)\\..*', '\\1 size')"
             },
             {
               "refId": "C",
-              "target": "stats.$environment.grafana.*.alert-dispatcher.jobs-skipped-due-to-slow-internal-jobqueue, 'skipped')"
+              "target": "aliasSub(stats.$environment.grafana.*.alert-dispatcher.jobs-skipped-due-to-slow-internal-jobqueue, '.*\\.grafana\\.([^\\.]+)\\..*', '\\1 skipped')"
             }
           ],
           "timeFrom": null,
