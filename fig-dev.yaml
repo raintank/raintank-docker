@@ -73,20 +73,6 @@ nsqMetricsToStdout:
   volumes:
     - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
-nsqMetricsToElasticsearch:
-  image: raintank/nsq_metrics_to_elasticsearch
-  hostname: nme
-  ports:
-    - "6061:6060"
-  links:
-    - nsqd:nsqd
-    - redis:redis
-    - elasticsearch:elasticsearch
-    - statsdaemon:statsdaemon
-  volumes:
-    - ./logs:/var/log/raintank
-    - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
-
 nsqProbeEventsToElasticsearch:
   image: raintank/nsq_probe_events_to_elasticsearch
   hostname: npee

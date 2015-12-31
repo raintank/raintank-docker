@@ -55,22 +55,39 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "/size/",
+              "color": "#705DA0",
+              "fill": 2,
+              "linewidth": 0
+            },
+            {
+              "alias": "/skipped/",
+              "color": "#890F02",
+              "points": true
+            },
+            {
+              "alias": "/items/",
+              "color": "#E5AC0E"
+            }
+          ],
           "span": 6,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(stats.$environment.timers.grafana.dev.alert-tickqueue.items.mean, 'tickqueue items')",
-              "refId": "A"
+              "hide": false,
+              "refId": "A",
+              "target": "aliasSub(stats.$environment.timers.grafana.*.alert-tickqueue.items.mean, '.*timers.grafana.([^\\.]+)\\..*', '\\1 items')"
             },
             {
-              "target": "alias(stats.$environment.gauges.grafana.dev.alert-tickqueue.size, 'tickqueue size')",
-              "refId": "B"
+              "refId": "B",
+              "target": "aliasSub(stats.$environment.gauges.grafana.*.alert-tickqueue.size, '.*gauges.grafana.([^\\.]+)\\..*', '\\1 size')"
             },
             {
-              "target": "alias(stats.$environment.grafana.dev.alert-dispatcher.ticks-skipped-due-to-slow-tickqueue, 'skipped')",
-              "refId": "C"
+              "refId": "C",
+              "target": "aliasSub(stats.$environment.grafana.*.alert-dispatcher.ticks-skipped-due-to-slow-tickqueue, '.*\\.grafana\\.([^\\.]+)\\..*', '\\1 skipped')"
             }
           ],
           "timeFrom": null,
@@ -151,8 +168,8 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "stats.$environment.grafana.dev.alert-dispatcher.num-getschedules",
-              "refId": "A"
+              "refId": "A",
+              "target": "aliasByNode(stats.$environment.grafana.*.alert-dispatcher.num-getschedules, 3)"
             }
           ],
           "timeFrom": null,
@@ -199,26 +216,35 @@
             "total": false,
             "values": false
           },
-          "lines": true,
+          "lines": false,
           "linewidth": 2,
           "links": [],
           "nullPointMode": "null",
           "percentage": false,
-          "pointradius": 5,
-          "points": false,
+          "pointradius": 1,
+          "points": true,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "/median/",
+              "color": "#052B51"
+            },
+            {
+              "alias": "/upper/",
+              "color": "#99440A"
+            }
+          ],
           "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(stats.$environment.timers.grafana.dev.alert-dispatcher.get-schedules.median, 'median')",
-              "refId": "A"
+              "refId": "A",
+              "target": "aliasByNode(stats.$environment.timers.grafana.*.alert-dispatcher.get-schedules.median, 4, 7)"
             },
             {
-              "target": "alias(stats.$environment.timers.grafana.dev.alert-dispatcher.get-schedules.upper, 'upper')",
-              "refId": "B"
+              "refId": "B",
+              "target": "aliasByNode(stats.$environment.timers.grafana.*.alert-dispatcher.get-schedules.upper, 4, 7)"
             }
           ],
           "timeFrom": null,
@@ -265,26 +291,34 @@
             "total": false,
             "values": false
           },
-          "lines": true,
+          "lines": false,
           "linewidth": 2,
           "links": [],
           "nullPointMode": "null as zero",
           "percentage": false,
-          "pointradius": 5,
-          "points": false,
+          "pointradius": 3,
+          "points": true,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "/seen/",
+              "fill": 2,
+              "lines": true,
+              "linewidth": 0,
+              "points": false
+            }
+          ],
           "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(stats.$environment.grafana.dev.alert-dispatcher.job-schedules-seen, 'schedules seen per second')",
-              "refId": "A"
+              "refId": "A",
+              "target": "aliasByNode(stats.$environment.grafana.*.alert-dispatcher.job-schedules-seen, 3, 5)"
             },
             {
-              "target": "alias(stats.$environment.grafana.dev.alert-dispatcher.jobs-scheduled, 'jobs scheduled per second')",
-              "refId": "B"
+              "refId": "B",
+              "target": "aliasByNode(stats.$environment.grafana.*.alert-dispatcher.jobs-scheduled, 3, 5)"
             }
           ],
           "timeFrom": null,
@@ -298,7 +332,7 @@
           "x-axis": true,
           "y-axis": true,
           "y_formats": [
-            "short",
+            "hertz",
             "short"
           ]
         }
@@ -352,8 +386,19 @@
           "renderer": "flot",
           "seriesOverrides": [
             {
-              "alias": "size",
-              "color": "#E24D42"
+              "alias": "/size/",
+              "color": "#705DA0",
+              "fill": 2,
+              "linewidth": 0
+            },
+            {
+              "alias": "/skipped/",
+              "color": "#890F02",
+              "points": true
+            },
+            {
+              "alias": "/items/",
+              "color": "#E5AC0E"
             }
           ],
           "span": 4.00421052631579,
@@ -361,14 +406,16 @@
           "steppedLine": false,
           "targets": [
             {
-              "series": "alias(stats.$environment.gauges.grafana.dev.alert-jobqueue-preamqp.items, 'items')"
+              "refId": "A",
+              "target": "aliasSub(stats.$environment.gauges.grafana.*.alert-jobqueue-preamqp.items, '.*gauges.grafana.([^\\.]+)\\..*', '\\1 items')"
             },
             {
-              "series": "alias(stats.$environment.gauges.grafana.dev.alert-jobqueue-preamqp.size, 'size')"
+              "refId": "B",
+              "target": "aliasSub(stats.$environment.gauges.grafana.*.alert-jobqueue-preamqp.size, '.*gauges.grafana.([^\\.]+)\\..*', '\\1 size')"
             },
             {
-              "target": "alias(stats.$environment.grafana.dev.alert-dispatcher.jobs-skipped-due-to-slow-preamqp-jobqueue, 'skipped')",
-              "refId": "C"
+              "refId": "C",
+              "target": "aliasSub(stats.$environment.grafana.*.alert-dispatcher.jobs-skipped-due-to-slow-preamqp-jobqueue, '.*\\.grafana\\.([^\\.]+)\\..*', '\\1 skipped')"
             }
           ],
           "timeFrom": null,
@@ -428,8 +475,19 @@
           "renderer": "flot",
           "seriesOverrides": [
             {
-              "alias": "size",
-              "color": "#E24D42"
+              "alias": "/size/",
+              "color": "#705DA0",
+              "fill": 2,
+              "linewidth": 0
+            },
+            {
+              "alias": "/skipped/",
+              "color": "#890F02",
+              "points": true
+            },
+            {
+              "alias": "/items/",
+              "color": "#E5AC0E"
             }
           ],
           "span": 3.996420641447368,
@@ -437,16 +495,16 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(stats.$environment.gauges.grafana.dev.alert-jobqueue-internal.items, 'items')",
-              "refId": "A"
+              "refId": "A",
+              "target": "aliasSub(stats.$environment.gauges.grafana.*.alert-jobqueue-internal.items, '.*gauges.grafana.([^\\.]+)\\..*', '\\1 items')"
             },
             {
-              "target": "alias(stats.$environment.gauges.grafana.dev.alert-jobqueue-internal.size, 'size')",
-              "refId": "B"
+              "refId": "B",
+              "target": "aliasSub(stats.$environment.gauges.grafana.*.alert-jobqueue-internal.size, '.*gauges.grafana.([^\\.]+)\\..*', '\\1 size')"
             },
             {
-              "target": "stats.$environment.grafana.dev.alert-dispatcher.jobs-skipped-due-to-slow-internal-jobqueue, 'skipped')",
-              "refId": "C"
+              "refId": "C",
+              "target": "aliasSub(stats.$environment.grafana.*.alert-dispatcher.jobs-skipped-due-to-slow-internal-jobqueue, '.*\\.grafana\\.([^\\.]+)\\..*', '\\1 skipped')"
             }
           ],
           "timeFrom": null,
@@ -530,12 +588,12 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(stats.$environment.grafana.dev.alert-executor.original-todo, 'query')",
-              "refId": "A"
+              "refId": "A",
+              "target": "alias(stats.$environment.grafana.*.alert-executor.original-todo, 'query')"
             },
             {
-              "target": "alias(stats.$environment.grafana.dev.alert-executor.already-done, 'already done')",
-              "refId": "B"
+              "refId": "B",
+              "target": "alias(stats.$environment.grafana.*.alert-executor.already-done, 'already done')"
             }
           ],
           "timeFrom": null,
@@ -614,24 +672,24 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(stats.$environment.timers.grafana.dev.alert-executor.job_parse-and-evaluate.mean, 'parse evaluate mean')",
-              "refId": "A"
+              "refId": "A",
+              "target": "alias(stats.$environment.timers.grafana.*.alert-executor.job_parse-and-evaluate.mean, 'parse evaluate mean')"
             },
             {
-              "target": "alias(stats.$environment.timers.grafana.dev.alert-executor.job_parse-and-evaluate.upper, 'parse-evaluate upper')",
-              "refId": "B"
+              "refId": "B",
+              "target": "alias(stats.$environment.timers.grafana.*.alert-executor.job_parse-and-evaluate.upper, 'parse-evaluate upper')"
             },
             {
-              "target": "alias(stats.$environment.timers.grafana.dev.alert-executor.job_query_graphite.mean, 'query-graphite mean')",
-              "refId": "C"
+              "refId": "C",
+              "target": "alias(stats.$environment.timers.grafana.*.alert-executor.job_query_graphite.mean, 'query-graphite mean')"
             },
             {
-              "target": "alias(stats.$environment.timers.grafana.dev.alert-executor.job_query_graphite.upper, 'query-graphite upper')",
-              "refId": "D"
+              "refId": "D",
+              "target": "alias(stats.$environment.timers.grafana.*.alert-executor.job_query_graphite.upper, 'query-graphite upper')"
             },
             {
-              "target": "alias(sum(stats.$environment.gauges.grafana.dev.alert-executor.*num), 'num executors')",
-              "refId": "E"
+              "refId": "E",
+              "target": "alias(sum(stats.$environment.gauges.grafana.*.alert-executor.*num), 'num executors')"
             }
           ],
           "timeFrom": null,
@@ -707,22 +765,24 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "aliasByNode(stats.$environment.grafana.dev.alert-executor.alert-outcomes.*,6)",
-              "refId": "A"
+              "refId": "A",
+              "target": "aliasByNode(stats.$environment.grafana.*.alert-executor.alert-outcomes.*,6)"
             },
             {
-              "target": "alias(stats.$environment.timers.grafana.dev.alert-executor.graphite-missingVals.sum, 'missing-values')",
-              "refId": "B"
+              "refId": "B",
+              "target": "alias(stats.$environment.timers.grafana.*.alert-executor.graphite-missingVals.sum, 'missing-values')"
             },
             {
-              "target": "alias(stats.$environment.grafana.dev.alert-executor.graphite-emptyresponse, 'empty-response')",
-              "refId": "C"
+              "refId": "C",
+              "target": "alias(stats.$environment.grafana.*.alert-executor.graphite-emptyresponse, 'empty-response')"
             },
             {
-              "query": "alias(stats.$environment.timers.grafana.dev.alert-executor.job_execution_delay.mean, 'execution delay mean')"
+              "query": "alias(stats.$environment.timers.grafana.*.alert-executor.job_execution_delay.mean, 'execution delay mean')",
+              "refId": "D"
             },
             {
-              "query": "alias(stats.$environment.timers.grafana.dev.alert-executor.job_execution_delay.upper_90, 'execution delay p90')"
+              "query": "alias(stats.$environment.timers.grafana.*.alert-executor.job_execution_delay.upper_90, 'execution delay p90')",
+              "refId": "E"
             }
           ],
           "timeFrom": null,
@@ -782,9 +842,15 @@
   "templating": {
     "list": [
       {
-        "type": "query",
+        "allFormat": "glob",
+        "current": {
+          "text": "raintank-docker",
+          "value": "raintank-docker"
+        },
         "datasource": "graphite",
-        "refresh_on_load": false,
+        "includeAll": false,
+        "multi": false,
+        "multiFormat": "glob",
         "name": "environment",
         "options": [
           {
@@ -793,16 +859,10 @@
             "selected": true
           }
         ],
-        "includeAll": false,
-        "allFormat": "glob",
-        "multi": false,
-        "multiFormat": "glob",
         "query": "stats.*",
-        "current": {
-          "text": "raintank-docker",
-          "value": "raintank-docker",
-          "tags": []
-        }
+        "refresh": true,
+        "refresh_on_load": false,
+        "type": "query"
       }
     ]
   },
@@ -824,7 +884,7 @@
     ]
   },
   "refresh": false,
-  "schemaVersion": 7,
-  "version": 0,
+  "schemaVersion": 8,
+  "version": 1,
   "links": []
 }
