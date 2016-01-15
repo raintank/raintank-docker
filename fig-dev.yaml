@@ -42,6 +42,8 @@ nsqadmin:
 graphiteWatcher:
   image: raintank/graphite-watcher
   hostname: watcher
+  ports:
+    - "6065:6065"
   links:
     - elasticsearch:elasticsearch
     - graphitemon:graphitemon
