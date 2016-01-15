@@ -2,10 +2,15 @@
 
 rebuild=0
 
+function fail() {
+	echo "ERROR: failed building $1. stopping." >&2
+	exit $STATE;
+}
+
 function build () {
 	[ -e $1/build.sh -o -e $1/Dockerfile ] || return
 	local service=$1
-  cd $service
+	cd $service
 
 	echo "##### $service ####"
 	if [ -e build.sh ]; then
@@ -13,18 +18,13 @@ function build () {
 		sh build.sh
 	elif [ -e Dockerfile ]; then
 		echo "##### -> docker build -t raintank/$service ."
-    if [ $rebuild -eq 1 ]; then
-      docker build --no-cache -t raintank/$service .
-    else
-      docker build -t raintank/$service .
-    fi
-    # -f because docker will complain if the id->name mapping already exists, which is not an issue with docker build -t
-    docker tag -f raintank/$service raintank/$service:$(git rev-parse --abbrev-ref HEAD)
-	fi
-	STATE=$?
-	if [ $STATE -ne 0 ]; then
-		echo "failed building $service. stopping." >&2
-		exit $STATE;
+		if [ $rebuild -eq 1 ]; then
+			docker build --no-cache -t raintank/$service . || fail $service
+		else
+			docker build -t raintank/$service . || fail $service
+		fi
+		# -f because docker will complain if the id->name mapping already exists, which is not an issue with docker build -t
+		docker tag -f raintank/$service raintank/$service:$(git rev-parse --abbrev-ref HEAD) || fail $service
 	fi
 	cd ..
 }
