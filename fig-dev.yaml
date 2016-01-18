@@ -88,15 +88,6 @@ nsqProbeEventsToElasticsearch:
     - ./logs:/var/log/raintank
     - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
-influxdb:
-  image: raintank/influxdb
-  hostname: influxdb
-  ports:
-    - "8086:8086"
-    - "8083:8083"
-  volumes:
-    - /opt/influxdb/shared/data
-
 graphitemon:
   image:  raintank/graphite
   hostname: graphitemon
@@ -151,7 +142,6 @@ grafana:
     - graphiteApi:graphite-api
     - mysql:mysql
     - elasticsearch:elasticsearch
-    - influxdb:influxdb
     - statsdaemon:statsdaemon
     - nsqd:nsqd
   volumes:
