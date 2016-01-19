@@ -49,8 +49,11 @@ for service in screens/*; do
   done < $service
 done
 
-./wait.sh localhost:8086
-curl -X POST "localhost:8086/db/raintank/series?u=graphite&p=graphite" -d '[{"name": "events","columns": ["type","tags","text"],"points": [["devstack-start", "start", "devstack started"]]}]'
+./wait.sh localhost:9200
+D=$(( $(date +%s) * 1000))
+payload='{"timestamp": '$D',"type": "devstack-start","tags": "start","text": "devstack started"}'
+curl -X POST "$elasticsearch:9200/benchmark/event?" -d "$payload"
+
 
 echo "starting collector..."
 ./launch_dev_collector.sh
