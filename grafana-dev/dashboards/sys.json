@@ -875,19 +875,23 @@
     ]
   },
   "annotations": {
-    "list": [
+     "list": [
       {
-        "datasource": "influxdb",
+        "datasource": "benchmarks",
         "enable": true,
         "iconColor": "#C0C6BE",
         "iconSize": 13,
         "lineColor": "rgba(255, 96, 96, 0.592157)",
         "name": "events",
-        "query": "select type, text from events where $timeFilter",
+        "query": "*",
         "showLine": true,
         "tagsColumn": "tags",
+        "tagsField": "tags",
         "textColumn": "text",
-        "titleColumn": "type"
+        "textField": "text",
+        "timeField": "timestamp",
+        "titleColumn": "type",
+        "titleField": "type"
       }
     ]
   },
