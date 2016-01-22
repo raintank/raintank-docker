@@ -22,5 +22,5 @@ cd /go/src/github.com/raintank/raintank-metric/metric_tank
 	--elastic-addr elasticsearch:9200 \
 	--elastic-warmup-pct 100 \
 	--cassandra-addrs cassandra \
-|& tee /var/log/raintank/nsq_metrics_tank.log 
-
+	&>> /var/log/raintank/nsq_metrics_tank.log &
+tail -f /var/log/raintank/nsq_metrics_tank.log
