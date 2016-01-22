@@ -54,7 +54,6 @@ D=$(( $(date +%s) * 1000))
 payload='{"timestamp": '$D',"type": "devstack-start","tags": "start","text": "devstack started"}'
 curl -X POST "localhost:9200/benchmark/event?" -d "$payload"
 
-
 echo "starting collector..."
 ./launch_dev_collector.sh
 

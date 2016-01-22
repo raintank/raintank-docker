@@ -1,3 +1,0 @@
-cd /go/src/github.com/raintank/raintank-metric/nsq_metrics_to_kairos
-./nsq_metrics_to_kairos --kairos-addr kairosdb:8080 --statsd-addr statsdaemon:8125 --nsqd-tcp-address nsqd:4150 &> /var/log/raintank/nsq_metrics_to_kairos.log &
-tail -f /var/log/raintank/nsq_metrics_to_kairos.log

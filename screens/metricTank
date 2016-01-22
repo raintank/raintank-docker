@@ -10,7 +10,7 @@
 # TODO update numchunks to 36 (6h)once everything tested well, now lower (30min) to spot issues earlier
 # TODO update chunk retentions to 1 once https://github.com/raintank/raintank-metric/issues/65 is fixed
 cd /go/src/github.com/raintank/raintank-metric/metric_tank
-/wait.sh cassandra:9042 elasticsearch:9200 redis:6379
+/wait.sh cassandra:9042 elasticsearch:9200
 ./metric_tank \
 	--chunkspan 600 \
 	--numchunks 3 \
@@ -20,9 +20,7 @@ cd /go/src/github.com/raintank/raintank-metric/metric_tank
 	--listen :6063 \
 	--primary-node \
 	--elastic-addr elasticsearch:9200 \
-	--redis-addr redis:6379 \
 	--elastic-warmup-pct 100 \
-	--cassandra-addrs cassandra &>> /var/log/raintank/nsq_metrics_tank.log &
-tail -f /var/log/raintank/nsq_metrics_tank.log 
-
-
+	--cassandra-addrs cassandra \
+	&>> /var/log/raintank/nsq_metrics_tank.log &
+tail -f /var/log/raintank/nsq_metrics_tank.log

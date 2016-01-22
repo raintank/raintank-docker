@@ -7,12 +7,6 @@ elasticsearch:
   volumes:
     - /data
 
-redis:
-  image: redis
-  hostname: redis
-  ports:
-    - "6379"
-
 rabbitmq:
   image: raintank/rabbitmq
   hostname: rabbitmq
@@ -61,7 +55,6 @@ metricTank:
     - nsqd:nsqd
     - statsdaemon:statsdaemon
     - cassandra:cassandra
-    - redis:redis
     - elasticsearch:elasticsearch
   volumes:
     - ./logs:/var/log/raintank
@@ -126,8 +119,6 @@ graphiteApi:
     - statsdaemon:statsdaemon
     - cassandra:cassandra
     - metricTank:nsqmetricstank
-  environment:
-    GRAPHITE_kairosdb_uri: http://kairosdb:8080
   volumes:
     - ./logs:/var/log/raintank
 
