@@ -15,7 +15,9 @@
       "height": 217,
       "panels": [
         {
-          "aliasColors": {},
+          "aliasColors": {
+            "primary": "#2F575E"
+          },
           "bars": false,
           "datasource": "graphite",
           "editable": true,
@@ -26,8 +28,8 @@
             "leftMax": null,
             "leftMin": null,
             "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
+            "rightMax": 1,
+            "rightMin": 0,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -51,14 +53,26 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {},
+            {
+              "alias": "primary",
+              "yaxis": 2,
+              "fill": 3,
+              "linewidth": 0
+            }
+          ],
           "span": 2.8694736842105266,
           "stack": false,
-          "steppedLine": false,
+          "steppedLine": true,
           "targets": [
             {
               "refId": "A",
               "target": "alias(stats.$environment.metric_tank.$host.metrics_received, 'metrics in')"
+            },
+            {
+              "refId": "B",
+              "target": "alias(stats.$environment.gauges.metric_tank.metricstank.cluster.primary, 'primary')"
             }
           ],
           "timeFrom": null,
