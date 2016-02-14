@@ -197,6 +197,81 @@
           ]
         },
         {
+          "title": "GC",
+          "error": false,
+          "span": 3,
+          "editable": true,
+          "type": "graph",
+          "isNew": true,
+          "id": 13,
+          "datasource": "graphite",
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "ns"
+          ],
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "rightLogBase": 1,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 1,
+          "linewidth": 2,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "null",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "alias(perSecond(stats.$environment.gauges.metric_tank.$host.gc.num), 'collections')"
+            },
+            {
+              "refId": "B",
+              "target": "alias(stats.$environment.gauges.metric_tank.$host.gc.dur, 'duration')"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [
+            {
+              "alias": "duration",
+              "yaxis": 2,
+              "points": true,
+              "lines": false,
+              "pointradius": 1
+            }
+          ],
+          "links": []
+        },
+        {
           "aliasColors": {
             "95th": "#EAB839",
             "999th": "#890F02",
@@ -248,7 +323,7 @@
               "linewidth": 1
             }
           ],
-          "span": 6.019263209292763,
+          "span": 3,
           "stack": false,
           "steppedLine": false,
           "targets": [
