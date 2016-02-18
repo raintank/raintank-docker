@@ -7,7 +7,7 @@
   "timezone": "browser",
   "editable": true,
   "hideControls": false,
-  "sharedCrosshair": false,
+  "sharedCrosshair": true,
   "rows": [
     {
       "collapse": false,
@@ -72,7 +72,7 @@
             },
             {
               "refId": "B",
-              "target": "alias(stats.$environment.gauges.metric_tank.metricstank.cluster.primary, 'primary')"
+              "target": "alias(stats.$environment.gauges.metric_tank.$host.cluster.primary, 'primary')"
             }
           ],
           "timeFrom": null,
