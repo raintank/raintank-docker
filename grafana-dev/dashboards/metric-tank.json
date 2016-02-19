@@ -778,11 +778,11 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra_put_duration.count_ps, 'put/s')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra.put_duration.count_ps, 'put/s')"
             },
             {
               "refId": "B",
-              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra_get_duration.count_ps, 'get/s')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra.get_duration.count_ps, 'get/s')"
             }
           ],
           "timeFrom": null,
@@ -808,7 +808,9 @@
             "p90": "#65C5DB",
             "put mean": "#58140C",
             "put p90": "#F29191",
-            "put/s": "#BF1B00"
+            "put/s": "#BF1B00",
+            "block p90": "#9AC48A",
+            "block mean": "#3F6833"
           },
           "bars": false,
           "datasource": "graphite",
@@ -852,19 +854,27 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra_put_duration.upper_90, 'put p90')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra.put_duration.upper_90, 'put p90')"
             },
             {
               "refId": "B",
-              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra_put_duration.mean, 'put mean')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra.put_duration.mean, 'put mean')"
             },
             {
               "refId": "C",
-              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra_get_duration.upper_90, 'get p90')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra.get_duration.upper_90, 'get p90')"
             },
             {
               "refId": "D",
-              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra_get_duration.mean, 'get mean')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra.get_duration.mean, 'get mean')"
+            },
+            {
+              "refId": "E",
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra.block_duration.upper_90, 'block p90')"
+            },
+            {
+              "refId": "F",
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra.block_duration.mean, 'block mean')"
             }
           ],
           "timeFrom": null,
@@ -952,27 +962,27 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra_chunks_per_row.median, 'chunks per row med')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra.chunks_per_row.median, 'chunks per row med')"
             },
             {
               "refId": "B",
-              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra_chunks_per_row.lower, 'chunks per row min')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra.chunks_per_row.lower, 'chunks per row min')"
             },
             {
               "refId": "C",
-              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra_chunks_per_row.upper, 'chunks per row max')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra.chunks_per_row.upper, 'chunks per row max')"
             },
             {
               "refId": "D",
-              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra_chunks_per_row.median, 'rows per resp med')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra.chunks_per_row.median, 'rows per resp med')"
             },
             {
               "refId": "E",
-              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra_rows_per_response.lower, 'rows per resp min')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra.rows_per_response.lower, 'rows per resp min')"
             },
             {
               "refId": "F",
-              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra_rows_per_response.upper, 'rows per resp max')"
+              "target": "alias(stats.$environment.timers.metric_tank.$host.cassandra.rows_per_response.upper, 'rows per resp max')"
             }
           ],
           "timeFrom": null,
@@ -1140,6 +1150,97 @@
             "short",
             "ms"
           ]
+        },
+        {
+          "title": "write workers & queues",
+          "error": false,
+          "span": 12,
+          "editable": true,
+          "type": "graph",
+          "isNew": true,
+          "id": 14,
+          "datasource": "graphite",
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "rightLogBase": 1,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 2,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(stats.$environment.timers.metric_tank.$host.cassandra.write_queue.*.items.upper, 6, 7, 8)"
+            },
+            {
+              "refId": "B",
+              "target": "alias(stats.$environment.gauges.metric_tank.$host.cassandra.write_queue.size, 'write queue items limit (each)')"
+            },
+            {
+              "refId": "C",
+              "target": "alias(stats.$environment.gauges.metric_tank.$host.cassandra.num_writers, 'num write-workers')"
+            }
+          ],
+          "aliasColors": {
+            "write queue limit": "#BF1B00",
+            "num write-workers": "#5195CE",
+            "write queue items limit (each)": "#BF1B00"
+          },
+          "seriesOverrides": [
+            {
+              "alias": "num write-workers",
+              "yaxis": 2,
+              "fill": 4,
+              "linewidth": 0
+            },
+            {
+              "alias": "/items/",
+              "lines": false,
+              "points": true
+            },
+            {
+              "alias": "/limit/",
+              "linewidth": 1
+            }
+          ],
+          "links": []
         }
       ],
       "title": "New row"
