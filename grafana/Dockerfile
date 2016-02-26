@@ -16,8 +16,7 @@ RUN go get github.com/Unknwon/bra
 RUN go get github.com/tools/godep
 WORKDIR /go/src/github.com/grafana/grafana
 RUN go run build.go setup
-RUN godep restore
-RUN go build .
+RUN godep go build .
 RUN npm install && npm install -g grunt-cli && grunt build
 
 EXPOSE 80
