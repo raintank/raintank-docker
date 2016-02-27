@@ -207,58 +207,55 @@
                     ]
                 },
                 {
-                    "title": "GC",
-                    "error": false,
-                    "span": 3,
-                    "editable": true,
-                    "type": "graph",
-                    "isNew": true,
-                    "id": 13,
+                    "aliasColors": {},
+                    "bars": false,
                     "datasource": "graphite",
-                    "renderer": "flot",
-                    "x-axis": true,
-                    "y-axis": true,
-                    "y_formats": [
-                        "short",
-                        "ns"
-                    ],
+                    "editable": true,
+                    "error": false,
+                    "fill": 1,
                     "grid": {
                         "leftLogBase": 1,
                         "leftMax": null,
-                        "rightMax": null,
                         "leftMin": null,
-                        "rightMin": null,
                         "rightLogBase": 1,
+                        "rightMax": null,
+                        "rightMin": null,
                         "threshold1": null,
-                        "threshold2": null,
                         "threshold1Color": "rgba(216, 200, 27, 0.27)",
+                        "threshold2": null,
                         "threshold2Color": "rgba(234, 112, 112, 0.22)"
                     },
-                    "lines": true,
-                    "fill": 1,
-                    "linewidth": 2,
-                    "points": false,
-                    "pointradius": 5,
-                    "bars": false,
-                    "stack": false,
-                    "percentage": false,
+                    "id": 13,
+                    "isNew": true,
                     "legend": {
-                        "show": true,
-                        "values": false,
-                        "min": false,
-                        "max": false,
+                        "avg": false,
                         "current": false,
+                        "max": false,
+                        "min": false,
+                        "show": true,
                         "total": false,
-                        "avg": false
+                        "values": false
                     },
+                    "lines": true,
+                    "linewidth": 2,
+                    "links": [],
                     "nullPointMode": "null",
+                    "percentage": false,
+                    "pointradius": 5,
+                    "points": false,
+                    "renderer": "flot",
+                    "seriesOverrides": [
+                        {
+                            "alias": "duration",
+                            "lines": false,
+                            "pointradius": 1,
+                            "points": true,
+                            "yaxis": 2
+                        }
+                    ],
+                    "span": 3,
+                    "stack": false,
                     "steppedLine": false,
-                    "tooltip": {
-                        "value_type": "cumulative",
-                        "shared": true
-                    },
-                    "timeFrom": null,
-                    "timeShift": null,
                     "targets": [
                         {
                             "refId": "A",
@@ -269,17 +266,20 @@
                             "target": "alias(stats.$environment.gauges.metric_tank.$host.gc.dur, 'duration')"
                         }
                     ],
-                    "aliasColors": {},
-                    "seriesOverrides": [
-                        {
-                            "alias": "duration",
-                            "yaxis": 2,
-                            "points": true,
-                            "lines": false,
-                            "pointradius": 1
-                        }
-                    ],
-                    "links": []
+                    "timeFrom": null,
+                    "timeShift": null,
+                    "title": "GC",
+                    "tooltip": {
+                        "shared": true,
+                        "value_type": "cumulative"
+                    },
+                    "type": "graph",
+                    "x-axis": true,
+                    "y-axis": true,
+                    "y_formats": [
+                        "short",
+                        "ns"
+                    ]
                 },
                 {
                     "aliasColors": {
@@ -1197,38 +1197,16 @@
                         "avg": false
                     },
                     "nullPointMode": "connected",
-                    "steppedLine": false,
-                    "tooltip": {
-                        "value_type": "cumulative",
-                        "shared": true
-                    },
-                    "timeFrom": null,
-                    "timeShift": null,
-                    "targets": [
-                        {
-                            "refId": "A",
-                            "target": "aliasByNode(stats.$environment.timers.metric_tank.$host.cassandra.write_queue.*.items.upper, 6, 7, 8)"
-                        },
-                        {
-                            "refId": "B",
-                            "target": "alias(stats.$environment.gauges.metric_tank.$host.cassandra.write_queue.size, 'write queue items limit (each)')"
-                        },
-                        {
-                            "refId": "C",
-                            "target": "alias(stats.$environment.gauges.metric_tank.$host.cassandra.num_writers, 'num write-workers')"
-                        }
-                    ],
-                    "aliasColors": {
-                        "write queue limit": "#BF1B00",
-                        "num write-workers": "#5195CE",
-                        "write queue items limit (each)": "#BF1B00"
-                    },
+                    "percentage": false,
+                    "pointradius": 5,
+                    "points": false,
+                    "renderer": "flot",
                     "seriesOverrides": [
                         {
                             "alias": "num write-workers",
-                            "yaxis": 2,
                             "fill": 4,
-                            "linewidth": 0
+                            "linewidth": 0,
+                            "yaxis": 2
                         },
                         {
                             "alias": "/items/",
@@ -1238,9 +1216,57 @@
                         {
                             "alias": "/limit/",
                             "linewidth": 1
+                        },
+                        {
+                            "alias": "stats.production.timers.metric_tank.metric-tank-3-prod.persist_duration.upper",
+                            "yaxis": 2
                         }
                     ],
-                    "links": []
+                    "span": 12,
+                    "stack": false,
+                    "steppedLine": false,
+                    "tooltip": {
+                        "value_type": "cumulative",
+                        "shared": true
+                    },
+                    "timeFrom": null,
+                    "timeShift": null,
+                    "targets": [
+                        {
+                            "hide": false,
+                            "refId": "A",
+                            "target": "aliasByNode(stats.$environment.timers.metric_tank.$host.cassandra.write_queue.*.items.upper, 6, 7, 8)"
+                        },
+                        {
+                            "hide": true,
+                            "refId": "B",
+                            "target": "alias(stats.$environment.gauges.metric_tank.$host.cassandra.write_queue.size, 'write queue items limit (each)')"
+                        },
+                        {
+                            "hide": false,
+                            "refId": "C",
+                            "target": "alias(stats.$environment.gauges.metric_tank.$host.cassandra.num_writers, 'num write-workers')"
+                        },
+                        {
+                            "hide": false,
+                            "refId": "D",
+                            "target": "stats.$environment.timers.metric_tank.$host.persist_duration.upper_75"
+                        }
+                    ],
+                    "timeFrom": null,
+                    "timeShift": null,
+                    "title": "write workers & queues",
+                    "tooltip": {
+                        "shared": true,
+                        "value_type": "cumulative"
+                    },
+                    "type": "graph",
+                    "x-axis": true,
+                    "y-axis": true,
+                    "y_formats": [
+                        "short",
+                        "short"
+                    ]
                 }
             ],
             "title": "New row"
@@ -1336,6 +1362,23 @@
     "annotations": {
         "list": [
             {
+                "datasource": "memos",
+                "enable": true,
+                "iconColor": "#C0C6BE",
+                "iconSize": 13,
+                "lineColor": "rgba(255, 96, 96, 0.592157)",
+                "name": "memos",
+                "query": "*",
+                "showLine": true,
+                "tagsColumn": "tags",
+                "tagsField": "Tags",
+                "textColumn": "text",
+                "textField": "Desc",
+                "timeField": "Date",
+                "titleColumn": "type",
+                "titleField": "Desc"
+            },
+            {
                 "datasource": "benchmarks",
                 "enable": true,
                 "iconColor": "#C0C6BE",
@@ -1354,7 +1397,8 @@
             }
         ]
     },
-    "schemaVersion": 7,
-    "version": 0,
+    "refresh": false,
+    "schemaVersion": 8,
+    "version": 14,
     "links": []
 }
