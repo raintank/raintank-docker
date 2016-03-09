@@ -1,0 +1,118 @@
+verion: 2
+
+services:
+
+  elasticsearch:
+    image: elasticsearch:latest
+    hostname: elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300"
+    volumes:
+      - /data
+
+  nsqd:
+    image: nsqio/nsq:v0.3.6
+    hostname: nsqd
+    ports:
+      - "4150:4150"
+      - "4151:4151"
+    command: "/bin/sh -c 'while true; do /nsqd -max-msg-size=10024768 -sync-every=1 --mem-queue-size=0 -e2e-processing-latency-percentile=0.90,0.99 -e2e-processing-latency-window-time=10s -statsd-address=statsdaemon:8125 -statsd-interval=10s; done'"
+    links:
+      - statsdaemon:statsdaemon
+
+  cassandra:
+    image: cassandra:2.2
+    hostname: cassandra
+    ports:
+      - "9042"
+      - "9160"
+
+  grafana:
+    build: images/grafana
+    image: raintank/grafana
+    hostname: grafana
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./raintank_code/grafana:/go/src/github.com/grafana/grafana
+      - ./logs:/var/log/raintank
+      - ./grafana/conf:/etc/grafana/
+
+  statsdaemon:
+    image: raintank/statsdaemon
+    hostname: statsdaemon
+    ports:
+      - "8126:8126"
+    links:
+      - graphitemon:graphitemon
+
+  graphitemon:
+    image:  raintank/graphite
+    hostname: graphitemon
+    ports:
+      - "2003:2003"
+      - "8000:80"
+
+  metricTank:
+    image: raintank/metric_tank
+    hostname: metricstank
+    ports:
+      - "6063:6063"
+    links:
+      - nsqd:nsqd
+      - statsdaemon:statsdaemon
+      - cassandra:cassandra
+      - elasticsearch:elasticsearch
+    volumes:
+      - ./logs:/var/log/raintank
+      - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
+
+  nsqProbeEventsToElasticsearch:
+    image: raintank/nsq_probe_events_to_elasticsearch
+    hostname: npee
+    ports:
+      - "6062:6060"
+    links:
+      - nsqd:nsqd
+      - elasticsearch:elasticsearch
+      - statsdaemon:statsdaemon
+    volumes:
+      - ./logs:/var/log/raintank
+      - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
+
+  graphiteApi:
+    image: raintank/graphite-api
+    hostname: graphite
+    ports:
+      - "8888:8888"
+    links:
+      - elasticsearch:elasticsearch
+      - statsdaemon:statsdaemon
+      - metricTank:nsqmetricstank
+    volumes:
+      - ./logs:/var/log/raintank
+
+  tsdb:
+    image: raintank/tsdb
+    hostname: tsdb
+    ports:
+      - "80"
+    links:
+      - nsqd:nsqd
+      - statsdaemon:statsdaemon
+    volumes:
+      - ./logs:/var/log/raintank
+      - ./raintank_code/raintank-apps:/go/src/github.com/raintank/raintank-apps
+
+  appsServer:
+    image: raintank/apps-server
+    hostname: appsserver
+    ports:
+      - "80"
+    links:
+      - statsdaemon:statsdaemon
+    volumes:
+      - ./logs:/var/log/raintank
+      - ./raintank_code/raintank-apps:/go/src/github.com/raintank/raintank-apps

@@ -1,8 +1,0 @@
-{
-	"collector": {
-		"name": "PublicTest"
-	},
-	"numCPUs": 2,
-	"serverUrl": "http://grafana",
-	"apiKey": "eyJrIjoiWmZLTktlNHJ0UFFBdWtVdkRyemNiMjZPNFpralA1M3kiLCJuIjoiY29sbGVjdG9yIiwiaWQiOjF9"
-}

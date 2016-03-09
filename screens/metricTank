@@ -10,7 +10,7 @@
 # TODO update numchunks to 36 (6h)once everything tested well, now lower (30min) to spot issues earlier
 # TODO update chunk retentions to 1 once https://github.com/raintank/raintank-metric/issues/65 is fixed
 cd /go/src/github.com/raintank/raintank-metric/metric_tank
-/wait.sh cassandra:9042 elasticsearch:9200
+wait.sh cassandra:9042 elasticsearch:9200
 ./metric_tank \
 	--chunkspan 600 \
 	--numchunks 3 \

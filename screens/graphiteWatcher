@@ -1,6 +1,6 @@
 touch /var/log/raintank/graphite-watcher.log
 cd /go/src/github.com/raintank/raintank-metric/graphite-watcher
-/wait.sh elasticsearch:9200 graphitemon:2003 graphite-api:8888
+wait.sh elasticsearch:9200 graphitemon:2003 graphite-api:8888
 
 ./graphite-watcher \
 -env raintank-docker \

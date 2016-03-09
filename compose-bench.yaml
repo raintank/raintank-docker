@@ -1,0 +1,41 @@
+version: 2
+
+services:
+  nsqadmin:
+    image: nsqio/nsq:v0.3.6
+    hostname: nsqadmin
+    ports:
+      - "4171:4171"
+    command: "/nsqadmin --nsqd-http-address=nsqd:4151"
+    external_links:
+      - rt_nsqd_1:nsqd
+
+  graphiteWatcher:
+    build: images/graphite-watcher
+    image: raintank/graphite-watcher
+    hostname: watcher
+    ports:
+      - "6065:6065"
+    external_links:
+      - rt_elasticsearch_1:elasticsearch
+      - rt_graphitemon_1:graphitemon
+      - rt_graphiteapi_1:graphite-api
+    volumes:
+      - ./logs:/var/log/raintank
+      - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
+
+  nsqMetricsToStdout:
+    build: images/nsq_metrics_to_stdout
+    image: raintank/nsq_metrics_to_stdout
+    hostname: nms
+    exteral_links:
+      - rt_nsqd_1:nsqd
+    volumes:
+      - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
+
+  benchmark:
+    build: images/benchmark
+    image: raintank/benchmark
+    hostname: benchmark
+    volumes:
+      - ./results:/opt/raintank/raintank-tsdb-benchmark/results
