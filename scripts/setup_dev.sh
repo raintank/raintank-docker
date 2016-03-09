@@ -7,7 +7,7 @@ BRANCH=${1:-master}
 
 SOURCE="\
 	github.com/raintank/raintank-metric\
-	githun.com/grafana/grafana\
+	github.com/grafana/grafana\
 	github.com/raintank/raintank-apps\
 "
 
