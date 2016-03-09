@@ -1,6 +1,6 @@
 FROM raintank/golang-service
 
-RUN apt-get update && apt-get -y install nodejs nodejs-legacy nodejs-dev npm libfontconfig1 libfreetype6 libjpeg8 libstdc++6
+RUN apt-get -y install nodejs nodejs-legacy nodejs-dev npm libfontconfig1 libfreetype6 libjpeg8 libstdc++6
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 RUN go get github.com/grafana/grafana || true

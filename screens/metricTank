@@ -10,16 +10,34 @@
 # TODO update numchunks to 36 (6h)once everything tested well, now lower (30min) to spot issues earlier
 # TODO update chunk retentions to 1 once https://github.com/raintank/raintank-metric/issues/65 is fixed
 cd /go/src/github.com/raintank/raintank-metric/metric_tank
+go build
+/bin/cat <<EOM >/etc/raintank/metric_tank.ini
+channel = tank
+topic = metrics
+max-in-flight = 200
+concurrency = 10
+
+nsqd-tcp-address = nsqd:4150
+cassandra-addrs = cassandra
+elastic-addr = elasticsearch:9200
+statsd-addr = localhost:8125
+statsd-type = standard
+
+chunkspan = 600
+numchunks = 3
+cassandra-write-concurrency = 5
+cassandra-write-queue-size = 10000000
+ttl = 3024000
+
+agg-settings = 600:21600:2:777600,7200:21600:2:6393600,21600:21600:2:126144000
+primary-node = true
+
+gc-interval = 3600
+chunk-max-stale = 3600
+metric-max-stale = 21600
+
+EOM
+
 wait.sh cassandra:9042 elasticsearch:9200
-./metric_tank \
-	--chunkspan 600 \
-	--numchunks 3 \
-	--agg-settings 600:21600:2:777600,7200:21600:2:6393600,21600:21600:2:126144000 \
-	--statsd-addr statsdaemon:8125 \
-	--nsqd-tcp-address nsqd:4150 \
-	--listen :6063 \
-	--primary-node \
-	--elastic-addr elasticsearch:9200 \
-	--cassandra-addrs cassandra \
-	&>> /var/log/raintank/nsq_metrics_tank.log &
+supervisorctl restart all
 tail -f /var/log/raintank/nsq_metrics_tank.log

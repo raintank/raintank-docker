@@ -33,7 +33,7 @@ docker-compose -f $COMPOSE_FILE -p rt up -d || exit $?
 echo "starting screen session..."
 screen -S raintank -d -m -t shell bash
 
-num=$(grep ':image' $COMPOSE_FILE | wc -l)
+num=$(grep 'image:' $COMPOSE_FILE | wc -l)
 while [ $(docker ps | grep -c rt_) -ne $num ]; do
   echo "waiting for all $num containers to run..."
   sleep 0.5
@@ -42,18 +42,20 @@ done
 # wait for all docker containers to completely start.
 # i still don't understand why this is needed (dieter) but AJ says he needs this :?
 sleep 5
-
+containers=$(docker ps |awk '{print $NF}'|grep -v NAMES)
 echo "starting screen tabs..."
 for service in $BASE/../screens/*; do
   base=$(basename $service)
-  if [ $base == measure ]; then
-    screen -S raintank -X screen -t $base bash
-  else
-   screen -S raintank -X screen -t $base docker exec -t -i rt_${base}_1 bash
+  if echo $containers|grep rt_${base}_1 >/dev/null; then
+    if [ $base == measure ]; then
+      screen -S raintank -X screen -t $base bash
+    else
+     screen -S raintank -X screen -t $base docker exec -t -i rt_${base}_1 bash
+    fi
+    while read line; do
+      screen -S raintank -p $(basename $service) -X stuff "$line\n"
+    done < $service
   fi
-  while read line; do
-    screen -S raintank -p $(basename $service) -X stuff "$line\n"
-  done < $service
 done
 
 $BASE/wait.sh localhost:9200

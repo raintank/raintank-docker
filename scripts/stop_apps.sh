@@ -13,8 +13,8 @@ if [ -n "$STY" ]; then
 fi
 
 screen -X -S raintank quit
-docker-compose -f $COMPOSE_FILE stop
-yes | docker-compose -f $COMPOSE_FILEl rm
+docker-compose -f $COMPOSE_FILE -p rt stop
+yes | docker-compose -f $COMPOSE_FILE -p rt rm
 
 # stop other collectors that were started, if any
 for id in $(docker ps | grep rt_raintankCollector | cut -d' ' -f1); do

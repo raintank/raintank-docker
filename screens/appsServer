@@ -1,0 +1,4 @@
+go build
+
+supervisorctl restart all
+tail -f /var/log/raintank/apps-server.log
