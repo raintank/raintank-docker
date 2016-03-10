@@ -74,7 +74,7 @@ services:
       - statsdaemon
       - cassandra
     ports:
-      - "6063:6063"
+      - "6060"
     links:
       - nsqd:nsqd
       - statsdaemon:statsdaemon
