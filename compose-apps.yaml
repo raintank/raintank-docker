@@ -33,8 +33,7 @@ services:
     image: raintank/grafana
     hostname: grafana
     ports:
-      - "80:80"
-      - "443:443"
+      - "80:3000"
     volumes:
       - ./raintank_code/grafana:/go/src/github.com/grafana/grafana
       - ./logs:/var/log/raintank

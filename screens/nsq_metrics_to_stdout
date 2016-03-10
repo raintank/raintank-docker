@@ -1,2 +1,3 @@
+supervisorctrl stop all
 cd /go/src/github.com/raintank/raintank-metric/nsq_metrics_to_stdout
 ./nsq_metrics_to_stdout --nsqd-tcp-address nsqd:4150

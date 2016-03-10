@@ -2,4 +2,5 @@ go run build.go build
 npm install
 grunt
 supervisorctl restart all
-tail -10f /var/log/raintank/grafana-dev.log
+touch /var/log/raintank/grafana.log
+tail -10f /var/log/raintank/grafana.log

@@ -1,15 +1,23 @@
+supervisorctl stop all
+
 cd /go/src/github.com/raintank/raintank-metric/nsq_probe_events_to_elasticsearch
-go build
+go build -o /go/bin/nsq_probe_events_to_elasticsearch
+
 /bin/cat <<EOM >/etc/raintank/npee.ini
 # sample config for npee
 channel = elasticsearch
 topic = probe_events
+
+statsd-addr = statsdaemon:8125
+statsd-type = standard
+
 nsqd-tcp-address = nsqd:4150
 elastic-addr = elasticsearch:9200
 
 EOM
 
 wait.sh elasticsearch:9200
-./nsq_probe_events_to_elasticsearch --elastic-addr elasticsearch:9200 --statsd-addr statsdaemon:8125 --nsqd-tcp-address nsqd:4150 &> /var/log/raintank/nsq_probe_events_to_elasticsearch.log &
+supervisorctl start all
+touch /var/log/raintank/nsq_probe_events_to_elasticsearch.log
 tail -f /var/log/raintank/nsq_probe_events_to_elasticsearch.log
 
