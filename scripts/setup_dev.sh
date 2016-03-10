@@ -9,6 +9,7 @@ SOURCE="\
 	github.com/raintank/raintank-metric\
 	github.com/grafana/grafana\
 	github.com/raintank/raintank-apps\
+	github.com/raintank/gitstats-app\
 "
 
 BASE=$(dirname $0)

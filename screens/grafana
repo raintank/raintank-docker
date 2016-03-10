@@ -4,3 +4,4 @@ grunt
 supervisorctl restart all
 touch /var/log/raintank/grafana.log
 tail -10f /var/log/raintank/grafana.log
+

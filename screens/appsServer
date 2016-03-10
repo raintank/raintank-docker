@@ -6,3 +6,4 @@ go build -o /go/bin/apps-server
 supervisorctl start all
 touch /var/log/raintank/apps-server.log
 tail -f /var/log/raintank/apps-server.log
+

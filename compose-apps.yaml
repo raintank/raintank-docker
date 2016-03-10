@@ -32,16 +32,27 @@ services:
     build: images/grafana
     image: raintank/grafana
     hostname: grafana
+    depends_on:
+      - graphitemon
+      - tsdb
+      - appsServer
+    links:
+      - graphitemon:graphitemon
+      - tsdb:tsdb
+      - appsServer:appsserver
     ports:
       - "80:3000"
     volumes:
       - ./raintank_code/grafana:/go/src/github.com/grafana/grafana
+      - ./raintank_code/gitstats-app:/go/src/github.com/grafana/grafana/data/plugins-src/gitstats-app
       - ./logs:/var/log/raintank
       - ./grafana/conf:/etc/grafana/
 
   statsdaemon:
     image: raintank/statsdaemon
     hostname: statsdaemon
+    depends_on:
+      - graphitemon
     ports:
       - "8126:8126"
     links:
@@ -57,6 +68,11 @@ services:
   metricTank:
     image: raintank/metric_tank
     hostname: metricstank
+    depends_on:
+      - nsqd
+      - elasticsearch
+      - statsdaemon
+      - cassandra
     ports:
       - "6063:6063"
     links:
@@ -71,6 +87,10 @@ services:
   nsqProbeEventsToElasticsearch:
     image: raintank/nsq_probe_events_to_elasticsearch
     hostname: npee
+    depends_on:
+      - nsqd
+      - elasticsearch
+      - statsdaemon
     ports:
       - "6062:6060"
     links:
@@ -84,23 +104,32 @@ services:
   graphiteApi:
     image: raintank/graphite-api
     hostname: graphite
+    depends_on:
+      - elasticsearch
+      - statsdaemon
+      - metricTank
     ports:
       - "8888:8888"
     links:
       - elasticsearch:elasticsearch
       - statsdaemon:statsdaemon
-      - metricTank:nsqmetricstank
+      - metricTank:metricstank
     volumes:
       - ./logs:/var/log/raintank
 
   tsdb:
     image: raintank/tsdb
     hostname: tsdb
+    depends_on:
+      - nsqd
+      - statsdaemon
+      - graphiteApi
     ports:
       - "80"
     links:
       - nsqd:nsqd
       - statsdaemon:statsdaemon
+      - graphiteApi:graphiteapi
     volumes:
       - ./logs:/var/log/raintank
       - ./raintank_code/raintank-apps:/go/src/github.com/raintank/raintank-apps
@@ -108,10 +137,27 @@ services:
   appsServer:
     image: raintank/apps-server
     hostname: appsserver
+    depends_on:
+      - statsdaemon
     ports:
       - "80"
     links:
       - statsdaemon:statsdaemon
+    volumes:
+      - ./logs:/var/log/raintank
+      - ./raintank_code/raintank-apps:/go/src/github.com/raintank/raintank-apps
+
+  appsAgent:
+    image: raintank/apps-agent
+    hostname: appsagent
+    depends_on:
+      - appsServer
+      - tsdb
+    ports:
+      - "8181"
+    links:
+      - appsServer:appsserver
+      - tsdb:tsdb
     volumes:
       - ./logs:/var/log/raintank
       - ./raintank_code/raintank-apps:/go/src/github.com/raintank/raintank-apps

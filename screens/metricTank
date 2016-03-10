@@ -34,3 +34,4 @@ wait.sh cassandra:9042 elasticsearch:9200
 supervisorctl restart all
 touch /var/log/raintank/metric_tank.log
 tail -f /var/log/raintank/metric_tank.log
+
