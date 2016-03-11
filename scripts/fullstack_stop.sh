@@ -5,7 +5,8 @@ BASE=$(dirname $0)
 # important: if you change this, you must also update fig-dev.yaml accordingly
 RT_CODE=$(readlink -e "$BASE/../raintank_code")
 RT_LOGS=$(readlink -e "$BASE/../logs")
-COMPOSE_FILE=$(readlink -e "$BASE/../compose-apps.yaml")
+COMPOSE_BASE=$(readlink -e "$BASE/../")
+
 
 if [ -n "$STY" ]; then
   echo "don't run this script in the screen session" >&2
@@ -13,8 +14,14 @@ if [ -n "$STY" ]; then
 fi
 
 screen -X -S raintank quit
-docker-compose -f $COMPOSE_FILE -p rt stop
-yes | docker-compose -f $COMPOSE_FILE -p rt rm
+docker-compose -f $COMPOSE_BASE/compose-statsd.yaml -p rt stop
+docker-compose -f $COMPOSE_BASE/compose-tsdb.yaml -p rt stop
+docker-compose -f $COMPOSE_BASE/compose-apps-server.yaml -p rt stop
+docker-compose -f $COMPOSE_BASE/compose-grafana.yaml -p rt stop
+yes | docker-compose -f $COMPOSE_BASE/compose-statsd.yaml -p rt rm
+yes | docker-compose -f $COMPOSE_BASE/compose-tsdb.yaml -p rt rm
+yes | docker-compose -f $COMPOSE_BASE/compose-apps-server.yaml -p rt rm
+yes | docker-compose -f $COMPOSE_BASE/compose-grafana.yaml -p rt rm
 
 # stop other collectors that were started, if any
 for id in $(docker ps | grep rt_raintankCollector | cut -d' ' -f1); do

@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+
+  grafana:
+    build: images/grafana
+    image: raintank/grafana
+    hostname: grafana
+    external_links:
+      - rt_graphitemon_1:graphitemon
+      - rt_tsdb_1:tsdb
+      - rt_appsServer_1:appsserver
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./raintank_code/grafana:/go/src/github.com/grafana/grafana
+      - ./raintank_code/gitstats-app:/go/src/github.com/grafana/grafana/data/plugins-src/gitstats-app
+      - ./logs:/var/log/raintank
+      - ./grafana/conf:/etc/grafana/

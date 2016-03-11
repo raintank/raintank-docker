@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+
+  statsdaemon:
+    image: raintank/statsdaemon
+    hostname: statsdaemon
+    depends_on:
+      - graphitemon
+    ports:
+      - "8126:8126"
+    links:
+      - graphitemon:graphitemon
+
+  graphitemon:
+    image:  raintank/graphite
+    hostname: graphitemon
+    ports:
+      - "2003:2003"
+      - "8000:80"

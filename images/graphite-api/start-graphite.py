@@ -44,8 +44,8 @@ for name,value in os.environ.items():
 	if name.startswith('GRAPHITE_'):
 		name = name[9:]
 		parseEnv(name, value, config)
-        if name == 'CONCURRENCY':
-            concurrency = int(value)
+  if name == 'CONCURRENCY':
+      concurrency = int(value)
 
 stream = open('/etc/graphite-api.yaml', 'w')
 yaml.dump(config, stream, default_flow_style=False)

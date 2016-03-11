@@ -1,10 +1,9 @@
 FROM raintank/golang-service
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY start.sh /start.sh
 
 RUN go get github.com/raintank/raintank-apps/apps-agent
-
-COPY ./config.ini /etc/raintank/agent.ini
 
 ########## install snapd
 RUN go get github.com/intelsdi-x/snap

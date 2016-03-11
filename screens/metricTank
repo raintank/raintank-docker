@@ -1,34 +1,5 @@
 cd /go/src/github.com/raintank/raintank-metric/metric_tank
 go build -o /go/bin/metric_tank
-/bin/cat <<EOM >/etc/raintank/metric_tank.ini
-channel = tank
-topic = metrics
-max-in-flight = 200
-concurrency = 10
-
-nsqd-tcp-address = nsqd:4150
-
-cassandra-addrs = cassandra
-
-elastic-addr = elasticsearch:9200
-
-statsd-addr = statsdaemon:8125
-statsd-type = standard
-
-chunkspan = 600
-numchunks = 3
-cassandra-write-concurrency = 5
-cassandra-write-queue-size = 10000000
-ttl = 3024000
-
-agg-settings = 10min:6h:2:38d:false,2h:6h:2:120d:false
-primary-node = true
-
-gc-interval = 3600
-chunk-max-stale = 3600
-metric-max-stale = 21600
-
-EOM
 
 wait.sh cassandra:9042 elasticsearch:9200
 supervisorctl restart all

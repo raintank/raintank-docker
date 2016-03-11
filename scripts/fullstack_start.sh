@@ -16,7 +16,7 @@ BASE=$(dirname $0)
 # important: if you change this, you must also update fig-dev.yaml accordingly
 RT_CODE=$(readlink -e "$BASE/../raintank_code")
 RT_LOGS=$(readlink -e "$BASE/../logs")
-COMPOSE_FILE=$(readlink -e "$BASE/../compose-apps.yaml")
+COMPOSE_BASE=$(readlink -e "$BASE/../")
 
 if screen -ls | grep -q '[0-9]\.raintank[[:space:]]'; then
   echo "Running devstack screen session detected!" >&2
@@ -28,16 +28,19 @@ echo "cleaning logs..."
 rm -rf $RT_LOGS/*
 
 echo "docker-compose bringing up containers..."
-docker-compose -f $COMPOSE_FILE -p rt up -d || exit $?
+docker-compose -f $COMPOSE_BASE/compose-statsd.yaml -p rt up -d || exit $?
+docker-compose -f $COMPOSE_BASE/compose-tsdb.yaml -p rt up -d || exit $?
+docker-compose -f $COMPOSE_BASE/compose-apps-server.yaml -p rt up -d || exit $?
+docker-compose -f $COMPOSE_BASE/compose-grafana.yaml -p rt up -d || exit $?
 
-echo "starting screen session..."
-screen -S raintank -d -m -t shell bash
-
-num=$(grep 'image:' $COMPOSE_FILE | wc -l)
+num=$(grep 'image:' $COMPOSE_BASE/compose-{tsdb,grafana,statsd,apps-server}.yaml | wc -l)
 while [ $(docker ps | grep -c rt_) -ne $num ]; do
   echo "waiting for all $num containers to run..."
   sleep 0.5
 done
+
+echo "starting screen session..."
+screen -S raintank -d -m -t shell bash
 
 # wait for all docker containers to completely start.
 # i still don't understand why this is needed (dieter) but AJ says he needs this :?
@@ -63,7 +66,7 @@ D=$(( $(date +%s) * 1000))
 payload='{"timestamp": '$D',"type": "devstack-start","tags": "start","text": "devstack started"}'
 curl -s -X POST "localhost:9200/benchmark/event?" -d "$payload" >/dev/null
 
-$BASE/wait.sh localhost:80
+$BASE/wait.sh localhost:3000
 $BASE/dashboards/create-datasource.sh
 
 echo "starting agent..."

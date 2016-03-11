@@ -1,0 +1,29 @@
+version: '2'
+
+services:
+
+  appsServer:
+    image: raintank/apps-server
+    hostname: appsserver
+    ports:
+      - "8081:80"
+    external_links:
+      - rt_statsdaemon_1:statsdaemon
+    volumes:
+      - ./logs:/var/log/raintank
+      - ./raintank_code/raintank-apps:/go/src/github.com/raintank/raintank-apps
+
+  appsAgent:
+    image: raintank/apps-agent
+    hostname: appsagent
+    depends_on:
+      - appsServer
+    ports:
+      - "8181:8181"
+    links:
+      - appsServer:appsserver
+    external_links:
+      - rt_tsdb_1:tsdb
+    volumes:
+      - ./logs:/var/log/raintank
+      - ./raintank_code/raintank-apps:/go/src/github.com/raintank/raintank-apps

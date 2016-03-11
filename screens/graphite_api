@@ -1,1 +1,0 @@
-tail -10f /var/log/raintank/graphite-api.log

@@ -3,10 +3,6 @@ supervisorctl stop all
 cd /go/src/github.com/raintank/raintank-apps/tsdb
 go build -o /go/bin/tsdb
 
-
-curl -X POST 'http://nsqd:4151/topic/create?topic=metrics'
-curl -X POST 'http://nsqd:4151/channel/create?topic=metrics&channel=tank'
-
 supervisorctl start all
 touch /var/log/raintank/tsdb.log
 tail -f /var/log/raintank/tsdb.log

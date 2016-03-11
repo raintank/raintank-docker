@@ -1,13 +1,13 @@
 supervisorctl stop all
-wait.sh appsserver:80
-curl -H "Authorization: Bearer not_very_secret_key" -H "content-type: application/json" 'http://appsserver/api/agents' -X POST --data-binary '{"name": "demo1", "enabled": true, "public": true, "tags": ["public", "demo"]}'
 
 cd /go/src/github.com/raintank/raintank-apps/apps-agent
 go build -o /go/bin/apps-agent
 
 supervisorctl start snapd
-wait.sh localhost:8181
+
+wait.sh localhost:8181 appsserver:80
 supervisorctl start apps-agent
+
 touch /var/log/raintank/agent.log
 tail -f /var/log/raintank/agent.log
 
