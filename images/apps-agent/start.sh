@@ -17,9 +17,9 @@ EOM
 
 wait.sh $SERVER_ADDR
 curl -H "Authorization: Bearer $ADMIN_KEY"\
--H "content-type: application/json"\
--X POST --data-binary "{\"name\": \"${NODE_NAME}\", \"enabled\": true, \"public\": true, \"tags\": [\"public\"]}"\
-"http://${SERVER_ADDR}/api/agents"
+ -H "content-type: application/json"\
+ -X POST --data-binary "{\"name\": \"${NODE_NAME}\", \"enabled\": true, \"public\": true, \"tags\": [\"public\"]}"\
+ "http://${SERVER_ADDR}/api/agents"
 
 
 exec /go/bin/apps-agent --config /etc/raintank/agent.ini
