@@ -4,7 +4,7 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 RUN go get github.com/raintank/raintank-apps/tsdb
 
-COPY ./config.ini /etc/raintank/tsdb.ini
+COPY start.sh /start.sh
 
 EXPOSE 80
 
