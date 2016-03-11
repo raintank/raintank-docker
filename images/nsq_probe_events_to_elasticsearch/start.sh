@@ -24,5 +24,5 @@ elastic-addr = $ELASTIC_ADDR
 statsd-addr = $STATSD_ADDR
 statsd-type = standard
 EOM
-
+wait.sh $ELASTIC_ADDR $NSQD_TCP_ADDRESS
 exec /go/bin/nsq_probe_events_to_elasticsearch --config /etc/raintank/npee.ini
