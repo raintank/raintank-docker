@@ -52,5 +52,5 @@ gc-interval = $GC_INTERVAL
 chunk-max-stale = $CHUNK_MAX_STALE
 metric-max-stale = $METRIC_MAX_STALE
 EOM
-wait.sh $ELASTIC_ADDR $CASSANDRA_ADDRS $NSQD_TCP_ADDRESS
+wait.sh $ELASTIC_ADDR $CASSANDRA_ADDRS:9042 $NSQD_TCP_ADDRESS
 exec /go/bin/metric_tank --config /etc/raintank/metric-tank.ini
