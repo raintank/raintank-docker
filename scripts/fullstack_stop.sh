@@ -5,7 +5,7 @@ BASE=$(dirname $0)
 # important: if you change this, you must also update fig-dev.yaml accordingly
 RT_CODE=$(readlink -e "$BASE/../raintank_code")
 RT_LOGS=$(readlink -e "$BASE/../logs")
-COMPOSE_BASE=$(readlink -e "$BASE/../")
+COMPOSE_BASE=$(readlink -e "$BASE/../compose")
 
 
 if [ -n "$STY" ]; then

@@ -3,7 +3,6 @@ version: '2'
 services:
 
   grafana:
-    build: images/grafana
     image: raintank/grafana
     hostname: grafana
     external_links:
