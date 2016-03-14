@@ -2,7 +2,7 @@
 
 ## set config options
 NODE_NAME=${NODE_NAME:-demo1}
-SERVER_ADDR=${SERVER_ADDR:-appsserver:80}
+SERVER_ADDR=${SERVER_ADDR:-taskserver:80}
 TSDB_ADDR=${TSDB_ADDR:-http://tsdb:80/metrics}
 ADMIN_KEY=${ADMIN_KEY:-not_very_secret_key}
 
