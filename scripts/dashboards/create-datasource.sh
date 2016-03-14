@@ -6,7 +6,7 @@ echo "> adding datasources"
 
 curl -u admin:admin \
   -H "content-type: application/json" \
-  'http://localhost:3000/api/datasources' -X POST --data-binary '{"name":"graphite","type":"graphite","url":"http://localhost:8000","access":"direct","isDefault":false}'
+  'http://localhost:3000/api/datasources' -X POST --data-binary '{"name":"graphite","type":"graphite","url":"http://graphitemon:8000","access":"proxy","isDefault":false}'
 
 curl -u admin:admin \
   -H "content-type: application/json" \
