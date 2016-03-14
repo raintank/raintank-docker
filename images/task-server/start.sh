@@ -2,7 +2,7 @@
 
 ## set config options
 ADDR=${ADDR:-0.0.0.0:80}
-DB_PATH:${DB_PATH:-/tmp/task-server.sqlite}
+DB_PATH=${DB_PATH:-/tmp/task-server.sqlite}
 ADMIN_KEY=${ADMIN_KEY:-not_very_secret_key}
 STATSD_ENABLED=${STATSD_ENABLED:-true}
 STATSD_ADDR=${STATSD_ADDR:-statsdaemon:8125}
