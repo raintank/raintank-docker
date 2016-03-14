@@ -9,7 +9,7 @@ services:
     external_links:
       - rt_graphitemon_1:graphitemon
       - rt_tsdb_1:tsdb
-      - rt_appsServer_1:appsserver
+      - rt_taskServer_1:taskserver
     ports:
       - "3000:3000"
     volumes:

@@ -16,11 +16,11 @@ fi
 screen -X -S raintank quit
 docker-compose -f $COMPOSE_BASE/compose-statsd.yaml -p rt stop
 docker-compose -f $COMPOSE_BASE/compose-tsdb.yaml -p rt stop
-docker-compose -f $COMPOSE_BASE/compose-apps-server.yaml -p rt stop
+docker-compose -f $COMPOSE_BASE/compose-task.yaml -p rt stop
 docker-compose -f $COMPOSE_BASE/compose-grafana.yaml -p rt stop
 yes | docker-compose -f $COMPOSE_BASE/compose-statsd.yaml -p rt rm
 yes | docker-compose -f $COMPOSE_BASE/compose-tsdb.yaml -p rt rm
-yes | docker-compose -f $COMPOSE_BASE/compose-apps-server.yaml -p rt rm
+yes | docker-compose -f $COMPOSE_BASE/compose-task.yaml -p rt rm
 yes | docker-compose -f $COMPOSE_BASE/compose-grafana.yaml -p rt rm
 
 # stop other collectors that were started, if any

@@ -2,9 +2,9 @@ version: '2'
 
 services:
 
-  appsServer:
-    image: raintank/apps-server
-    hostname: appsserver
+  taskServer:
+    image: raintank/task-server
+    hostname: taskserver
     ports:
       - "8081:80"
     external_links:
@@ -13,15 +13,15 @@ services:
       - ./logs:/var/log/raintank
       - ./raintank_code/raintank-apps:/go/src/github.com/raintank/raintank-apps
 
-  appsAgent:
-    image: raintank/apps-agent
+  taskAgent:
+    image: raintank/task-agent
     hostname: appsagent
     depends_on:
-      - appsServer
+      - taskServer
     ports:
       - "8181:8181"
     links:
-      - appsServer:appsserver
+      - taskServer:taskserver
     external_links:
       - rt_tsdb_1:tsdb
     volumes:

@@ -1,0 +1,9 @@
+supervisorctl stop all
+
+cd /go/src/github.com/raintank/raintank-apps/task-server
+go build -o /go/bin/task-server
+
+supervisorctl start all
+touch /var/log/raintank/task-server.log
+tail -f /var/log/raintank/task-server.log
+

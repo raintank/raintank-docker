@@ -22,4 +22,4 @@ curl -H "Authorization: Bearer $ADMIN_KEY"\
  "http://${SERVER_ADDR}/api/agents"
 
 
-exec /go/bin/apps-agent --config /etc/raintank/agent.ini
+exec /go/bin/task-agent --config /etc/raintank/agent.ini

@@ -5,7 +5,7 @@ COPY start.sh /start.sh
 
 RUN go get github.com/mattn/go-sqlite3
 RUN go install github.com/mattn/go-sqlite3
-RUN go get github.com/raintank/raintank-apps/apps-server
+RUN go get github.com/raintank/raintank-apps/task-server
 
 EXPOSE 80
 

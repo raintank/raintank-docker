@@ -1,0 +1,13 @@
+supervisorctl stop all
+
+cd /go/src/github.com/raintank/raintank-apps/task-agent
+go build -o /go/bin/task-agent
+
+supervisorctl start snapd
+
+wait.sh localhost:8181 taskserver:80
+supervisorctl start task-agent
+
+touch /var/log/raintank/agent.log
+tail -f /var/log/raintank/agent.log
+

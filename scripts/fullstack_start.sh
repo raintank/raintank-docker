@@ -3,8 +3,10 @@
 #
 # USAGE
 #
-#   ./launch_apps.sh
+#   ./fullstack_start.sh [-d container[,container]] 
 #
+# -d takes a comma separated list of containers to run in dev mode.
+#     eg. ./fullstack_start.sh -d grafana,metricTank
 # once it has completed, attach to the raintank screen session
 #   screen -r raintank
 #
@@ -13,10 +15,24 @@
 
 BASE=$(dirname $0)
 
+DEVMODE=0
+DEVCONTAINERS=""
+
+if [ ! -z "$1" ]; then
+  if [ "$1" != "-d" ]; then
+    echo "invalid argument."
+    exit 1
+  fi
+  if [ ! -z $2 ]; then
+    DEVMODE=1
+    DEVCONTAINERS=$2
+  fi
+fi
+
 # important: if you change this, you must also update fig-dev.yaml accordingly
 RT_CODE=$(readlink -e "$BASE/../raintank_code")
 RT_LOGS=$(readlink -e "$BASE/../logs")
-COMPOSE_BASE=$(readlink -e "$BASE/../")
+COMPOSE_BASE=$(readlink -e "$BASE/../compose")
 
 if screen -ls | grep -q '[0-9]\.raintank[[:space:]]'; then
   echo "Running devstack screen session detected!" >&2
@@ -30,10 +46,10 @@ rm -rf $RT_LOGS/*
 echo "docker-compose bringing up containers..."
 docker-compose -f $COMPOSE_BASE/compose-statsd.yaml -p rt up -d || exit $?
 docker-compose -f $COMPOSE_BASE/compose-tsdb.yaml -p rt up -d || exit $?
-docker-compose -f $COMPOSE_BASE/compose-apps-server.yaml -p rt up -d || exit $?
+docker-compose -f $COMPOSE_BASE/compose-task.yaml -p rt up -d || exit $?
 docker-compose -f $COMPOSE_BASE/compose-grafana.yaml -p rt up -d || exit $?
 
-num=$(grep 'image:' $COMPOSE_BASE/compose-{tsdb,grafana,statsd,apps-server}.yaml | wc -l)
+num=$(grep 'image:' $COMPOSE_BASE/compose-{tsdb,grafana,statsd,task}.yaml | wc -l)
 while [ $(docker ps | grep -c rt_) -ne $num ]; do
   echo "waiting for all $num containers to run..."
   sleep 0.5
