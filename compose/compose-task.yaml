@@ -10,8 +10,8 @@ services:
     external_links:
       - rt_statsdaemon_1:statsdaemon
     volumes:
-      - ./logs:/var/log/raintank
-      - ./raintank_code/raintank-apps:/go/src/github.com/raintank/raintank-apps
+      - ../logs:/var/log/raintank
+      - ../raintank_code/raintank-apps:/go/src/github.com/raintank/raintank-apps
 
   taskAgent:
     image: raintank/task-agent
@@ -25,5 +25,5 @@ services:
     external_links:
       - rt_tsdb_1:tsdb
     volumes:
-      - ./logs:/var/log/raintank
-      - ./raintank_code/raintank-apps:/go/src/github.com/raintank/raintank-apps
+      - ../logs:/var/log/raintank
+      - ../raintank_code/raintank-apps:/go/src/github.com/raintank/raintank-apps

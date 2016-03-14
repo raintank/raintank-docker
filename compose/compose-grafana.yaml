@@ -12,7 +12,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./raintank_code/grafana:/go/src/github.com/grafana/grafana
-      - ./raintank_code/gitstats-app:/go/src/github.com/grafana/grafana/data/plugins-src/gitstats-app
-      - ./logs:/var/log/raintank
-      - ./grafana/conf:/etc/grafana/
+      - ../raintank_code/grafana:/go/src/github.com/grafana/grafana
+      - ../raintank_code/gitstats-app:/go/src/github.com/grafana/grafana/data/plugins-src/gitstats-app
+      - ../logs:/var/log/raintank
+      - ../grafana/conf:/etc/grafana/

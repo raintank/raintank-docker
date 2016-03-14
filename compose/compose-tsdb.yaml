@@ -44,8 +44,8 @@ services:
     external_links:
       - rt_statsdaemon_1:statsdaemon
     volumes:
-      - ./logs:/var/log/raintank
-      - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
+      - ../logs:/var/log/raintank
+      - ../raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
   nsqProbeEventsToElasticsearch:
     image: raintank/nsq_probe_events_to_elasticsearch
@@ -61,8 +61,8 @@ services:
     external_links:
       - rt_statsdaemon_1:statsdaemon
     volumes:
-      - ./logs:/var/log/raintank
-      - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
+      - ../logs:/var/log/raintank
+      - ../raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
   graphiteApi:
     image: raintank/graphite-api
@@ -78,7 +78,7 @@ services:
     external_links:
       - rt_statsdaemon_1:statsdaemon
     volumes:
-      - ./logs:/var/log/raintank
+      - ../logs:/var/log/raintank
 
   tsdb:
     image: raintank/tsdb
@@ -94,5 +94,5 @@ services:
     external_links:
       - rt_statsdaemon_1:statsdaemon
     volumes:
-      - ./logs:/var/log/raintank
-      - ./raintank_code/raintank-apps:/go/src/github.com/raintank/raintank-apps
+      - ../logs:/var/log/raintank
+      - ../raintank_code/raintank-apps:/go/src/github.com/raintank/raintank-apps
