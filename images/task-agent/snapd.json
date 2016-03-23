@@ -1,8 +1,7 @@
 {
-    "flags": {
-        "log-level": 1,
-        "plugin-trust": 0,
-        "auto-discover": "/opt/snap/plugins"
+    "log_level": 1,
+    "control": {
+        "plugin_trust_level": 0,
+        "auto_discover_path": "/opt/snap/plugins"
     }
 }
-
