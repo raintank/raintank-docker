@@ -14,14 +14,20 @@ if [ -n "$STY" ]; then
 fi
 
 screen -X -S raintank quit
-docker-compose -f $COMPOSE_BASE/compose-statsd.yaml -p rt stop
-docker-compose -f $COMPOSE_BASE/compose-tsdb.yaml -p rt stop
-docker-compose -f $COMPOSE_BASE/compose-task.yaml -p rt stop
-docker-compose -f $COMPOSE_BASE/compose-grafana.yaml -p rt stop
-yes | docker-compose -f $COMPOSE_BASE/compose-statsd.yaml -p rt rm
-yes | docker-compose -f $COMPOSE_BASE/compose-tsdb.yaml -p rt rm
-yes | docker-compose -f $COMPOSE_BASE/compose-task.yaml -p rt rm
-yes | docker-compose -f $COMPOSE_BASE/compose-grafana.yaml -p rt rm
+docker-compose \
+  -f $COMPOSE_BASE/compose-statsd.yaml \
+  -f $COMPOSE_BASE/compose-tsdb.yaml \
+  -f $COMPOSE_BASE/compose-task.yaml \
+  -f $COMPOSE_BASE/compose-grafana.yaml \
+  -f $COMPOSE_BASE/compose-worldping-api.yaml \
+  -p rt stop
+yes | docker-compose \
+  -f $COMPOSE_BASE/compose-statsd.yaml \
+  -f $COMPOSE_BASE/compose-tsdb.yaml \
+  -f $COMPOSE_BASE/compose-task.yaml \
+  -f $COMPOSE_BASE/compose-grafana.yaml \
+  -f $COMPOSE_BASE/compose-worldping-api.yaml \
+  -p rt rm
 
 # stop other collectors that were started, if any
 for id in $(docker ps | grep rt_raintankCollector | cut -d' ' -f1); do

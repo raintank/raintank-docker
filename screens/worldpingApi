@@ -1,0 +1,9 @@
+supervisorctl stop all
+
+cd /go/src/github.com/raintank/raintank-apps/worldping-api
+go build -o /go/bin/worldping-api
+
+supervisorctl start all
+touch /var/log/raintank/worldping-api.log
+tail -f /var/log/raintank/worldping-api.log
+

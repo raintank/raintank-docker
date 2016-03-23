@@ -44,12 +44,15 @@ echo "cleaning logs..."
 rm -rf $RT_LOGS/*
 
 echo "docker-compose bringing up containers..."
-docker-compose -f $COMPOSE_BASE/compose-statsd.yaml -p rt up -d || exit $?
-docker-compose -f $COMPOSE_BASE/compose-tsdb.yaml -p rt up -d || exit $?
-docker-compose -f $COMPOSE_BASE/compose-task.yaml -p rt up -d || exit $?
-docker-compose -f $COMPOSE_BASE/compose-grafana.yaml -p rt up -d || exit $?
+docker-compose \
+  -f $COMPOSE_BASE/compose-statsd.yaml \
+  -f $COMPOSE_BASE/compose-tsdb.yaml \
+  -f $COMPOSE_BASE/compose-task.yaml \
+  -f $COMPOSE_BASE/compose-grafana.yaml \
+  -f $COMPOSE_BASE/compose-worldping-api.yaml \
+  -p rt up -d || exit $?
 
-num=$(grep 'image:' $COMPOSE_BASE/compose-{tsdb,grafana,statsd,task}.yaml | wc -l)
+num=$(grep 'image:' $COMPOSE_BASE/compose-{tsdb,grafana,statsd,task,worldping-api}.yaml | wc -l)
 while [ $(docker ps | grep -c rt_) -ne $num ]; do
   echo "waiting for all $num containers to run..."
   sleep 0.5

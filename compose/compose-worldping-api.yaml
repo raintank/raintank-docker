@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+
+  worldpingApi:
+    image: raintank/worldping-api
+    hostname: worldping-api
+    ports:
+      - "8084:80"
+    external_links:
+      - rt_taskServer_1:taskserver
+      - rt_statsdaemon_1:statsdaemon
+    volumes:
+      - ../logs:/var/log/raintank
+      - ../raintank_code/raintank-apps:/go/src/github.com/raintank/raintank-apps
