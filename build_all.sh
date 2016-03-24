@@ -29,13 +29,21 @@ function build () {
 	cd ..
 }
 
+if [ "$1" == "help" -o "$1" == "-h" -o "$1" == "--help" ]; then
+	echo "$0 # builds all"
+	echo "$0 rebuild # rebuilds all"
+	echo "$0 <service> # builds service"
+	echo "$0 rebuild <service> # rebuilds service"
+fi
+
+if [ "$1" == "rebuild" ]; then
+	rebuild=1
+	shift
+fi
+
 if [ -n "$1" ]; then
-	if [ "$1" == "rebuild" ]; then
-	  rebuild=1
-	else
-		build $1
-		exit 0
-	fi
+	build $1
+	exit 0
 fi
 
 # first build containers on which others depend
