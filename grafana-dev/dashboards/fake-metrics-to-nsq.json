@@ -1,0 +1,309 @@
+{
+  "id": null,
+  "title": "Fake metrics to nsq",
+  "originalTitle": "Fake metrics to nsq",
+  "tags": [],
+  "style": "dark",
+  "timezone": "browser",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": true,
+  "rows": [
+    {
+      "title": "New row",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "publish duration",
+          "error": false,
+          "span": 12,
+          "editable": true,
+          "type": "graph",
+          "isNew": true,
+          "id": 2,
+          "datasource": "graphite",
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "rightLogBase": 1,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": false,
+          "fill": 1,
+          "linewidth": 2,
+          "points": true,
+          "pointradius": 1,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(stats.raintank-docker.timers.fake_metrics_to_nsq.*.metricpublisher.publish_duration.{mean,upper*}, 6, 7)",
+              "textEditor": false
+            }
+          ],
+          "aliasColors": {
+            "publish_duration.upper": "#BF1B00",
+            "publish_duration.upper_90": "#58140C",
+            "publish_duration.upper_75": "#99440A"
+          },
+          "seriesOverrides": [],
+          "links": []
+        }
+      ]
+    },
+    {
+      "title": "New row",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "metrics sent and received",
+          "error": false,
+          "span": 12,
+          "editable": true,
+          "type": "graph",
+          "isNew": true,
+          "id": 3,
+          "datasource": "graphite",
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "rightLogBase": 1,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": false,
+          "fill": 0,
+          "linewidth": 1,
+          "points": true,
+          "pointradius": 1,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "stats.raintank-docker.fake_metrics_to_nsq.*.metricpublisher.metrics-published"
+            },
+            {
+              "refId": "B",
+              "target": "stats.raintank-docker.metric_tank.metricstank.metrics_received"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": []
+        }
+      ]
+    },
+    {
+      "title": "New row",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "NSQ topic/channel",
+          "error": false,
+          "span": 12,
+          "editable": true,
+          "type": "graph",
+          "isNew": true,
+          "id": 4,
+          "datasource": "graphite",
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "rightLogBase": 1,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 1,
+          "linewidth": 2,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(stats.raintank-docker.nsq.nsqd_4151.topic.metrics.channel.tank.*, 8)"
+            },
+            {
+              "refId": "B",
+              "target": "aliasByNode(stats.raintank-docker.gauges.nsq.nsqd_4151.topic.metrics.depth, 7)"
+            }
+          ],
+          "aliasColors": {
+            "timeout_count": "#890F02"
+          },
+          "seriesOverrides": [
+            {
+              "alias": "depth",
+              "yaxis": 2,
+              "fill": 3,
+              "linewidth": 0
+            }
+          ],
+          "links": []
+        }
+      ]
+    },
+    {
+      "title": "New row",
+      "height": "25px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "Note",
+          "error": false,
+          "span": 12,
+          "editable": true,
+          "type": "text",
+          "isNew": true,
+          "id": 5,
+          "mode": "markdown",
+          "content": "*this dashboard won't show anything until you run the optional fake-metrics-to-nsq tool*",
+          "style": {},
+          "links": []
+        }
+      ]
+    }
+  ],
+  "time": {
+    "from": "now-30m",
+    "to": "now"
+  },
+  "timepicker": {
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ],
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "now": true
+  },
+  "templating": {
+    "list": []
+  },
+  "annotations": {
+    "list": []
+  },
+  "refresh": false,
+  "schemaVersion": 7,
+  "version": 0,
+  "links": []
+}
