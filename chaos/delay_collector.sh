@@ -1,6 +1,9 @@
 #!/bin/bash
 # Apply traffic shaping rules to add latency to all requests from the collector container.
 
+dir=$(dirname ${BASH_SOURCE[0]})
+source "$dir/util.sh"
+
 function die_usage () {
     echo "usage: $0 [collector-id] [base] [dev]" >&2
     echo "default collector-id: dev1"
@@ -9,7 +12,6 @@ function die_usage () {
     exit
 }
 
-source util.sh
 
 [ "$1" == '-h' -o "$1" == "--help" ] && die_usage
 

@@ -1,6 +1,8 @@
 #!/bin/bash
 
-source util.sh
+
+dir=$(dirname ${BASH_SOURCE[0]})
+source "$dir/util.sh"
 
 base=$1
 dev=$2
