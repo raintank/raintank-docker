@@ -4,7 +4,7 @@ cd /go/src/github.com/raintank/raintank-metric/graphite-watcher
 
 ./graphite-watcher \
 -env raintank-docker \
--es elasticsearch:9200 \
+-es-addr elasticsearch:9200 \
 -carbon graphitemon:2003 \
 -graphite graphite-api:8888 \
 -listen :6065 \
