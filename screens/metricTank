@@ -12,9 +12,9 @@
 cd /go/src/github.com/raintank/raintank-metric/metric_tank
 /wait.sh cassandra:9042 elasticsearch:9200
 ./metric_tank \
-	--chunkspan 600 \
+	--chunkspan 10m \
 	--numchunks 3 \
-	--agg-settings 600:21600:2:777600,7200:21600:2:6393600,21600:21600:2:126144000 \
+	--agg-settings 10m:6h:2:9d,2h:6h:2:74d,6h:6h:2:4y \
 	--statsd-addr statsdaemon:8125 \
 	--nsqd-tcp-address nsqd:4150 \
 	--listen :6063 \
