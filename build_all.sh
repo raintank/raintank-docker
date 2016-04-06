@@ -49,10 +49,10 @@ fi
 # first build containers on which others depend
 build nodejs
 build nodejsgo
-build grafana
+build worldping_api
 
 # then build the rest
 for i in *; do
-	[ -d $i ] && [[ $i != nodejs ]] && [[ $i != nodejsgo ]] && [[ $i != grafana ]] && build $i
+	[ -d $i ] && [[ $i != nodejs ]] && [[ $i != nodejsgo ]] && [[ $i != worldping_api ]] && build $i
 done
 exit 0

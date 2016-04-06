@@ -1,4 +1,4 @@
-FROM library/ubuntu
+FROM ubuntu
 
 RUN apt-get update && apt-get -y upgrade && apt-get -y install nodejs nodejs-legacy nodejs-dev npm git curl
 

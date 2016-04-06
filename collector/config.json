@@ -3,6 +3,6 @@
 		"name": "PublicTest"
 	},
 	"numCPUs": 2,
-	"serverUrl": "http://grafana",
-	"apiKey": "eyJrIjoiWmZLTktlNHJ0UFFBdWtVdkRyemNiMjZPNFpralA1M3kiLCJuIjoiY29sbGVjdG9yIiwiaWQiOjF9"
+	"serverUrl": "http://worldpingapi",
+	"apiKey": "eyJrIjoiZGU2OGIxMTA3YWE2Mzk4NWVlN2NkOGU3YTIwOTAzYmNkMmJjYjQyOSIsIm4iOiJhd29vZHMiLCJpZCI6MX0"
 }

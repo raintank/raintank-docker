@@ -9,6 +9,7 @@
 # agg 6h     60*60*6 -> 21600  3                   4y          19.8             5840          21600     1
 # TODO update numchunks to 36 (6h)once everything tested well, now lower (30min) to spot issues earlier
 # TODO update chunk retentions to 1 once https://github.com/raintank/raintank-metric/issues/65 is fixed
+supervisorctl stop all
 cd /go/src/github.com/raintank/raintank-metric/metric_tank
 /wait.sh cassandra:9042 elasticsearch:9200
 ./metric_tank \
