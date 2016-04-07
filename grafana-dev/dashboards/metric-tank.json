@@ -1446,7 +1446,7 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
+            "leftLogBase": 2,
             "leftMax": null,
             "leftMin": null,
             "rightLogBase": 1,
@@ -1460,13 +1460,15 @@
           "id": 12,
           "isNew": true,
           "legend": {
-            "avg": false,
+            "alignAsTable": true,
+            "avg": true,
             "current": false,
-            "max": false,
+            "max": true,
             "min": false,
+            "rightSide": true,
             "show": true,
             "total": false,
-            "values": false
+            "values": true
           },
           "lines": false,
           "linewidth": 2,
@@ -1476,18 +1478,36 @@
           "pointradius": 1,
           "points": true,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "/upper/",
+              "fill": 1,
+              "lines": true,
+              "linewidth": 0,
+              "points": false
+            },
+            {
+              "alias": "/prune/",
+              "lines": true,
+              "points": false
+            }
+          ],
           "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
               "refId": "A",
-              "target": "alias(stats.$environment.metric_tank.$host.metricmeta_cache.hit, 'cache hit')"
+              "target": "aliasByNode(stats.$environment.timers.metric_tank.$host.idx.*.mean, 6, 7)"
             },
             {
               "refId": "B",
-              "target": "alias(stats.$environment.metric_tank.$host.metricmeta_cache.miss, 'cache miss')"
+              "target": "aliasByNode(stats.$environment.timers.metric_tank.$host.idx.*.upper_90, 6, 7)"
+            },
+            {
+              "hide": false,
+              "refId": "C",
+              "target": "aliasByNode(stats.$environment.timers.metric_tank.$host.idx.*.upper, 6, 7)"
             }
           ],
           "timeFrom": null,
@@ -1501,7 +1521,7 @@
           "x-axis": true,
           "y-axis": true,
           "y_formats": [
-            "short",
+            "ms",
             "ms"
           ]
         }
