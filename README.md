@@ -29,7 +29,7 @@ cd raintank-docker
 ./launch_dev.sh
 ```
 
-- connect to your new install in a broswer using at http://localhost/.  The default user is 'admin' and the default password is 'admin'
+- connect to your new install in a broswer using at http://localhost:3000/.  The default user is 'admin' and the default password is 'admin'
 
 
 Switching branches

@@ -122,9 +122,9 @@ graphiteApi:
   volumes:
     - ./logs:/var/log/raintank
 
-grafana:
-  image: raintank/grafana-dev
-  hostname: grafana
+worldpingApi:
+  image: raintank/worldping_api
+  hostname: worldpingapi
   ports:
     - "80:80"
     - "443:443"
@@ -136,10 +136,9 @@ grafana:
     - statsdaemon:statsdaemon
     - nsqd:nsqd
   volumes:
-    - ./raintank_code/grafana:/go/src/github.com/raintank/grafana
+    - ./raintank_code/worldping-api:/go/src/github.com/raintank/worldping-api
     - ./logs:/var/log/raintank
-    - ./grafana/conf:/etc/grafana/
-    - /go/src/github.com/raintank/grafana/data
+    - ./worldping_api/conf:/etc/raintank/
 
 statsdaemon:
   image: raintank/statsdaemon
@@ -149,8 +148,18 @@ statsdaemon:
   links:
           - graphitemon:graphitemon
 
-benchmark:
-  image: raintank/benchmark
-  hostname: benchmark
+#benchmark:
+#  image: raintank/benchmark
+#  hostname: benchmark
+#  volumes:
+#    - ./results:/opt/raintank/raintank-tsdb-benchmark/results
+
+grafana:
+  image: raintank/grafana
+  hostname: grafana
+  ports:
+    - "3000:3000"
+  links:
+    - worldpingApi:app.raintank.io
   volumes:
-    - ./results:/opt/raintank/raintank-tsdb-benchmark/results
+    - ./raintank_code/plugins:/var/lib/grafana/plugins

@@ -13,7 +13,7 @@ docker_name=raintankdocker_raintankCollector_$id
 eval $(grep ^RT_CODE setup_dev.sh)
 eval $(grep ^RT_LOGS setup_dev.sh)
 
-docker run --link=raintankdocker_grafana_1:grafana \
+docker run --link=raintankdocker_worldpingApi_1:worldpingApi \
            -v $RT_CODE/raintank-collector:/opt/raintank/raintank-collector \
            -v $RT_LOGS:/var/log/raintank \
            -e RAINTANK_collector_name=$id -d \
@@ -22,19 +22,19 @@ docker run --link=raintankdocker_grafana_1:grafana \
            raintank/collector
 
 screen -S raintank -X screen -t collector-$id docker exec -t -i $docker_name bash
-screen -S raintank -p collector-$id -X stuff '/wait.sh grafana:80 && supervisorctl start all; touch /var/log/raintank/collector.log\n'
+screen -S raintank -p collector-$id -X stuff '/wait.sh worldpingapi:80 && supervisorctl start all; touch /var/log/raintank/collector.log\n'
 
 while true; do
-  data=$(curl -s -X GET -H "Authorization: Basic YWRtaW46YWRtaW4=" 'http://localhost/api/collectors')
+  data=$(curl -s -X GET -H "Authorization: Bearer changeme" 'http://localhost/api/collectors')
   if grep -q "\"$id\"" <<< "$data"; then
     break
   fi
-  echo "waiting for grafana to compile and collector $id to be known to grafana..."
+  echo "waiting for worldping-api to compile and collector $id to be known to grafana..."
   sleep 2
 done
 mysql_id=$(sed 's#.*"id":\([0-9]\+\),"org_id":[0-9]\+,"slug":"'$id'".*#\1#' <<< "$data")
 # make it a "public" collector so different orgs can use it
-curl -X POST -H "Authorization: Basic YWRtaW46YWRtaW4=" -F "public=true" -F "enabled=true" -F "name=$id" -F "id=$mysql_id" 'http://localhost/api/collectors'
+curl -X POST -H "Authorization: Bearer changeme" -F "public=true" -F "enabled=true" -F "name=$id" -F "id=$mysql_id" 'http://localhost/api/collectors'
 echo
 
 # restart the collector after making it public.

@@ -20,7 +20,7 @@ if [ "$MODE" == "docker" ]; then
 	cd $RT_CODE
   args=("${args[@]}" "-v" "$DIR:/opt/raintank/raintank-docker")
   # assure the directories exist (irrespective of what we'll do with them, see below) so we can set up the volumes
-	for i in raintank-collector raintank-metric grafana; do
+	for i in raintank-collector raintank-metric plugins worldping-api; do
 	  mkdir -p $i
 		args=("${args[@]}" "-v" "$RT_CODE/$i:/opt/raintank/$i")
 	done
@@ -35,7 +35,7 @@ elif [ $MODE == "code" ]; then
 
 	mkdir -p /opt/raintank/node_modules
 	cd /opt/raintank
-	for i in raintank-collector raintank-metric grafana; do
+	for i in raintank-collector raintank-metric worldping-api raintank-probe; do
 		echo "> processing code for $i"
 		if [ -f /opt/raintank/$i/.notouch ]; then
 			echo "Skipping due to .notouch"
@@ -51,11 +51,29 @@ elif [ $MODE == "code" ]; then
 		fi
 	done
 
+    # install grafana plugins
+    mkdir -p /opt/raintank/plugins/
+    for i in worldping-app; do
+		echo "> processing code for grafana plugin $i"
+        if [ -f /opt/raintank/plugins/$i/.notouch ]; then
+           echo "Skipping due to .notouch"
+           continue
+        elif [ -d /opt/raintank/plugins/$i/.git ]; then
+            cd /opt/raintank/plugins/$i
+            git fetch
+            git checkout $BRANCH
+            git pull
+        else
+            cd /opt/raintank/plugins
+            git clone -b $BRANCH ${GITHUBURL}raintank/$i.git
+        fi
+    done
+
 	echo "> configuring go"
 	export GOPATH=/go
 	export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
-  echo "> collector > assuring config"
+    echo "> collector > assuring config"
 	cd /opt/raintank/raintank-collector
 	if [ ! -e etc/raintank.json ]; then
 		cp /opt/raintank/raintank-docker/collector/config.json etc/raintank.json
@@ -64,16 +82,5 @@ elif [ $MODE == "code" ]; then
 	#./pkg/build.sh
 	npm install
 	go get -u -f github.com/raintank/raintank-probe
-  cp $(which raintank-probe) .
-
-  echo "> grafana >config fix"
-	cd /opt/raintank/grafana
- cp conf/custom.ini conf/custom.ini.backup
- cp -ax /opt/raintank/raintank-docker/grafana-dev/conf/custom.ini conf/custom.ini
-	echo "> grafana > npm install"
-	npm install
-	npm install -g grunt-cli
-	echo "> grafana > grunt"
-	grunt
-
+    cp $(which raintank-probe) .
 fi

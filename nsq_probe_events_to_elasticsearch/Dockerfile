@@ -6,6 +6,6 @@ COPY wait.sh /wait.sh
 
 ENV GOPATH /go
 ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
-#RUN go get -u github.com/raintank/raintank-metric/nsq_probe_events_to_elasticsearch
+RUN go get -u github.com/raintank/raintank-metric/nsq_probe_events_to_elasticsearch
 
 CMD ["/usr/bin/supervisord"]

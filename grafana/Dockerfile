@@ -1,28 +1,22 @@
-FROM raintank/nodejsgo
+FROM ubuntu
+RUN apt-get -y install curl apt-transport-https
+RUN echo "deb https://packagecloud.io/grafana/testing/debian/ jessie main" > /etc/apt/sources.list.d/grafana.list
+RUN curl https://packagecloud.io/gpg.key | apt-key add -
+RUN apt-get update
+RUN apt-get -y install libfontconfig1 libfreetype6 wget grafana
 
-RUN apt-get update && apt-get -y install supervisor libfontconfig1 libfreetype6 libjpeg8 libstdc++6
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY grafana.ini /etc/grafana/grafana.ini
 
-RUN mkdir -p /go/src/github.com/grafana
-RUN mkdir -p /go/src/github.com/raintank
-RUN ln -s /go/src/github.com/raintank/grafana /go/src/github.com/grafana/grafana
+RUN grafana-cli  plugins install raintank-worldping-app
 
-ENV GOPATH /go
-ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
+# add script, but don't run it yet. will be run when grafana is running
+ADD create-dev-datasource.sh /tmp/create-dev-datasource.sh
+RUN chmod +x /tmp/create-dev-datasource.sh
 
-# insecure due to bosun.org issue with cloudflare
-RUN go get -insecure github.com/raintank/grafana || true
-RUN go get github.com/Unknwon/bra
-RUN go get github.com/tools/godep
-WORKDIR /go/src/github.com/grafana/grafana
-RUN go run build.go setup
-RUN godep go build .
-RUN npm install && npm install -g grunt-cli && grunt build
+ADD dashboards /tmp/dashboards
 
-EXPOSE 80
-EXPOSE 443
+expose 3000
 
-RUN mkdir -p /var/log/raintank
-COPY conf/custom.ini /etc/grafana/custom.ini
-
-CMD ["/usr/bin/supervisord"]
+WORKDIR /usr/share/grafana
+ENTRYPOINT ["/usr/sbin/grafana-server"]
+CMD ["--config", "/etc/grafana/grafana.ini"]

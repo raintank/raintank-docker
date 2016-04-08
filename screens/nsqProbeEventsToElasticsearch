@@ -1,4 +1,6 @@
+supervisorctl stop all
 cd /go/src/github.com/raintank/raintank-metric/nsq_probe_events_to_elasticsearch
+go build
 /wait.sh elasticsearch:9200
 ./nsq_probe_events_to_elasticsearch --elastic-addr elasticsearch:9200 --statsd-addr statsdaemon:8125 --nsqd-tcp-address nsqd:4150 &> /var/log/raintank/nsq_probe_events_to_elasticsearch.log &
 tail -f /var/log/raintank/nsq_probe_events_to_elasticsearch.log
