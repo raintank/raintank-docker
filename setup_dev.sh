@@ -20,7 +20,7 @@ if [ "$MODE" == "docker" ]; then
 	cd $RT_CODE
   args=("${args[@]}" "-v" "$DIR:/opt/raintank/raintank-docker")
   # assure the directories exist (irrespective of what we'll do with them, see below) so we can set up the volumes
-	for i in raintank-collector raintank-metric grafana; do
+	for i in raintank-collector raintank-metric plugins worldping-api; do
 	  mkdir -p $i
 		args=("${args[@]}" "-v" "$RT_CODE/$i:/opt/raintank/$i")
 	done
@@ -53,7 +53,7 @@ elif [ $MODE == "code" ]; then
 
     # install grafana plugins
     mkdir -p /opt/raintank/plugins/
-    for i in worldping-api; do
+    for i in worldping-app; do
 		echo "> processing code for grafana plugin $i"
         if [ -f /opt/raintank/plugins/$i/.notouch ]; then
            echo "Skipping due to .notouch"

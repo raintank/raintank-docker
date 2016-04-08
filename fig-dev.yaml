@@ -138,7 +138,7 @@ worldpingApi:
   volumes:
     - ./raintank_code/worldping-api:/go/src/github.com/raintank/worldping-api
     - ./logs:/var/log/raintank
-    - ./worldping-api/conf:/etc/raintank/
+    - ./worldping_api/conf:/etc/raintank/
 
 statsdaemon:
   image: raintank/statsdaemon
@@ -148,11 +148,11 @@ statsdaemon:
   links:
           - graphitemon:graphitemon
 
-benchmark:
-  image: raintank/benchmark
-  hostname: benchmark
-  volumes:
-    - ./results:/opt/raintank/raintank-tsdb-benchmark/results
+#benchmark:
+#  image: raintank/benchmark
+#  hostname: benchmark
+#  volumes:
+#    - ./results:/opt/raintank/raintank-tsdb-benchmark/results
 
 grafana:
   image: raintank/grafana

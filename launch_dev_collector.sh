@@ -25,7 +25,7 @@ screen -S raintank -X screen -t collector-$id docker exec -t -i $docker_name bas
 screen -S raintank -p collector-$id -X stuff '/wait.sh worldpingapi:80 && supervisorctl start all; touch /var/log/raintank/collector.log\n'
 
 while true; do
-  data=$(curl -s -X GET -H "Authorization: Bearer eyJrIjoiZGU2OGIxMTA3YWE2Mzk4NWVlN2NkOGU3YTIwOTAzYmNkMmJjYjQyOSIsIm4iOiJhd29vZHMiLCJpZCI6MX0" 'http://localhost/api/collectors')
+  data=$(curl -s -X GET -H "Authorization: Bearer changeme" 'http://localhost/api/collectors')
   if grep -q "\"$id\"" <<< "$data"; then
     break
   fi
@@ -34,7 +34,7 @@ while true; do
 done
 mysql_id=$(sed 's#.*"id":\([0-9]\+\),"org_id":[0-9]\+,"slug":"'$id'".*#\1#' <<< "$data")
 # make it a "public" collector so different orgs can use it
-curl -X POST -H "Authorization: Bearer eyJrIjoiZGU2OGIxMTA3YWE2Mzk4NWVlN2NkOGU3YTIwOTAzYmNkMmJjYjQyOSIsIm4iOiJhd29vZHMiLCJpZCI6MX0" -F "public=true" -F "enabled=true" -F "name=$id" -F "id=$mysql_id" 'http://localhost/api/collectors'
+curl -X POST -H "Authorization: Bearer changeme" -F "public=true" -F "enabled=true" -F "name=$id" -F "id=$mysql_id" 'http://localhost/api/collectors'
 echo
 
 # restart the collector after making it public.

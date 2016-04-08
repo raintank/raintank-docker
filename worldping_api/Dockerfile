@@ -7,7 +7,10 @@ ENV GOPATH /go
 ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
 
 # insecure due to bosun.org issue with cloudflare
-RUN go get -insecure github.com/raintank/worldping-api
+RUN go get github.com/tools/godep
+RUN mkdir -p /go/src/github.com/raintank/
+RUN cd /go/src/github.com/raintank/ && git clone https://github.com/raintank/worldping-api.git
+RUN cd /go/src/github.com/raintank/worldping-api && godep go build -o /go/bin/worldping-api
 
 EXPOSE 80
 EXPOSE 443
