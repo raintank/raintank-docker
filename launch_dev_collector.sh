@@ -22,7 +22,7 @@ docker run --link=raintankdocker_worldpingApi_1:worldpingApi \
            raintank/collector
 
 screen -S raintank -X screen -t collector-$id docker exec -t -i $docker_name bash
-screen -S raintank -p collector-$id -X stuff '/wait.sh worldpingapi:80 && supervisorctl start all; touch /var/log/raintank/collector.log\n'
+screen -S raintank -p collector-$id -X stuff 'wait.sh worldpingapi:80 && supervisorctl start all; touch /var/log/raintank/collector.log\n'
 
 while true; do
   data=$(curl -s -X GET -H "Authorization: Bearer changeme" 'http://localhost/api/collectors')

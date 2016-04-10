@@ -7,8 +7,6 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN mkdir -p /opt/raintank
 WORKDIR /opt/raintank
 
-COPY wait.sh /wait.sh
-
 #install collector
 RUN echo 1429107514; git clone git://github.com/raintank/raintank-collector.git
 

@@ -1,6 +1,6 @@
 supervisorctl stop all
 cd /go/src/github.com/raintank/worldping-api
 godep go build
-wait.sh mysql:3306
+wait.sh mysql:3306 nsqd:4150
 ./worldping-api --config /etc/raintank/worldping.ini
 tail -f /var/log/raintank/worldping.log

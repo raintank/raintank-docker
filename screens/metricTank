@@ -12,7 +12,7 @@
 supervisorctl stop all
 cd /go/src/github.com/raintank/raintank-metric/metric_tank
 go build
-/wait.sh cassandra:9042 elasticsearch:9200
+wait.sh cassandra:9042 elasticsearch:9200
 ./metric_tank \
 	--chunkspan 10m \
 	--numchunks 3 \
