@@ -1,2 +1,2 @@
-
+/tmp/create-dev-datasource.sh 2>&1 | tee -a /var/log/raintank/create-dev-datasource.log
 tail -f /var/log/raintank/grafana.log
