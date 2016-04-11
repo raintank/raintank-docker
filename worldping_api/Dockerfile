@@ -15,6 +15,9 @@ RUN cd /go/src/github.com/raintank/worldping-api && godep go build -o /go/bin/wo
 EXPOSE 80
 EXPOSE 443
 
+ADD prepare-nsqd.sh /tmp/prepare-nsqd.sh
+RUN chmod +x /tmp/prepare-nsqd.sh
+
 RUN mkdir -p /var/log/raintank
 COPY conf/worldping.ini /etc/raintank/worldping.ini
 

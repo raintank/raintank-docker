@@ -1,5 +1,7 @@
 cd /go/src/github.com/raintank/worldping-api
 godep go build
+wait.sh nsqd:4150
+/tmp/prepare-nsqd.sh 2>&1 | tee -a /var/log/raintank/prepare-nsqd.log
 wait.sh mysql:3306 nsqd:4150
 ./worldping-api --config /etc/raintank/worldping.ini
 tail -f /var/log/raintank/worldping.log
