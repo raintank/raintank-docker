@@ -33,6 +33,15 @@ nsqadmin:
   links:
     - nsqd:nsqd
 
+kafka:
+  image: raintank/kafka
+  hostname: kafka
+  environment:
+    ADVERTISED_HOST: kafka
+  ports:
+    - "2181:2181"
+    - "9092:9092"
+
 graphiteWatcher:
   image: raintank/graphite-watcher
   hostname: watcher
