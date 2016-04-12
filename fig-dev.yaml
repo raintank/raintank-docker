@@ -127,7 +127,6 @@ worldpingApi:
   hostname: worldpingapi
   ports:
     - "80:80"
-    - "443:443"
   links:
     - rabbitmq:rabbitmq
     - graphiteApi:graphite-api
@@ -160,6 +159,14 @@ grafana:
   ports:
     - "3000:3000"
   links:
-    - worldpingApi:app.raintank.io
+    - proxy:worldping-api.raintank.io
   volumes:
     - ./raintank_code/plugins:/var/lib/grafana/plugins
+
+proxy:
+  image: raintank/proxy
+  hostname: proxy
+  ports:
+    - "443:443"
+  links:
+    - worldpingApi:worldpingapi
