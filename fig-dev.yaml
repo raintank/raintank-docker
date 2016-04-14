@@ -162,6 +162,7 @@ grafana:
     - proxy:worldping-api.raintank.io
   volumes:
     - ./raintank_code/plugins:/var/lib/grafana/plugins
+    - ./logs:/var/log/raintank
 
 proxy:
   image: raintank/proxy
