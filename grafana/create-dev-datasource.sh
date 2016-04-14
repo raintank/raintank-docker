@@ -17,6 +17,11 @@ curl -u admin:admin \
   -H "content-type: application/json" \
   'http://localhost:3000/api/datasources' -X POST --data-binary '{"name":"benchmarks","type":"elasticsearch","url":"http://elasticsearch:9200","access":"proxy","isDefault":false,"database":"benchmark","user":"","password":"", "jsonData": {"timeField": "timestamp"}}'
 
+curl -u admin:admin \
+  -H "content-type: application/json" \
+  'http://localhost:3000/api/datasources' -X POST --data-binary '{"name":"metric-tank","type":"graphite","url":"http://metricTank:6063","access":"proxy","isDefault":false}'
+
+
 for file in /tmp/dashboards/*; do
   echo "> adding dashboard $file"
   curl -u admin:admin \

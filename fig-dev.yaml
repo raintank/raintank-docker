@@ -160,6 +160,7 @@ grafana:
     - "3000:3000"
   links:
     - proxy:worldping-api.raintank.io
+    - metricTank:metricTank
   volumes:
     - ./raintank_code/plugins:/var/lib/grafana/plugins
     - ./logs:/var/log/raintank
