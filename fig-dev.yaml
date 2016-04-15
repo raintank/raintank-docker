@@ -145,13 +145,19 @@ statsdaemon:
   ports:
     - "8126:8126"
   links:
-          - graphitemon:graphitemon
+    - graphitemon:graphitemon
 
-#benchmark:
-#  image: raintank/benchmark
-#  hostname: benchmark
-#  volumes:
-#    - ./results:/opt/raintank/raintank-tsdb-benchmark/results
+benchmark:
+  image: raintank/benchmark
+  hostname: benchmark
+  volumes:
+    - ./results:/opt/raintank/raintank-tsdb-benchmark/results
+  links:
+    - statsdaemon:statsdaemon
+    - nsqd:nsqd
+    - elasticsearch:elasticsearch
+    - graphiteApi:graphite-api
+    - metricTank:metricTank
 
 grafana:
   image: raintank/grafana

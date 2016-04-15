@@ -3,7 +3,7 @@ FROM raintank/nodejsgo
 ENV GOPATH /go
 ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
 
-RUN apt-get -y install wget vim bc
+RUN apt-get -y install wget vim bc supervisor
 RUN mkdir -p /go/src/github.com/grafana
 RUN cd /go/src/github.com/grafana && \
 	git clone https://github.com/raintank/grafana-api-golang-client.git && \
@@ -12,6 +12,8 @@ RUN cd /go/src/github.com/grafana && \
  	#go get github.com/raintank/env-load
 
 RUN go get github.com/tsenart/vegeta
+RUN go get github.com/raintank/raintank-metric/inspect-es
+RUN go get github.com/raintank/raintank-metric/fake_metrics_to_nsq
 
 RUN cd /opt/raintank && \
 	git clone https://github.com/raintank/raintank-tsdb-benchmark.git
