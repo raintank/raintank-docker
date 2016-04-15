@@ -1,7 +1,18 @@
 raintank-docker screen based dev environment
 ============================================
 
-To provision a full dev stack using docker:
+This stack runs a development stack, using every component used at raintank
+(minus grafana.net),
+that is:
+
+* Grafana (of course) at http://localhost:3000
+* WorldPing (enable this with key `changeme`, this imports the dashboards, sets up the Metric-tank datasource, makes the collectors useful, etc)
+* the backend: NSQ, rabbitmq, graphite-api, Metric-Tank, Cassandra, ElasticSearch, Mysql, nsq-probe-events-to-elasticsearch
+* monitoring and utiltities: nsqadmin, graphite, statsdaemon, graphite-watcher, nsq-metrics-to-stdout, benchmark tool.
+
+
+To provision a full dev stack using docker
+===========================================
 
 - install docker - https://docs.docker.com/installation/#installation
 - install docker-compose - http://docs.docker.com/compose/install/
@@ -13,7 +24,7 @@ To provision a full dev stack using docker:
 - run `./setup_dev.sh` to download all of the raintank components.  The script will launch a docker container and clone the git repositories of all of the raintank components.  Once the script has completed, the docker host server will have a /opt/raintank directory that will have all of the raintank code and dependencies installed.
 - run `./launch_dev.sh` to start up all of the docker containers.  This script will start the containers in interactive mode, attached to a screen session.  Instead of using the code baked into the image, the container will instead execute what is installed in /opt/raintank on the docker host.  As all containers are sharing the same /opt/raintank directory, any changes made to the /opt/raintank/* code while inside a container will be visible in all other containers.
 - attach to the screen session with 'screen -r raintank'.  To navigate between all of the screen windows press 'CTRL-a then "' (double quote).  This will provide the list of windows running, use the arrow keys to select the desired window then press enter.
-
+- enable the worldping app through the grafana menu at http://localhost:3000, using key `changeme`.
 
 for your convenience, this code may be all you need (tested on ubuntu 14.04)
 
