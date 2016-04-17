@@ -25,12 +25,6 @@
           "error": false,
           "fill": 9,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": 1,
-            "rightMin": 0,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -77,9 +71,9 @@
               "target": "alias(stats.$environment.metric_tank.$host.metrics_received, 'metrics in')"
             },
             {
+              "hide": true,
               "refId": "B",
-              "target": "alias(stats.$environment.gauges.metric_tank.$host.cluster.primary, 'primary')",
-              "hide": true
+              "target": "alias(stats.$environment.gauges.metric_tank.$host.cluster.primary, 'primary')"
             },
             {
               "refId": "C",
@@ -90,15 +84,29 @@
           "timeShift": null,
           "title": "metrics in",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": 1,
+              "min": 0,
+              "show": true
+            }
           ]
         },
         {
@@ -116,12 +124,6 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -172,22 +174,36 @@
           "timeShift": null,
           "title": "points & metrics",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
           "aliasColors": {
             "primary": "#2F575E",
-            "too old": "#890F02",
-            "promotion wait": "#E5AC0E"
+            "promotion wait": "#E5AC0E",
+            "too old": "#890F02"
           },
           "bars": false,
           "datasource": "graphite",
@@ -195,12 +211,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": 1,
-            "rightMin": 0,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -228,10 +238,10 @@
             {
               "alias": "primary",
               "fill": 3,
-              "linewidth": 0,
-              "yaxis": 2,
               "lines": true,
-              "points": false
+              "linewidth": 0,
+              "points": false,
+              "yaxis": 2
             }
           ],
           "span": 4,
@@ -251,15 +261,29 @@
           "timeShift": null,
           "title": "cluster status",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "s",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "s",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": 1,
+              "min": 0,
+              "show": true
+            }
           ]
         }
       ],
@@ -271,26 +295,22 @@
       "height": "250px",
       "panels": [
         {
-          "aliasColors": {},
+          "aliasColors": {
+            "alloc speed": "#C15C17",
+            "GC cpu fraction - promille": "#BF1B00"
+          },
           "bars": false,
           "datasource": "-- Mixed --",
           "editable": true,
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": 100000,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
           "id": 1,
-          "leftYAxisLabel": "allocation",
           "legend": {
             "avg": false,
             "current": false,
@@ -316,7 +336,18 @@
             {
               "alias": "bytes_per_point",
               "linewidth": 1,
-              "yaxis": 2
+              "yaxis": 1
+            },
+            {
+              "alias": "GC cpu fraction - promille",
+              "yaxis": 2,
+              "linewidth": 1
+            },
+            {
+              "alias": "MT cpu usage - percent",
+              "yaxis": 2,
+              "fill": 4,
+              "linewidth": 0
             }
           ],
           "span": 4,
@@ -359,21 +390,56 @@
               "refId": "F",
               "target": "alias(divideSeries(#B, #E), 'bytes_per_point')",
               "textEditor": false
+            },
+            {
+              "datasource": "graphite",
+              "hide": false,
+              "refId": "G",
+              "target": "alias(perSecond(stats.$environment.gauges.metric_tank.$host.bytes_alloc.not_freed), 'alloc speed')"
+            },
+            {},
+            {
+              "datasource": "graphite",
+              "hide": false,
+              "refId": "H",
+              "target": "alias(stats.$environment.gauges.metric_tank.$host.gc.cpufraction, 'GC cpu fraction - promille')"
+            },
+            {},
+            {
+              "datasource": "graphite",
+              "hide": false,
+              "refId": "I",
+              "target": "alias(measure.nmt_cpu, 'MT cpu usage - percent')"
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "memory usage",
+          "title": "memory & CPU usage",
           "tooltip": {
+            "msResolution": true,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bytes",
-            "bytes"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": "allocation",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "none",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -384,12 +450,6 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -440,15 +500,29 @@
           "timeShift": null,
           "title": "Golang GC",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "ns"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "ns",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -461,12 +535,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -506,15 +574,29 @@
           "timeShift": null,
           "title": "Metrics Garbage collection",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -542,12 +624,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -621,15 +697,29 @@
           "timeShift": null,
           "title": "requests span",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "s",
-            "none"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "s",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "none",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -649,12 +739,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -698,15 +782,29 @@
           "timeShift": null,
           "title": "requests rate",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "hertz",
-            "none"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "hertz",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "none",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -721,12 +819,6 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -772,15 +864,29 @@
           "timeShift": null,
           "title": "request handle duration (all steps)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "ms",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "ms",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -803,12 +909,6 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 2,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -871,16 +971,30 @@
           "timeShift": null,
           "title": "Duration breakdown",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "transparent": true,
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "ms",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "ms",
+              "logBase": 2,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -891,12 +1005,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -915,6 +1023,7 @@
           },
           "lines": true,
           "linewidth": 2,
+          "links": [],
           "nullPointMode": "connected",
           "percentage": false,
           "pointradius": 5,
@@ -970,18 +1079,31 @@
           "timeShift": null,
           "title": "write workers & queues",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
+          "transparent": true,
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
-          ],
-          "links": [],
-          "transparent": true
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
         }
       ],
       "title": "New row"
@@ -1006,12 +1128,6 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1069,15 +1185,29 @@
           "timeShift": null,
           "title": "chunk sizes",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bytes",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -1096,12 +1226,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1143,15 +1267,29 @@
           "timeShift": null,
           "title": "cassandra req/s",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "hertz",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "hertz",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -1172,12 +1310,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1235,15 +1367,29 @@
           "timeShift": null,
           "title": "cassandra durations",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "ms",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "ms",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -1269,12 +1415,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1343,15 +1483,29 @@
           "timeShift": null,
           "title": "cassandra responses",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -1366,12 +1520,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1421,15 +1569,29 @@
           "timeShift": null,
           "title": "chunk operations",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -1446,12 +1608,6 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 2,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1514,15 +1670,29 @@
           "timeShift": null,
           "title": "metric def lookups",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "ms",
-            "ms"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "ms",
+              "logBase": 2,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "ms",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -1573,6 +1743,7 @@
           "value": "raintank-docker"
         },
         "datasource": "graphite",
+        "hide": 0,
         "includeAll": false,
         "multi": false,
         "multiFormat": "glob",
@@ -1585,7 +1756,7 @@
           }
         ],
         "query": "stats.*",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": false,
         "regex": "",
         "type": "query"
@@ -1597,6 +1768,7 @@
           "value": "metricstank"
         },
         "datasource": "graphite",
+        "hide": 0,
         "includeAll": false,
         "multi": false,
         "multiFormat": "glob",
@@ -1609,7 +1781,7 @@
           }
         ],
         "query": "stats.$environment.metric_tank.*",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": false,
         "regex": "",
         "type": "query"
@@ -1655,7 +1827,7 @@
     ]
   },
   "refresh": false,
-  "schemaVersion": 7,
-  "version": 1,
+  "schemaVersion": 12,
+  "version": 2,
   "links": []
 }
