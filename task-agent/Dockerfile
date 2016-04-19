@@ -10,7 +10,6 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 ENV GOPATH /go
 ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
 
-# insecure due to bosun.org issue with cloudflare
 RUN go get github.com/raintank/raintank-apps/task-agent
 
 EXPOSE 8181
