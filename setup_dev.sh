@@ -20,7 +20,7 @@ if [ "$MODE" == "docker" ]; then
 	cd $RT_CODE
   args=("${args[@]}" "-v" "$DIR:/opt/raintank/raintank-docker")
   # assure the directories exist (irrespective of what we'll do with them, see below) so we can set up the volumes
-	for i in raintank-collector raintank-metric plugins worldping-api; do
+	for i in raintank-collector raintank-metric plugins worldping-api raintank-apps; do
 	  mkdir -p $i
 		args=("${args[@]}" "-v" "$RT_CODE/$i:/opt/raintank/$i")
 	done
@@ -35,7 +35,7 @@ elif [ $MODE == "code" ]; then
 
 	mkdir -p /opt/raintank/node_modules
 	cd /opt/raintank
-	for i in raintank-collector raintank-metric worldping-api raintank-probe; do
+	for i in raintank-collector raintank-metric worldping-api raintank-probe raintank-apps; do
 		echo "> processing code for $i"
 		if [ -f /opt/raintank/$i/.notouch ]; then
 			echo "Skipping due to .notouch"
@@ -50,6 +50,8 @@ elif [ $MODE == "code" ]; then
 			git clone -b $BRANCH ${GITHUBURL}raintank/$i.git
 		fi
 	done
+
+
 
     # install grafana plugins
     mkdir -p /opt/raintank/plugins/
@@ -72,6 +74,11 @@ elif [ $MODE == "code" ]; then
 	echo "> configuring go"
 	export GOPATH=/go
 	export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+
+	echo "> building raintank-apps binaries"
+	cd /opt/raintank/raintank-apps
+	go get ./...
+	./scripts/build_all.sh
 
     echo "> collector > assuring config"
 	cd /opt/raintank/raintank-collector

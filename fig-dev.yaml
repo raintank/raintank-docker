@@ -178,3 +178,42 @@ proxy:
     - "443:443"
   links:
     - worldpingApi:worldpingapi
+
+taskAgent:
+  image: raintank/task-agent
+  hostname: task-agent
+  ports:
+    - "8181:8181"
+  links:
+    - taskServer:task-server
+    - tsdb:tsdb
+  volumes:
+    - ./raintank_code/raintank-apps/build/bin:/go/bin
+    - ./raintank_code/raintank-apps/build/plugins:/var/lib/snap/plugins
+    - ./logs:/var/log/raintank
+
+taskServer:
+  image: raintank/task-server
+  hostname: task-server
+  ports:
+    - "8082:80"
+  links:
+    - rabbitmq:rabbitmq
+    - statsdaemon:statsdaemon
+  volumes:
+    - ./raintank_code/raintank-apps/build/bin:/go/bin
+    - ./logs:/var/log/raintank
+
+tsdb:
+  image: raintank/tsdb
+  hostname: tsdb
+  ports:
+    - "8081:80"
+  links:
+    - graphiteApi:graphite-api
+    - elasticsearch:elasticsearch
+    - statsdaemon:statsdaemon
+    - nsqd:nsqd
+  volumes:
+    - ./raintank_code/raintank-apps/build/bin:/go/bin
+    - ./logs:/var/log/raintank
