@@ -18,10 +18,11 @@ if [ "$MODE" == "docker" ]; then
 
 	args=("-v" "$DIR:/tmp/scripts" "-v" "/root:/root")
 	cd $RT_CODE
-  args=("${args[@]}" "-v" "$DIR:/opt/raintank/raintank-docker")
-  # assure the directories exist (irrespective of what we'll do with them, see below) so we can set up the volumes
+
+	args=("${args[@]}" "-v" "$DIR:/opt/raintank/raintank-docker")
+	# assure the directories exist (irrespective of what we'll do with them, see below) so we can set up the volumes
 	for i in raintank-collector raintank-metric plugins worldping-api raintank-apps; do
-	  mkdir -p $i
+		mkdir -p $i
 		args=("${args[@]}" "-v" "$RT_CODE/$i:/opt/raintank/$i")
 	done
 	cd -
