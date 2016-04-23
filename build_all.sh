@@ -8,24 +8,18 @@ function fail() {
 }
 
 function build () {
-	[ -e $1/build.sh -o -e $1/Dockerfile ] || return
 	local service=$1
 	cd $service
 
-	echo "##### $service ####"
-	if [ -e build.sh ]; then
-		echo "##### -> ./build.sh"
-		sh build.sh
-	elif [ -e Dockerfile ]; then
-		echo "##### -> docker build -t raintank/$service ."
-		if [ $rebuild -eq 1 ]; then
-			docker build --no-cache -t raintank/$service . || fail $service
-		else
-			docker build -t raintank/$service . || fail $service
-		fi
-		# -f because docker will complain if the id->name mapping already exists, which is not an issue with docker build -t
-		docker tag -f raintank/$service raintank/$service:$(git rev-parse --abbrev-ref HEAD) || fail $service
+	echo
+	echo "##### -> docker build -t raintank/$service ."
+	if [ $rebuild -eq 1 ]; then
+		docker build --no-cache -t raintank/$service . || fail $service
+	else
+		docker build -t raintank/$service . || fail $service
 	fi
+	# -f because docker will complain if the id->name mapping already exists, which is not an issue with docker build -t
+	docker tag -f raintank/$service raintank/$service:$(git rev-parse --abbrev-ref HEAD) || fail $service
 	cd ..
 }
 
@@ -52,7 +46,8 @@ build nodejsgo
 build worldping_api
 
 # then build the rest
-for i in *; do
+for i in */Dockerfile; do
+	i=$(dirname "$i")
 	[ -d $i ] && [[ $i != nodejs ]] && [[ $i != nodejsgo ]] && [[ $i != worldping_api ]] && build $i
 done
 exit 0
