@@ -237,5 +237,4 @@ carbon-relay-ng:
     - graphitemon:graphitemon
     - tsdb:tsdb
   volumes:
-    - ./raintank_code/raintank-apps/build/bin:/go/bin
     - ./logs:/var/log/raintank

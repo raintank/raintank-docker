@@ -7,4 +7,4 @@ RUN mkdir -p /go/src/github.com/graphite-ng && cd /go/src/github.com/graphite-ng
 WORKDIR /
 ADD proxy.ini /proxy.ini
 ADD storage-schemas.conf /storage-schemas.conf
-CMD /go/bin/carbon-relay-ng-relay-ng proxy.ini > /var/log/raintank/carbon-relay-ng.log 2>&1
+CMD /go/bin/carbon-relay-ng proxy.ini > /var/log/raintank/carbon-relay-ng.log 2>&1
