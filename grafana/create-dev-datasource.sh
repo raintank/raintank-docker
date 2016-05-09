@@ -19,7 +19,7 @@ curl -u admin:admin \
 
 curl -u admin:admin \
   -H "content-type: application/json" \
-  'http://localhost:3000/api/datasources' -X POST --data-binary '{"name":"metric-tank","type":"graphite","url":"http://metricTank:6063","access":"proxy","isDefault":false}'
+  'http://localhost:3000/api/datasources' -X POST --data-binary '{"name":"metric-tank","type":"graphite","url":"http://localhost:18764","access":"direct","isDefault":false}'
 
 
 for file in /tmp/dashboards/*; do
