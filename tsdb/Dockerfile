@@ -10,5 +10,4 @@ EXPOSE 80
 COPY tsdb.ini /etc/raintank/tsdb.ini
 
 WORKDIR /
-ENTRYPOINT ["/go/bin/tsdb"]
-CMD ["--config", "/etc/raintank/tsdb.ini"]
+CMD /go/bin/tsdb --config /etc/raintank/tsdb.ini > /var/log/raintank/tsdb.log 2>&1
