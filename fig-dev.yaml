@@ -226,3 +226,16 @@ tsdb:
   volumes:
     - ./raintank_code/raintank-apps/build/bin:/go/bin
     - ./logs:/var/log/raintank
+
+carbon-relay-ng:
+  image: raintank/carbon-relay-ng
+  hostname: carbon-relay-ng
+  ports:
+    - "8083:8083"
+    - "2013:2013"
+  links:
+    - graphitemon:graphitemon
+    - tsdb:tsdb
+  volumes:
+    - ./raintank_code/raintank-apps/build/bin:/go/bin
+    - ./logs:/var/log/raintank
