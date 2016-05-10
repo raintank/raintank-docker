@@ -17,7 +17,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "graphite",
           "editable": true,
           "error": false,
           "fill": 1,
