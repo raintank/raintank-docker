@@ -21,7 +21,7 @@ if [ "$MODE" == "docker" ]; then
 
 	args=("${args[@]}" "-v" "$DIR:/opt/raintank/raintank-docker")
 	# assure the directories exist (irrespective of what we'll do with them, see below) so we can set up the volumes
-	for i in raintank-collector raintank-metric plugins worldping-api raintank-probe raintank-apps; do
+	for i in raintank-collector raintank-metric plugins worldping-api raintank-probe raintank-apps carbon-relay-ng; do
 		mkdir -p $i
 		args=("${args[@]}" "-v" "$RT_CODE/$i:/opt/raintank/$i")
 	done
@@ -36,7 +36,7 @@ elif [ $MODE == "code" ]; then
 
 	mkdir -p /opt/raintank/node_modules
 	cd /opt/raintank
-	for i in raintank-collector raintank-metric worldping-api raintank-probe raintank-apps; do
+	for i in raintank-collector raintank-metric worldping-api raintank-probe raintank-apps carbon-relay-ng; do
 		echo "> processing code for $i"
 		if [ -f /opt/raintank/$i/.notouch ]; then
 			echo "Skipping due to .notouch"
