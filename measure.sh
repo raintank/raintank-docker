@@ -8,14 +8,21 @@ COLUMNS=512 top -b -c | grep -v sed | sed -u -n \
   -e 's#`- ./metric_tank.*#metric-tank#p' \
   -e 's#`- ./nsq_probe_events_to_elastic.*#npee#p' \
   -e 's#`-.*python.*gunicorn.*#graphite-api#p' \
-  -e 's#`-.*bin/carbon-relay-ng proxy.ini.*#carbon-relay-ng#p' \
+  -e 's#`-.*/carbon-relay-ng proxy.ini$#carbon-relay-ng#p' \
   -e 's#`-.*rabbitmq_server.*#rabbit#p' \
   -e 's#`-.*/go/bin/statsdaemon.*#statsdaemon#p' \
   -e 's#`-.*node.*raintank-collector.*#collector#p' \
   | awk '{print $6,$7,$11;fflush();}' \
   | while read mem cpu process; do
     ts=$(date +%s)
-    mem=${mem/m/}
+    if [[ $mem =~ g$ ]]; then
+	    mem=$(bc -l <<< "${mem:0:-1} * 1024 * 1024 * 1024")
+    elif [[ $mem =~ m$ ]]; then
+	    mem=$(bc -l <<< "${mem:0:-1} * 1024 * 1024")
+    elif [[ $mem =~ k$ ]]; then
+	    mem=$(bc -l <<< "${mem:0:-1} * 1024")
+    fi
+
     if [ "$process" == "graphite-api" ]; then
       graphite_api_i=$((graphite_api_i + 1))
       echo "measure.${process}.${graphite_api_i}.cpu $cpu $ts"

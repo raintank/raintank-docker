@@ -234,7 +234,7 @@
               "min": null,
               "max": null,
               "logBase": 1,
-              "format": "mbytes"
+              "format": "bytes"
             },
             {
               "show": true,
@@ -304,7 +304,7 @@
               "min": null,
               "max": null,
               "logBase": 1,
-              "format": "mbytes"
+              "format": "bytes"
             },
             {
               "show": true,
