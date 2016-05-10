@@ -13,7 +13,7 @@ RUN cd /go/src/github.com/grafana && \
 
 RUN go get github.com/tsenart/vegeta
 RUN go get github.com/raintank/raintank-metric/inspect-es
-RUN go get github.com/raintank/raintank-metric/fake_metrics_to_nsq
+RUN go get github.com/raintank/raintank-metric/fake_metrics
 
 RUN cd /opt/raintank && \
 	git clone https://github.com/raintank/raintank-tsdb-benchmark.git
