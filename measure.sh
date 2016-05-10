@@ -10,7 +10,7 @@ COLUMNS=512 top -b -c | grep -v sed | sed -u -n \
   -e 's#`- ./nsq_metrics_to_elastic.*#nme#p' \
   -e 's#`- ./nsq_probe_events_to_elastic.*#npee#p' \
   -e 's#`-.*python.*gunicorn.*#graphite-api#p' \
-  -e 's#`-.*redis-server.*#redis#p' \
+  -e 's#`-.*bin/carbon-relay-ng proxy.ini.*#carbon-relay-ng#p' \
   -e 's#`-.*rabbitmq_server.*#rabbit#p' \
   -e 's#`-.*/go/bin/statsdaemon.*#statsdaemon#p' \
   -e 's#`-.*node.*raintank-collector.*#collector#p' \
