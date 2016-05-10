@@ -26,12 +26,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -61,64 +55,12 @@
           "steppedLine": false,
           "targets": [
             {
-              "refId": "A",
-              "target": "alias(measure.grafana_cpu, 'grafana')"
-            },
-            {
               "refId": "B",
-              "target": "alias(measure.cassandra_cpu, 'cassandra')"
+              "target": "aliasByNode(measure.*.cpu, 1)"
             },
             {
-              "refId": "C",
-              "target": "alias(measure.kairosdb_cpu, 'kairosdb')"
-            },
-            {
-              "refId": "D",
-              "target": "alias(measure.nmt_cpu, 'nmt')"
-            },
-            {
-              "refId": "E",
-              "target": "alias(measure.nmk_cpu, 'nmk')"
-            },
-            {
-              "refId": "F",
-              "target": "alias(measure.elasticsearch_cpu, 'elasticsearch')"
-            },
-            {
-              "refId": "G",
-              "target": "alias(measure.nsqd_cpu, 'nsqd')"
-            },
-            {
-              "refId": "H",
-              "target": "alias(measure.nme_cpu, 'nme')"
-            },
-            {
-              "refId": "I",
-              "target": "alias(measure.npee_cpu, 'npee')"
-            },
-            {
-              "refId": "J",
-              "target": "alias(measure.redis_cpu, 'redis')"
-            },
-            {
-              "refId": "K",
-              "target": "alias(measure.rabbit_cpu, 'rabbit')"
-            },
-            {
-              "refId": "L",
-              "target": "alias(measure.statsdaemon_cpu, 'statsdaemon')"
-            },
-            {
-              "refId": "M",
-              "target": "alias(measure.collector.1_cpu, 'coll-1')"
-            },
-            {
-              "refId": "N",
-              "target": "alias(measure.collector.2_cpu, 'coll-2')"
-            },
-            {
-              "refId": "O",
-              "target": "alias(measure.collector.3_cpu, 'coll-3')"
+              "refId": "A",
+              "target": "aliasByNode(measure.collector.*.cpu, 1, 2)"
             }
           ],
           "timeFrom": null,
@@ -126,15 +68,29 @@
           "title": "CPU",
           "tooltip": {
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "msResolution": false
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
-          ]
+          "yaxes": [
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "logBase": 1,
+              "format": "short"
+            },
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "logBase": 1,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          }
         },
         {
           "aliasColors": {},
@@ -144,12 +100,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -180,7 +130,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasSub(measure.graphite-api.*_cpu, '.*\\.(.*)_cpu', '\\1')"
+              "target": "aliasByNode(measure.graphite-api.*.cpu, 2)"
             }
           ],
           "timeFrom": null,
@@ -188,15 +138,29 @@
           "title": "CPU graphite-api",
           "tooltip": {
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "msResolution": false
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
-          ]
+          "yaxes": [
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "logBase": 1,
+              "format": "short"
+            },
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "logBase": 1,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          }
         }
       ],
       "title": "Row"
@@ -218,12 +182,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -253,64 +211,12 @@
           "steppedLine": false,
           "targets": [
             {
-              "refId": "A",
-              "target": "alias(measure.grafana_rss, 'grafana')"
-            },
-            {
               "refId": "B",
-              "target": "alias(measure.cassandra_rss, 'cassandra')"
+              "target": "aliasByNode(measure.*.rss, 1)"
             },
             {
-              "refId": "C",
-              "target": "alias(measure.kairosdb_rss, 'kairosdb')"
-            },
-            {
-              "refId": "D",
-              "target": "alias(measure.nmt_rss, 'nmt')"
-            },
-            {
-              "refId": "E",
-              "target": "alias(measure.nmk_rss, 'nmk')"
-            },
-            {
-              "refId": "F",
-              "target": "alias(measure.elasticsearch_rss, 'elasticsearch')"
-            },
-            {
-              "refId": "G",
-              "target": "alias(measure.nsqd_rss, 'nsqd')"
-            },
-            {
-              "refId": "H",
-              "target": "alias(measure.nme_rss, 'nme')"
-            },
-            {
-              "refId": "I",
-              "target": "alias(measure.npee_rss, 'npee')"
-            },
-            {
-              "refId": "J",
-              "target": "alias(measure.redis_rss, 'redis')"
-            },
-            {
-              "refId": "K",
-              "target": "alias(measure.rabbit_rss, 'rabbit')"
-            },
-            {
-              "refId": "L",
-              "target": "alias(measure.statsdaemon_rss, 'statsdaemon')"
-            },
-            {
-              "refId": "M",
-              "target": "alias(measure.collector.1_rss, 'coll-1')"
-            },
-            {
-              "refId": "N",
-              "target": "alias(measure.collector.2_rss, 'coll-2')"
-            },
-            {
-              "refId": "O",
-              "target": "alias(measure.collector.3_rss, 'coll-3')"
+              "refId": "A",
+              "target": "aliasByNode(measure.collector.*.rss, 1, 2)"
             }
           ],
           "timeFrom": null,
@@ -318,15 +224,29 @@
           "title": "RSS",
           "tooltip": {
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "msResolution": false
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "mbytes",
-            "short"
-          ]
+          "yaxes": [
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "logBase": 1,
+              "format": "mbytes"
+            },
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "logBase": 1,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          }
         },
         {
           "aliasColors": {},
@@ -336,12 +256,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -372,7 +286,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasSub(measure.graphite-api.*_rss, '.*\\.(.*)_rss', '\\1')"
+              "target": "aliasByNode(measure.graphite-api.*.rss, 2)"
             }
           ],
           "timeFrom": null,
@@ -380,15 +294,29 @@
           "title": "RSS graphite-api",
           "tooltip": {
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "msResolution": false
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "mbytes",
-            "short"
-          ]
+          "yaxes": [
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "logBase": 1,
+              "format": "mbytes"
+            },
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "logBase": 1,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          }
         }
       ],
       "title": "New row"
@@ -411,19 +339,12 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
           "id": 5,
-          "leftYAxisLabel": "",
           "legend": {
             "alignAsTable": true,
             "avg": false,
@@ -443,7 +364,6 @@
           "pointradius": 2,
           "points": true,
           "renderer": "flot",
-          "rightYAxisLabel": "num",
           "seriesOverrides": [
             {
               "alias": "num metrics in ES",
@@ -480,15 +400,31 @@
           "title": "graphite watcher",
           "tooltip": {
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "msResolution": false
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "s",
-            "short"
-          ]
+          "yaxes": [
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "logBase": 1,
+              "format": "s",
+              "label": ""
+            },
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "logBase": 1,
+              "format": "short",
+              "label": "num"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          }
         },
         {
           "aliasColors": {
@@ -503,19 +439,12 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
           "id": 9,
-          "leftYAxisLabel": "",
           "legend": {
             "alignAsTable": true,
             "avg": false,
@@ -535,7 +464,6 @@
           "pointradius": 2,
           "points": true,
           "renderer": "flot",
-          "rightYAxisLabel": "num",
           "seriesOverrides": [],
           "span": 4,
           "stack": false,
@@ -551,15 +479,31 @@
           "title": "graphite watcher - Null Points",
           "tooltip": {
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "msResolution": false
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
-          ]
+          "yaxes": [
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "logBase": 1,
+              "format": "short",
+              "label": ""
+            },
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "logBase": 1,
+              "format": "short",
+              "label": "num"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          }
         }
       ],
       "title": "New row"
@@ -585,12 +529,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -642,15 +580,29 @@
           "title": "graphite-api durations",
           "tooltip": {
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "msResolution": false
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "ms",
-            "ms"
-          ]
+          "yaxes": [
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "logBase": 1,
+              "format": "ms"
+            },
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "logBase": 1,
+              "format": "ms"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          }
         },
         {
           "aliasColors": {
@@ -668,12 +620,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -720,15 +666,29 @@
           "title": "graphite-api durations",
           "tooltip": {
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "msResolution": false
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "ms",
-            "ms"
-          ]
+          "yaxes": [
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "logBase": 1,
+              "format": "ms"
+            },
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "logBase": 1,
+              "format": "ms"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          }
         },
         {
           "aliasColors": {
@@ -747,12 +707,6 @@
           "error": false,
           "fill": 7,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -804,15 +758,29 @@
           "title": "graphite-api ops/s",
           "tooltip": {
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "msResolution": false
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "none",
-            "s"
-          ]
+          "yaxes": [
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "logBase": 1,
+              "format": "none"
+            },
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "logBase": 1,
+              "format": "s"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          }
         }
       ],
       "title": "New row"
@@ -851,31 +819,34 @@
   "templating": {
     "list": [
       {
-        "type": "query",
+        "allFormat": "glob",
+        "current": {
+          "text": "raintank-docker",
+          "value": "raintank-docker",
+          "tags": []
+        },
         "datasource": "graphite",
-        "refresh_on_load": false,
+        "includeAll": false,
+        "multi": false,
+        "multiFormat": "glob",
         "name": "environment",
         "options": [
           {
+            "selected": true,
             "text": "raintank-docker",
-            "value": "raintank-docker",
-            "selected": true
+            "value": "raintank-docker"
           }
         ],
-        "includeAll": false,
-        "allFormat": "glob",
-        "multi": false,
-        "multiFormat": "glob",
         "query": "stats.*",
-        "current": {
-          "text": "raintank-docker",
-          "value": "raintank-docker"
-        }
+        "refresh_on_load": false,
+        "type": "query",
+        "refresh": 0,
+        "hide": 0
       }
     ]
   },
   "annotations": {
-     "list": [
+    "list": [
       {
         "datasource": "benchmarks",
         "enable": true,
@@ -895,7 +866,7 @@
       }
     ]
   },
-  "schemaVersion": 7,
+  "schemaVersion": 12,
   "version": 1,
   "links": []
 }
