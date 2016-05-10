@@ -1,7 +1,7 @@
 {
   "id": null,
-  "title": "Fake metrics to nsq",
-  "originalTitle": "Fake metrics to nsq",
+  "title": "Fake metrics",
+  "originalTitle": "Fake metrics",
   "tags": [],
   "style": "dark",
   "timezone": "browser",
@@ -71,7 +71,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(stats.raintank-docker.timers.fake_metrics_to_nsq.*.metricpublisher.publish_duration.{mean,upper*}, 6, 7)",
+              "target": "aliasByNode(stats.$environment.timers.fake_metrics.*.metricpublisher.*.publish_duration.{mean,upper*}, 6, 8)",
               "textEditor": false
             }
           ],
@@ -147,12 +147,20 @@
           "targets": [
             {
               "refId": "A",
-              "target": "stats.raintank-docker.fake_metrics_to_nsq.*.metricpublisher.metrics-published"
+              "target": "aliasByNode(stats.$environment.fake_metrics.*.metricpublisher.*.metrics-published, 5, 6)"
             },
-            {
-              "refId": "B",
-              "target": "stats.raintank-docker.metric_tank.metricstank.metrics_received"
-            }
+	    {
+	      "refId": "B",
+	      "target": "alias(stats.$environment.metric_tank.metricstank.metrics_received, 'MT received')"
+	    },
+	    {
+	      "refId": "C",
+	      "target": "alias(scale(carbon.agents.graphitemon-a.metricsReceived, 0.016667), 'carbon received')"
+	    },
+	    {
+	      "refId": "D",
+	      "target": "alias(nonNegativeDerivative(service_is_carbon-relay-ng.instance_is_*.target_type_is_counter.unit_is_Metric.direction_is_in), 'carbon-relay received')"
+	    }
           ],
           "aliasColors": {},
           "seriesOverrides": [],
@@ -222,11 +230,11 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(stats.raintank-docker.nsq.nsqd_4151.topic.metrics.channel.tank.*, 8)"
+              "target": "aliasByNode(stats.$environment.nsq.*.topic.metrics.channel.tank.*, 8)"
             },
             {
               "refId": "B",
-              "target": "aliasByNode(stats.raintank-docker.gauges.nsq.nsqd_4151.topic.metrics.depth, 7)"
+              "target": "aliasByNode(stats.$environment.gauges.nsq.*.topic.metrics.depth, 7)"
             }
           ],
           "aliasColors": {
@@ -259,7 +267,7 @@
           "isNew": true,
           "id": 5,
           "mode": "markdown",
-          "content": "*this dashboard won't show anything until you run the optional fake-metrics-to-nsq tool*",
+          "content": "*this dashboard won't show anything until you run the optional fake-metrics tool*",
           "style": {},
           "links": []
         }
@@ -297,7 +305,29 @@
     "now": true
   },
   "templating": {
-    "list": []
+    "list": [
+    {
+        "type": "query",
+        "datasource": "graphite",
+        "refresh": 0,
+        "name": "environment",
+        "hide": 0,
+        "options": [
+          {
+            "text": "raintank-docker",
+            "value": "raintank-docker",
+            "selected": true
+          }
+        ],
+        "includeAll": false,
+        "multi": false,
+        "query": "stats.*",
+        "current": {
+          "text": "raintank-docker",
+          "value": "raintank-docker"
+        }
+      }
+]
   },
   "annotations": {
     "list": []

@@ -1,7 +1,7 @@
 {
   "id": null,
-  "title": "Fake metrics to nsq - data",
-  "originalTitle": "Fake metrics to nsq - data",
+  "title": "Fake metrics - data",
+  "originalTitle": "Fake metrics - data",
   "tags": [],
   "style": "dark",
   "timezone": "browser",
@@ -86,7 +86,7 @@
       "height": "25px",
       "panels": [
         {
-          "content": "*this dashboard won't show anything until you run the optional fake-metrics-to-nsq tool*",
+          "content": "*this dashboard won't show anything until you run the optional fake-metrics tool*",
           "editable": true,
           "error": false,
           "id": 2,
