@@ -160,6 +160,8 @@ benchmark:
   image: raintank/benchmark
   hostname: benchmark
   volumes:
+    - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
+    - ./logs:/var/log/raintank
     - ./results:/opt/raintank/raintank-tsdb-benchmark/results
   links:
     - statsdaemon:statsdaemon
