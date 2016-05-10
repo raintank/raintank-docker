@@ -169,6 +169,7 @@ benchmark:
     - elasticsearch:elasticsearch
     - graphiteApi:graphite-api
     - metricTank:metricTank
+    - carbon-relay-ng:carbon-relay-ng
 
 grafana:
   image: raintank/grafana
