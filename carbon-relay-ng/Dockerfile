@@ -7,4 +7,4 @@ RUN mkdir -p /var/spool/carbon-relay-ng
 WORKDIR /
 ADD proxy.ini /proxy.ini
 ADD storage-schemas.conf /storage-schemas.conf
-CMD /go/src/github.com/graphite-ng/carbon-relay-ng/carbon-relay-ng proxy.ini > /var/log/raintank/carbon-relay-ng.log 2>&1
+CMD while true; do sleep 10; done  # do just enough to keep the container running

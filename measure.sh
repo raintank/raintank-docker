@@ -8,7 +8,7 @@ COLUMNS=512 top -b -c | grep -v sed | sed -u -n \
   -e 's#`- ./metric_tank.*#metric-tank#p' \
   -e 's#`- ./nsq_probe_events_to_elastic.*#npee#p' \
   -e 's#`-.*python.*gunicorn.*#graphite-api#p' \
-  -e 's#`-.*/carbon-relay-ng proxy.ini$#carbon-relay-ng#p' \
+  -e 's#`-.*/carbon-relay-ng.*proxy.ini$#carbon-relay-ng#p' \
   -e 's#`-.*rabbitmq_server.*#rabbit#p' \
   -e 's#`-.*/go/bin/statsdaemon.*#statsdaemon#p' \
   -e 's#`-.*node.*raintank-collector.*#collector#p' \
