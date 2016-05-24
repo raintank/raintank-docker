@@ -2,8 +2,6 @@ FROM library/ubuntu
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y supervisor build-essential python-dev libffi-dev libcairo2-dev python-pip git
 
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
 RUN pip install gunicorn Flask-Cache elasticsearch statsd
 
 RUN echo 1448597559 \
@@ -20,4 +18,4 @@ RUN chmod a+x /usr/bin/start-graphite.py
 RUN mkdir -p /var/log/raintank
 VOLUME /var/log/raintank
 
-CMD ["/usr/bin/supervisord"]
+CMD ["/usr/bin/start-graphite.py"]

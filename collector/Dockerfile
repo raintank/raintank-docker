@@ -1,9 +1,5 @@
 FROM raintank/nodejsgo
 
-
-RUN apt-get update && apt-get -y install supervisor
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
 RUN mkdir -p /opt/raintank
 WORKDIR /opt/raintank
 
@@ -23,4 +19,4 @@ COPY config.json /opt/raintank/raintank-collector/etc/raintank.json
 
 RUN mkdir -p /var/log/raintank
 
-CMD ["/usr/bin/supervisord"]
+CMD ["/usr/bin/nodejs /usr/local/lib/node_modules/raintank-collector/app.js", "-c", "/etc/raintank/collector/config.json"]
