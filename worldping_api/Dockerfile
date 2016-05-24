@@ -1,8 +1,5 @@
 FROM raintank/nodejsgo
 
-RUN apt-get update && apt-get -y install supervisor libfontconfig1 libfreetype6 libjpeg8 libstdc++6
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
 ENV GOPATH /go
 ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
 
@@ -21,4 +18,4 @@ RUN chmod +x /tmp/prepare-nsqd.sh
 RUN mkdir -p /var/log/raintank
 COPY conf/worldping.ini /etc/raintank/worldping.ini
 
-CMD ["/usr/bin/supervisord"]
+CMD ["/go/bin/worldping-api", "-config", "/etc/raintank/worldping.ini", "web"]
