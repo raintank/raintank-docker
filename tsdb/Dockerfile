@@ -5,7 +5,7 @@ ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
 
 RUN go get github.com/raintank/raintank-apps/tsdb
 
-EXPOSE 80
+EXPOSE 8081
 
 COPY tsdb.ini /etc/raintank/tsdb.ini
 

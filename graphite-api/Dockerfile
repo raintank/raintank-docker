@@ -1,6 +1,6 @@
 FROM library/ubuntu
 
-RUN apt-get update && apt-get upgrade -y && apt-get install -y supervisor build-essential python-dev libffi-dev libcairo2-dev python-pip git
+RUN apt-get update && apt-get upgrade -y && apt-get install -y supervisor build-essential python-dev libffi-dev libcairo2-dev python-pip-whl=8.1.1-2 python-pip=8.1.1-2 git
 
 RUN pip install gunicorn Flask-Cache elasticsearch statsd
 
