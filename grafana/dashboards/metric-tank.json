@@ -842,7 +842,16 @@
           "pointradius": 1,
           "points": true,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "/idle/",
+              "lines": true,
+              "linewidth": 0,
+              "points": false,
+              "stack": true,
+              "yaxis": 2
+            }
+	  ],
           "span": 4,
           "stack": false,
           "steppedLine": false,
@@ -858,7 +867,11 @@
             {
               "refId": "C",
               "target": "alias(stats.$environment.timers.metric_tank.$host.request_handle_duration.upper, 'max')"
-            }
+            },
+            {
+              "refId": "D",
+              "target": "aliasByNode(perSecond(collectd.$environment.metric-tank.$host.cpu.*.cpu.idle), 5, 7)"
+             }
           ],
           "timeFrom": null,
           "timeShift": null,
