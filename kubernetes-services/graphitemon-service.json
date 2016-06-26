@@ -1,0 +1,16 @@
+{
+    "kind": "Service",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "graphitemon"
+    },
+    "spec": {
+        "ports": [
+            {
+                "protocol": "TCP",
+                "port": 2003,
+                "targetPort": 2003
+            }
+        ]
+    }
+}

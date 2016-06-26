@@ -1,0 +1,18 @@
+{
+    "kind": "Endpoints",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "cassandra"
+    },
+    "subsets": [
+        {
+            "addresses": [
+                { "ip": "10.240.0.4" }
+            ],
+            "ports": [
+                { "name": "cql", "port": 9042 },
+		{ "name": "thrift", "port": 9160 }
+            ]
+        }
+    ]
+}

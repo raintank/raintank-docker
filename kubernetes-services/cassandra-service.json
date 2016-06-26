@@ -1,0 +1,23 @@
+{
+    "kind": "Service",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "cassandra"
+    },
+    "spec": {
+        "ports": [
+            {
+		"name": "cql",
+                "protocol": "TCP",
+                "port": 9042,
+                "targetPort": 9042
+            },
+            {
+		"name": "thrift",
+                "protocol": "TCP",
+                "port": 9160,
+                "targetPort": 9160
+            }
+        ]
+    }
+}

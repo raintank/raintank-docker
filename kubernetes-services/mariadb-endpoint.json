@@ -1,0 +1,17 @@
+{
+    "kind": "Endpoints",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "mariadb"
+    },
+    "subsets": [
+        {
+            "addresses": [
+                { "ip": "10.240.0.2" }
+            ],
+            "ports": [
+                { "port": 3306 }
+            ]
+        }
+    ]
+}

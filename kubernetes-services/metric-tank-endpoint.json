@@ -1,0 +1,17 @@
+{
+    "kind": "Endpoints",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "metric-tank"
+    },
+    "subsets": [
+        {
+            "addresses": [
+                { "ip": "10.240.0.5" }
+            ],
+            "ports": [
+                { "port": 18763 }
+            ]
+        }
+    ]
+}

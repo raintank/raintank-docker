@@ -1,0 +1,17 @@
+{
+    "kind": "Endpoints",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "graphitemon"
+    },
+    "subsets": [
+        {
+            "addresses": [
+                { "ip": "147.75.194.137" }
+            ],
+            "ports": [
+                { "port": 2003 }
+            ]
+        }
+    ]
+}

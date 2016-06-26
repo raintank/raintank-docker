@@ -1,0 +1,38 @@
+{
+    "kind": "Service",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "rabbitmq"
+    },
+    "spec": {
+	"selector": {
+	    "run": "rabbitmq"
+	},
+        "ports": [
+	    {
+		"name": "rabbitmq-main",
+                "protocol": "TCP",
+                "port": 5672,
+                "targetPort": 5672
+            },
+	    {
+		"name": "rabbitmq-manage",
+                "protocol": "TCP",
+                "port": 15672,
+                "targetPort": 15672
+            },
+   	    {
+		"name": "rabbitmq-manage2",
+                "protocol": "TCP",
+                "port": 25672,
+                "targetPort": 25672
+            },
+	    {
+		"name": "epmd",
+                "protocol": "TCP",
+                "port": 4369,
+                "targetPort": 4369 
+            }
+        ]
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "kind": "Service",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "nsqd"
+    },
+    "spec": {
+	"selector": {
+	    "run": "nsqd"
+	},
+        "ports": [
+            {
+		"name": "nsqd-tcp",
+                "protocol": "TCP",
+                "port": 4150,
+                "targetPort": 4150
+            },
+	    {
+		"name": "nsqd-http",
+                "protocol": "TCP",
+                "port": 4151,
+                "targetPort": 4151
+            }
+        ]
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "kind": "Endpoints",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "elasticsearch"
+    },
+    "subsets": [
+        {
+            "addresses": [
+                { "ip": "10.240.0.3" }
+            ],
+            "ports": [
+                { "port": 9200 }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "kind": "Service",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "metric-tank"
+    },
+    "spec": {
+        "ports": [
+            {
+                "protocol": "TCP",
+                "port": 18763,
+                "targetPort": 18763
+            }
+        ]
+    }
+}
