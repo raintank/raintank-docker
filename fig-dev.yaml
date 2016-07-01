@@ -65,6 +65,7 @@ metricTank:
     - statsdaemon:statsdaemon
     - cassandra:cassandra
     - elasticsearch:elasticsearch
+    - kafka:kafka
   volumes:
     - ./logs:/var/log/raintank
     - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
@@ -170,6 +171,7 @@ benchmark:
     - graphiteApi:graphite-api
     - metricTank:metricTank
     - carbon-relay-ng:carbon-relay-ng
+    - kafka:kafka
 
 grafana:
   image: raintank/grafana
