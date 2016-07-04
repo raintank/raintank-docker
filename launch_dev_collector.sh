@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 # launch a collector with an auto-assigned id, based on an incrementing counter, and hook it into the screen session
 # don't run this script concurrently
 
@@ -13,13 +14,11 @@ docker_name=raintankdocker_raintankCollector_$id
 eval $(grep ^RT_CODE setup_dev.sh)
 eval $(grep ^RT_LOGS setup_dev.sh)
 
-docker run --link=raintankdocker_worldpingApi_1:worldpingApi \
-           -v $RT_CODE/raintank-collector:/opt/raintank/raintank-collector \
-           -v $RT_LOGS:/var/log/raintank \
-           -e RAINTANK_collector_name=$id -d \
-           --name=$docker_name \
+docker run --link=raintankdocker_worldpingApi_1:worldpingApi --link=raintankdocker_tsdb_1:tsdb\
+           -v $RT_CODE/raintank-probe/build:/go/bin/ \
+           -d --name=$docker_name \
            -h collector-$id \
-           raintank/collector
+           raintank/raintank-probe -api-key=changeme -name=$id -server-url=ws://worldpingApi/ -tsdb-url=http://tsdb/
 
 screen -S raintank -X screen -t collector-$id docker exec -t -i $docker_name bash
 screen -S raintank -p collector-$id -X stuff 'wait.sh worldpingapi:80 && supervisorctl start all; touch /var/log/raintank/collector.log\n'
