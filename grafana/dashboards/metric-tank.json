@@ -60,7 +60,11 @@
               "fill": 3,
               "linewidth": 0,
               "yaxis": 2
-            }
+            },
+	    {
+	      "alias": "/metrics_received/",
+	      "stack": "A"
+	    }
           ],
           "span": 4,
           "stack": false,
@@ -68,7 +72,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(stats.$environment.metric_tank.$host.metrics_received, 'metrics in')"
+              "target": "aliasByNode(stats.$environment.metric_tank.$host.*.metrics_received, 4, 5)"
             },
             {
               "hide": true,

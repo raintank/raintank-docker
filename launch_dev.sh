@@ -46,7 +46,7 @@ for service in screens/*; do
   fi
   while read line; do
     screen -S raintank -p $(basename $service) -X stuff "$line\n"
-  done < $service
+  done < <(grep -v '^#' $service)
 done
 
 ./nodejsgo/wait.sh localhost:9200
