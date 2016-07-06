@@ -166,6 +166,8 @@ benchmark:
     - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
     - ./logs:/var/log/raintank
     - ./results:/opt/raintank/raintank-tsdb-benchmark/results
+  ports:
+    - "6764:6764"
   links:
     - statsdaemon:statsdaemon
     - nsqd:nsqd
