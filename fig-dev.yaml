@@ -41,6 +41,8 @@ kafka:
   ports:
     - "2181:2181"
     - "9092:9092"
+  volumes:
+          - /tmp/kafka-logs
 
 graphiteWatcher:
   image: raintank/graphite-watcher
