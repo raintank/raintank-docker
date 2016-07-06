@@ -9,6 +9,9 @@
 # agg 6h     60*60*6 -> 21600  3                   4y          19.8             5840          21600     1
 # TODO update numchunks to 36 (6h)once everything tested well, now lower (30min) to spot issues earlier
 # TODO update chunk retentions to 1 once https://github.com/raintank/raintank-metric/issues/65 is fixed
+#
+#
+# -log-level 0=TRACE|1=DEBUG|2=INFO|3=WARN|4=ERROR|5=CRITICAL|6=FATAL (default 2)
 cd /go/src/github.com/raintank/raintank-metric/metric_tank
 go build
 wait.sh cassandra:9042 elasticsearch:9200
@@ -25,5 +28,6 @@ wait.sh cassandra:9042 elasticsearch:9200
 	--cassandra-addrs cassandra \
 	--accounting-period 1min \
 	--proftrigger-freq 1s \
+	-log-level 2 \
 	&>> /var/log/raintank/nsq_metrics_tank.log &
 tail -f /var/log/raintank/nsq_metrics_tank.log
