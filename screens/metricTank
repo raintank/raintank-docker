@@ -22,7 +22,8 @@ wait.sh cassandra:9042 elasticsearch:9200
 	--numchunks 3 \
 	--agg-settings 10m:6h:2:9d,2h:6h:2:74d,6h:6h:2:4y \
 	--statsd-addr statsdaemon:8125 \
-	--kafka-broker kafka:9092 \
+	--kafka-mdm-broker kafka:9092 \
+	--kafka-mdam-broker kafka:9092 \
 	--nsqd-tcp-address nsqd:4150 \
 	--listen :6063 \
 	--primary-node \
