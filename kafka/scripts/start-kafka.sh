@@ -64,4 +64,5 @@ if [ ! -z "$AUTO_CREATE_TOPICS" ]; then
 fi
 
 # Run Kafka
+export JMX_PORT=9999
 $KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties
