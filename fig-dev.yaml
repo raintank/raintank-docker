@@ -44,6 +44,28 @@ kafka:
   volumes:
           - /tmp/kafka-logs
 
+kafkaManager:
+  image: sheepkiller/kafka-manager
+  hostname: kafka-manager
+  environment:
+          ZK_HOSTS: kafka:2181
+          APPLICATION_SECRET: somesalt
+  ports:
+    - "9000:9000"
+  links:
+    - kafka:kafka
+
+kafkaOffsetMonitor:
+  image: jpodeszwik/kafka-offset-monitor:0.2.1
+  hostname: kafka-offset-monitor
+  environment:
+          ZK: kafka
+  ports:
+    - "8080:8080"
+  links:
+    - kafka:kafka
+
+
 graphiteWatcher:
   image: raintank/graphite-watcher
   hostname: watcher
