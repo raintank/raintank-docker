@@ -43,7 +43,9 @@ kafka:
     - "9092:9092"
     - "9999:9999"
   volumes:
-          - /tmp/kafka-logs
+    - /tmp/kafka-logs
+    - ./logs/zookeeper:/var/log/zookeeper
+    - ./logs/supervisor:/var/log/supervisor
 
 kafkaManager:
   image: sheepkiller/kafka-manager
