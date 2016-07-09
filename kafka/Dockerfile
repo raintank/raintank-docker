@@ -15,6 +15,8 @@ RUN apt-get update && \
     wget -q http://apache.mirrors.spacedump.net/kafka/"$KAFKA_VERSION"/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION".tgz -O /tmp/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION".tgz && \
     tar xfz /tmp/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION".tgz -C /opt && \
     rm /tmp/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION".tgz
+RUN rm /opt/kafka_2.11-0.10.0.0/libs/snappy-java-1.1.2.4.jar
+RUN wget -q http://repo1.maven.org/maven2/org/xerial/snappy/snappy-java/1.1.2.6/snappy-java-1.1.2.6.jar -O /opt/kafka_2.11-0.10.0.0/libs/snappy-java-1.1.2.6.jar
 
 ADD scripts/start-kafka.sh /usr/bin/start-kafka.sh
 
