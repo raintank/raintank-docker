@@ -115,11 +115,11 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(stats.$environment.gauges.fake_metrics.*.metricpublisher.out.gnet.publish_queued, 8)"
+              "target": "aliasByNode(stats.$environment.gauges.fake_metrics.*.metricpublisher.out.*.publish_queued, 7,8)"
             },
             {
               "refId": "B",
-              "target": "alias(stats.$environment.fake_metrics.*.metricpublisher.out.gnet.publish_errors, 'publish errors')"
+              "target": "aliasByNode(stats.$environment.fake_metrics.*.metricpublisher.out.*.publish_errors, 6,7)"
             }
           ],
           "datasource": "graphite",
@@ -204,7 +204,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(stats.$environment.timers.fake_metrics.*.metricpublisher.out.gnet.publish_duration.{mean,upper*}, 7, 9)"
+              "target": "aliasByNode(stats.$environment.timers.fake_metrics.*.metricpublisher.out.*.publish_duration.{mean,upper*}, 7, 9)"
             }
           ],
           "datasource": "graphite",

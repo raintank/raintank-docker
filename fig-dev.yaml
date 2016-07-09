@@ -41,6 +41,31 @@ kafka:
   ports:
     - "2181:2181"
     - "9092:9092"
+    - "9999:9999"
+  volumes:
+          - /tmp/kafka-logs
+
+kafkaManager:
+  image: sheepkiller/kafka-manager
+  hostname: kafka-manager
+  environment:
+          ZK_HOSTS: kafka:2181
+          APPLICATION_SECRET: somesalt
+  ports:
+    - "9000:9000"
+  links:
+    - kafka:kafka
+
+kafkaOffsetMonitor:
+  image: jpodeszwik/kafka-offset-monitor:0.2.1
+  hostname: kafka-offset-monitor
+  environment:
+          ZK: kafka
+  ports:
+    - "8080:8080"
+  links:
+    - kafka:kafka
+
 
 graphiteWatcher:
   image: raintank/graphite-watcher
@@ -164,6 +189,8 @@ benchmark:
     - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
     - ./logs:/var/log/raintank
     - ./results:/opt/raintank/raintank-tsdb-benchmark/results
+  ports:
+    - "6764:6764"
   links:
     - statsdaemon:statsdaemon
     - nsqd:nsqd

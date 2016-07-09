@@ -13,6 +13,9 @@ COLUMNS=512 top -b -c | grep -v sed | sed -u -n \
   -e 's#`-.*/go/bin/statsdaemon.*#statsdaemon#p' \
   -e 's#`-.*node.*raintank-collector.*#collector#p' \
   -e 's#`- /usr/lib/jvm/java-8-openjdk-amd64/.*kafkaServer.*#kafka#p' \
+  -e 's#`-.*fake_metrics.*-kafka-mdam-tcp-address#fake_metrics-kafka-mdam#p' \
+  -e 's#`-.*fake_metrics.*-kafka-mdm-tcp-address#fake_metrics-kafka-mdm#p' \
+  -e 's#`-.*fake_metrics.*-nsqd-tcp-address#fake_metrics-nsqd#p' \
   | awk '{print $6,$7,$11;fflush();}' \
   | while read mem cpu process; do
     ts=$(date +%s)
