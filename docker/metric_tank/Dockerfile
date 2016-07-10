@@ -9,4 +9,7 @@ RUN mkdir /etc/raintank
 COPY config.ini /etc/raintank/
 RUN go get -u github.com/raintank/raintank-metric/metric_tank
 
+ADD storage-schemas.conf /etc/raintank/storage-schemas.conf
+ADD metric-tank.ini /etc/raintank/metric-tank.ini
+
 CMD ["/usr/bin/supervisord"]
