@@ -12,7 +12,7 @@
     {
       "collapse": false,
       "editable": true,
-      "height": "200px",
+      "height": "150px",
       "panels": [
         {
           "aliasColors": {},
@@ -86,7 +86,8 @@
               "min": null,
               "show": true
             }
-          ]
+          ],
+          "transparent": true
         }
       ],
       "title": "New row"
@@ -192,7 +193,8 @@
               "min": 0,
               "show": true
             }
-          ]
+          ],
+          "transparent": true
         }
       ],
       "title": "Row"
@@ -283,7 +285,8 @@
               "min": null,
               "show": true
             }
-          ]
+          ],
+          "transparent": true
         }
       ],
       "title": "New row"
@@ -291,7 +294,7 @@
     {
       "collapse": false,
       "editable": true,
-      "height": "200px",
+      "height": "150px",
       "panels": [
         {
           "aliasColors": {
@@ -365,13 +368,13 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Duration breakdown",
+          "title": "",
           "tooltip": {
             "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
-          "transparent": false,
+          "transparent": true,
           "type": "graph",
           "xaxis": {
             "show": true
@@ -459,7 +462,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "requests rate",
+          "title": "",
           "tooltip": {
             "msResolution": false,
             "shared": true,
@@ -484,15 +487,131 @@
               "min": null,
               "show": true
             }
-          ]
+          ],
+          "transparent": true
         }
       ],
       "title": "New row"
+    },
+    {
+      "title": "New row",
+      "height": "150px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "",
+          "error": false,
+          "span": 12,
+          "editable": true,
+          "type": "graph",
+          "isNew": true,
+          "id": 18,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(collectd.*.cpu-*.*, 3)",
+              "textEditor": false
+            }
+          ],
+          "datasource": "graphite",
+          "renderer": "flot",
+          "yaxes": [
+            {
+              "label": null,
+              "show": true,
+              "logBase": 1,
+              "min": null,
+              "max": null,
+              "format": "short"
+            },
+            {
+              "label": null,
+              "show": true,
+              "logBase": 1,
+              "min": null,
+              "max": null,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "grid": {
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 10,
+          "linewidth": 0,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": true,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "individual",
+            "shared": true,
+            "msResolution": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "aliasColors": {},
+          "seriesOverrides": [
+            {
+              "alias": "/wait/",
+              "color": "#890F02"
+            },
+            {
+              "alias": "/idle/",
+              "color": "#629E51"
+            },
+            {
+              "alias": "/interrupt/",
+              "color": "#6D1F62"
+            },
+            {
+              "alias": "/nice/",
+              "color": "#967302"
+            },
+            {
+              "alias": "/softirq/",
+              "color": "#E24D42"
+            },
+            {
+              "alias": "/steal/",
+              "color": "#58140C"
+            },
+            {
+              "alias": "/system/",
+              "color": "#962D82"
+            },
+            {
+              "alias": "/user/",
+              "color": "#511749"
+            }
+          ],
+          "links": []
+        }
+      ]
     }
   ],
   "time": {
-    "from": "2016-07-04T22:11:55.889Z",
-    "to": "2016-07-04T22:42:06.483Z"
+    "from": "now-5m",
+    "to": "now"
   },
   "timepicker": {
     "collapse": false,
@@ -547,6 +666,11 @@
           {
             "text": "metric-tank",
             "value": "metric-tank",
+            "selected": false
+          },
+          {
+            "text": "raintank",
+            "value": "raintank",
             "selected": false
           }
         ],
@@ -647,6 +771,6 @@
   },
   "refresh": false,
   "schemaVersion": 12,
-  "version": 0,
+  "version": 1,
   "links": []
 }
