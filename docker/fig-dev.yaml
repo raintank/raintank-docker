@@ -174,7 +174,7 @@ worldpingApi:
   volumes:
     - ../raintank_code/worldping-api:/go/src/github.com/raintank/worldping-api
     - ../logs:/var/log/raintank
-    - ../worldping_api/conf:/etc/raintank/
+    - ./worldping_api/conf:/etc/raintank/
 
 statsdaemon:
   image: raintank/statsdaemon
