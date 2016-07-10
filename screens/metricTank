@@ -32,5 +32,5 @@ wait.sh cassandra:9042 elasticsearch:9200
 	--proftrigger-freq 1s \
 	-log-level 2 \
 	-config /etc/raintank/metric-tank.ini \
-	&>> /var/log/raintank/nsq_metrics_tank.log &
-tail -f /var/log/raintank/nsq_metrics_tank.log
+	&>> /var/log/raintank/metric-tank.log &
+tail -f /var/log/raintank/metric-tank.log
