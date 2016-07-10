@@ -19,7 +19,7 @@ fi
 IP=$(ip addr show docker0 |grep "inet "|awk '{print $2}'|cut -d"/" -f 1)
 
 screen -S raintank -p benchmark -X stuff "echo -e \
-\"orgs=$ORG_COUNT\nrate_high=$RATE_HIGH\nrate_low=$RATE_LOW\ngraphite_host=$IP\ngraphitemon_host=$IP\ngrafana_host=$IP\nelasticsearch_host=$IP\nmon_host=raintankdocker_grafana_1\nenv=raintank-docker\n\"\
+\"orgs=$ORG_COUNT\nrate_high=$RATE_HIGH\nrate_low=$RATE_LOW\ngraphite_host=$IP\ngraphitemon_host=$IP\ngrafana_host=$IP\nelasticsearch_host=$IP\nmon_host=raintank_grafana_1\nenv=raintank-docker\n\"\
  >raintank-docker.conf; ./run.sh raintank-docker.conf\n"
 
 

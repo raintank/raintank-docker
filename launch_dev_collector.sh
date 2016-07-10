@@ -2,18 +2,18 @@
 # launch a collector with an auto-assigned id, based on an incrementing counter, and hook it into the screen session
 # don't run this script concurrently
 
-highest=$(docker ps | grep raintankdocker_raintankCollector_dev | sed 's#.*raintankdocker_raintankCollector_dev##' | sort -n | tail -n 1)
-docker ps | grep raintankdocker_raintankCollector_dev
+highest=$(docker ps | grep raintank_raintankCollector_dev | sed 's#.*raintank_raintankCollector_dev##' | sort -n | tail -n 1)
+docker ps | grep raintank_raintankCollector_dev
 # if no containers yet, start at 1
 [ -z "$highest" ] && highest=0
 id=dev$((highest+1))
 
-docker_name=raintankdocker_raintankCollector_$id
+docker_name=raintank_raintankCollector_$id
 
 eval $(grep ^RT_CODE setup_dev.sh)
 eval $(grep ^RT_LOGS setup_dev.sh)
 
-docker run --link=raintankdocker_worldpingApi_1:worldpingApi \
+docker run --link=raintank_worldpingApi_1:worldpingApi \
            -v $RT_CODE/raintank-collector:/opt/raintank/raintank-collector \
            -v $RT_LOGS:/var/log/raintank \
            -e RAINTANK_collector_name=$id -d \

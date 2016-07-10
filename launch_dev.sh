@@ -21,13 +21,13 @@ echo "cleaning logs..."
 rm -rf logs/*
 
 echo "docker-compose bringing up containers..."
-docker-compose -f fig-dev.yaml up -d || exit $?
+docker-compose -p raintank -f docker/fig-dev.yaml up -d || exit $?
 
 echo "starting screen session..."
 screen -S raintank -d -m -t shell bash
 
-num=$(grep '^[a-z]' fig-dev.yaml | wc -l)
-while [ $(docker ps | grep -c raintankdocker) -ne $num ]; do
+num=$(grep '^[a-z]' docker/fig-dev.yaml | wc -l)
+while [ $(docker ps | grep -c raintank) -ne $num ]; do
   echo "waiting for all $num containers to run..."
   sleep 0.5
 done
@@ -42,20 +42,20 @@ for service in screens/*; do
   if [ $base == measure ]; then
     screen -S raintank -X screen -t $base bash
   else
-   screen -S raintank -X screen -t $base docker exec -t -i raintankdocker_${base}_1 bash
+   screen -S raintank -X screen -t $base docker exec -t -i raintank_${base}_1 bash
   fi
   while read line; do
     screen -S raintank -p $(basename $service) -X stuff "$line\n"
   done < <(grep -v '^#' $service)
 done
 
-./nodejsgo/wait.sh localhost:9200
+./docker/nodejsgo/wait.sh localhost:9200
 D=$(( $(date +%s) * 1000))
 payload='{"timestamp": '$D',"type": "devstack-start","tags": "start","text": "devstack started"}'
 curl -s -X POST "localhost:9200/benchmark/event?" -d "$payload" >/dev/null
 
 echo "adding demo1 agent to task-server...."
-./nodejsgo/wait.sh localhost:8082
+./docker/nodejsgo/wait.sh localhost:8082
 curl -X POST  -H "content-type: json" -H "Authorization: Bearer not_very_secret_key" -d '{"id": 1, "name": "demo1", "enabled": true, "public": true}' http://localhost:8082/api/v1/agents
 
 echo "starting collector..."
