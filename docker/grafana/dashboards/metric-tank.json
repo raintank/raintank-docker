@@ -1884,8 +1884,8 @@
       {
         "allFormat": "glob",
         "current": {
-          "text": "metricstank",
-          "value": "metricstank"
+          "text": "metrictank",
+          "value": "metrictank"
         },
         "datasource": "$datasource",
         "hide": 0,
@@ -1895,8 +1895,8 @@
         "name": "host",
         "options": [
           {
-            "text": "metricstank",
-            "value": "metricstank",
+            "text": "metrictank",
+            "value": "metrictank",
             "selected": true
           }
         ],

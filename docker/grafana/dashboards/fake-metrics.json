@@ -492,7 +492,7 @@
             },
             {
               "refId": "B",
-              "target": "alias(stats.$environment.metric_tank.metricstank.metrics_received, 'MT received')"
+              "target": "alias(stats.$environment.metric_tank.*.metrics_received, 'MT received')"
             },
             {
               "refId": "C",

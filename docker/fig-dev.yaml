@@ -84,7 +84,7 @@ graphiteWatcher:
 
 metricTank:
   image: raintank/metric_tank
-  hostname: metricstank
+  hostname: metrictank
   ports:
     - "6063:6063"
     - "2002:2003"
@@ -156,7 +156,7 @@ graphiteApi:
     - elasticsearch:elasticsearch
     - statsdaemon:statsdaemon
     - cassandra:cassandra
-    - metricTank:nsqmetricstank
+    - metricTank:metrictank
   volumes:
     - ../logs:/var/log/raintank
 

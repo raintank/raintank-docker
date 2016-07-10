@@ -8,7 +8,7 @@ functions:
 - graphite_api.functions.PieFunctions
 raintank:
   tank:
-    url: http://metricstank:6063/
+    url: http://metrictank:6063/
   es:
     url: http://elasticsearch:9200/
 search_index: /var/lib/graphite/index
