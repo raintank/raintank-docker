@@ -197,7 +197,7 @@ benchmark:
     - elasticsearch:elasticsearch
     - graphiteApi:graphite-api
     - metricTank:metricTank
-    - carbon-relay-ng:carbon-relay-ng
+    - carbonrelayng:carbonrelayng
     - kafka:kafka
 
 grafana:
@@ -259,7 +259,7 @@ tsdb:
     - ./raintank_code/raintank-apps/build/bin:/go/bin
     - ./logs:/var/log/raintank
 
-carbon-relay-ng:
+carbonrelayng:
   image: raintank/carbon-relay-ng
   hostname: carbon-relay-ng
   ports:
@@ -271,3 +271,10 @@ carbon-relay-ng:
   volumes:
     - ./raintank_code/carbon-relay-ng:/go/src/github.com/graphite-ng/carbon-relay-ng
     - ./logs:/var/log/raintank
+
+collectd:
+  image: raintank/collectd
+  hostname: collectd
+  links:
+    - graphitemon:graphitemon
+    - kafka:kafka

@@ -1,4 +1,4 @@
-FROM library/ubuntu
+FROM ubuntu:14.04
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y supervisor build-essential python-dev libffi-dev libcairo2-dev python-pip git
 

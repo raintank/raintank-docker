@@ -1,4 +1,5 @@
-FROM ubuntu
+FROM ubuntu:14.04
+RUN apt-get update
 RUN apt-get -y install curl apt-transport-https
 RUN echo "deb https://packagecloud.io/grafana/testing/debian/ jessie main" > /etc/apt/sources.list.d/grafana.list
 RUN curl https://packagecloud.io/gpg.key | apt-key add -
