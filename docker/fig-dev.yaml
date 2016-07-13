@@ -274,3 +274,10 @@ carbon-relay-ng:
   volumes:
     - ../raintank_code/carbon-relay-ng:/go/src/github.com/graphite-ng/carbon-relay-ng
     - ../logs:/var/log/raintank
+  
+collectd:
+  image: raintank/collectd
+  hostname: collectd
+  links:
+    - graphitemon:graphitemon
+    - kafka:kafka
