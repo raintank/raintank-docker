@@ -6,11 +6,11 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 ENV GOPATH /go
 ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
 
-# insecure due to bosun.org issue with cloudflare
-RUN go get github.com/tools/godep
 RUN mkdir -p /go/src/github.com/raintank/
 RUN cd /go/src/github.com/raintank/ && git clone https://github.com/raintank/worldping-api.git
-RUN cd /go/src/github.com/raintank/worldping-api && godep go build -o /go/bin/worldping-api
+RUN cd /go/src/github.com/raintank/worldping-api && ./rt-pkg/depends.sh
+RUN cd /go/src/github.com/raintank/worldping-api && ./rt-pkg/build.sh
+RUN cd /go/src/github.com/raintank/worldping-api && go build -o /go/bin/worldping-api
 
 EXPOSE 80
 EXPOSE 443

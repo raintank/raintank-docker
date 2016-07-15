@@ -43,7 +43,7 @@
           "lines": true,
           "linewidth": 0,
           "links": [],
-          "nullPointMode": "null",
+          "nullPointMode": "null as zero",
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -1884,8 +1884,8 @@
       {
         "allFormat": "glob",
         "current": {
-          "text": "metricstank",
-          "value": "metricstank"
+          "text": "metrictank",
+          "value": "metrictank"
         },
         "datasource": "$datasource",
         "hide": 0,
@@ -1895,8 +1895,8 @@
         "name": "host",
         "options": [
           {
-            "text": "metricstank",
-            "value": "metricstank",
+            "text": "metrictank",
+            "value": "metrictank",
             "selected": true
           }
         ],

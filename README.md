@@ -36,7 +36,7 @@ chmod +x /usr/local/bin/docker-compose
 git clone git@github.com:raintank/raintank-docker.git
 cd raintank-docker
 ./build_all.sh
-./setup.sh
+./setup_dev.sh
 ./launch_dev.sh
 ```
 

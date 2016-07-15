@@ -9,15 +9,20 @@
 # agg 6h     60*60*6 -> 21600  3                   4y          19.8             5840          21600     1
 # TODO update numchunks to 36 (6h)once everything tested well, now lower (30min) to spot issues earlier
 # TODO update chunk retentions to 1 once https://github.com/raintank/raintank-metric/issues/65 is fixed
+#
+#
+# -log-level 0=TRACE|1=DEBUG|2=INFO|3=WARN|4=ERROR|5=CRITICAL|6=FATAL (default 2)
 cd /go/src/github.com/raintank/raintank-metric/metric_tank
 go build
 wait.sh cassandra:9042 elasticsearch:9200
+# use this env var to trace GC data for gcvis and https://github.com/golang/go/issues/14812
+#GODEBUG=gctrace=1,gcpacertrace=1
 ./metric_tank \
 	--chunkspan 10m \
 	--numchunks 3 \
 	--agg-settings 10m:6h:2:9d,2h:6h:2:74d,6h:6h:2:4y \
 	--statsd-addr statsdaemon:8125 \
-	--kafka-broker kafka:9092 \
+	--kafka-mdam-broker kafka:9092 \
 	--nsqd-tcp-address nsqd:4150 \
 	--listen :6063 \
 	--primary-node \
@@ -25,5 +30,7 @@ wait.sh cassandra:9042 elasticsearch:9200
 	--cassandra-addrs cassandra \
 	--accounting-period 1min \
 	--proftrigger-freq 1s \
-	&>> /var/log/raintank/nsq_metrics_tank.log &
-tail -f /var/log/raintank/nsq_metrics_tank.log
+	-log-level 2 \
+	-config /etc/raintank/metric-tank.ini \
+	&>> /var/log/raintank/metric-tank.log &
+tail -f /var/log/raintank/metric-tank.log

@@ -4,7 +4,7 @@ FROM java:openjdk-8-jre
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV SCALA_VERSION 2.11
-ENV KAFKA_VERSION 0.9.0.1
+ENV KAFKA_VERSION 0.10.0.0
 ENV KAFKA_HOME /opt/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION"
 
 # Install Kafka, Zookeeper and other needed things
@@ -15,6 +15,8 @@ RUN apt-get update && \
     wget -q http://apache.mirrors.spacedump.net/kafka/"$KAFKA_VERSION"/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION".tgz -O /tmp/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION".tgz && \
     tar xfz /tmp/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION".tgz -C /opt && \
     rm /tmp/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION".tgz
+RUN rm /opt/kafka_2.11-0.10.0.0/libs/snappy-java-1.1.2.4.jar
+RUN wget -q http://repo1.maven.org/maven2/org/xerial/snappy/snappy-java/1.1.2.6/snappy-java-1.1.2.6.jar -O /opt/kafka_2.11-0.10.0.0/libs/snappy-java-1.1.2.6.jar
 
 ADD scripts/start-kafka.sh /usr/bin/start-kafka.sh
 

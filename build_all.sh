@@ -1,6 +1,7 @@
 #!/bin/bash
 
 rebuild=0
+cd docker
 
 function fail() {
 	echo "ERROR: failed building $1. stopping." >&2

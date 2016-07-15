@@ -41,6 +41,33 @@ kafka:
   ports:
     - "2181:2181"
     - "9092:9092"
+    - "9999:9999"
+  volumes:
+    - /tmp/kafka-logs
+    - ../logs/zookeeper:/var/log/zookeeper
+    - ../logs/supervisor:/var/log/supervisor
+
+kafkaManager:
+  image: sheepkiller/kafka-manager
+  hostname: kafka-manager
+  environment:
+          ZK_HOSTS: kafka:2181
+          APPLICATION_SECRET: somesalt
+  ports:
+    - "9000:9000"
+  links:
+    - kafka:kafka
+
+kafkaOffsetMonitor:
+  image: jpodeszwik/kafka-offset-monitor:0.2.1
+  hostname: kafka-offset-monitor
+  environment:
+          ZK: kafka
+  ports:
+    - "8080:8080"
+  links:
+    - kafka:kafka
+
 
 graphiteWatcher:
   image: raintank/graphite-watcher
@@ -52,14 +79,15 @@ graphiteWatcher:
     - graphitemon:graphitemon
     - graphiteApi:graphite-api
   volumes:
-    - ./logs:/var/log/raintank
-    - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
+    - ../logs:/var/log/raintank
+    - ../raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
 metricTank:
   image: raintank/metric_tank
-  hostname: metricstank
+  hostname: metrictank
   ports:
     - "6063:6063"
+    - "2002:2003"
   links:
     - nsqd:nsqd
     - statsdaemon:statsdaemon
@@ -67,8 +95,8 @@ metricTank:
     - elasticsearch:elasticsearch
     - kafka:kafka
   volumes:
-    - ./logs:/var/log/raintank
-    - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
+    - ../logs:/var/log/raintank
+    - ../raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
 nsqMetricsToStdout:
   image: raintank/nsq_metrics_to_stdout
@@ -76,7 +104,7 @@ nsqMetricsToStdout:
   links:
     - nsqd:nsqd
   volumes:
-    - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
+    - ../raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
 nsqProbeEventsToElasticsearch:
   image: raintank/nsq_probe_events_to_elasticsearch
@@ -88,8 +116,8 @@ nsqProbeEventsToElasticsearch:
     - elasticsearch:elasticsearch
     - statsdaemon:statsdaemon
   volumes:
-    - ./logs:/var/log/raintank
-    - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
+    - ../logs:/var/log/raintank
+    - ../raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
 
 graphitemon:
   image:  raintank/graphite
@@ -128,9 +156,9 @@ graphiteApi:
     - elasticsearch:elasticsearch
     - statsdaemon:statsdaemon
     - cassandra:cassandra
-    - metricTank:nsqmetricstank
+    - metricTank:metrictank
   volumes:
-    - ./logs:/var/log/raintank
+    - ../logs:/var/log/raintank
 
 worldpingApi:
   image: raintank/worldping_api
@@ -145,8 +173,8 @@ worldpingApi:
     - statsdaemon:statsdaemon
     - nsqd:nsqd
   volumes:
-    - ./raintank_code/worldping-api:/go/src/github.com/raintank/worldping-api
-    - ./logs:/var/log/raintank
+    - ../raintank_code/worldping-api:/go/src/github.com/raintank/worldping-api
+    - ../logs:/var/log/raintank
     - ./worldping_api/conf:/etc/raintank/
 
 statsdaemon:
@@ -161,9 +189,11 @@ benchmark:
   image: raintank/benchmark
   hostname: benchmark
   volumes:
-    - ./raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
-    - ./logs:/var/log/raintank
-    - ./results:/opt/raintank/raintank-tsdb-benchmark/results
+    - ../raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
+    - ../logs:/var/log/raintank
+    - ../results:/opt/raintank/raintank-tsdb-benchmark/results
+  ports:
+    - "6764:6764"
   links:
     - statsdaemon:statsdaemon
     - nsqd:nsqd
@@ -182,8 +212,8 @@ grafana:
     - proxy:worldping-api.raintank.io
     - metricTank:metricTank
   volumes:
-    - ./raintank_code/plugins:/var/lib/grafana/plugins
-    - ./logs:/var/log/raintank
+    - ../raintank_code/plugins:/var/lib/grafana/plugins
+    - ../logs:/var/log/raintank
 
 proxy:
   image: raintank/proxy
@@ -202,9 +232,9 @@ taskAgent:
     - taskServer:task-server
     - tsdb:tsdb
   volumes:
-    - ./raintank_code/raintank-apps/build/bin:/go/bin
-    - ./raintank_code/raintank-apps/build/plugins:/var/lib/snap/plugins
-    - ./logs:/var/log/raintank
+    - ../raintank_code/raintank-apps/build/bin:/go/bin
+    - ../raintank_code/raintank-apps/build/plugins:/var/lib/snap/plugins
+    - ../logs:/var/log/raintank
 
 taskServer:
   image: raintank/task-server
@@ -215,8 +245,8 @@ taskServer:
     - rabbitmq:rabbitmq
     - statsdaemon:statsdaemon
   volumes:
-    - ./raintank_code/raintank-apps/build/bin:/go/bin
-    - ./logs:/var/log/raintank
+    - ../raintank_code/raintank-apps/build/bin:/go/bin
+    - ../logs:/var/log/raintank
 
 tsdb:
   image: raintank/tsdb
@@ -229,8 +259,8 @@ tsdb:
     - statsdaemon:statsdaemon
     - nsqd:nsqd
   volumes:
-    - ./raintank_code/raintank-apps/build/bin:/go/bin
-    - ./logs:/var/log/raintank
+    - ../raintank_code/raintank-apps/build/bin:/go/bin
+    - ../logs:/var/log/raintank
 
 carbon-relay-ng:
   image: raintank/carbon-relay-ng
@@ -242,5 +272,5 @@ carbon-relay-ng:
     - graphitemon:graphitemon
     - tsdb:tsdb
   volumes:
-    - ./raintank_code/carbon-relay-ng:/go/src/github.com/graphite-ng/carbon-relay-ng
-    - ./logs:/var/log/raintank
+    - ../raintank_code/carbon-relay-ng:/go/src/github.com/graphite-ng/carbon-relay-ng
+    - ../logs:/var/log/raintank
