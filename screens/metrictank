@@ -8,11 +8,11 @@
 # agg 2h     60*60*2 -> 7200   12                  60+14=74d   8.2              888           21600     3
 # agg 6h     60*60*6 -> 21600  3                   4y          19.8             5840          21600     1
 # TODO update numchunks to 36 (6h)once everything tested well, now lower (30min) to spot issues earlier
-# TODO update chunk retentions to 1 once https://github.com/raintank/raintank-metric/issues/65 is fixed
+# TODO update chunk retentions to 1 once https://github.com/raintank/metrictank/issues/65 is fixed
 #
 #
 # -log-level 0=TRACE|1=DEBUG|2=INFO|3=WARN|4=ERROR|5=CRITICAL|6=FATAL (default 2)
-cd /go/src/github.com/raintank/raintank-metric/metric_tank
+cd /go/src/github.com/raintank/metrictank
 go build
 wait.sh cassandra:9042 elasticsearch:9200
 # use this env var to trace GC data for gcvis and https://github.com/golang/go/issues/14812
@@ -31,6 +31,6 @@ wait.sh cassandra:9042 elasticsearch:9200
 	--accounting-period 1min \
 	--proftrigger-freq 1s \
 	-log-level 2 \
-	-config /etc/raintank/metric-tank.ini \
-	&>> /var/log/raintank/metric-tank.log &
-tail -f /var/log/raintank/metric-tank.log
+	-config /etc/raintank/metrictank.ini \
+	&>> /var/log/raintank/metrictank.log &
+tail -f /var/log/raintank/metrictank.log

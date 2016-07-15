@@ -12,8 +12,8 @@ RUN cd /go/src/github.com/grafana && \
  	#go get github.com/raintank/env-load
 
 RUN go get github.com/tsenart/vegeta
-RUN go get github.com/raintank/raintank-metric/inspect-es
-RUN go get github.com/raintank/raintank-metric/fake_metrics
+RUN go get github.com/raintank/inspect/inspect-es
+RUN go get github.com/raintank/fakemetrics
 
 RUN cd /opt/raintank && \
 	git clone https://github.com/raintank/raintank-tsdb-benchmark.git

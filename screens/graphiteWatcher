@@ -1,13 +1,13 @@
-touch /var/log/raintank/graphite-watcher.log
-cd /go/src/github.com/raintank/raintank-metric/graphite-watcher
+touch /var/log/raintank/graphitewatcher.log
+cd /go/src/github.com/raintank/inspect/graphitewatcher
 wait.sh elasticsearch:9200 graphitemon:2003 graphite-api:8888
 
-./graphite-watcher \
+./graphitewatcher \
 -env raintank-docker \
 -es-addr elasticsearch:9200 \
 -carbon graphitemon:2003 \
 -graphite graphite-api:8888 \
 -listen :6065 \
-&> /var/log/raintank/graphite-watcher.log &
+&> /var/log/raintank/graphitewatcher.log &
 
-tail -f /var/log/raintank/graphite-watcher.log
+tail -f /var/log/raintank/graphitewatcher.log

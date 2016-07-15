@@ -69,8 +69,8 @@ kafkaOffsetMonitor:
     - kafka:kafka
 
 
-graphiteWatcher:
-  image: raintank/graphite-watcher
+graphitewatcher:
+  image: raintank/graphitewatcher
   hostname: watcher
   ports:
     - "6065:6065"
@@ -80,10 +80,10 @@ graphiteWatcher:
     - graphiteApi:graphite-api
   volumes:
     - ../logs:/var/log/raintank
-    - ../raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
+    - ../raintank_code/inspect:/go/src/github.com/raintank/inspect
 
-metricTank:
-  image: raintank/metric_tank
+metrictank:
+  image: raintank/metrictank
   hostname: metrictank
   ports:
     - "6063:6063"
@@ -96,7 +96,7 @@ metricTank:
     - kafka:kafka
   volumes:
     - ../logs:/var/log/raintank
-    - ../raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
+    - ../raintank_code/metrictank:/go/src/github.com/raintank/metrictank
 
 nsqMetricsToStdout:
   image: raintank/nsq_metrics_to_stdout
@@ -104,10 +104,10 @@ nsqMetricsToStdout:
   links:
     - nsqd:nsqd
   volumes:
-    - ../raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
+    - ../raintank_code/inspect:/go/src/github.com/raintank/inspect
 
-nsqProbeEventsToElasticsearch:
-  image: raintank/nsq_probe_events_to_elasticsearch
+eventtank:
+  image: raintank/eventtank
   hostname: npee
   ports:
     - "6062:6060"
@@ -117,7 +117,7 @@ nsqProbeEventsToElasticsearch:
     - statsdaemon:statsdaemon
   volumes:
     - ../logs:/var/log/raintank
-    - ../raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
+    - ../raintank_code/eventtank:/go/src/github.com/raintank/eventtank
 
 graphitemon:
   image:  raintank/graphite
@@ -274,3 +274,10 @@ carbon-relay-ng:
   volumes:
     - ../raintank_code/carbon-relay-ng:/go/src/github.com/graphite-ng/carbon-relay-ng
     - ../logs:/var/log/raintank
+  
+collectd:
+  image: raintank/collectd
+  hostname: collectd
+  links:
+    - graphitemon:graphitemon
+    - kafka:kafka
