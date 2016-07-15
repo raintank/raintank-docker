@@ -1,6 +1,3 @@
-go get github.com/raintank/inspect/inspect-es
-go get github.com/tsenart/vegeta
-
 ## to run several vegeta benchmarks across the various query api's, under a consistent ingestion load and volume of data in MT
 # (this will make sure that all benchmarks run with a full MT memory set)
 #backfill an hour's worth of data at 40k, wait for it, and then do realtime at 4k in background

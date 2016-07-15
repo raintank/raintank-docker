@@ -156,7 +156,7 @@ graphiteApi:
     - elasticsearch:elasticsearch
     - statsdaemon:statsdaemon
     - cassandra:cassandra
-    - metricTank:metrictank
+    - metrictank:metrictank
   volumes:
     - ../logs:/var/log/raintank
 
@@ -189,7 +189,8 @@ benchmark:
   image: raintank/benchmark
   hostname: benchmark
   volumes:
-    - ../raintank_code/raintank-metric:/go/src/github.com/raintank/raintank-metric
+    - ../raintank_code/inspect:/go/src/github.com/raintank/inspect
+    - ../raintank_code/fakemetrics:/go/src/github.com/raintank/fakemetrics
     - ../logs:/var/log/raintank
     - ../results:/opt/raintank/raintank-tsdb-benchmark/results
   ports:
@@ -199,7 +200,7 @@ benchmark:
     - nsqd:nsqd
     - elasticsearch:elasticsearch
     - graphiteApi:graphite-api
-    - metricTank:metricTank
+    - metrictank:metrictank
     - carbon-relay-ng:carbon-relay-ng
     - kafka:kafka
 
@@ -210,7 +211,7 @@ grafana:
     - "3000:3000"
   links:
     - proxy:worldping-api.raintank.io
-    - metricTank:metricTank
+    - metrictank:metrictank
   volumes:
     - ../raintank_code/plugins:/var/lib/grafana/plugins
     - ../logs:/var/log/raintank

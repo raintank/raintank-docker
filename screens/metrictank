@@ -17,7 +17,7 @@ go build
 wait.sh cassandra:9042 elasticsearch:9200
 # use this env var to trace GC data for gcvis and https://github.com/golang/go/issues/14812
 #GODEBUG=gctrace=1,gcpacertrace=1
-./metric_tank \
+./metrictank \
 	--chunkspan 10m \
 	--numchunks 3 \
 	--agg-settings 10m:6h:2:9d,2h:6h:2:74d,6h:6h:2:4y \
