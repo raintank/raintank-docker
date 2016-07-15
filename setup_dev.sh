@@ -21,9 +21,9 @@ if [ "$MODE" == "docker" ]; then
 
 	args=("${args[@]}" "-v" "$DIR:/opt/raintank/raintank-docker")
 	# assure the directories exist (irrespective of what we'll do with them, see below) so we can set up the volumes
-	for i in inspect raintank-collector metrictank eventtank plugins worldping-api raintank-probe raintank-apps carbon-relay-ng; do
+	for i in inspect metrictank eventtank worldping-api raintank-probe raintank-apps carbon-relay-ng; do
 		mkdir -p $i
-		args=("${args[@]}" "-v" "$RT_CODE/$i:/opt/raintank/$i")
+		args=("${args[@]}" "-v" "$RT_CODE/$i:/go/src/github.com/raintank/$i")
 	done
 	cd -
 	if [ -n "$SSH_AUTH_SOCK" ]; then
@@ -33,62 +33,45 @@ if [ "$MODE" == "docker" ]; then
 	docker run --rm -t -i "${args[@]}" raintank/nodejsgo /tmp/scripts/$SCRIPT $BRANCH code
 
 elif [ $MODE == "code" ]; then
-
-	mkdir -p /opt/raintank/node_modules
-	cd /opt/raintank
+	cd /go/src/github.com/raintank
 	for i in inspect raintank-collector metrictank eventtank worldping-api raintank-probe raintank-apps carbon-relay-ng; do
 		echo "> processing code for $i"
-		if [ -f /opt/raintank/$i/.notouch ]; then
+		if [ -f /go/src/github.com/raintank/$i/.notouch ]; then
 			echo "Skipping due to .notouch"
 			continue
-		elif [ -d /opt/raintank/$i/.git ]; then
-			cd /opt/raintank/$i
+		elif [ -d /go/src/github.com/raintank/$i/.git ]; then
+			cd /go/src/github.com/raintank/$i
 			git fetch
 			git checkout $BRANCH
 			git pull
 		else
-			cd /opt/raintank
+			cd /go/src/github.com/raintank
 			git clone -b $BRANCH ${GITHUBURL}raintank/$i.git
 		fi
 	done
-
-
-
-    # install grafana plugins
-    mkdir -p /opt/raintank/plugins/
-    for i in worldping-app; do
-		echo "> processing code for grafana plugin $i"
-        if [ -f /opt/raintank/plugins/$i/.notouch ]; then
-           echo "Skipping due to .notouch"
-           continue
-        elif [ -d /opt/raintank/plugins/$i/.git ]; then
-            cd /opt/raintank/plugins/$i
-            git fetch
-            git checkout $BRANCH
-            git pull
-        else
-            cd /opt/raintank/plugins
-            git clone -b $BRANCH ${GITHUBURL}raintank/$i.git
-        fi
-    done
 
 	echo "> configuring go"
 	export GOPATH=/go
 	export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
 	echo "> building raintank-apps binaries"
-	cd /opt/raintank/raintank-apps
+	cd /go/src/github.com/raintank/raintank-apps
 	go get ./...
 	./scripts/build_all.sh
 
-    echo "> collector > assuring config"
-	cd /opt/raintank/raintank-collector
-	if [ ! -e etc/raintank.json ]; then
-		cp /opt/raintank/raintank-docker/collector/config.json etc/raintank.json
-	fi
-	echo "> collector > build"
-	#./pkg/build.sh
-	npm install
-	go get -u -f github.com/raintank/raintank-probe
-    cp $(which raintank-probe) .
+    echo "> building raintank-probe"
+    cd /go/src/github.com/raintank/raintank-probe
+    go get ./...
+    make
+
+    echo "> building worldping-api"
+    cd /go/src/github.com/raintank/worldping-api
+    go get ./...
+    go build
+
+    echo "> building metrictank"
+    cd /go/src/github.com/raintank/metrictank
+    go get ./...
+    go build
+
 fi
