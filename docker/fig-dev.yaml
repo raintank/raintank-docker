@@ -231,7 +231,7 @@ taskAgent:
     - "8181:8181"
   links:
     - taskServer:task-server
-    - tsdb:tsdb
+    - tsdbgw:tsdbgw
   volumes:
     - ../raintank_code/raintank-apps/build/bin:/go/bin
     - ../raintank_code/raintank-apps/build/plugins:/var/lib/snap/plugins
@@ -249,9 +249,9 @@ taskServer:
     - ../raintank_code/raintank-apps/build/bin:/go/bin
     - ../logs:/var/log/raintank
 
-tsdb:
-  image: raintank/tsdb
-  hostname: tsdb
+tsdbgw:
+  image: raintank/tsdb-gw
+  hostname: tsdbgw
   ports:
     - "8081:80"
   links:
@@ -260,7 +260,6 @@ tsdb:
     - statsdaemon:statsdaemon
     - nsqd:nsqd
   volumes:
-    - ../raintank_code/raintank-apps/build/bin:/go/bin
     - ../logs:/var/log/raintank
 
 carbon-relay-ng:
@@ -271,7 +270,7 @@ carbon-relay-ng:
     - "2013:2013"
   links:
     - graphitemon:graphitemon
-    - tsdb:tsdb
+    - tsdbgw:tsdbgw
   volumes:
     - ../raintank_code/carbon-relay-ng:/go/src/github.com/graphite-ng/carbon-relay-ng
     - ../logs:/var/log/raintank
