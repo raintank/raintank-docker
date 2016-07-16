@@ -4,12 +4,12 @@ ENV GOPATH /go
 ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
 
 RUN apt-get -y install wget vim bc supervisor
-RUN mkdir -p /go/src/github.com/grafana
-RUN cd /go/src/github.com/grafana && \
-	git clone https://github.com/raintank/grafana-api-golang-client.git && \
- 	cd grafana-api-golang-client && \
- 	git checkout raintank #&& \
- 	#go get github.com/raintank/env-load
+# RUN mkdir -p /go/src/github.com/grafana
+# RUN cd /go/src/github.com/grafana && \
+# 	git clone https://github.com/raintank/grafana-api-golang-client.git && \
+ # 	cd grafana-api-golang-client && \
+ # 	git checkout raintank && \
+ # 	go get github.com/raintank/env-load
 
 RUN go get github.com/tsenart/vegeta
 RUN go get github.com/raintank/inspect/inspect-es
