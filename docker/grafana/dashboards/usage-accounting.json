@@ -61,11 +61,11 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(perSecond(metric_tank.usage.numPoints), 'points per second')"
+              "target": "alias(perSecond(metrictank.usage.numPoints), 'points per second')"
             },
             {
               "refId": "B",
-              "target": "alias(metric_tank.usage.numSeries, 'unique series')"
+              "target": "alias(metrictank.usage.numSeries, 'unique series')"
             }
           ],
           "timeFrom": null,
@@ -146,11 +146,11 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(perSecond(metric_tank.usage-minus1.numPoints), 'points per second')"
+              "target": "alias(perSecond(metrictank.usage-minus1.numPoints), 'points per second')"
             },
             {
               "refId": "B",
-              "target": "alias(metric_tank.usage-minus1.numSeries, 'unique series')"
+              "target": "alias(metrictank.usage-minus1.numSeries, 'unique series')"
             }
           ],
           "timeFrom": null,
