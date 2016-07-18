@@ -19,15 +19,8 @@ wait.sh cassandra:9042 elasticsearch:9200
 #GODEBUG=gctrace=1,gcpacertrace=1
 ./metrictank \
 	--chunkspan 10m \
-	--numchunks 3 \
+	--numchunks 2 \
 	--agg-settings 10m:6h:2:9d,2h:6h:2:74d,6h:6h:2:4y \
-	--statsd-addr statsdaemon:8125 \
-	--kafka-mdam-broker kafka:9092 \
-	--nsqd-tcp-address nsqd:4150 \
-	--listen :6063 \
-	--primary-node \
-	--elastic-addr elasticsearch:9200 \
-	--cassandra-addrs cassandra \
 	--accounting-period 1min \
 	--proftrigger-freq 1s \
 	-log-level 2 \
