@@ -203,6 +203,7 @@ benchmark:
     - metrictank:metrictank
     - carbon-relay-ng:carbon-relay-ng
     - kafka:kafka
+    - tsdbgw:tsdbgw
 
 grafana:
   image: raintank/grafana
@@ -259,6 +260,7 @@ tsdbgw:
     - elasticsearch:elasticsearch
     - statsdaemon:statsdaemon
     - nsqd:nsqd
+    - kafka:kafka
   volumes:
     - ../logs:/var/log/raintank
 
