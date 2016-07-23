@@ -1,7 +1,5 @@
 FROM raintank/nodejsgo
 
-
-RUN apt-get update && apt-get -y install supervisor
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 RUN mkdir -p /opt/raintank

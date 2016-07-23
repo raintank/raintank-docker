@@ -3,7 +3,7 @@ FROM raintank/nodejsgo
 ENV GOPATH /go
 ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
 
-RUN apt-get -y install wget vim bc supervisor
+RUN apt-get -y install wget vim bc
 # RUN mkdir -p /go/src/github.com/grafana
 # RUN cd /go/src/github.com/grafana && \
 # 	git clone https://github.com/raintank/grafana-api-golang-client.git && \

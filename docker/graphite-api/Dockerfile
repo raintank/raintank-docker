@@ -1,6 +1,6 @@
 FROM library/ubuntu
 
-RUN apt-get update && apt-get upgrade -y && apt-get install -y supervisor build-essential python-dev libffi-dev libcairo2-dev python-pip git
+RUN apt-get update && apt-get upgrade -y && apt-get install -y build-essential python-dev libffi-dev libcairo2-dev python-pip git
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
