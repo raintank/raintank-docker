@@ -127,7 +127,7 @@ graphitemon:
     - "8000:80"
 
 cassandra:
-  image: cassandra:2.1.9
+  image: cassandra:3.0.8
   hostname: cassandra
   ports:
     - "9042"
