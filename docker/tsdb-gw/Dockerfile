@@ -8,6 +8,7 @@ RUN go get github.com/raintank/tsdb-gw
 EXPOSE 80
 
 COPY tsdb-gw.ini /etc/raintank/tsdb-gw.ini
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 WORKDIR /
-CMD wait.sh kafka:9092 && /go/bin/tsdb-gw --config /etc/raintank/tsdb-gw.ini > /var/log/raintank/tsdb-gw.log 2>&1
+CMD ["/usr/bin/supervisord"]

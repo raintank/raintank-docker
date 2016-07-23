@@ -262,6 +262,7 @@ tsdbgw:
     - nsqd:nsqd
     - kafka:kafka
   volumes:
+    - ../raintank_code/tsdb-gw:/go/src/github.com/raintank/tsdb-gw
     - ../logs:/var/log/raintank
 
 carbon-relay-ng:
