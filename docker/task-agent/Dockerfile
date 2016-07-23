@@ -1,5 +1,5 @@
 FROM raintank/nodejsgo
-RUN apt-get update && apt-get -y install curl apt-transport-https
+RUN apt-get update && apt-get -y install apt-transport-https
 RUN echo "deb https://packagecloud.io/raintank/raintank/ubuntu/ trusty main" > /etc/apt/sources.list.d/raintank.list
 RUN curl https://packagecloud.io/gpg.key | apt-key add -
 
