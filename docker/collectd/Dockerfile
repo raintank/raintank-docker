@@ -6,7 +6,7 @@ RUN apt-get update
 RUN apt-get -y install curl apt-transport-https
 RUN echo "deb https://packagecloud.io/raintank/raintank/ubuntu/ trusty main" > /etc/apt/sources.list.d/raintank.list
 RUN curl https://packagecloud.io/gpg.key | apt-key add -
-RUN apt-get update && apt-get install -y software-properties-common
+RUN apt-get update && apt-get install -y software-properties-common supervisor
 ENV LANG en_US.UTF-8
 RUN locale-gen $LANG
 RUN add-apt-repository ppa:openjdk-r/ppa
