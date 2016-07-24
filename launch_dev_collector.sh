@@ -15,7 +15,7 @@ eval $(grep ^RT_CODE setup_dev.sh)
 eval $(grep ^RT_LOGS setup_dev.sh)
 sleep 5
 ./docker/nodejsgo/wait.sh localhost:80
-docker run --link=raintank_worldpingApi_1:worldpingApi --link=raintank_tsdb_1:tsdb\
+docker run --link=raintank_worldpingApi_1:worldpingApi --link=raintank_tsdbgw_1:tsdbgw\
            -v $RT_CODE/raintank-probe/build:/go/bin/ \
            -d --name=$docker_name \
            -h collector-$id \
