@@ -23,4 +23,5 @@ docker run --link=raintank_worldpingApi_1:worldpingApi --link=raintank_tsdbgw_1:
 
 screen -S raintank -X screen -t collector-$id docker logs -f $docker_name
 
+./docker/nodejsgo/wait.sh localhost:80 # wait for worldpingApi
 ./makeProbePublic.py $id
