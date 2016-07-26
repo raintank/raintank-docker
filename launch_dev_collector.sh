@@ -19,7 +19,7 @@ docker run --link=raintank_worldpingApi_1:worldpingApi --link=raintank_tsdbgw_1:
            -v $RT_CODE/raintank-probe/build:/go/bin/ \
            -d --name=$docker_name \
            -h collector-$id \
-           raintank/raintank-probe -api-key=changeme -name=$id -server-url=ws://worldpingApi/ -tsdb-url=http://tsdb/
+           raintank/raintank-probe -api-key=changeme -name=$id -server-url=ws://worldpingApi/ -tsdb-url=http://tsdbgw/
 
 screen -S raintank -X screen -t collector-$id docker logs -f $docker_name
 
