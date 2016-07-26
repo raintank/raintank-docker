@@ -16,6 +16,7 @@ COLUMNS=512 top -b -c | grep -v sed | sed -u -n \
   -e 's#`-.*fake_metrics.*-kafka-mdam-tcp-address#fake_metrics-kafka-mdam#p' \
   -e 's#`-.*fake_metrics.*-kafka-mdm-tcp-address#fake_metrics-kafka-mdm#p' \
   -e 's#`-.*fake_metrics.*-nsqd-tcp-address#fake_metrics-nsqd#p' \
+  -e 's#`-.*tsdb-gw --config.*#tsdb-gw#p' \
   | awk '{print $6,$7,$11;fflush();}' \
   | while read mem cpu process; do
     ts=$(date +%s)
