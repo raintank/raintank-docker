@@ -1,1 +1,0 @@
-tail -f /var/log/statsdaemon.log

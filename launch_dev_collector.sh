@@ -13,15 +13,16 @@ docker_name=raintank_raintankCollector_$id
 
 eval $(grep ^RT_CODE setup_dev.sh)
 eval $(grep ^RT_LOGS setup_dev.sh)
-sleep 5
+
 ./docker/nodejsgo/wait.sh localhost:80
 docker run --link=raintank_worldpingApi_1:worldpingApi --link=raintank_tsdbgw_1:tsdbgw\
            -v $RT_CODE/raintank-probe/build:/go/bin/ \
            -d --name=$docker_name \
            -h collector-$id \
+           -e WAIT_HOSTS=worldpingApi:80 \
            raintank/raintank-probe -api-key=changeme -name=$id -server-url=ws://worldpingApi/ -tsdb-url=http://tsdbgw/
 
 screen -S raintank -X screen -t collector-$id docker logs -f $docker_name
-
+sleep 15
 ./docker/nodejsgo/wait.sh localhost:80 # wait for worldpingApi
 ./makeProbePublic.py $id

@@ -1,6 +1,6 @@
 FROM ubuntu
 
-RUN apt-get update && apt-get -y upgrade && apt-get -y install nodejs nodejs-legacy nodejs-dev npm git curl supervisor
+RUN apt-get update && apt-get -y upgrade && apt-get -y install nodejs nodejs-legacy nodejs-dev npm git curl supervisor netcat-traditional
 RUN npm install -g npm
 
 # target directory for all applications

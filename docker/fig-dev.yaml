@@ -14,25 +14,6 @@ rabbitmq:
     - "5672"
     - "15672:15672"
 
-nsqd:
-  image: nsqio/nsq:v0.3.6
-  hostname: nsqd
-  ports:
-    - "4150:4150"
-    - "4151:4151"
-  command: "/bin/sh -c 'while true; do /nsqd -max-msg-size=10024768 -sync-every=1 --mem-queue-size=0 -e2e-processing-latency-percentile=0.90,0.99 -e2e-processing-latency-window-time=10s -statsd-address=statsdaemon:8125 -statsd-interval=10s; done'"
-  links:
-    - statsdaemon:statsdaemon
-
-nsqadmin:
-  image: nsqio/nsq:v0.3.6
-  hostname: nsqadmin
-  ports:
-    - "4171:4171"
-  command: "/nsqadmin --nsqd-http-address=nsqd:4151"
-  links:
-    - nsqd:nsqd
-
 kafka:
   image: raintank/kafka
   hostname: kafka
@@ -89,7 +70,6 @@ metrictank:
     - "6063:6063"
     - "2002:2003"
   links:
-    - nsqd:nsqd
     - statsdaemon:statsdaemon
     - cassandra:cassandra
     - elasticsearch:elasticsearch
@@ -98,26 +78,19 @@ metrictank:
     - ../logs:/var/log/raintank
     - ../raintank_code/metrictank:/go/src/github.com/raintank/metrictank
 
-nsqMetricsToStdout:
-  image: raintank/nsq_metrics_to_stdout
-  hostname: nms
-  links:
-    - nsqd:nsqd
-  volumes:
-    - ../raintank_code/inspect:/go/src/github.com/raintank/inspect
-
 eventtank:
   image: raintank/eventtank
   hostname: npee
   ports:
     - "6062:6060"
   links:
-    - nsqd:nsqd
+    - kafka:kafka
     - elasticsearch:elasticsearch
     - statsdaemon:statsdaemon
+  environment:
+    WAIT_HOSTS: kafka:9092,elasticsearch:9200
   volumes:
-    - ../logs:/var/log/raintank
-    - ../raintank_code/eventtank:/go/src/github.com/raintank/eventtank
+    - ../raintank_code/eventtank/build:/go/bin/
 
 graphitemon:
   image:  raintank/graphite
@@ -155,7 +128,6 @@ graphiteApi:
   links:
     - elasticsearch:elasticsearch
     - statsdaemon:statsdaemon
-    - cassandra:cassandra
     - metrictank:metrictank
   volumes:
     - ../logs:/var/log/raintank
@@ -171,10 +143,11 @@ worldpingApi:
     - mysql:mysql
     - elasticsearch:elasticsearch
     - statsdaemon:statsdaemon
-    - nsqd:nsqd
+    - kafka:kafka
+  environment:
+    WAIT_HOSTS: kafka:9092,mysql:3306,rabbitmq:5672
   volumes:
-    - ../raintank_code/worldping-api:/go/src/github.com/raintank/worldping-api
-    - ../logs:/var/log/raintank
+    - ../raintank_code/worldping-api/worldping-api:/go/bin/worldping-api
     - ./worldping_api/conf:/etc/raintank/
 
 statsdaemon:
@@ -197,7 +170,6 @@ benchmark:
     - "6764:6764"
   links:
     - statsdaemon:statsdaemon
-    - nsqd:nsqd
     - elasticsearch:elasticsearch
     - graphiteApi:graphite-api
     - metrictank:metrictank
@@ -246,9 +218,10 @@ taskServer:
   links:
     - rabbitmq:rabbitmq
     - statsdaemon:statsdaemon
+  environment:
+    WAIT_HOSTS: rabbitmq:5672
   volumes:
     - ../raintank_code/raintank-apps/build/bin:/go/bin
-    - ../logs:/var/log/raintank
 
 tsdbgw:
   image: raintank/tsdb-gw
@@ -259,11 +232,11 @@ tsdbgw:
     - graphiteApi:graphite-api
     - elasticsearch:elasticsearch
     - statsdaemon:statsdaemon
-    - nsqd:nsqd
     - kafka:kafka
+  environment:
+    WAIT_HOSTS: kafka:9092
   volumes:
-    - ../raintank_code/tsdb-gw:/go/src/github.com/raintank/tsdb-gw
-    - ../logs:/var/log/raintank
+    - ../raintank_code/tsdb-gw/build:/go/bin/
 
 carbon-relay-ng:
   image: raintank/carbon-relay-ng

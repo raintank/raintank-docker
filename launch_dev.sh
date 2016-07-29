@@ -39,7 +39,7 @@ sleep 5
 echo "starting screen tabs..."
 for service in screens/*; do
   base=$(basename $service)
-  if [ $base == measure ]; then
+  if [[ $base == _* ]]; then
     screen -S raintank -X screen -t $base bash
   else
    screen -S raintank -X screen -t $base docker exec -t -i raintank_${base}_1 bash

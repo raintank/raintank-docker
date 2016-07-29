@@ -1,0 +1,1 @@
+docker logs -f raintank_taskServer_1
