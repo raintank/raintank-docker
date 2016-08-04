@@ -17,7 +17,8 @@
         {
           "aliasColors": {
             "primary": "#2F575E",
-            "too old": "#890F02"
+            "too old": "#890F02",
+            "add-to-saving": "#C15C17"
           },
           "bars": false,
           "datasource": "$datasource",
@@ -40,31 +41,41 @@
             "total": false,
             "values": false
           },
-          "lines": true,
+          "lines": false,
           "linewidth": 0,
           "links": [],
           "nullPointMode": "null as zero",
           "percentage": false,
-          "pointradius": 5,
-          "points": false,
+          "pointradius": 1,
+          "points": true,
           "renderer": "flot",
           "seriesOverrides": [
             {
               "alias": "too old",
               "lines": false,
-              "pointradius": 2,
               "points": true
             },
             {
               "alias": "primary",
               "fill": 3,
               "linewidth": 0,
-              "yaxis": 2
+              "yaxis": 2,
+              "lines": true,
+              "points": false
             },
-	    {
-	      "alias": "/metrics_received/",
-	      "stack": "A"
-	    }
+            {
+              "alias": "/ in/",
+              "points": false,
+              "lines": true
+            },
+            {
+              "alias": "/invalid/",
+              "color": "#C15C17"
+            },
+            {
+              "alias": "/decode err/",
+              "color": "#890F02"
+            }
           ],
           "span": 4,
           "stack": false,
@@ -72,7 +83,8 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(stats.$environment.metrictank.$host.*.metrics_received, 4, 5)"
+              "target": "aliasSub(stats.$environment.metrictank.$host.*.metrics_received, '.*\\.([^\\.]+)\\.metrics_received', '\\1 in')",
+              "textEditor": false
             },
             {
               "hide": true,
@@ -82,6 +94,24 @@
             {
               "refId": "C",
               "target": "alias(stats.$environment.metrictank.$host.metrics_too_old, 'too old')"
+            },
+            {
+              "refId": "D",
+              "target": "alias(stats.$environment.metrictank.$host.add_to_saved_chunk, 'add-to-saved')"
+            },
+            {
+              "refId": "E",
+              "target": "alias(stats.$environment.metrictank.$host.add_to_saving_chunk, 'add-to-saving')"
+            },
+            {
+              "refId": "F",
+              "target": "aliasSub(stats.$environment.metrictank.$host.*.metrics_decode_err, '.*\\.([^\\.]+)\\.metrics_decode_err', '\\1 decode err')",
+              "textEditor": false
+            },
+            {
+              "refId": "G",
+              "target": "aliasSub(stats.$environment.metrictank.$host.*.metric_invalid, '.*\\.([^\\.]+)\\.metric_invalid', '\\1 metric invalid')",
+              "textEditor": false
             }
           ],
           "timeFrom": null,
@@ -90,7 +120,8 @@
           "tooltip": {
             "msResolution": false,
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "sort": 0
           },
           "type": "graph",
           "xaxis": {
@@ -120,13 +151,14 @@
             "99th": "#99440A",
             "mean": "#0A437C",
             "median": "#3F6833",
-            "total_points": "#65C5DB"
+            "total_points": "#B7DBAB",
+            "GCd metrics/s": "#DEDAF7"
           },
           "bars": false,
           "datasource": "$datasource",
           "editable": true,
           "error": false,
-          "fill": 1,
+          "fill": 0,
           "grid": {
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
@@ -157,6 +189,12 @@
               "fill": 0,
               "linewidth": 1,
               "yaxis": 2
+            },
+            {
+              "alias": "GCd metrics/s",
+              "lines": false,
+              "points": true,
+              "pointradius": 2
             }
           ],
           "span": 4,
@@ -172,15 +210,21 @@
               "hide": false,
               "refId": "B",
               "target": "aliasByNode(stats.$environment.gauges.metrictank.$host.metrics_active, 5)"
+            },
+            {
+              "target": "alias(stats.$environment.metrictank.$host.gc_metric, 'GCd metrics/s')",
+              "refId": "C",
+              "textEditor": false
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "points & metrics",
+          "title": "Metrics & points",
           "tooltip": {
             "msResolution": false,
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "sort": 0
           },
           "type": "graph",
           "xaxis": {
@@ -267,7 +311,8 @@
           "tooltip": {
             "msResolution": false,
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "sort": 0
           },
           "type": "graph",
           "xaxis": {
@@ -300,8 +345,8 @@
       "panels": [
         {
           "aliasColors": {
-            "alloc speed": "#C15C17",
-            "GC cpu fraction - promille": "#BF1B00"
+            "GC cpu fraction - promille": "#BF1B00",
+            "alloc speed": "#C15C17"
           },
           "bars": false,
           "datasource": "$datasource",
@@ -344,14 +389,14 @@
             },
             {
               "alias": "GC cpu fraction - promille",
-              "yaxis": 2,
-              "linewidth": 1
+              "linewidth": 1,
+              "yaxis": 2
             },
             {
               "alias": "MT cpu usage - percent",
-              "yaxis": 2,
               "fill": 4,
-              "linewidth": 0
+              "linewidth": 0,
+              "yaxis": 2
             }
           ],
           "span": 4,
@@ -411,7 +456,8 @@
           "tooltip": {
             "msResolution": true,
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "sort": 0
           },
           "type": "graph",
           "xaxis": {
@@ -495,7 +541,8 @@
           "tooltip": {
             "msResolution": false,
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "sort": 0
           },
           "type": "graph",
           "xaxis": {
@@ -520,21 +567,22 @@
         },
         {
           "aliasColors": {
-            "GCd metrics/s": "#5195CE"
+            "max": "#890F02",
+            "median": "#CCA300",
+            "p90": "#C15C17"
           },
           "bars": false,
           "datasource": "$datasource",
           "editable": true,
           "error": false,
-          "fill": 0,
+          "fill": 1,
           "grid": {
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "id": 15,
-          "isNew": true,
+          "id": 5,
           "legend": {
             "avg": false,
             "current": false,
@@ -545,31 +593,52 @@
             "values": false
           },
           "lines": false,
-          "linewidth": 1,
+          "linewidth": 2,
           "links": [],
-          "nullPointMode": "connected",
+          "nullPointMode": "null",
           "percentage": false,
           "pointradius": 1,
           "points": true,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "/idle/",
+              "lines": true,
+              "linewidth": 0,
+              "points": false,
+              "stack": true,
+              "yaxis": 2
+            }
+          ],
           "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
               "refId": "A",
-              "target": "alias(stats.$environment.metrictank.$host.gc_metric, 'GCd metrics/s')",
-              "textEditor": false
+              "target": "alias(stats.$environment.timers.metrictank.$host.request_handle_duration.median, 'median')"
+            },
+            {
+              "refId": "B",
+              "target": "alias(stats.$environment.timers.metrictank.$host.request_handle_duration.upper_90, 'p90')"
+            },
+            {
+              "refId": "C",
+              "target": "alias(stats.$environment.timers.metrictank.$host.request_handle_duration.upper, 'max')"
+            },
+            {
+              "refId": "D",
+              "target": "aliasByNode(perSecond(collectd.$environment.metric-tank.$host.cpu.*.cpu.idle), 5, 7)"
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Metrics Garbage collection",
+          "title": "request handle duration (all steps)",
           "tooltip": {
             "msResolution": false,
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "sort": 0
           },
           "type": "graph",
           "xaxis": {
@@ -577,7 +646,7 @@
           },
           "yaxes": [
             {
-              "format": "short",
+              "format": "ms",
               "logBase": 1,
               "max": null,
               "min": null,
@@ -590,7 +659,8 @@
               "min": null,
               "show": true
             }
-          ]
+          ],
+          "transparent": true
         }
       ],
       "title": "New row"
@@ -692,7 +762,8 @@
           "tooltip": {
             "msResolution": false,
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "sort": 0
           },
           "type": "graph",
           "xaxis": {
@@ -777,7 +848,8 @@
           "tooltip": {
             "msResolution": false,
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "sort": 0
           },
           "type": "graph",
           "xaxis": {
@@ -802,9 +874,9 @@
         },
         {
           "aliasColors": {
-            "max": "#890F02",
-            "median": "#CCA300",
-            "p90": "#C15C17"
+            "cassandra get": "#052B51",
+            "mem to iter": "#EAB839",
+            "total request handle": "#890F02"
           },
           "bars": false,
           "datasource": "$datasource",
@@ -817,7 +889,8 @@
             "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "id": 5,
+          "id": 16,
+          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -830,50 +903,55 @@
           "lines": false,
           "linewidth": 2,
           "links": [],
-          "nullPointMode": "null",
+          "nullPointMode": "connected",
           "percentage": false,
           "pointradius": 1,
           "points": true,
           "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "alias": "/idle/",
-              "lines": true,
-              "linewidth": 0,
-              "points": false,
-              "stack": true,
-              "yaxis": 2
-            }
-          ],
+          "seriesOverrides": [],
           "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
               "refId": "A",
-              "target": "alias(stats.$environment.timers.metrictank.$host.request_handle_duration.median, 'median')"
+              "target": "alias(stats.$environment.timers.metrictank.$host.request_handle_duration.mean, 'total request handle')"
             },
             {
               "refId": "B",
-              "target": "alias(stats.$environment.timers.metrictank.$host.request_handle_duration.upper_90, 'p90')"
+              "target": "alias(stats.$environment.timers.metrictank.$host.cassandra.get_duration.mean, 'cassandra get')"
             },
             {
               "refId": "C",
-              "target": "alias(stats.$environment.timers.metrictank.$host.request_handle_duration.upper, 'max')"
+              "target": "alias(stats.$environment.timers.metrictank.$host.cassandra.to_iter_duration.mean, 'cassandra to iter')",
+              "textEditor": false
             },
             {
               "refId": "D",
-              "target": "aliasByNode(perSecond(collectd.$environment.metric-tank.$host.cpu.*.cpu.idle), 5, 7)"
+              "target": "alias(stats.$environment.timers.metrictank.$host.get_target_duration.mean, 'total getTarget')",
+              "textEditor": false
+            },
+            {
+              "refId": "E",
+              "target": "alias(stats.$environment.timers.metrictank.$host.iters_to_points_duration.mean, 'iters to points')",
+              "textEditor": false
+            },
+            {
+              "refId": "F",
+              "target": "alias(stats.$environment.timers.metrictank.$host.mem.to_iter_duration.mean, 'mem to iter')",
+              "textEditor": false
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "request handle duration (all steps)",
+          "title": "Duration breakdown per step",
           "tooltip": {
             "msResolution": false,
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "sort": 0
           },
+          "transparent": true,
           "type": "graph",
           "xaxis": {
             "show": true
@@ -881,7 +959,7 @@
           "yaxes": [
             {
               "format": "ms",
-              "logBase": 1,
+              "logBase": 2,
               "max": null,
               "min": null,
               "show": true
@@ -978,7 +1056,7 @@
             {
               "hide": false,
               "refId": "D",
-              "target": "stats.$environment.timers.metrictank.$host.persist_duration.upper_75"
+              "target": "alias(consolidateBy(stats.$environment.timers.metrictank.$host.persist_duration.upper_75, 'sum'), 'persist-duration p75')"
             }
           ],
           "timeFrom": null,
@@ -987,7 +1065,8 @@
           "tooltip": {
             "msResolution": false,
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "sort": 0
           },
           "transparent": true,
           "type": "graph",
@@ -1012,21 +1091,113 @@
           ]
         },
         {
-          "title": "metricpersist",
-          "error": false,
-          "span": 4,
+          "aliasColors": {
+            "message_size.mean": "#2F575E",
+            "message_size.upper": "#EF843C"
+          },
+          "bars": false,
+          "datasource": "$datasource",
           "editable": true,
-          "type": "graph",
-          "isNew": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
           "id": 18,
+          "isNew": true,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 1,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "msg published",
+              "fill": 4,
+              "linewidth": 0,
+              "yaxis": 2
+            }
+          ],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
           "targets": [
             {
               "refId": "A",
               "target": "aliasByNode(stats.$environment.timers.metrictank.$host.cluster.message_size.{mean,upper}, 6, 7)"
             },
             {
-              "target": "alias(stats.$environment.metrictank.$host.cluster.messages-published, 'msg published')",
-              "refId": "B"
+              "refId": "B",
+              "target": "alias(stats.$environment.metrictank.$host.cluster.messages-published, 'msg published')"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "metricpersist",
+          "tooltip": {
+            "msResolution": true,
+            "shared": true,
+            "value_type": "cumulative",
+            "sort": 0
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "hertz",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "title": "ES index writes",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "graph",
+          "isNew": true,
+          "id": 19,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "alias(stats.$environment.metrictank.$host.metrics_to_es.fail, 'add-to-bulk-index-fail')"
+            },
+            {
+              "refId": "B",
+              "target": "alias(stats.$environment.metrictank.$host.metrics_to_es.ok, 'add-to-bulk-index-ok')"
+            },
+            {
+              "target": "aliasByNode(stats.$environment.timers.metrictank.$host.es_put_duration.{mean,upper*}, 6)",
+              "refId": "C"
             }
           ],
           "datasource": "$datasource",
@@ -1038,7 +1209,7 @@
               "logBase": 1,
               "min": null,
               "max": null,
-              "format": "bytes"
+              "format": "short"
             },
             {
               "label": null,
@@ -1046,7 +1217,7 @@
               "logBase": 1,
               "min": null,
               "max": null,
-              "format": "hertz"
+              "format": "short"
             }
           ],
           "xaxis": {
@@ -1060,9 +1231,9 @@
           },
           "lines": true,
           "fill": 0,
-          "linewidth": 2,
+          "linewidth": 1,
           "points": false,
-          "pointradius": 1,
+          "pointradius": 5,
           "bars": false,
           "stack": false,
           "percentage": false,
@@ -1075,128 +1246,49 @@
             "total": false,
             "avg": false
           },
-          "nullPointMode": "null as zero",
+          "nullPointMode": "connected",
           "steppedLine": false,
           "tooltip": {
             "value_type": "cumulative",
             "shared": true,
+            "sort": 0,
             "msResolution": true
           },
           "timeFrom": null,
           "timeShift": null,
           "aliasColors": {
-            "message_size.upper": "#EF843C",
-            "message_size.mean": "#2F575E"
+            "metrics_to_es.fail": "#BF1B00",
+            "metrics_to_es.ok": "#629E51",
+            "add-to-bulk-index-ok": "#508642",
+            "add-to-bulk-index-fail": "#58140C",
+            "upper_90": "#806EB7",
+            "upper_75": "#0A50A1",
+            "upper": "#DEDAF7",
+            "mean": "#052B51"
           },
           "seriesOverrides": [
             {
-              "alias": "msg published",
+              "alias": "mean",
               "yaxis": 2,
-              "fill": 4,
-              "linewidth": 0
+              "fill": 4
+            },
+            {
+              "alias": "upper",
+              "yaxis": 2,
+              "fill": 4
+            },
+            {
+              "alias": "upper_75",
+              "yaxis": 2,
+              "fill": 4
+            },
+            {
+              "alias": "upper_90",
+              "yaxis": 2,
+              "fill": 4
             }
           ],
           "links": []
-        },
-        {
-          "aliasColors": {
-            "cassandra get": "#052B51",
-            "mem to iter": "#EAB839",
-            "total request handle": "#890F02"
-          },
-          "bars": false,
-          "datasource": "$datasource",
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "id": 16,
-          "isNew": true,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": false,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 1,
-          "points": true,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "A",
-              "target": "alias(stats.$environment.timers.metrictank.$host.request_handle_duration.mean, 'total request handle')"
-            },
-            {
-              "refId": "B",
-              "target": "alias(stats.$environment.timers.metrictank.$host.cassandra.get_duration.mean, 'cassandra get')"
-            },
-            {
-              "refId": "C",
-              "target": "alias(stats.$environment.timers.metrictank.$host.cassandra.to_iter_duration.mean, 'cassandra to iter')",
-              "textEditor": false
-            },
-            {
-              "refId": "D",
-              "target": "alias(stats.$environment.timers.metrictank.$host.get_target_duration.mean, 'total getTarget')",
-              "textEditor": false
-            },
-            {
-              "refId": "E",
-              "target": "alias(stats.$environment.timers.metrictank.$host.iters_to_points_duration.mean, 'iters to points')",
-              "textEditor": false
-            },
-            {
-              "refId": "F",
-              "target": "alias(stats.$environment.timers.metrictank.$host.mem.to_iter_duration.mean, 'mem to iter')",
-              "textEditor": false
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Duration breakdown",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "value_type": "cumulative"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "show": true
-          },
-          "yaxes": [
-            {
-              "format": "ms",
-              "logBase": 2,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ]
         }
       ],
       "title": "New row"
@@ -1280,7 +1372,8 @@
           "tooltip": {
             "msResolution": false,
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "sort": 0
           },
           "type": "graph",
           "xaxis": {
@@ -1362,7 +1455,8 @@
           "tooltip": {
             "msResolution": false,
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "sort": 0
           },
           "type": "graph",
           "xaxis": {
@@ -1462,7 +1556,8 @@
           "tooltip": {
             "msResolution": false,
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "sort": 0
           },
           "type": "graph",
           "xaxis": {
@@ -1578,7 +1673,8 @@
           "tooltip": {
             "msResolution": false,
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "sort": 0
           },
           "type": "graph",
           "xaxis": {
@@ -1664,7 +1760,8 @@
           "tooltip": {
             "msResolution": false,
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "sort": 0
           },
           "type": "graph",
           "xaxis": {
@@ -1765,7 +1862,8 @@
           "tooltip": {
             "msResolution": false,
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "sort": 0
           },
           "type": "graph",
           "xaxis": {
@@ -1830,11 +1928,15 @@
   "templating": {
     "list": [
       {
-        "type": "datasource",
+        "current": {
+          "text": "graphite",
+          "value": "graphite"
+        },
         "datasource": null,
-        "refresh": 1,
-        "name": "datasource",
         "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "datasource",
         "options": [
           {
             "text": "graphite",
@@ -1847,14 +1949,10 @@
             "selected": false
           }
         ],
-        "includeAll": false,
-        "multi": false,
         "query": "graphite",
+        "refresh": 1,
         "regex": "",
-        "current": {
-          "text": "graphite",
-          "value": "graphite"
-        }
+        "type": "datasource"
       },
       {
         "allFormat": "glob",
@@ -1948,6 +2046,7 @@
   },
   "refresh": false,
   "schemaVersion": 12,
-  "version": 2,
-  "links": []
+  "version": 5,
+  "links": [],
+  "gnetId": null
 }
