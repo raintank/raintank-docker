@@ -8,8 +8,8 @@ ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
 
 RUN mkdir -p /go/src/github.com/raintank/
 RUN cd /go/src/github.com/raintank/ && git clone https://github.com/raintank/worldping-api.git
-RUN cd /go/src/github.com/raintank/worldping-api && ./rt-pkg/depends.sh
-RUN cd /go/src/github.com/raintank/worldping-api && ./rt-pkg/build.sh
+RUN cd /go/src/github.com/raintank/worldping-api && ./scripts/depends.sh
+RUN cd /go/src/github.com/raintank/worldping-api && ./scripts/build.sh
 RUN cd /go/src/github.com/raintank/worldping-api && go build -o /go/bin/worldping-api
 
 EXPOSE 80
