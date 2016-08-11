@@ -19,8 +19,7 @@ function build () {
 	else
 		docker build -t raintank/$service . || fail $service
 	fi
-	# -f because docker will complain if the id->name mapping already exists, which is not an issue with docker build -t
-	docker tag -f raintank/$service raintank/$service:$(git rev-parse --abbrev-ref HEAD) || fail $service
+	docker tag raintank/$service raintank/$service:$(git rev-parse --abbrev-ref HEAD) || fail $service
 	cd ..
 }
 
