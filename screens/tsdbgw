@@ -1,2 +1,0 @@
-wait.sh kafka:9092 
-/go/bin/tsdb-gw --config /etc/raintank/tsdb-gw.ini > /var/log/raintank/tsdb-gw.log 2>&1

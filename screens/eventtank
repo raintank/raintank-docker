@@ -1,6 +1,0 @@
-cd /go/src/github.com/raintank/eventtank
-go build
-wait.sh elasticsearch:9200
-./eventtank --elastic-addr elasticsearch:9200 --statsd-addr statsdaemon:8125 --nsqd-tcp-address nsqd:4150 &> /var/log/raintank/eventtank.log &
-tail -f /var/log/raintank/eventtank.log
-

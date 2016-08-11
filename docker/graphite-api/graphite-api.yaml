@@ -2,7 +2,7 @@ cache:
   CACHE_DIR: /tmp/graphite-api-cache
   CACHE_TYPE: filesystem
 finders:
-- graphite_raintank.RaintankFinder
+- graphite_metrictank.RaintankFinder
 functions:
 - graphite_api.functions.SeriesFunctions
 - graphite_api.functions.PieFunctions

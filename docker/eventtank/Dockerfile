@@ -1,9 +1,10 @@
 FROM raintank/nodejsgo
 
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
 ENV GOPATH /go
 ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
-RUN go get -u github.com/raintank/eventtank
-
-CMD ["/usr/bin/supervisord"]
+RUN go get github.com/raintank/eventtank
+RUN mkdir /etc/raintank
+COPY eventtank.ini /etc/raintank/eventtank.ini
+COPY start.sh /start.sh
+ENTRYPOINT ["/start.sh"]
+CMD ["-config", "/etc/raintank/eventtank.ini"]

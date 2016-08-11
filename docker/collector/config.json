@@ -1,8 +1,0 @@
-{
-	"collector": {
-		"name": "PublicTest"
-	},
-	"numCPUs": 2,
-	"serverUrl": "http://worldpingapi",
-	"apiKey": "changeme"
-}
