@@ -1,1 +1,0 @@
-/go/src/github.com/graphite-ng/carbon-relay-ng/carbon-relay-ng -mem-profile-rate 10240 proxy.ini > /var/log/raintank/carbon-relay-ng.log 2>&1
