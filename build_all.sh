@@ -43,7 +43,6 @@ fi
 # first build containers on which others depend
 build nodejs
 build nodejsgo
-build worldping_api
 
 # then build the rest
 for i in */Dockerfile; do
