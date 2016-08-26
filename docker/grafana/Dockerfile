@@ -7,7 +7,7 @@ RUN apt-get -y install libfontconfig1 libfreetype6 wget grafana
 
 COPY grafana.ini /etc/grafana/grafana.ini
 
-RUN grafana-cli  plugins install raintank-worldping-app
+RUN grafana-cli plugins install raintank-worldping-app
 
 # add script, but don't run it yet. will be run when grafana is running
 ADD create-dev-datasource.sh /tmp/create-dev-datasource.sh
