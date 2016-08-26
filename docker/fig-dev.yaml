@@ -127,6 +127,8 @@ services:
       - "80:80"
     links:
       - graphiteMetrictank:graphite-api
+    depends_on:
+      - mysql
     environment:
       WAIT_HOSTS: kafka:9092,mysql:3306,rabbitmq:5672
     volumes:
