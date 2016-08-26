@@ -1,259 +1,223 @@
-elasticsearch:
-  image: library/elasticsearch:latest
-  hostname: elasticsearch
-  ports:
-    - "9200:9200"
-    - "9300"
-  volumes:
-    - /data
+version: '2'
 
-rabbitmq:
-  image: raintank/rabbitmq
-  hostname: rabbitmq
-  ports:
-    - "5672"
-    - "15672:15672"
+services:
+  elasticsearch:
+    image: library/elasticsearch:latest
+    hostname: elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300"
+    volumes:
+      - /data
 
-kafka:
-  image: raintank/kafka
-  hostname: kafka
-  environment:
-    ADVERTISED_HOST: kafka
-  ports:
-    - "2181:2181"
-    - "9092:9092"
-    - "9999:9999"
-  volumes:
-    - /tmp/kafka-logs
-    - ../logs/zookeeper:/var/log/zookeeper
-    - ../logs/supervisor:/var/log/supervisor
+  rabbitmq:
+    image: raintank/rabbitmq
+    hostname: rabbitmq
+    ports:
+      - "5672"
+      - "15672:15672"
 
-kafkaManager:
-  image: sheepkiller/kafka-manager
-  hostname: kafka-manager
-  environment:
-          ZK_HOSTS: kafka:2181
-          APPLICATION_SECRET: somesalt
-  ports:
-    - "9000:9000"
-  links:
-    - kafka:kafka
+  kafka:
+    image: raintank/kafka
+    hostname: kafka
+    environment:
+      ADVERTISED_HOST: kafka
+    ports:
+      - "2181:2181"
+      - "9092:9092"
+      - "9999:9999"
+    volumes:
+      - /tmp/kafka-logs
+      - ../logs/zookeeper:/var/log/zookeeper
+      - ../logs/supervisor:/var/log/supervisor
 
-kafkaOffsetMonitor:
-  image: jpodeszwik/kafka-offset-monitor:0.2.1
-  hostname: kafka-offset-monitor
-  environment:
-          ZK: kafka
-  ports:
-    - "8080:8080"
-  links:
-    - kafka:kafka
+  kafkaManager:
+    image: sheepkiller/kafka-manager
+    hostname: kafka-manager
+    environment:
+            ZK_HOSTS: kafka:2181
+            APPLICATION_SECRET: somesalt
+    ports:
+      - "9000:9000"
 
+  kafkaOffsetMonitor:
+    image: jpodeszwik/kafka-offset-monitor:0.2.1
+    hostname: kafka-offset-monitor
+    environment:
+            ZK: kafka
+    ports:
+      - "8080:8080"
 
-graphitewatcher:
-  image: raintank/graphitewatcher
-  hostname: watcher
-  ports:
-    - "6065:6065"
-  links:
-    - elasticsearch:elasticsearch
-    - graphitemon:graphitemon
-    - graphiteApi:graphite-api
-  volumes:
-    - ../logs:/var/log/raintank
-    - ../raintank_code/inspect:/go/src/github.com/raintank/inspect
+  graphitewatcher:
+    image: raintank/graphitewatcher
+    hostname: watcher
+    ports:
+      - "6065:6065"
+    links:
+      - graphiteMetrictank:graphite-api
+    volumes:
+      - ../logs:/var/log/raintank
+      - ../raintank_code/inspect:/go/src/github.com/raintank/inspect
 
-metrictank:
-  image: raintank/metrictank
-  hostname: metrictank
-  ports:
-    - "6063:6063"
-    - "2002:2003"
-  links:
-    - statsdaemon:statsdaemon
-    - cassandra:cassandra
-    - elasticsearch:elasticsearch
-    - kafka:kafka
-  volumes:
-    - ../logs:/var/log/raintank
-    - ../raintank_code/metrictank:/go/src/github.com/raintank/metrictank
+  metrictank:
+    image: raintank/metrictank
+    hostname: metrictank
+    ports:
+      - "6063:6063"
+      - "2002:2003"
+    volumes:
+      - ../logs:/var/log/raintank
+      - ./metrictank:/etc/raintank
+    environment:
+      WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
 
-eventtank:
-  image: raintank/eventtank
-  hostname: npee
-  ports:
-    - "6062:6060"
-  links:
-    - kafka:kafka
-    - elasticsearch:elasticsearch
-    - statsdaemon:statsdaemon
-  environment:
-    WAIT_HOSTS: kafka:9092,elasticsearch:9200
-  volumes:
-    - ../raintank_code/eventtank/build:/go/bin/
+  eventtank:
+    image: raintank/eventtank
+    hostname: npee
+    ports:
+      - "6062:6060"
+    environment:
+      WAIT_HOSTS: kafka:9092,elasticsearch:9200
+    volumes:
+      - ../raintank_code/eventtank/build:/go/bin/
 
-graphitemon:
-  image:  raintank/graphite
-  hostname: graphitemon
-  ports:
-    - "2003:2003"
-    - "8000:80"
+  graphitemon:
+    image:  raintank/graphite
+    hostname: graphitemon
+    ports:
+      - "2003:2003"
+      - "8000:80"
 
-cassandra:
-  image: cassandra:3.0.8
-  hostname: cassandra
-  ports:
-    - "9042"
-    - "9160"
-    - "8888"
+  cassandra:
+    image: cassandra:3.0.8
+    hostname: cassandra
+    ports:
+      - "9042"
+      - "9160"
+      - "8888"
 
-mysql:
-  image: mysql
-  hostname: mysql
-  ports:
-    - "3306"
-  environment:
-    MYSQL_ROOT_PASSWORD: rootpass
-    MYSQL_DATABASE: grafana
-    MYSQL_USER: grafana
-    MYSQL_PASSWORD: password
-  volumes:
-    - /var/lib/mysql
+  mysql:
+    image: mysql
+    hostname: mysql
+    ports:
+      - "3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: grafana
+      MYSQL_USER: grafana
+      MYSQL_PASSWORD: password
+    volumes:
+      - /var/lib/mysql
 
-graphiteApi:
-  image: raintank/graphite-api
-  hostname: graphite
-  ports:
-    - "8888:8888"
-  links:
-    - elasticsearch:elasticsearch
-    - statsdaemon:statsdaemon
-    - metrictank:metrictank
-  volumes:
-    - ../logs:/var/log/raintank
+  graphiteMetrictank:
+    image: raintank/graphite-metrictank
+    hostname: graphite
+    ports:
+      - "8888:8888"
+    environment:
+      WAIT_HOSTS: elasticsearch:9200,metrictank:6063
+    volumes:
+      - ../logs:/var/log/raintank
+      - ./graphite-metrictank/graphite-metrictank.yaml:/etc/graphite-metrictank/graphite-metrictank.yaml
 
-worldpingApi:
-  image: raintank/worldping_api
-  hostname: worldpingapi
-  ports:
-    - "80:80"
-  links:
-    - rabbitmq:rabbitmq
-    - graphiteApi:graphite-api
-    - mysql:mysql
-    - elasticsearch:elasticsearch
-    - statsdaemon:statsdaemon
-    - kafka:kafka
-  environment:
-    WAIT_HOSTS: kafka:9092,mysql:3306,rabbitmq:5672
-  volumes:
-    - ../raintank_code/worldping-api/worldping-api:/go/bin/worldping-api
-    - ./worldping_api/conf:/etc/raintank/
+  worldpingApi:
+    image: raintank/worldping-api
+    hostname: worldping-api
+    ports:
+      - "80:80"
+    links:
+      - graphiteMetrictank:graphite-api
+    environment:
+      WAIT_HOSTS: kafka:9092,mysql:3306,rabbitmq:5672
+    volumes:
+      - ./worldping-api/:/etc/raintank/
 
-statsdaemon:
-  image: raintank/statsdaemon
-  hostname: statsdaemon
-  ports:
-    - "8126:8126"
-  links:
-    - graphitemon:graphitemon
+  statsdaemon:
+    image: raintank/statsdaemon
+    hostname: statsdaemon
+    ports:
+      - "8126:8126"
 
-benchmark:
-  image: raintank/benchmark
-  hostname: benchmark
-  volumes:
-    - ../raintank_code/inspect:/go/src/github.com/raintank/inspect
-    - ../raintank_code/fakemetrics:/go/src/github.com/raintank/fakemetrics
-    - ../logs:/var/log/raintank
-    - ../results:/opt/raintank/raintank-tsdb-benchmark/results
-  ports:
-    - "6764:6764"
-  links:
-    - statsdaemon:statsdaemon
-    - elasticsearch:elasticsearch
-    - graphiteApi:graphite-api
-    - metrictank:metrictank
-    - carbon-relay-ng:carbon-relay-ng
-    - kafka:kafka
-    - tsdbgw:tsdbgw
+  benchmark:
+    image: raintank/benchmark
+    hostname: benchmark
+    volumes:
+      - ../raintank_code/inspect:/go/src/github.com/raintank/inspect
+      - ../raintank_code/fakemetrics:/go/src/github.com/raintank/fakemetrics
+      - ../logs:/var/log/raintank
+      - ../results:/opt/raintank/raintank-tsdb-benchmark/results
+    ports:
+      - "6764:6764"
+    links:
+      - graphiteMetrictank:graphite-api
 
-grafana:
-  image: raintank/grafana
-  hostname: grafana
-  ports:
-    - "3000:3000"
-  links:
-    - proxy:worldping-api.raintank.io
-    - metrictank:metrictank
-  volumes:
-    - ../raintank_code/plugins:/var/lib/grafana/plugins
-    - ../logs:/var/log/raintank
+  grafana:
+    image: raintank/grafana
+    hostname: grafana
+    ports:
+      - "3000:3000"
+    links:
+      - metrictank:metrictank
+      - proxy:tsdb-gw.raintank.io
+      - proxy:worldping-api.raintank.io
+    volumes:
+      - ../raintank_code/plugins:/var/lib/grafana/plugins
+      - ../logs:/var/log/raintank
 
-proxy:
-  image: raintank/proxy
-  hostname: proxy
-  ports:
-    - "443:443"
-  links:
-    - worldpingApi:worldpingapi
+  taskAgent:
+    image: raintank/task-agent
+    hostname: task-agent
+    ports:
+      - "8181:8181"
+    links:
+      - taskServer:task-server
+    volumes:
+      - ../raintank_code/raintank-apps/build/bin:/go/bin
+      - ../raintank_code/raintank-apps/build/plugins:/var/lib/snap/plugins
+      - ../logs:/var/log/raintank
 
-taskAgent:
-  image: raintank/task-agent
-  hostname: task-agent
-  ports:
-    - "8181:8181"
-  links:
-    - taskServer:task-server
-    - tsdbgw:tsdbgw
-  volumes:
-    - ../raintank_code/raintank-apps/build/bin:/go/bin
-    - ../raintank_code/raintank-apps/build/plugins:/var/lib/snap/plugins
-    - ../logs:/var/log/raintank
+  taskServer:
+    image: raintank/task-server
+    hostname: task-server
+    ports:
+      - "8082:80"
+    environment:
+      WAIT_HOSTS: rabbitmq:5672
+    volumes:
+      - ../raintank_code/raintank-apps/build/bin:/go/bin
 
-taskServer:
-  image: raintank/task-server
-  hostname: task-server
-  ports:
-    - "8082:80"
-  links:
-    - rabbitmq:rabbitmq
-    - statsdaemon:statsdaemon
-  environment:
-    WAIT_HOSTS: rabbitmq:5672
-  volumes:
-    - ../raintank_code/raintank-apps/build/bin:/go/bin
+  tsdbgw:
+    image: raintank/tsdb-gw
+    hostname: tsdb-gw.raintank.io
+    ports:
+      - "8081:80"
+    links:
+      - graphiteMetrictank:graphite-api
+    environment:
+      WAIT_HOSTS: kafka:9092
+    volumes:
+      - ./tsdb-gw/:/etc/raintank/
 
-tsdbgw:
-  image: raintank/tsdb-gw
-  hostname: tsdbgw
-  ports:
-    - "8081:80"
-  links:
-    - graphiteApi:graphite-api
-    - elasticsearch:elasticsearch
-    - statsdaemon:statsdaemon
-    - kafka:kafka
-  environment:
-    WAIT_HOSTS: kafka:9092
-  volumes:
-    - ../raintank_code/tsdb-gw/build:/go/bin/
+  carbon-relay-ng:
+    image: raintank/carbon-relay-ng
+    hostname: carbon-relay-ng
+    ports:
+      - "8083:8083"
+      - "2013:2013"
+    volumes:
+      - ../raintank_code/carbon-relay-ng:/go/src/github.com/graphite-ng/carbon-relay-ng
+      - ../logs:/var/log/raintank
+    
+  collectd:
+    image: raintank/collectd
+    hostname: collectd
 
-carbon-relay-ng:
-  image: raintank/carbon-relay-ng
-  hostname: carbon-relay-ng
-  ports:
-    - "8083:8083"
-    - "2013:2013"
-  links:
-    - graphitemon:graphitemon
-    - tsdbgw:tsdbgw
-  volumes:
-    - ../raintank_code/carbon-relay-ng:/go/src/github.com/graphite-ng/carbon-relay-ng
-    - ../logs:/var/log/raintank
-  
-collectd:
-  image: raintank/collectd
-  hostname: collectd
-  links:
-    - graphitemon:graphitemon
-    - kafka:kafka
+  proxy:
+    image: raintank/proxy
+    hostname: proxy
+    ports:
+      - "443:443"
+    links:
+      - tsdbgw:tsdb-gw
+      - worldpingApi:worldping-api
+
