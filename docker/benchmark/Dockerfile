@@ -12,7 +12,12 @@ RUN apt-get -y install wget vim bc
  # 	go get github.com/raintank/env-load
 
 RUN go get github.com/tsenart/vegeta
-RUN go get github.com/raintank/inspect/inspect-es
+#RUN go get github.com/raintank/inspect/inspect-es
+RUN mkdir -p /go/src/github.com/raintank/ && \
+	cd /go/src/github.com/raintank/ && \
+	git clone https://github.com/raintank/inspect.git && \
+	cd inspect && \
+	git checkout mt-update && go get github.com/raintank/inspect/inspect-es
 RUN go get github.com/raintank/fakemetrics
 
 RUN cd /opt/raintank && \
