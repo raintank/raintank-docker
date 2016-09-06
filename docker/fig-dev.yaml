@@ -68,6 +68,7 @@ services:
     volumes:
       - ../logs:/var/log/raintank
       - ./metrictank:/etc/raintank
+      - ../raintank_code/metrictank/build/metrictank:/usr/bin/metrictank
     environment:
       WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
       WAIT_TIMEOUT: 30
