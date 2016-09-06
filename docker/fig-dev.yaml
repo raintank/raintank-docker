@@ -70,6 +70,7 @@ services:
       - ./metrictank:/etc/raintank
     environment:
       WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
+      WAIT_TIMEOUT: 30
 
   eventtank:
     image: raintank/eventtank
