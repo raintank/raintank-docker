@@ -1,1 +1,1 @@
-docker logs -f raintank_metrictank_1
+docker logs -f raintank_metrictank_1 &> logs/metrictank.log
