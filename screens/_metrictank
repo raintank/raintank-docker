@@ -1,1 +1,8 @@
-docker logs -f raintank_metrictank_1 &> logs/metrictank.log
+docker logs -f raintank_metrictank0_1 &> logs/metrictank0.log &
+docker logs -f raintank_metrictank1_1 &> logs/metrictank1.log &
+docker logs -f raintank_metrictank2_1 &> logs/metrictank2.log &
+docker logs -f raintank_metrictank3_1 &> logs/metrictank3.log &
+docker logs -f raintank_metrictank4_1 &> logs/metrictank4.log &
+docker logs -f raintank_metrictank5_1 &> logs/metrictank5.log &
+docker logs -f raintank_metrictank6_1 &> logs/metrictank6.log &
+docker logs -f raintank_metrictank7_1 &> logs/metrictank7.log &

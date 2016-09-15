@@ -59,12 +59,11 @@ services:
       - ../logs:/var/log/raintank
       - ../raintank_code/inspect:/go/src/github.com/raintank/inspect
 
-  metrictank:
+  metrictank0:
     image: raintank/metrictank
-    hostname: metrictank
+    hostname: metrictank0
     ports:
-      - "6063:6063"
-      - "2002:2003"
+      - "6070:6063"
     volumes:
       - ../logs:/var/log/raintank
       - ./metrictank:/etc/raintank
@@ -72,6 +71,105 @@ services:
     environment:
       WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
       WAIT_TIMEOUT: 30
+      MT_KAFKA_MDM_IN_PARTITIONS : 0,1
+
+  metrictank1:
+    image: raintank/metrictank
+    hostname: metrictank1
+    ports:
+      - "6071:6063"
+    volumes:
+      - ../logs:/var/log/raintank
+      - ./metrictank:/etc/raintank
+      - ../raintank_code/metrictank/build/metrictank:/usr/bin/metrictank
+    environment:
+      WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
+      WAIT_TIMEOUT: 30
+      MT_KAFKA_MDM_IN_PARTITIONS : 2,3
+
+  metrictank2:
+    image: raintank/metrictank
+    hostname: metrictank2
+    ports:
+      - "6072:6063"
+    volumes:
+      - ../logs:/var/log/raintank
+      - ./metrictank:/etc/raintank
+      - ../raintank_code/metrictank/build/metrictank:/usr/bin/metrictank
+    environment:
+      WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
+      WAIT_TIMEOUT: 30
+      MT_KAFKA_MDM_IN_PARTITIONS : 4,5
+
+  metrictank3:
+    image: raintank/metrictank
+    hostname: metrictank3
+    ports:
+      - "6073:6063"
+    volumes:
+      - ../logs:/var/log/raintank
+      - ./metrictank:/etc/raintank
+      - ../raintank_code/metrictank/build/metrictank:/usr/bin/metrictank
+    environment:
+      WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
+      WAIT_TIMEOUT: 30
+      MT_KAFKA_MDM_IN_PARTITIONS : 6,7
+
+  metrictank4:
+    image: raintank/metrictank
+    hostname: metrictank4
+    ports:
+      - "6074:6063"
+    volumes:
+      - ../logs:/var/log/raintank
+      - ./metrictank:/etc/raintank
+      - ../raintank_code/metrictank/build/metrictank:/usr/bin/metrictank
+    environment:
+      WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
+      WAIT_TIMEOUT: 30
+      MT_KAFKA_MDM_IN_PARTITIONS : 8,9
+
+  metrictank5:
+    image: raintank/metrictank
+    hostname: metrictank5
+    ports:
+      - "6075:6063"
+    volumes:
+      - ../logs:/var/log/raintank
+      - ./metrictank:/etc/raintank
+      - ../raintank_code/metrictank/build/metrictank:/usr/bin/metrictank
+    environment:
+      WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
+      WAIT_TIMEOUT: 30
+      MT_KAFKA_MDM_IN_PARTITIONS : 10,11
+
+  metrictank6:
+    image: raintank/metrictank
+    hostname: metrictank6
+    ports:
+      - "6076:6063"
+    volumes:
+      - ../logs:/var/log/raintank
+      - ./metrictank:/etc/raintank
+      - ../raintank_code/metrictank/build/metrictank:/usr/bin/metrictank
+    environment:
+      WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
+      WAIT_TIMEOUT: 30
+      MT_KAFKA_MDM_IN_PARTITIONS : 12,13
+
+  metrictank7:
+    image: raintank/metrictank
+    hostname: metrictank7
+    ports:
+      - "6077:6063"
+    volumes:
+      - ../logs:/var/log/raintank
+      - ./metrictank:/etc/raintank
+      - ../raintank_code/metrictank/build/metrictank:/usr/bin/metrictank
+    environment:
+      WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
+      WAIT_TIMEOUT: 30
+      MT_KAFKA_MDM_IN_PARTITIONS : 14,15
 
   eventtank:
     image: raintank/eventtank
@@ -117,7 +215,7 @@ services:
     ports:
       - "8888:8888"
     environment:
-      WAIT_HOSTS: elasticsearch:9200,metrictank:6063
+      WAIT_HOSTS: elasticsearch:9200,metrictank0:6063
     volumes:
       - ../logs:/var/log/raintank
       - ./graphite-metrictank/graphite-metrictank.yaml:/etc/graphite-metrictank/graphite-metrictank.yaml
@@ -154,7 +252,7 @@ services:
       - "6764:6764"
     links:
       - graphiteMetrictank:graphite-api
-      - metrictank:metrictank
+      - metrictank0:metrictank
 
   grafana:
     image: raintank/grafana
@@ -162,7 +260,7 @@ services:
     ports:
       - "3000:3000"
     links:
-      - metrictank:metrictank
+      - metrictank0:metrictank
       - proxy:tsdb-gw.raintank.io
       - proxy:worldping-api.raintank.io
     volumes:

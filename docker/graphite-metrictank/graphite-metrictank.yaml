@@ -9,7 +9,7 @@ functions:
 - graphite_api.functions.PieFunctions
 raintank:
   tank:
-    url: http://metrictank:6063/
+    url: http://metrictank0:6063/
   es:
     url: http://elasticsearch:9200/
     max_docs: 10000
