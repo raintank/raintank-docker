@@ -72,6 +72,7 @@ services:
       WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
       WAIT_TIMEOUT: 30
       MT_KAFKA_MDM_IN_PARTITIONS : 0,1
+      MT_CASSANDRA_INITIALIZE : "true"
 
   metrictank1:
     image: raintank/metrictank
