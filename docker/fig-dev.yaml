@@ -22,6 +22,7 @@ services:
     hostname: kafka
     environment:
       ADVERTISED_HOST: kafka
+      NUM_PARTITIONS: 16
     ports:
       - "2181:2181"
       - "9092:9092"
