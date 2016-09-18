@@ -7,9 +7,7 @@ functions:
 raintank:
   tank:
     url: http://metrictank:6063/
-  es:
-    url: http://elasticsearch:9200/
-    max_docs: 10000
+  cache_ttl: 60
 search_index: /var/lib/graphite/index
 time_zone: America/New_York
 statsd:
