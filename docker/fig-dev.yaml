@@ -140,6 +140,7 @@ services:
       - mysql
     environment:
       WAIT_HOSTS: kafka:9092,mysql:3306,rabbitmq:5672
+      WAIT_TIMEOUT: 30
     volumes:
       - ./worldping-api/:/etc/raintank/
 
