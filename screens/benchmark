@@ -27,3 +27,4 @@
 #inspect-es --es-addr elasticsearch:9200 -format vegeta-mt | sed 's#localhost:6063#metrictank:6063#' | vegeta attack -rate 100 -duration=99h | vegeta report
 
 #/scripts/cassandra-artificial-timeouts.sh
+/scripts/cluster-workload-gentle.sh
