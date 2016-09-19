@@ -74,6 +74,7 @@ services:
       MT_KAFKA_MDM_IN_PARTITIONS : 0,1
       MT_CASSANDRA_INITIALIZE : "true"
       MT_LOG_LEVEL: 1
+      MT_OTHER_NODES: metrictank1:6063,metrictank2:6063,metrictank3:6063,metrictank4:6063,metrictank5:6063,metrictank6:6063,metrictank7:6063
 
   metrictank1:
     image: raintank/metrictank
@@ -89,6 +90,7 @@ services:
       WAIT_TIMEOUT: 30
       MT_KAFKA_MDM_IN_PARTITIONS : 2,3
       MT_LOG_LEVEL: 1
+      MT_OTHER_NODES: metrictank0:6063,metrictank2:6063,metrictank3:6063,metrictank4:6063,metrictank5:6063,metrictank6:6063,metrictank7:6063
 
   metrictank2:
     image: raintank/metrictank
@@ -103,6 +105,7 @@ services:
       WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
       WAIT_TIMEOUT: 30
       MT_KAFKA_MDM_IN_PARTITIONS : 4,5
+      MT_OTHER_NODES: metrictank0:6063,metrictank1:6063,metrictank3:6063,metrictank4:6063,metrictank5:6063,metrictank6:6063,metrictank7:6063
 
   metrictank3:
     image: raintank/metrictank
@@ -117,6 +120,7 @@ services:
       WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
       WAIT_TIMEOUT: 30
       MT_KAFKA_MDM_IN_PARTITIONS : 6,7
+      MT_OTHER_NODES: metrictank0:6063,metrictank1:6063,metrictank2:6063,metrictank4:6063,metrictank5:6063,metrictank6:6063,metrictank7:6063
 
   metrictank4:
     image: raintank/metrictank
@@ -131,6 +135,7 @@ services:
       WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
       WAIT_TIMEOUT: 30
       MT_KAFKA_MDM_IN_PARTITIONS : 8,9
+      MT_OTHER_NODES: metrictank0:6063,metrictank1:6063,metrictank2:6063,metrictank3:6063,metrictank5:6063,metrictank6:6063,metrictank7:6063
 
   metrictank5:
     image: raintank/metrictank
@@ -145,6 +150,7 @@ services:
       WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
       WAIT_TIMEOUT: 30
       MT_KAFKA_MDM_IN_PARTITIONS : 10,11
+      MT_OTHER_NODES: metrictank0:6063,metrictank1:6063,metrictank2:6063,metrictank3:6063,metrictank4:6063,metrictank6:6063,metrictank7:6063
 
   metrictank6:
     image: raintank/metrictank
@@ -159,6 +165,7 @@ services:
       WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
       WAIT_TIMEOUT: 30
       MT_KAFKA_MDM_IN_PARTITIONS : 12,13
+      MT_OTHER_NODES: metrictank0:6063,metrictank1:6063,metrictank2:6063,metrictank3:6063,metrictank4:6063,metrictank5:6063,metrictank7:6063
 
   metrictank7:
     image: raintank/metrictank
@@ -173,6 +180,7 @@ services:
       WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
       WAIT_TIMEOUT: 30
       MT_KAFKA_MDM_IN_PARTITIONS : 14,15
+      MT_OTHER_NODES: metrictank0:6063,metrictank1:6063,metrictank2:6063,metrictank3:6063,metrictank4:6063,metrictank5:6063,metrictank6:6063
 
   eventtank:
     image: raintank/eventtank
