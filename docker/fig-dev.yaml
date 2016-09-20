@@ -264,7 +264,6 @@ services:
       - "6764:6764"
     links:
       - graphiteMetrictank:graphite-api
-      - metrictank0:metrictank
 
   grafana:
     image: raintank/grafana

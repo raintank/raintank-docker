@@ -22,4 +22,6 @@ WORKDIR /opt/raintank/raintank-tsdb-benchmark
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+env PATH /go/src/github.com/raintank/inspect/inspect-idx:/go/src/github.com/raintank/fakemetrics:$PATH
+
 CMD ["/usr/bin/supervisord"]
