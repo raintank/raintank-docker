@@ -61,6 +61,10 @@
             {
               "refId": "A",
               "target": "aliasByNode(measure.collector.*.cpu, 1, 2)"
+            },
+            {
+              "refId": "C",
+              "target": "aliasByNode(measure.metrictank.*.cpu, 1, 2)"
             }
           ],
           "timeFrom": null,
@@ -217,6 +221,10 @@
             {
               "refId": "A",
               "target": "aliasByNode(measure.collector.*.rss, 1, 2)"
+            },
+            {
+              "refId": "C",
+              "target": "aliasByNode(measure.metrictank.*.rss, 1, 2)"
             }
           ],
           "timeFrom": null,
