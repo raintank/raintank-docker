@@ -71,7 +71,6 @@ elif [ $MODE == "code" ]; then
 
     echo "> building metrictank"
     cd /go/src/github.com/raintank/metrictank
-    go get ./...
-    go build
+    make bin
 
 fi
