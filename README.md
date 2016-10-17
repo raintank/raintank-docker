@@ -71,7 +71,7 @@ feb682f3a24a      raintank/metrictank       "/usr/bin/metrictank_"   About a min
 ```
 Look for all the containers which exited, in the first column you can see their container id's.  (note, this listing may also include old containers which have exited hours or days ago, which are not relevant.  Be sure to start at the top and work your way down and look at the status column to see what's relevant.
 
-Then, for the containers that failed, run `docker logs <container-id from first column>` this should help explain what failed.  If it doesn't, please post the output of this command as well as `docker ps -a`
+Then, for the containers that failed, run `docker logs <container-id from first column>` this should help explain what failed.  If it doesn't, please post the output of this command as well as `docker ps -a` in a github issue.
 
 
 Switching branches
