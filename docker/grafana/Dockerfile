@@ -1,5 +1,5 @@
 FROM ubuntu
-RUN apt-get update && apt-get -y install apt-transport-https curl
+RUN apt-get update && apt-get -y install apt-transport-https curl net-tools
 RUN echo "deb https://packagecloud.io/grafana/testing/debian/ jessie main" > /etc/apt/sources.list.d/grafana.list
 RUN curl https://packagecloud.io/gpg.key | apt-key add -
 RUN apt-get update
