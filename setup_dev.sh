@@ -34,7 +34,7 @@ if [ "$MODE" == "docker" ]; then
 
 elif [ $MODE == "code" ]; then
 	cd /go/src/github.com/raintank
-	for i in inspect fakemetrics raintank-collector metrictank eventtank worldping-api raintank-probe raintank-apps carbon-relay-ng tsdb-gw plugins/worldping-app; do
+	for i in inspect fakemetrics metrictank eventtank worldping-api raintank-probe raintank-apps carbon-relay-ng tsdb-gw plugins/worldping-app; do
 		echo "> processing code for $i"
 		if [ -f /go/src/github.com/raintank/$i/.notouch ]; then
 			echo "Skipping due to .notouch"
