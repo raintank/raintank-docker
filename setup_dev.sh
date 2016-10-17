@@ -7,7 +7,7 @@ BRANCH=${1:-master}
 MODE=${2:-docker}
 
 # important: if you change this, you must also update fig-dev.yaml accordingly
-RT_CODE="$(pwd)/raintank_code"
+RT_CODE="$(pwd)/code"
 RT_LOGS="$(pwd)/logs"
 
 function assurecode() {

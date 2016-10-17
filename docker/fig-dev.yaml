@@ -57,7 +57,7 @@ services:
       - graphiteMetrictank:graphite-api
     volumes:
       - ../logs:/var/log/raintank
-      - ../raintank_code/inspect:/go/src/github.com/raintank/inspect
+      - ../code/inspect:/go/src/github.com/raintank/inspect
 
   metrictank:
     image: raintank/metrictank
@@ -68,7 +68,7 @@ services:
     volumes:
       - ../logs:/var/log/raintank
       - ./metrictank:/etc/raintank
-      - ../raintank_code/metrictank/build/metrictank:/usr/bin/metrictank
+      - ../code/metrictank/build/metrictank:/usr/bin/metrictank
     environment:
       WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
       WAIT_TIMEOUT: 30
@@ -81,7 +81,7 @@ services:
     environment:
             WAIT_HOSTS: kafka:9092,elasticsearch:9200,statsdaemon:8125
     volumes:
-      - ../raintank_code/eventtank/build:/go/bin/
+      - ../code/eventtank/build:/go/bin/
 
   graphitemon:
     image:  raintank/graphite
@@ -146,8 +146,8 @@ services:
     image: raintank/benchmark
     hostname: benchmark
     volumes:
-      - ../raintank_code/inspect:/go/src/github.com/raintank/inspect
-      - ../raintank_code/fakemetrics:/go/src/github.com/raintank/fakemetrics
+      - ../code/inspect:/go/src/github.com/raintank/inspect
+      - ../code/fakemetrics:/go/src/github.com/raintank/fakemetrics
       - ../logs:/var/log/raintank
       - ../results:/opt/raintank/raintank-tsdb-benchmark/results
     ports:
@@ -166,7 +166,7 @@ services:
       - proxy:tsdb-gw.raintank.io
       - proxy:worldping-api.raintank.io
     volumes:
-      - ../raintank_code/raintank-worldping-app:/var/lib/grafana/plugins/raintank-worldping-app
+      - ../code/raintank-worldping-app:/var/lib/grafana/plugins/raintank-worldping-app
       - ../logs:/var/log/raintank
 
   taskAgent:
@@ -177,8 +177,8 @@ services:
     links:
       - taskServer:task-server
     volumes:
-      - ../raintank_code/raintank-apps/build/bin:/go/bin
-      - ../raintank_code/raintank-apps/build/plugins:/var/lib/snap/plugins
+      - ../code/raintank-apps/build/bin:/go/bin
+      - ../code/raintank-apps/build/plugins:/var/lib/snap/plugins
       - ../logs:/var/log/raintank
 
   taskServer:
@@ -189,7 +189,7 @@ services:
     environment:
       WAIT_HOSTS: rabbitmq:5672
     volumes:
-      - ../raintank_code/raintank-apps/build/bin:/go/bin
+      - ../code/raintank-apps/build/bin:/go/bin
 
   tsdbgw:
     image: raintank/tsdb-gw
@@ -212,7 +212,7 @@ services:
     depends_on:
             - graphitemon
     volumes:
-      - ../raintank_code/carbon-relay-ng:/go/src/github.com/graphite-ng/carbon-relay-ng
+      - ../code/carbon-relay-ng:/go/src/github.com/graphite-ng/carbon-relay-ng
       - ../logs:/var/log/raintank
     
   collectd:
