@@ -13,18 +13,18 @@ RT_LOGS="$(pwd)/logs"
 function assurecode() {
 	local repo=$1
 	local dir=$2
-	echo "> processing code for $dir"
+	echo -n "> processing code for $dir: "
 	if [ -f /go/src/github.com/raintank/$dir/.notouch ]; then
-		echo "Skipping due to .notouch"
+		echo ".notouch found -> Skipping"
 		continue
 	elif [ -d /go/src/github.com/raintank/$dir/.git ]; then
-		echo "has a .git dir, cd fetch"
+		echo "has a .git dir -> fetch, checkout and pull"
 		cd /go/src/github.com/raintank/$dir
 		git fetch
 		git checkout $BRANCH
 		git pull
 	else
-		echo "no .git -> clone"
+		echo "no git repo found -> cloning"
 		cd /go/src/github.com/raintank
 		git clone -b $BRANCH $repo $dir
 	fi
