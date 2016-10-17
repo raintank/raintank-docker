@@ -10,6 +10,26 @@ MODE=${2:-docker}
 RT_CODE="$(pwd)/raintank_code"
 RT_LOGS="$(pwd)/logs"
 
+function assurecode() {
+	local repo=$1
+	local dir=$2
+	echo "> processing code for $dir"
+	if [ -f /go/src/github.com/raintank/$dir/.notouch ]; then
+		echo "Skipping due to .notouch"
+		continue
+	elif [ -d /go/src/github.com/raintank/$dir/.git ]; then
+		echo "has a .git dir, cd fetch"
+		cd /go/src/github.com/raintank/$dir
+		git fetch
+		git checkout $BRANCH
+		git pull
+	else
+		echo "no .git -> clone"
+		cd /go/src/github.com/raintank
+		git clone -b $BRANCH $repo $dir
+	fi
+}
+
 if [ "$MODE" == "docker" ]; then
 	DIR=$(dirname $0)
 	DIR=$(readlink -e $DIR)
@@ -21,7 +41,7 @@ if [ "$MODE" == "docker" ]; then
 
 	args=("${args[@]}" "-v" "$DIR:/opt/raintank/raintank-docker")
 	# assure the directories exist (irrespective of what we'll do with them, see below) so we can set up the volumes
-	for i in inspect fakemetrics metrictank eventtank worldping-api raintank-probe raintank-apps carbon-relay-ng tsdb-gw plugins/worldping-app; do
+	for i in inspect fakemetrics metrictank eventtank worldping-api raintank-probe raintank-apps carbon-relay-ng tsdb-gw raintank-worldping-app; do
 		mkdir -p $i
 		args=("${args[@]}" "-v" "$RT_CODE/$i:/go/src/github.com/raintank/$i")
 	done
@@ -34,21 +54,10 @@ if [ "$MODE" == "docker" ]; then
 
 elif [ $MODE == "code" ]; then
 	cd /go/src/github.com/raintank
-	for i in inspect fakemetrics metrictank eventtank worldping-api raintank-probe raintank-apps carbon-relay-ng tsdb-gw plugins/worldping-app; do
-		echo "> processing code for $i"
-		if [ -f /go/src/github.com/raintank/$i/.notouch ]; then
-			echo "Skipping due to .notouch"
-			continue
-		elif [ -d /go/src/github.com/raintank/$i/.git ]; then
-			cd /go/src/github.com/raintank/$i
-			git fetch
-			git checkout $BRANCH
-			git pull
-		else
-			cd /go/src/github.com/raintank
-			git clone -b $BRANCH ${GITHUBURL}raintank/$i.git
-		fi
+	for i in inspect fakemetrics metrictank eventtank worldping-api raintank-probe raintank-apps carbon-relay-ng tsdb-gw; do
+		assurecode ${GITHUBURL}raintank/$i.git $i
 	done
+	assurecode ${GITHUBURL}raintank/worldping-app raintank-worldping-app
 
 	echo "> configuring go"
 	export GOPATH=/go

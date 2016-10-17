@@ -166,7 +166,7 @@ services:
       - proxy:tsdb-gw.raintank.io
       - proxy:worldping-api.raintank.io
     volumes:
-      - ../raintank_code/plugins:/var/lib/grafana/plugins
+      - ../raintank_code/raintank-worldping-app:/var/lib/grafana/plugins/raintank-worldping-app
       - ../logs:/var/log/raintank
 
   taskAgent:
