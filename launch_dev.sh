@@ -27,7 +27,7 @@ echo "starting screen session..."
 screen -S raintank -d -m -t shell bash
 
 num=$(grep '^  [a-z]' docker/fig-dev.yaml | wc -l)
-while [ $(docker ps | grep -c raintank) -ne $num ]; do
+while [ $(docker ps | grep -c raintank_) -ne $num ]; do
   echo "waiting for all $num containers to run..."
   sleep 0.5
 done
