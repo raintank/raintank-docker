@@ -14,18 +14,18 @@ function assurecode() {
 	local repo=$1
 	local dir=$2
 	echo -n "> processing code for $dir: "
-	if [ -f /go/src/github.com/raintank/$dir/.notouch ]; then
+	if [ -f /go/src/github.com/$dir/.notouch ]; then
 		echo ".notouch found -> Skipping"
 		continue
-	elif [ -d /go/src/github.com/raintank/$dir/.git ]; then
+	elif [ -d /go/src/github.com/$dir/.git ]; then
 		echo "has a .git dir -> fetch, checkout and pull"
-		cd /go/src/github.com/raintank/$dir
+		cd /go/src/github.com/$dir
 		git fetch
 		git checkout $BRANCH
 		git pull
 	else
 		echo "no git repo found -> cloning"
-		cd /go/src/github.com/raintank
+		cd /go/src/github.com/
 		git clone -b $BRANCH $repo $dir
 	fi
 }
@@ -41,10 +41,15 @@ if [ "$MODE" == "docker" ]; then
 
 	args=("${args[@]}" "-v" "$DIR:/opt/raintank/raintank-docker")
 	# assure the directories exist (irrespective of what we'll do with them, see below) so we can set up the volumes
-	for i in inspect fakemetrics metrictank eventtank worldping-api raintank-probe raintank-apps carbon-relay-ng tsdb-gw raintank-worldping-app; do
+	for i in inspect fakemetrics metrictank eventtank worldping-api raintank-probe raintank-apps tsdb-gw raintank-worldping-app; do
 		mkdir -p $i
 		args=("${args[@]}" "-v" "$CODE/$i:/go/src/github.com/raintank/$i")
 	done
+
+	i=carbon-relay-ng
+	mkdir -p $i
+	args=("${args[@]}" "-v" "$CODE/$i:/go/src/github.com/graphite-ng/$i")
+
 	cd -
 	if [ -n "$SSH_AUTH_SOCK" ]; then
 		args=("${args[@]}" "-v" $SSH_AUTH_SOCK:$SSH_AUTH_SOCK -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK)
@@ -53,11 +58,12 @@ if [ "$MODE" == "docker" ]; then
 	docker run --rm -t -i "${args[@]}" raintank/nodejsgo /tmp/scripts/$SCRIPT $BRANCH code
 
 elif [ $MODE == "code" ]; then
-	cd /go/src/github.com/raintank
-	for i in inspect fakemetrics metrictank eventtank worldping-api raintank-probe raintank-apps carbon-relay-ng tsdb-gw; do
-		assurecode ${GITHUBURL}raintank/$i.git $i
+	for i in inspect fakemetrics metrictank eventtank worldping-api raintank-probe raintank-apps tsdb-gw; do
+		assurecode ${GITHUBURL}raintank/$i.git raintank/$i
 	done
-	assurecode ${GITHUBURL}raintank/worldping-app raintank-worldping-app
+	assurecode ${GITHUBURL}raintank/worldping-app raintank/raintank-worldping-app
+
+	assurecode ${GITHUBURL}graphite-ng/carbon-relay-ng graphite-ng/carbon-relay-ng
 
 	echo "> configuring go"
 	export GOPATH=/go
@@ -82,4 +88,7 @@ elif [ $MODE == "code" ]; then
 	cd /go/src/github.com/raintank/metrictank
 	make bin
 
+	echo "> building carbon-relay-ng"
+	cd /go/src/github.com/graphite-ng/carbon-relay-ng
+	go build
 fi
