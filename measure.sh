@@ -5,7 +5,7 @@ COLUMNS=512 top -b -c | grep -v sed | sed -u -n \
   -e 's#`-.*java.*elasticsearch.*#elasticsearch#p' \
   -e 's#`-.*grafana-server.*#grafana#p' \
   -e 's#`- /nsqd .*#nsqd#p' \
-  -e 's#`- ./metrictank.*#metrictank#p' \
+  -e 's#`- /usr/bin/metrictank.*#metrictank#p' \
   -e 's#`- ./nsq_probe_events_to_elastic.*#npee#p' \
   -e 's#`-.*python.*gunicorn.*#graphite-api#p' \
   -e 's#`-.*/carbon-relay-ng.*proxy.ini$#carbon-relay-ng#p' \
