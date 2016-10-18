@@ -23,14 +23,12 @@ To provision a full dev stack using docker
 - cd in the dir and run `./build_all.sh`.  This will build all of the needed raintank images.  
   Some of the images such as metrictank are built automatically via with github commit hooks and will be pulled in automatically via [dockerhub](https://hub.docker.com/u/raintank/).
 - you can run `./build_all.sh rebuild` to force a rebuild of the images (but keeping base images such as ubuntu etc)
-- you can use custom versions of required code by going into `code`, removing a dir like grafana and making a symlink like `ln -s </path/to/grafana> .`
+- you can use custom versions of required code by going into `code`, removing a dir like grafana and making a symlink like `ln -s </path/to/your-code-dir> .`
   In this case, make sure to add a `.notouch` file so that `setup_dev.sh` doesn't try to manage the code there.
 - run `./setup_dev.sh` to download all of the components.  The script will launch a docker container and clone the git repositories of all of the needed components.  Once the script has completed, the docker host server will have a `code` directory that will have all of the required code and dependencies installed.
 - run `./launch_dev.sh` to start up all of the docker containers.  This script will start the containers and corresponding screen sessions.  Instead of using the code baked into the image, the container will instead execute what is installed in `code` on the docker host.  As all containers are sharing the same /opt/raintank directory, any changes made to the /opt/raintank/* code while inside a container will be visible in all other containers.
-- attach to the screen session with 'screen -r raintank'.  To navigate between all of the screen windows press 'CTRL-a then "' (double quote).  This will provide the list of windows running, use the arrow keys to select the desired window then press enter.
-- enable the worldping app through the grafana menu at http://localhost:3000, using key `changeme`. This imports the dashboards, sets up the metrictank datasource, and activates a worldping plugin which you can play with.  But often all we use it for is the side-effect of having the metrictank datasource be created.
 
-for your convenience, this code may be all you need (tested on ubuntu 14.04)
+for your convenience, this code may be all you need (tested on ubuntu 14.04) to get the stack up.
 
 ```
 curl -sSL https://get.docker.com/ubuntu/ | sudo sh
@@ -44,8 +42,10 @@ cd raintank-docker
 ./launch_dev.sh
 ```
 
-- connect to your new install in a broswer using at http://localhost:3000/.  The default user is 'admin' and the default password is 'admin'
-
+- You can log into Grafana at http://localhost:3000/.  The default user is 'admin' and the default password is 'admin'
+- enable the worldping app through the grafana menu, under 'Plugins' and then 'Apps' tab, using key `changeme`. This imports the dashboards, sets up the metrictank datasource, and activates a worldping plugin which you can play with.  But often all we use it for is the side-effect of having the `raintank` datasource be created, which queries metrictank (through graphite-api).  So if you want to store data in metrictank and visualize it, just enable WorldPing to have the datasource.
+- logs will be in the `logs` directory.
+- You can attach to the screen session with 'screen -r raintank'.  To navigate between all of the screen windows press 'CTRL-a then "' (double quote).  This will provide the list of windows running, use the arrow keys to select the desired window then press enter.
 - to shut the stack down again, run `./stop_dev.sh`
 
 When stuff goes wrong
