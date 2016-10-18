@@ -68,18 +68,18 @@ elif [ $MODE == "code" ]; then
 	go get ./...
 	./scripts/build_all.sh
 
-    echo "> building raintank-probe"
-    cd /go/src/github.com/raintank/raintank-probe
-    go get ./...
-    make
+	echo "> building raintank-probe"
+	cd /go/src/github.com/raintank/raintank-probe
+	go get ./...
+	make
 
-    echo "> building worldping-api"
-    cd /go/src/github.com/raintank/worldping-api
-    go get ./...
-    go build
+	echo "> building worldping-api"
+	cd /go/src/github.com/raintank/worldping-api
+	go get ./...
+	go build
 
-    echo "> building metrictank"
-    cd /go/src/github.com/raintank/metrictank
-    make bin
+	echo "> building metrictank"
+	cd /go/src/github.com/raintank/metrictank
+	make bin
 
 fi
