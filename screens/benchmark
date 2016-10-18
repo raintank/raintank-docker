@@ -21,7 +21,7 @@
 ## to compare nsq vs kafka traffic (may want to manually kill and restart some of these jobs at runtime)
 wait.sh kafka:9092
 cd /go/src/github.com/raintank/fakemetrics
-echo ./fakemetrics -listen :6763 -kafka-mdam-tcp-address kafka:9092 -kafka-comp none -statsd-addr statsdaemon:8125 -orgs 200 -keys-per-org 100 &
-./fakemetrics -listen :6764 -kafka-mdm-tcp-address kafka:9092 -kafka-comp none -statsd-addr statsdaemon:8125 -orgs 10 -keys-per-org 1000 &
+#./fakemetrics -listen :6763 -kafka-mdam-tcp-address kafka:9092 -kafka-comp none -statsd-addr statsdaemon:8125 -orgs 200 -keys-per-org 100 &
+./fakemetrics -listen :6764 -kafka-mdm-tcp-address kafka:9092 -kafka-comp none -statsd-addr statsdaemon:8125 -orgs 1 -keys-per-org 100 &
 
 #inspect-es --es-addr elasticsearch:9200 -format vegeta-mt | sed 's#localhost:6063#metricTank:6063#' | vegeta attack -rate 100 -duration=99h | vegeta report
