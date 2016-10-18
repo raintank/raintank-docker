@@ -7,8 +7,8 @@ BRANCH=${1:-master}
 MODE=${2:-docker}
 
 # important: if you change this, you must also update fig-dev.yaml accordingly
-RT_CODE="$(pwd)/code"
-RT_LOGS="$(pwd)/logs"
+CODE="$(pwd)/code"
+LOGS="$(pwd)/logs"
 
 function assurecode() {
 	local repo=$1
@@ -34,16 +34,16 @@ if [ "$MODE" == "docker" ]; then
 	DIR=$(dirname $0)
 	DIR=$(readlink -e $DIR)
 	SCRIPT=$(basename $0)
-	mkdir -p $RT_CODE
+	mkdir -p $CODE
 
 	args=("-v" "$DIR:/tmp/scripts" "-v" "/root:/root")
-	cd $RT_CODE
+	cd $CODE
 
 	args=("${args[@]}" "-v" "$DIR:/opt/raintank/raintank-docker")
 	# assure the directories exist (irrespective of what we'll do with them, see below) so we can set up the volumes
 	for i in inspect fakemetrics metrictank eventtank worldping-api raintank-probe raintank-apps carbon-relay-ng tsdb-gw raintank-worldping-app; do
 		mkdir -p $i
-		args=("${args[@]}" "-v" "$RT_CODE/$i:/go/src/github.com/raintank/$i")
+		args=("${args[@]}" "-v" "$CODE/$i:/go/src/github.com/raintank/$i")
 	done
 	cd -
 	if [ -n "$SSH_AUTH_SOCK" ]; then

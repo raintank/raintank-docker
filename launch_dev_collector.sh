@@ -11,11 +11,11 @@ id=dev$((highest+1))
 
 docker_name=raintank_raintankCollector_$id
 
-eval $(grep ^RT_CODE setup_dev.sh)
-eval $(grep ^RT_LOGS setup_dev.sh)
+eval $(grep ^CODE setup_dev.sh)
+eval $(grep ^LOGS setup_dev.sh)
 
 docker run --network raintank_default \
-           -v $RT_CODE/raintank-probe/build:/go/bin/ \
+           -v $CODE/raintank-probe/build:/go/bin/ \
            -d --name=$docker_name \
            -h collector-$id \
            -e WAIT_HOSTS=worldpingApi:80 \
