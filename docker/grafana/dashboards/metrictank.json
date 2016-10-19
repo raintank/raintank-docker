@@ -154,6 +154,7 @@
             },
             {
               "refId": "H",
+              "hide": true,
               "target": "alias(movingAverage(multiplySeries(stats.$environment.timers.metrictank.$host.idx.elasticsearch.add_duration.mean, stats.$environment.timers.metrictank.$host.idx.elasticsearch.add_duration.count_ps), 5), 'ES backpressure')",
               "textEditor": true
             },
