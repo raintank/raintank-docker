@@ -101,5 +101,6 @@ elif [ $MODE == "code" ]; then
 
 	echo "> building fakemetrics"
 	cd /go/src/github.com/raintank/fakemetrics
-
+	go get ./...
+	go build
 fi
