@@ -98,4 +98,8 @@ elif [ $MODE == "code" ]; then
 	echo "> building carbon-relay-ng"
 	cd /go/src/github.com/graphite-ng/carbon-relay-ng
 	go build
+
+	echo "> building fakemetrics"
+	cd /go/src/github.com/raintank/fakemetrics
+
 fi
