@@ -49,6 +49,10 @@ if [ "$MODE" == "docker" ]; then
 	mkdir -p $i
 	args=("${args[@]}" "-v" "$CODE/$i:/go/src/github.com/graphite-ng/$i")
 
+	i=grafana
+	mkdir -p $i
+	args=("${args[@]}" "-v" "$CODE/$i:/go/src/github.com/grafana/$i")
+
 	cd -
 	if [ -n "$SSH_AUTH_SOCK" ]; then
 		args=("${args[@]}" "-v" $SSH_AUTH_SOCK:$SSH_AUTH_SOCK -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK)
@@ -64,10 +68,18 @@ elif [ $MODE == "code" ]; then
 
 	assurecode ${GITHUBURL}graphite-ng/carbon-relay-ng graphite-ng/carbon-relay-ng
 
+	assurecode ${GITHUBURL}grafana/grafana grafana/grafana
+
 	echo "> configuring go"
 	export GOPATH=/go
 	export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
+	echo "> building grafana"
+	cd /go/src/github.com/grafana/grafana
+	go run build.go setup
+	go run build.go build
+	npm install
+	npm run build
 
 	echo "> building raintank-probe"
 	cd /go/src/github.com/raintank/raintank-probe
