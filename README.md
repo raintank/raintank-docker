@@ -19,13 +19,14 @@ To provision a full dev stack using docker
 
 - [install docker](https://docs.docker.com/installation/#installation)
 - [install docker-compose](http://docs.docker.com/compose/install/) - We require >= 1.7
-- clone this git repo.
+- install `git` and `screen`
+- clone this git repo: `git clone https://github.com/raintank/raintank-docker.git`
 - cd in the dir and run `./build_all.sh`.  This will build all of the needed raintank images.  
   Some of the images such as metrictank are built automatically via with github commit hooks and will be pulled in automatically via [dockerhub](https://hub.docker.com/u/raintank/).
-- you can run `./build_all.sh rebuild` to force a rebuild of the images (but keeping base images such as ubuntu etc)
-- you can use custom versions of required code by going into `code`, removing a dir like grafana and making a symlink like `ln -s </path/to/your-code-dir> .`
+- you can run `./build_all.sh rebuild` to force a rebuild of the images (but keeping base images such as ubuntu etc) if needed.
+- you can use custom versions of required code by running `./setup_dev.sh` once and let it download everything (but you can abort once it starts building stuff), going into `code`, removing a dir like grafana and making a symlink like `ln -s </path/to/your-code-dir> .`
   In this case, make sure to add a `.notouch` file so that `setup_dev.sh` doesn't try to manage the code there.
-- run `./setup_dev.sh` to download all of the components.  The script will launch a docker container and clone the git repositories of all of the needed components.  Once the script has completed, the docker host server will have a `code` directory that will have all of the required code and dependencies installed.
+- run `./setup_dev.sh` to download and build all of the components.  The script will launch a docker container and clone the git repositories of all of the needed components.  Once the script has completed, the docker host server will have a `code` directory that will have all of the required code and dependencies installed.
 - run `./launch_dev.sh` to start up all of the docker containers.  This script will start the containers and corresponding screen sessions.  Instead of using the code baked into the image, the container will instead execute what is installed in `code` on the docker host.  As all containers are sharing the same /opt/raintank directory, any changes made to the /opt/raintank/* code while inside a container will be visible in all other containers.
 
 for your convenience, this code may be all you need (tested on ubuntu 14.04) to get the stack up.
