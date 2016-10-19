@@ -27,9 +27,29 @@ curl -u admin:admin \
 
 
 for file in /tmp/dashboards/*; do
-  echo "> adding dashboard $file"
-  curl -u admin:admin \
-    -H "content-type: application/json" \
-    'http://localhost:3000/api/dashboards/db' -X POST -d "{\"dashboard\": $(cat $file)}"
+  if grep -q "__inputs" $file; then
+    echo "> importing dashboard $file"
+    curl -u admin:admin \
+      -H "content-type: application/json" \
+      'http://localhost:3000/api/dashboards/import' -X POST -d "
+        {
+          \"dashboard\":
+             $(cat $file),
+          \"overwrite\": true,
+          \"inputs\": [
+            {
+              \"name\": \"DS_GRAPHITE\",
+              \"type\": \"datasource\",
+              \"pluginId\": \"graphite\",
+              \"value\": \"graphite\"
+            }
+          ]
+        }"
+  else
+    echo "> adding dashboard $file"
+    curl -u admin:admin \
+      -H "content-type: application/json" \
+      'http://localhost:3000/api/dashboards/db' -X POST -d "{\"dashboard\": $(cat $file)}"
+  fi
 done
 
