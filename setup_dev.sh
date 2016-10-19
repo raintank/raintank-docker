@@ -16,7 +16,6 @@ function assurecode() {
 	echo -n "> processing code for $dir: "
 	if [ -f /go/src/github.com/$dir/.notouch ]; then
 		echo ".notouch found -> Skipping"
-		continue
 	elif [ -d /go/src/github.com/$dir/.git ]; then
 		echo "has a .git dir -> fetch, checkout and pull"
 		cd /go/src/github.com/$dir
