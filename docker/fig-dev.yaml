@@ -169,28 +169,6 @@ services:
       - ../code/raintank-worldping-app:/var/lib/grafana/plugins/raintank-worldping-app
       - ../logs:/var/log/raintank
 
-  taskAgent:
-    image: raintank/task-agent
-    hostname: task-agent
-    ports:
-      - "8181:8181"
-    links:
-      - taskServer:task-server
-    volumes:
-      - ../code/raintank-apps/build/bin:/go/bin
-      - ../code/raintank-apps/build/plugins:/var/lib/snap/plugins
-      - ../logs:/var/log/raintank
-
-  taskServer:
-    image: raintank/task-server
-    hostname: task-server
-    ports:
-      - "8082:80"
-    environment:
-      WAIT_HOSTS: rabbitmq:5672
-    volumes:
-      - ../code/raintank-apps/build/bin:/go/bin
-
   tsdbgw:
     image: raintank/tsdb-gw
     hostname: tsdb-gw.raintank.io

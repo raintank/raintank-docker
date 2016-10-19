@@ -41,7 +41,7 @@ if [ "$MODE" == "docker" ]; then
 
 	args=("${args[@]}" "-v" "$DIR:/opt/raintank/raintank-docker")
 	# assure the directories exist (irrespective of what we'll do with them, see below) so we can set up the volumes
-	for i in inspect fakemetrics metrictank eventtank worldping-api raintank-probe raintank-apps tsdb-gw raintank-worldping-app; do
+	for i in inspect fakemetrics metrictank eventtank worldping-api raintank-probe tsdb-gw raintank-worldping-app; do
 		mkdir -p $i
 		args=("${args[@]}" "-v" "$CODE/$i:/go/src/github.com/raintank/$i")
 	done
@@ -58,7 +58,7 @@ if [ "$MODE" == "docker" ]; then
 	docker run --rm -t -i "${args[@]}" raintank/nodejsgo /tmp/scripts/$SCRIPT $BRANCH code
 
 elif [ $MODE == "code" ]; then
-	for i in inspect fakemetrics metrictank eventtank worldping-api raintank-probe raintank-apps tsdb-gw; do
+	for i in inspect fakemetrics metrictank eventtank worldping-api raintank-probe tsdb-gw; do
 		assurecode ${GITHUBURL}raintank/$i.git raintank/$i
 	done
 	assurecode ${GITHUBURL}raintank/worldping-app raintank/raintank-worldping-app
@@ -69,10 +69,6 @@ elif [ $MODE == "code" ]; then
 	export GOPATH=/go
 	export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
-	echo "> building raintank-apps binaries"
-	cd /go/src/github.com/raintank/raintank-apps
-	go get ./...
-	./scripts/build_all.sh
 
 	echo "> building raintank-probe"
 	cd /go/src/github.com/raintank/raintank-probe

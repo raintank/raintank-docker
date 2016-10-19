@@ -14,6 +14,8 @@ This is a whole lot of stuff because this stack covers every possible flavour of
 In practice you'll probably only use a fraction and that's OK.
 In the future we may create different scripts to launch different, more minimal versions of the stack. But for now, this approach works well enough.
 
+Note: raintank-apps like taskServer and taskAgent are currently disabled. See [this issue](https://github.com/raintank/raintank-docker/issues/83)
+
 To provision a full dev stack using docker
 ===========================================
 
