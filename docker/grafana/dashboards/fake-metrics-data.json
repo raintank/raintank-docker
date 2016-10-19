@@ -17,7 +17,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "graphite",
+          "datasource": "raintank",
           "editable": true,
           "error": false,
           "fill": 1,
