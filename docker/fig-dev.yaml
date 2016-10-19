@@ -70,7 +70,7 @@ services:
       - ./metrictank:/etc/raintank
       - ../code/metrictank/build/metrictank:/usr/bin/metrictank
     environment:
-      WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
+      WAIT_HOSTS: kafka:9092,elasticsearch:9200,toxiproxy:9042
       WAIT_TIMEOUT: 30
 
   eventtank:
@@ -90,11 +90,18 @@ services:
       - "2003:2003"
       - "8000:80"
 
+  toxiproxy:
+    image: shopify/toxiproxy
+    hostname: toxiproxy
+    links:
+      - cassandra:cassandra
+    ports:
+      - "8474"
+
   cassandra:
     image: cassandra:3.0.8
     hostname: cassandra
     ports:
-      - "9042"
       - "9160"
       - "8888"
 

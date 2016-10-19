@@ -1,0 +1,1 @@
+/app/src/github.com/Shopify/toxiproxy/tmp/build/toxiproxy-cli-linux-amd64 create cassandra -l localhost:9042 -u cassandra:9042
