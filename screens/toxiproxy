@@ -1,1 +1,3 @@
-/app/src/github.com/Shopify/toxiproxy/tmp/build/toxiproxy-cli-linux-amd64 create cassandra -l localhost:9042 -u cassandra:9042
+toxiproxy-cli create cassandra -l 0.0.0.0:9042 -u cassandra:9042
+toxiproxy-cli list
+#toxiproxy-cli toxic add -t latency -a latency=1000,jitter=500 cassandra
