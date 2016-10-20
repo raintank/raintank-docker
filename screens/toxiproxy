@@ -1,3 +1,3 @@
 toxiproxy-cli create cassandra -l 0.0.0.0:9042 -u cassandra:9042
 toxiproxy-cli list
-#toxiproxy-cli toxic add -t latency -a latency=1000,jitter=500 cassandra
+#toxiproxy-cli toxic add -t latency -a latency=0 -a jitter=900 cassandra
