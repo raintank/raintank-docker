@@ -19,7 +19,8 @@
 
 
 ## to compare nsq vs kafka traffic (may want to manually kill and restart some of these jobs at runtime)
-wait.sh kafka:9092
+# we wait for metrictank even though fakemetrics doesn't connect to it, but since it uses latest offset we need this for the backfill+realtime load to be correct, and also vegeta start
+wait.sh kafka:9092 metrictank:6063
 cd /go/src/github.com/raintank/fakemetrics
 #./fakemetrics -listen :6763 -kafka-mdam-tcp-address kafka:9092 -kafka-comp none -statsd-addr statsdaemon:8125 -orgs 200 -keys-per-org 100 &
 #./fakemetrics -listen :6764 -kafka-mdm-tcp-address kafka:9092 -kafka-comp none -statsd-addr statsdaemon:8125 -orgs 1 -keys-per-org 100 &
