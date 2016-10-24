@@ -59,7 +59,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "some.id.of.a.metric.1*"
+              "target": "some.id.of.a.metric.{11,12}"
             }
           ],
           "timeFrom": null,
