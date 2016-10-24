@@ -19,11 +19,11 @@ cd /go/src/github.com/raintank/fakemetrics
 # let the "realtime workload" settle in for a bit, and measure how MT performs
 sleep 10s
 echo "HEALTHY:"
-inspect-idx -from 1h cass cassandra:9042 raintank vegeta-mt | vegeta attack -rate 10 -duration 60s > vegeta-healthy
+inspect-idx -from 1h cass cassandra:9042 raintank vegeta-mt | vegeta attack -rate 300 -duration 120s > vegeta-healthy
 cat vegeta-healthy | vegeta report
 
 # make cassandra timeout once in a while, and measure how MT performs
-/go/src/github.com/Shopify/toxiproxy/cmd/toxiproxy-cli/toxiproxy-cli -h http://toxiproxy:8474 toxic add -t latency -a latency=0 -a jitter=1500 cassandra
+/go/src/github.com/Shopify/toxiproxy/cmd/toxiproxy-cli/toxiproxy-cli -h http://toxiproxy:8474 toxic add -t latency -a latency=0 -a jitter=1200 cassandra
 echo "TIMEOUTS:"
-inspect-idx -from 1h cass cassandra:9042 raintank vegeta-mt | vegeta attack -rate 10 -duration 60s > vegeta-timeouts
+inspect-idx -from 1h cass cassandra:9042 raintank vegeta-mt | vegeta attack -rate 300 -duration 120s > vegeta-timeouts
 cat vegeta-timeouts | vegeta report
