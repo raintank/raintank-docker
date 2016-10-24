@@ -31,4 +31,4 @@ cd /go/src/github.com/raintank/fakemetrics
 #
 ./fakemetrics -listen :6764 -kafka-mdm-tcp-address kafka:9092 -kafka-comp none -statsd-addr statsdaemon:8125 -orgs 10 -keys-per-org 100 -speedup 30 -offset 90min -stop-at-now
 ./fakemetrics -listen :6764 -kafka-mdm-tcp-address kafka:9092 -kafka-comp none -statsd-addr statsdaemon:8125 -orgs 10 -keys-per-org 100 &
-inspect-idx -from 1h cass cassandra:9042 raintank vegeta-mt | vegeta attack -rate 100 -duration 99999s >/dev/null
+inspect-idx -from 1h cass cassandra:9042 raintank vegeta-mt | vegeta attack -rate 10 -duration 99999s >/dev/null
