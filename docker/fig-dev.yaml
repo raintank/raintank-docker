@@ -155,6 +155,8 @@ services:
     volumes:
       - ../code/inspect:/go/src/github.com/raintank/inspect
       - ../code/fakemetrics:/go/src/github.com/raintank/fakemetrics
+      - ../code/toxiproxy:/go/src/github.com/Shopify/toxiproxy/
+      - ./benchmark/scripts:/scripts/
       - ../logs:/var/log/raintank
       - ../results:/opt/raintank/raintank-tsdb-benchmark/results
     ports:
@@ -162,6 +164,7 @@ services:
     links:
       - graphiteMetrictank:graphite-api
       - metrictank:metrictank
+      - toxiproxy:toxiproxy
 
   grafana:
     image: raintank/grafana

@@ -19,16 +19,10 @@
 
 
 ## to compare nsq vs kafka traffic (may want to manually kill and restart some of these jobs at runtime)
-# we wait for metrictank even though fakemetrics doesn't connect to it, but since it uses latest offset we need this for the backfill+realtime load to be correct, and also vegeta start
-wait.sh kafka:9092 metrictank:6063
-cd /go/src/github.com/raintank/fakemetrics
+# wait.sh kafka:9092 metrictank:6063
+#cd /go/src/github.com/raintank/fakemetrics
 #./fakemetrics -listen :6763 -kafka-mdam-tcp-address kafka:9092 -kafka-comp none -statsd-addr statsdaemon:8125 -orgs 200 -keys-per-org 100 &
 #./fakemetrics -listen :6764 -kafka-mdm-tcp-address kafka:9092 -kafka-comp none -statsd-addr statsdaemon:8125 -orgs 1 -keys-per-org 100 &
 
 #inspect-es --es-addr elasticsearch:9200 -format vegeta-mt | sed 's#localhost:6063#metrictank:6063#' | vegeta attack -rate 100 -duration=99h | vegeta report
-#
-#
-#
-./fakemetrics -listen :6764 -kafka-mdm-tcp-address kafka:9092 -kafka-comp none -statsd-addr statsdaemon:8125 -orgs 10 -keys-per-org 100 -speedup 30 -offset 90min -stop-at-now
-./fakemetrics -listen :6764 -kafka-mdm-tcp-address kafka:9092 -kafka-comp none -statsd-addr statsdaemon:8125 -orgs 10 -keys-per-org 100 &
-inspect-idx -from 1h cass cassandra:9042 raintank vegeta-mt | vegeta attack -rate 10 -duration 99999s >/dev/null
+/scripts/cassandra-timeouts.sh

@@ -21,5 +21,8 @@ RUN cd /opt/raintank && \
 WORKDIR /opt/raintank/raintank-tsdb-benchmark
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+# not sure if these are needed TBH
+RUN mkdir /scripts/
+VOLUME /scripts
 
 CMD ["/usr/bin/supervisord"]
