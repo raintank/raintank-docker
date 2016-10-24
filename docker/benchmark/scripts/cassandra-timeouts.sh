@@ -4,8 +4,8 @@
 # in ./code, need metrictank latest cassandra-retry branch
 # launch docker stack, make sure all containers are running with docker ps -a
 # go to http://localhost:3000/plugins/raintank-worldping-app/edit to login and enter `changeme` to have plugin create metrictank datasource
-# go to http://localhost:3000/dashboard/db/fake-metrics-data 
-# reload that dash a couple times both during the HEALTH and the TIMEOUTS step of this simulation
+# open metrictank dash, and sys dash and take snapshot at the end.
+# optional: open fake metrics data dash and reload a couple times both during the HEALTH and the TIMEOUTS step of this simulation to see if data is missing
 
 # we wait for metrictank even though fakemetrics doesn't connect to it,
 # but since it uses latest offset we need this for the backfill+realtime load to be correct, and also vegeta start
