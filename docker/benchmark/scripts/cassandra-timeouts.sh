@@ -13,7 +13,7 @@ wait.sh kafka:9092 metrictank:6063
 cd /go/src/github.com/raintank/fakemetrics
 
 # fill up all of metrictanks RAM followed by a realtime load
-./fakemetrics -listen :6764 -kafka-mdm-tcp-address kafka:9092 -kafka-comp none -statsd-addr statsdaemon:8125 -orgs 10 -keys-per-org 100 -speedup 30 -offset 90min -stop-at-now
+./fakemetrics -listen :6764 -kafka-mdm-tcp-address kafka:9092 -kafka-comp none -statsd-addr statsdaemon:8125 -orgs 10 -keys-per-org 100 -speedup 30 -offset 70min -stop-at-now
 ./fakemetrics -listen :6764 -kafka-mdm-tcp-address kafka:9092 -kafka-comp none -statsd-addr statsdaemon:8125 -orgs 10 -keys-per-org 100 &
 
 # let the "realtime workload" settle in for a bit, and measure how MT performs
