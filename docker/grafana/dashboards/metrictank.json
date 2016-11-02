@@ -20,7 +20,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "3.1.1"
+      "version": "4.0.0-pre1"
     },
     {
       "type": "datasource",
@@ -154,6 +154,7 @@
             },
             {
               "refId": "H",
+              "hide": true,
               "target": "alias(movingAverage(multiplySeries(stats.$environment.timers.metrictank.$host.idx.elasticsearch.add_duration.mean, stats.$environment.timers.metrictank.$host.idx.elasticsearch.add_duration.count_ps), 5), 'ES backpressure')",
               "textEditor": true
             },
@@ -971,7 +972,9 @@
           "aliasColors": {
             "cassandra get": "#052B51",
             "mem to iter": "#EAB839",
-            "total request handle": "#890F02"
+            "total request handle": "#890F02",
+            "cassandra get chunks": "#70DBED",
+            "cassandra to iter": "#1F78C1"
           },
           "bars": false,
           "datasource": "${DS_GRAPHITE}",
@@ -1014,11 +1017,11 @@
             },
             {
               "refId": "B",
-              "target": "alias(stats.$environment.timers.metrictank.$host.cassandra.get_duration.mean, 'cassandra get')"
+              "target": "alias(stats.$environment.timers.metrictank.$host.cassandra.get_chunks.mean, 'cassandra get chunks')"
             },
             {
               "refId": "C",
-              "target": "alias(stats.$environment.timers.metrictank.$host.cassandra.to_iter_duration.mean, 'cassandra to iter')",
+              "target": "alias(stats.$environment.timers.metrictank.$host.cassandra.to_iter.mean, 'cassandra to iter')",
               "textEditor": false
             },
             {
@@ -1284,8 +1287,9 @@
             "mean": "#0A50A1",
             "p90": "#65C5DB",
             "put mean": "#58140C",
-            "put p90": "#F29191",
-            "put/s": "#BF1B00"
+            "put p90": "#EA6460",
+            "put/s": "#BF1B00",
+            "get p90": "#65C5DB"
           },
           "bars": false,
           "datasource": "${DS_GRAPHITE}",
@@ -1323,16 +1327,16 @@
           "targets": [
             {
               "refId": "E",
-              "target": "alias(stats.$environment.timers.metrictank.$host.cassandra.block_duration.upper_90, 'p90')"
+              "target": "alias(stats.$environment.timers.metrictank.$host.cassandra.get.wait.upper_90, 'get p90')"
             },
             {
               "refId": "F",
-              "target": "alias(stats.$environment.timers.metrictank.$host.cassandra.block_duration.mean, 'mean')"
+              "target": "alias(stats.$environment.timers.metrictank.$host.cassandra.put.wait.upper_90, 'put p90')"
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "cassandra chunk save wait durations",
+          "title": "cassandra queue wait durations",
           "tooltip": {
             "msResolution": false,
             "shared": true,
@@ -1597,24 +1601,24 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(stats.$environment.timers.metrictank.$host.cassandra.put_duration.upper_90, 'put p90')"
+              "target": "alias(stats.$environment.timers.metrictank.$host.cassandra.put.exec.upper_90, 'put p90')"
             },
             {
               "refId": "B",
-              "target": "alias(stats.$environment.timers.metrictank.$host.cassandra.put_duration.mean, 'put mean')"
+              "target": "alias(stats.$environment.timers.metrictank.$host.cassandra.put.exec.mean, 'put mean')"
             },
             {
               "refId": "C",
-              "target": "alias(stats.$environment.timers.metrictank.$host.cassandra.get_duration.upper_90, 'get p90')"
+              "target": "alias(stats.$environment.timers.metrictank.$host.cassandra.get.exec.upper_90, 'get p90')"
             },
             {
               "refId": "D",
-              "target": "alias(stats.$environment.timers.metrictank.$host.cassandra.get_duration.mean, 'get mean')"
+              "target": "alias(stats.$environment.timers.metrictank.$host.cassandra.get.exec.mean, 'get mean')"
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "cassandra durations",
+          "title": "cassandra query durations",
           "tooltip": {
             "msResolution": false,
             "shared": true,
@@ -1700,7 +1704,7 @@
               "lines": false
             }
           ],
-          "span": 6,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -1760,6 +1764,87 @@
           ]
         },
         {
+          "title": "cassandra store errors",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "graph",
+          "isNew": true,
+          "id": 23,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(stats.$environment.metrictank.$host.cassandra.error.*, 6)"
+            }
+          ],
+          "datasource": "${DS_GRAPHITE}",
+          "renderer": "flot",
+          "yaxes": [
+            {
+              "label": null,
+              "show": true,
+              "logBase": 1,
+              "min": null,
+              "max": null,
+              "format": "short"
+            },
+            {
+              "label": null,
+              "show": true,
+              "logBase": 1,
+              "min": null,
+              "max": null,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "grid": {
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": false,
+          "fill": 1,
+          "linewidth": 2,
+          "points": true,
+          "pointradius": 1,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true,
+            "sort": 0,
+            "msResolution": false
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "aliasColors": {
+            "unavailable": "#890F02",
+            "too-many-timeouts": "#BA43A9",
+            "timeout": "#E24D42",
+            "no-connections": "#99440A",
+            "conn-closed": "#58140C",
+            "other": "#F2C96D"
+          },
+          "seriesOverrides": [],
+          "links": []
+        },
+        {
           "aliasColors": {
             "create/s": "#70DBED",
             "save_fail/s": "#BF1B00",
@@ -1795,7 +1880,7 @@
           "points": true,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 6,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -1858,21 +1943,24 @@
           "aliasColors": {
             "add-to-bulk-index-fail": "#BF1B00",
             "add-to-bulk-index-ok": "#3F6833",
+            "cassandra.fail": "#E24D42",
+            "cassandra.ok": "#3F6833",
+            "elasticsearch.fail": "#E0752D",
+            "elasticsearch.ok": "#3F6833",
             "indexed-fail": "#E0752D",
             "indexed-ok": "#629E51",
             "mean": "#052B51",
+            "memory.fail": "#BF1B00",
+            "memory.ok": "#7EB26D",
             "metrics_to_es.fail": "#BF1B00",
             "metrics_to_es.ok": "#629E51",
             "upper": "#DEDAF7",
             "upper_75": "#0A50A1",
-            "upper_90": "#806EB7",
-            "memory.fail": "#BF1B00",
-            "memory.ok": "#629E51",
-            "elasticsearch.fail": "#E0752D",
-            "elasticsearch.ok": "#3F6833"
+            "upper_90": "#806EB7"
           },
           "bars": false,
           "datasource": "${DS_GRAPHITE}",
+          "decimals": 0,
           "editable": true,
           "error": false,
           "fill": 0,
@@ -1917,7 +2005,7 @@
               "points": false
             }
           ],
-          "span": 6,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -1962,8 +2050,88 @@
               "min": 0,
               "show": true
             }
+          ]
+        },
+        {
+          "title": "cassandra idx errors",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "graph",
+          "isNew": true,
+          "id": 22,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(stats.$environment.metrictank.$host.idx.cassandra.error.*, 7)"
+            }
           ],
-          "decimals": 0
+          "datasource": "${DS_GRAPHITE}",
+          "renderer": "flot",
+          "yaxes": [
+            {
+              "label": null,
+              "show": true,
+              "logBase": 1,
+              "min": null,
+              "max": null,
+              "format": "short"
+            },
+            {
+              "label": null,
+              "show": true,
+              "logBase": 1,
+              "min": null,
+              "max": null,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "grid": {
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": false,
+          "fill": 1,
+          "linewidth": 2,
+          "points": true,
+          "pointradius": 1,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true,
+            "sort": 0,
+            "msResolution": false
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "aliasColors": {
+            "unavailable": "#890F02",
+            "too-many-timeouts": "#BA43A9",
+            "timeout": "#E24D42",
+            "no-connections": "#99440A",
+            "conn-closed": "#58140C",
+            "other": "#F2C96D"
+          },
+          "seriesOverrides": [],
+          "links": []
         },
         {
           "aliasColors": {
@@ -2014,7 +2182,7 @@
               "points": false
             }
           ],
-          "span": 6,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [

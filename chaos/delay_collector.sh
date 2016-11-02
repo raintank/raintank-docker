@@ -22,7 +22,7 @@ dev=$3
 [ -z "$2" ] && base=100
 [ -z "$3" ] && dev=50
 
-docker_name=raintankdocker_raintankCollector_$id
+docker_name=raintank_raintankCollector_$id
 if ! docker_running $docker_name; then
     echo "no such container: '$docker_name'" >&2
     die_usage
