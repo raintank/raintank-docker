@@ -25,5 +25,8 @@ sudo tc qdisc delete dev $iface root 2>/dev/null
 #sudo tc qdisc add dev $iface root tbf rate 10kbit burst 12kbit latency 10ms peakrate 12kbit minburst 1540
 sudo tc qdisc add dev $iface root netem delay 1000ms 100ms distribution normal
 
+# show if anything is in effect
+# tc qdisc show dev $iface
 
-
+# fixed delay to all outgoing pkts
+# tc qdisc add dev $iface root netem delay 100ms
