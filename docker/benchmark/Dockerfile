@@ -21,8 +21,7 @@ RUN cd /opt/raintank && \
 WORKDIR /opt/raintank/raintank-tsdb-benchmark
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-# not sure if these are needed TBH
-RUN mkdir /scripts/
-VOLUME /scripts
+
+env PATH /go/src/github.com/raintank/inspect/inspect-idx:/go/src/github.com/raintank/fakemetrics:$PATH
 
 CMD ["/usr/bin/supervisord"]
