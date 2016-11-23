@@ -3,13 +3,13 @@
 #backfill an hour's worth of data at 40k, wait for it, and then do realtime at 4k in background
 #fakemetrics -nsqd-tcp-address nsqd:4150 -statsd-addr statsdaemon:8125 -orgs 40 -keys-per-org 100 -offset 1h -speedup 10 -stop-at-now
 #fakemetrics -nsqd-tcp-address nsqd:4150 -statsd-addr statsdaemon:8125 -orgs 40 -keys-per-org 100  &
-# use with the following invocation change in screens/metricTank
+# use with the following invocation change in screens/metrictank
 # +       --numchunks 6 \
 # +       --agg-settings 1m:10m:6:1d \
 # -       --primary-node \
 #
 #inspect-es --es-addr elasticsearch:9200 -format vegeta-graphite | sed 's#localhost#graphite#' | vegeta attack -rate 100 -duration=5m | vegeta report
-#inspect-es --es-addr elasticsearch:9200 -format vegeta-mt | sed 's#localhost:6063#metricTank:6063#' | vegeta attack -rate 100 -duration=5m | vegeta report
+#inspect-es --es-addr elasticsearch:9200 -format vegeta-mt | sed 's#localhost:6063#metrictank:6063#' | vegeta attack -rate 100 -duration=5m | vegeta report
 
 
 ## to stress carbon-relay-ng (have all traffic flow through it)
@@ -18,10 +18,22 @@
 
 # fakemetrics -listen :6763 -kafka-mdam-tcp-address kafka:9092 -kafka-comp none -statsd-addr statsdaemon:8125 -orgs 200 -keys-per-org 100 &
 
-wait.sh kafka:9092 cassandra:9042
-fakemetrics -shard-org -listen :6764 -kafka-mdm-tcp-address kafka:9092 -kafka-comp none -statsd-addr statsdaemon:8125 -orgs 2 -keys-per-org 10000 &
-echo "$(date) waiting a minute to let the data flow through into MT and into cassandra"
-sleep 60
-echo "$(date) waiting done"
-inspect-idx -addr http://metrictank0:6063 cass cassandra:9042 raintank vegeta-mt-graphite | vegeta attack -rate 10 -duration=1min | vegeta report
+
+#wait.sh kafka:9092 cassandra:9042
+#fakemetrics -shard-org -listen :6764 -kafka-mdm-tcp-address kafka:9092 -kafka-comp none -statsd-addr statsdaemon:8125 -orgs 2 -keys-per-org 10000 &
+#echo "$(date) waiting a minute to let the data flow through into MT and into cassandra"
+#sleep 60
+#echo "$(date) waiting done"
+#inspect-idx -addr http://metrictank0:6063 cass cassandra:9042 raintank vegeta-mt-graphite | vegeta attack -rate 10 -duration=1min | vegeta report
+
+
+## to compare nsq vs kafka traffic (may want to manually kill and restart some of these jobs at runtime)
+# wait.sh kafka:9092 metrictank:6063
+#cd /go/src/github.com/raintank/fakemetrics
+#./fakemetrics -listen :6763 -kafka-mdam-tcp-address kafka:9092 -kafka-comp none -statsd-addr statsdaemon:8125 -orgs 200 -keys-per-org 100 &
+#./fakemetrics -listen :6764 -kafka-mdm-tcp-address kafka:9092 -kafka-comp none -statsd-addr statsdaemon:8125 -orgs 1 -keys-per-org 100 &
+
+#inspect-es --es-addr elasticsearch:9200 -format vegeta-mt | sed 's#localhost:6063#metrictank:6063#' | vegeta attack -rate 100 -duration=99h | vegeta report
+
+#/scripts/cassandra-artificial-timeouts.sh
 

@@ -1,2 +1,0 @@
-
-tail -f /var/log/raintank/task-agent.log

@@ -7,24 +7,52 @@ BRANCH=${1:-master}
 MODE=${2:-docker}
 
 # important: if you change this, you must also update fig-dev.yaml accordingly
-RT_CODE="$(pwd)/raintank_code"
-RT_LOGS="$(pwd)/logs"
+CODE="$(pwd)/code"
+LOGS="$(pwd)/logs"
+
+function assurecode() {
+	local repo=$1
+	local dir=$2
+	echo -n "> processing code for $dir: "
+	if [ -f /go/src/github.com/$dir/.notouch ]; then
+		echo ".notouch found -> Skipping"
+	elif [ -d /go/src/github.com/$dir/.git ]; then
+		echo "has a .git dir -> fetch, checkout and pull"
+		cd /go/src/github.com/$dir
+		git fetch
+		git checkout $BRANCH
+		git pull
+	else
+		echo "no git repo found -> cloning"
+		cd /go/src/github.com/
+		git clone -b $BRANCH $repo $dir
+	fi
+}
 
 if [ "$MODE" == "docker" ]; then
 	DIR=$(dirname $0)
 	DIR=$(readlink -e $DIR)
 	SCRIPT=$(basename $0)
-	mkdir -p $RT_CODE
+	mkdir -p $CODE
 
 	args=("-v" "$DIR:/tmp/scripts" "-v" "/root:/root")
-	cd $RT_CODE
+	cd $CODE
 
 	args=("${args[@]}" "-v" "$DIR:/opt/raintank/raintank-docker")
 	# assure the directories exist (irrespective of what we'll do with them, see below) so we can set up the volumes
-	for i in inspect fakemetrics metrictank eventtank worldping-api raintank-probe raintank-apps carbon-relay-ng tsdb-gw plugins/worldping-app; do
+	for i in inspect fakemetrics metrictank eventtank worldping-api raintank-probe tsdb-gw raintank-worldping-app; do
 		mkdir -p $i
-		args=("${args[@]}" "-v" "$RT_CODE/$i:/go/src/github.com/raintank/$i")
+		args=("${args[@]}" "-v" "$CODE/$i:/go/src/github.com/raintank/$i")
 	done
+
+	i=carbon-relay-ng
+	mkdir -p $i
+	args=("${args[@]}" "-v" "$CODE/$i:/go/src/github.com/graphite-ng/$i")
+
+	i=grafana
+	mkdir -p $i
+	args=("${args[@]}" "-v" "$CODE/$i:/go/src/github.com/grafana/$i")
+
 	cd -
 	if [ -n "$SSH_AUTH_SOCK" ]; then
 		args=("${args[@]}" "-v" $SSH_AUTH_SOCK:$SSH_AUTH_SOCK -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK)
@@ -33,45 +61,46 @@ if [ "$MODE" == "docker" ]; then
 	docker run --rm -t -i "${args[@]}" raintank/nodejsgo /tmp/scripts/$SCRIPT $BRANCH code
 
 elif [ $MODE == "code" ]; then
-	cd /go/src/github.com/raintank
-	for i in inspect fakemetrics raintank-collector metrictank eventtank worldping-api raintank-probe raintank-apps carbon-relay-ng tsdb-gw plugins/worldping-app; do
-		echo "> processing code for $i"
-		if [ -f /go/src/github.com/raintank/$i/.notouch ]; then
-			echo "Skipping due to .notouch"
-			continue
-		elif [ -d /go/src/github.com/raintank/$i/.git ]; then
-			cd /go/src/github.com/raintank/$i
-			git fetch
-			git checkout $BRANCH
-			git pull
-		else
-			cd /go/src/github.com/raintank
-			git clone -b $BRANCH ${GITHUBURL}raintank/$i.git
-		fi
+	for i in inspect fakemetrics metrictank eventtank worldping-api raintank-probe tsdb-gw; do
+		assurecode ${GITHUBURL}raintank/$i.git raintank/$i
 	done
+	assurecode ${GITHUBURL}raintank/worldping-app raintank/raintank-worldping-app
+
+	assurecode ${GITHUBURL}graphite-ng/carbon-relay-ng graphite-ng/carbon-relay-ng
+
+	assurecode ${GITHUBURL}grafana/grafana grafana/grafana
 
 	echo "> configuring go"
 	export GOPATH=/go
 	export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
-	echo "> building raintank-apps binaries"
-	cd /go/src/github.com/raintank/raintank-apps
+	echo "> building grafana"
+	cd /go/src/github.com/grafana/grafana
+	go run build.go setup
+	go run build.go build
+	npm install
+	npm run build
+
+	echo "> building raintank-probe"
+	cd /go/src/github.com/raintank/raintank-probe
 	go get ./...
-	./scripts/build_all.sh
+	make
 
-    echo "> building raintank-probe"
-    cd /go/src/github.com/raintank/raintank-probe
-    go get ./...
-    make
+	echo "> building worldping-api"
+	cd /go/src/github.com/raintank/worldping-api
+	go get ./...
+	go build
 
-    echo "> building worldping-api"
-    cd /go/src/github.com/raintank/worldping-api
-    go get ./...
-    go build
+	echo "> building metrictank"
+	cd /go/src/github.com/raintank/metrictank
+	make bin
 
-    echo "> building metrictank"
-    cd /go/src/github.com/raintank/metrictank
-    go get ./...
-    go build
+	echo "> building carbon-relay-ng"
+	cd /go/src/github.com/graphite-ng/carbon-relay-ng
+	go build
 
+	echo "> building fakemetrics"
+	cd /go/src/github.com/raintank/fakemetrics
+	go get ./...
+	go build
 fi

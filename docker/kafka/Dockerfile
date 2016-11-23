@@ -17,7 +17,6 @@ RUN apt-get update && \
     rm /tmp/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION".tgz
 
 ADD scripts/start-kafka.sh /usr/bin/start-kafka.sh
-RUN sed -i "s#num.partitions=1#num.partitions=16#" /opt/kafka_2.11-0.10.0.1/config/server.properties
 
 # Supervisor config
 ADD supervisor/kafka.conf supervisor/zookeeper.conf /etc/supervisor/conf.d/

@@ -27,7 +27,7 @@ echo "starting screen session..."
 screen -S raintank -d -m -t shell bash
 
 num=$(grep '^  [a-z]' docker/fig-dev.yaml | wc -l)
-while [ $(docker ps | grep -c raintank) -ne $num ]; do
+while [ $(docker ps | grep -c raintank_) -ne $num ]; do
   echo "waiting for all $num containers to run..."
   sleep 0.5
 done
@@ -53,10 +53,6 @@ done
 D=$(( $(date +%s) * 1000))
 payload='{"timestamp": '$D',"type": "devstack-start","tags": "start","text": "devstack started"}'
 curl -s -X POST "localhost:9200/benchmark/event?" -d "$payload" >/dev/null
-
-echo "adding demo1 agent to task-server...."
-./docker/nodejsgo/wait.sh localhost:8082
-curl -X POST  -H "content-type: json" -H "Authorization: Bearer changeme" -d '{"id": 1, "name": "demo1", "enabled": true, "public": true}' http://localhost:8082/api/v1/agents
 
 echo "starting collector..."
 ./launch_dev_collector.sh

@@ -12,7 +12,7 @@ RUN apt-get -y install wget vim bc
  # 	go get github.com/raintank/env-load
 
 RUN go get github.com/tsenart/vegeta
-RUN go get github.com/raintank/inspect/inspect-es
+RUN go get github.com/raintank/inspect/inspect-idx
 RUN go get github.com/raintank/fakemetrics
 
 RUN cd /opt/raintank && \
@@ -21,6 +21,9 @@ RUN cd /opt/raintank && \
 WORKDIR /opt/raintank/raintank-tsdb-benchmark
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+# not sure if these are needed TBH
+RUN mkdir /scripts/
+VOLUME /scripts
 
 env PATH /go/src/github.com/raintank/inspect/inspect-idx:/go/src/github.com/raintank/fakemetrics:$PATH
 

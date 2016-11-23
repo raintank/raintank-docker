@@ -22,6 +22,7 @@ services:
     hostname: kafka
     environment:
       ADVERTISED_HOST: kafka
+      NUM_PARTITIONS: 8
     ports:
       - "2181:2181"
       - "9092:9092"
@@ -57,7 +58,7 @@ services:
       - graphiteMetrictank:graphite-api
     volumes:
       - ../logs:/var/log/raintank
-      - ../raintank_code/inspect:/go/src/github.com/raintank/inspect
+      - ../code/inspect:/go/src/github.com/raintank/inspect
 
   metrictank0:
     image: raintank/metrictank
@@ -67,14 +68,15 @@ services:
     volumes:
       - ../logs:/var/log/raintank
       - ./metrictank:/etc/raintank
-      - ../raintank_code/metrictank/build/metrictank:/usr/bin/metrictank
+      - ../code/metrictank/build/metrictank:/usr/bin/metrictank
     environment:
-      WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
+      WAIT_HOSTS: kafka:9092,cassandra:9042
       WAIT_TIMEOUT: 30
+      MT_INSTANCE: metrictank0
       MT_KAFKA_MDM_IN_PARTITIONS : 0,1
       MT_CASSANDRA_INITIALIZE : "true"
-      MT_LOG_LEVEL: 2
-      MT_OTHER_NODES: metrictank1:6063,metrictank2:6063,metrictank3:6063,metrictank4:6063,metrictank5:6063,metrictank6:6063,metrictank7:6063
+      MT_LOG_LEVEL: 1
+      MT_PEERS: metrictank1:6063,metrictank2:6063,metrictank3:6063
 
   metrictank1:
     image: raintank/metrictank
@@ -84,13 +86,14 @@ services:
     volumes:
       - ../logs:/var/log/raintank
       - ./metrictank:/etc/raintank
-      - ../raintank_code/metrictank/build/metrictank:/usr/bin/metrictank
+      - ../code/metrictank/build/metrictank:/usr/bin/metrictank
     environment:
-      WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
+      WAIT_HOSTS: kafka:9092,cassandra:9042
       WAIT_TIMEOUT: 30
+      MT_INSTANCE: metrictank1
       MT_KAFKA_MDM_IN_PARTITIONS : 2,3
       MT_LOG_LEVEL: 2
-      MT_OTHER_NODES: metrictank0:6063,metrictank2:6063,metrictank3:6063,metrictank4:6063,metrictank5:6063,metrictank6:6063,metrictank7:6063
+      MT_PEERS: metrictank0:6063,metrictank2:6063,metrictank3:6063
 
   metrictank2:
     image: raintank/metrictank
@@ -100,12 +103,13 @@ services:
     volumes:
       - ../logs:/var/log/raintank
       - ./metrictank:/etc/raintank
-      - ../raintank_code/metrictank/build/metrictank:/usr/bin/metrictank
+      - ../code/metrictank/build/metrictank:/usr/bin/metrictank
     environment:
-      WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
+      WAIT_HOSTS: kafka:9092,cassandra:9042
       WAIT_TIMEOUT: 30
+      MT_INSTANCE: metrictank2
       MT_KAFKA_MDM_IN_PARTITIONS : 4,5
-      MT_OTHER_NODES: metrictank0:6063,metrictank1:6063,metrictank3:6063,metrictank4:6063,metrictank5:6063,metrictank6:6063,metrictank7:6063
+      MT_PEERS: metrictank0:6063,metrictank1:6063,metrictank3:6063
 
   metrictank3:
     image: raintank/metrictank
@@ -115,72 +119,13 @@ services:
     volumes:
       - ../logs:/var/log/raintank
       - ./metrictank:/etc/raintank
-      - ../raintank_code/metrictank/build/metrictank:/usr/bin/metrictank
+      - ../code/metrictank/build/metrictank:/usr/bin/metrictank
     environment:
-      WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
+      WAIT_HOSTS: kafka:9092,cassandra:9042
       WAIT_TIMEOUT: 30
+      MT_INSTANCE: metrictank3
       MT_KAFKA_MDM_IN_PARTITIONS : 6,7
-      MT_OTHER_NODES: metrictank0:6063,metrictank1:6063,metrictank2:6063,metrictank4:6063,metrictank5:6063,metrictank6:6063,metrictank7:6063
-
-  metrictank4:
-    image: raintank/metrictank
-    hostname: metrictank4
-    ports:
-      - "6074:6063"
-    volumes:
-      - ../logs:/var/log/raintank
-      - ./metrictank:/etc/raintank
-      - ../raintank_code/metrictank/build/metrictank:/usr/bin/metrictank
-    environment:
-      WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
-      WAIT_TIMEOUT: 30
-      MT_KAFKA_MDM_IN_PARTITIONS : 8,9
-      MT_OTHER_NODES: metrictank0:6063,metrictank1:6063,metrictank2:6063,metrictank3:6063,metrictank5:6063,metrictank6:6063,metrictank7:6063
-
-  metrictank5:
-    image: raintank/metrictank
-    hostname: metrictank5
-    ports:
-      - "6075:6063"
-    volumes:
-      - ../logs:/var/log/raintank
-      - ./metrictank:/etc/raintank
-      - ../raintank_code/metrictank/build/metrictank:/usr/bin/metrictank
-    environment:
-      WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
-      WAIT_TIMEOUT: 30
-      MT_KAFKA_MDM_IN_PARTITIONS : 10,11
-      MT_OTHER_NODES: metrictank0:6063,metrictank1:6063,metrictank2:6063,metrictank3:6063,metrictank4:6063,metrictank6:6063,metrictank7:6063
-
-  metrictank6:
-    image: raintank/metrictank
-    hostname: metrictank6
-    ports:
-      - "6076:6063"
-    volumes:
-      - ../logs:/var/log/raintank
-      - ./metrictank:/etc/raintank
-      - ../raintank_code/metrictank/build/metrictank:/usr/bin/metrictank
-    environment:
-      WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
-      WAIT_TIMEOUT: 30
-      MT_KAFKA_MDM_IN_PARTITIONS : 12,13
-      MT_OTHER_NODES: metrictank0:6063,metrictank1:6063,metrictank2:6063,metrictank3:6063,metrictank4:6063,metrictank5:6063,metrictank7:6063
-
-  metrictank7:
-    image: raintank/metrictank
-    hostname: metrictank7
-    ports:
-      - "6077:6063"
-    volumes:
-      - ../logs:/var/log/raintank
-      - ./metrictank:/etc/raintank
-      - ../raintank_code/metrictank/build/metrictank:/usr/bin/metrictank
-    environment:
-      WAIT_HOSTS: kafka:9092,elasticsearch:9200,cassandra:9042
-      WAIT_TIMEOUT: 30
-      MT_KAFKA_MDM_IN_PARTITIONS : 14,15
-      MT_OTHER_NODES: metrictank0:6063,metrictank1:6063,metrictank2:6063,metrictank3:6063,metrictank4:6063,metrictank5:6063,metrictank6:6063
+      MT_PEERS: metrictank0:6063,metrictank1:6063,metrictank2:6063
 
   eventtank:
     image: raintank/eventtank
@@ -190,7 +135,7 @@ services:
     environment:
             WAIT_HOSTS: kafka:9092,elasticsearch:9200,statsdaemon:8125
     volumes:
-      - ../raintank_code/eventtank/build:/go/bin/
+      - ../code/eventtank/build:/go/bin/
 
   graphitemon:
     image:  raintank/graphite
@@ -199,11 +144,18 @@ services:
       - "2003:2003"
       - "8000:80"
 
+  toxiproxy:
+    image: shopify/toxiproxy
+    hostname: toxiproxy
+    links:
+      - cassandra:cassandra
+    ports:
+      - "8474"
+
   cassandra:
     image: cassandra:3.0.8
     hostname: cassandra
     ports:
-      - "9042"
       - "9160"
       - "8888"
 
@@ -226,7 +178,7 @@ services:
     ports:
       - "8888:8888"
     environment:
-      WAIT_HOSTS: elasticsearch:9200,metrictank0:6063
+      WAIT_HOSTS: metrictank0:6063
     volumes:
       - ../logs:/var/log/raintank
       - ./graphite-metrictank/graphite-metrictank.yaml:/etc/graphite-metrictank/graphite-metrictank.yaml
@@ -256,14 +208,17 @@ services:
     image: raintank/benchmark
     hostname: benchmark
     volumes:
-      - ../raintank_code/inspect:/go/src/github.com/raintank/inspect
-      - ../raintank_code/fakemetrics:/go/src/github.com/raintank/fakemetrics
+      - ../code/inspect:/go/src/github.com/raintank/inspect
+      - ../code/fakemetrics:/go/src/github.com/raintank/fakemetrics
+      - ../code/toxiproxy:/go/src/github.com/Shopify/toxiproxy/
+      - ./benchmark/scripts:/scripts/
       - ../logs:/var/log/raintank
       - ../results:/opt/raintank/raintank-tsdb-benchmark/results
     ports:
       - "6764:6764"
     links:
       - graphiteMetrictank:graphite-api
+      - toxiproxy:toxiproxy
 
   grafana:
     image: raintank/grafana
@@ -275,30 +230,9 @@ services:
       - proxy:tsdb-gw.raintank.io
       - proxy:worldping-api.raintank.io
     volumes:
-      - ../raintank_code/plugins:/var/lib/grafana/plugins
+      - ../code/grafana/bin/:/usr/sbin/
+      - ../code/raintank-worldping-app:/var/lib/grafana/plugins/raintank-worldping-app
       - ../logs:/var/log/raintank
-
-  taskAgent:
-    image: raintank/task-agent
-    hostname: task-agent
-    ports:
-      - "8181:8181"
-    links:
-      - taskServer:task-server
-    volumes:
-      - ../raintank_code/raintank-apps/build/bin:/go/bin
-      - ../raintank_code/raintank-apps/build/plugins:/var/lib/snap/plugins
-      - ../logs:/var/log/raintank
-
-  taskServer:
-    image: raintank/task-server
-    hostname: task-server
-    ports:
-      - "8082:80"
-    environment:
-      WAIT_HOSTS: rabbitmq:5672
-    volumes:
-      - ../raintank_code/raintank-apps/build/bin:/go/bin
 
   tsdbgw:
     image: raintank/tsdb-gw
@@ -321,8 +255,7 @@ services:
     depends_on:
             - graphitemon
     volumes:
-      - ../raintank_code/carbon-relay-ng:/go/src/github.com/graphite-ng/carbon-relay-ng
-      - ../logs:/var/log/raintank
+      - ../code/carbon-relay-ng:/go/src/github.com/graphite-ng/carbon-relay-ng
     
   collectd:
     image: raintank/collectd

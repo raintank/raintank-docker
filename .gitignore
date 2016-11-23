@@ -1,4 +1,4 @@
 .*.sw?
-raintank_code
+code
 logs/*
 results/*

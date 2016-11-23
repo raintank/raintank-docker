@@ -18,7 +18,7 @@ pgrep -fl grafana-server
 pgrep -fl nsq_to_kairos
 log "now waiting for grafana to start publishing.."
 log "open http://localhost:4171/topic/metrics to monitor state"
-while ! docker exec raintankdocker_grafana_1 grep -q 'published metrics' /var/log/raintank/grafana-dev.log; do
+while ! docker exec raintank_grafana_1 grep -q 'published metrics' /var/log/raintank/grafana-dev.log; do
   sleep 1
 done
 
@@ -27,7 +27,7 @@ log "let it running for 1 minute.."
 sleep 60
 
 log "STEP 5. kill nsq-to-kairos"
-docker exec raintankdocker_nsqtokairos_1 pkill -f nsq_to_kairos
+docker exec raintank_nsqtokairos_1 pkill -f nsq_to_kairos
 log "wait 5 minutes"
 sleep 300
 
@@ -38,13 +38,13 @@ sleep 60
 
 log "STEP 7. stop grafana aka producer"
 # this would be the cleanest, but doesn't work properly due to https://github.com/Unknwon/bra/issues/4
-#docker exec raintankdocker_grafana_1 supervisorctl stop all
+#docker exec raintank_grafana_1 supervisorctl stop all
 # luckily this works too (bra doesn't restart it)
-docker exec raintankdocker_grafana_1 pkill -f grafana-server
+docker exec raintank_grafana_1 pkill -f grafana-server
 log "please open http://localhost:4171/topic/metrics and http://localhost:4171/topic/metrics-lowprio and confirm that no more messages are in flight/depth/requeued"
 log "press enter to continue"
 read
 
 log "STEP 8. killing nsq_to_kairos as well, again"
-docker exec raintankdocker_nsqtokairos_1 pkill -f nsq_to_kairos
+docker exec raintank_nsqtokairos_1 pkill -f nsq_to_kairos
 log "STEP 9. have fun disecting the logs"

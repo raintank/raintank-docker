@@ -1,0 +1,2 @@
+toxiproxy-cli create cassandra -l 0.0.0.0:9042 -u cassandra:9042
+toxiproxy-cli list

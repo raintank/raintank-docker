@@ -1,7 +1,4 @@
 multi_tenant: true
-cache:
-  CACHE_DIR: /tmp/graphite-api-cache
-  CACHE_TYPE: filesystem
 finders:
 - graphite_metrictank.RaintankFinder
 functions:
