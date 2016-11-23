@@ -32,6 +32,14 @@ services:
       - ../logs/zookeeper:/var/log/zookeeper
       - ../logs/supervisor:/var/log/supervisor
 
+  kafkaready:
+    image: raintank/kafkaready
+    ports:
+      - "10101"
+    environment:
+            ZOOKEEPER : kafka:2181
+
+
   kafkaManager:
     image: sheepkiller/kafka-manager
     hostname: kafka-manager
@@ -70,7 +78,7 @@ services:
       - ./metrictank:/etc/raintank
       - ../code/metrictank/build/metrictank:/usr/bin/metrictank
     environment:
-      WAIT_HOSTS: kafka:9092,elasticsearch:9200,toxiproxy:9042
+      WAIT_HOSTS: kafka:9092,elasticsearch:9200,toxiproxy:9042,kafkaready:10101
       WAIT_TIMEOUT: 30
       MT_KAFKA_MDM_IN_PARTITIONS : 0,1,2,3
       MT_INSTANCE: metrictank0
