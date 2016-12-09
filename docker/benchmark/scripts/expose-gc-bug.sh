@@ -22,5 +22,5 @@ fakemetrics -listen :6764 -kafka-mdm-tcp-address kafka:9092 -kafka-comp none -st
 
 # let the "realtime workload" settle in for a bit, and measure how MT performs
 sleep 10s
-inspect-idx -from 1min cass cassandra:9042 raintank vegeta-mt-graphite | vegeta attack -rate 300 -duration 240s > dump
+inspect-idx -old -addr http://metrictank:6063 -from 1min cass cassandra:9042 raintank vegeta-render-patterns | vegeta attack -rate 300 -duration 600s > dump
 cat dump| vegeta report
