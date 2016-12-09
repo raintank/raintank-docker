@@ -6,7 +6,7 @@ functions:
 - graphite_api.functions.PieFunctions
 raintank:
   tank:
-    url: http://metrictank:6063/
+    url: http://metrictank0:6063/
   cache_ttl: 60
 search_index: /var/lib/graphite/index
 time_zone: America/New_York
