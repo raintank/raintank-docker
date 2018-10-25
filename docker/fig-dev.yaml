@@ -10,13 +10,6 @@ services:
     volumes:
       - /data
 
-  rabbitmq:
-    image: raintank/rabbitmq
-    hostname: rabbitmq
-    ports:
-      - "5672"
-      - "15672:15672"
-
   kafka:
     image: raintank/kafka
     hostname: kafka

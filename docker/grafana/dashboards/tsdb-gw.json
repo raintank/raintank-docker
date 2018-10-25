@@ -274,7 +274,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(stats.*.*.tsdbgw.metricpublisher.metrics-published, 5)"
+              "target": "aliasByNode(perSecond(tsdb-gw.stats.*.*.output.kafka.published.*.counter32), 6,7)"
             }
           ],
           "datasource": "graphite",

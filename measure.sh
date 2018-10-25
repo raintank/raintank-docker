@@ -12,7 +12,7 @@ COLUMNS=512 top -b -c | grep -v sed | sed -u -n \
   -e 's#fakemetrics.*-kafka-mdm-address#fakemetrics-mdm#p' \
   -e 's#./fakemetrics.*-kafka-mdam-address#fakemetricsmdam#p' \
   -e 's#./fakemetrics.*-kafka-mdm-address#fakemetrics-mdm#p' \
-  | awk '{print $1,$7,$8,$12;fflush();}' \
+  | awk '{print $1,$6,$7,$12;fflush();}' \
   | while read pid mem cpu process; do
     ts=$(date +%s)
     if [[ $mem =~ g$ ]]; then
@@ -25,4 +25,4 @@ COLUMNS=512 top -b -c | grep -v sed | sed -u -n \
 
     echo "measure.${process}.$pid.cpu $cpu $ts"
     echo "measure.${process}.$pid.rss $mem $ts"
-done
+done | nc -c localhost 2003

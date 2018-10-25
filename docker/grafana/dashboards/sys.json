@@ -55,12 +55,8 @@
           "steppedLine": false,
           "targets": [
             {
-              "refId": "B",
-              "target": "aliasByNode(measure.*.cpu, 1)"
-            },
-            {
               "refId": "A",
-              "target": "aliasByNode(measure.collector.*.cpu, 1, 2)"
+              "target": "aliasByNode(measure.*.*.cpu, 1)"
             }
           ],
           "timeFrom": null,
@@ -211,12 +207,8 @@
           "steppedLine": false,
           "targets": [
             {
-              "refId": "B",
-              "target": "aliasByNode(measure.*.rss, 1)"
-            },
-            {
               "refId": "A",
-              "target": "aliasByNode(measure.collector.*.rss, 1, 2)"
+              "target": "aliasByNode(measure.*.*.rss, 1)"
             }
           ],
           "timeFrom": null,
